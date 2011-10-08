@@ -53,6 +53,7 @@ import org.openmrs.module.hospitalcore.HospitalCoreService;
 import org.openmrs.module.hospitalcore.concept.ConceptModel;
 import org.openmrs.module.hospitalcore.concept.Mapping;
 import org.openmrs.module.hospitalcore.db.HospitalCoreDAO;
+import org.openmrs.module.hospitalcore.model.CoreForm;
 import org.openmrs.module.hospitalcore.util.DateUtils;
 
 public class HibernateHospitalCoreDAO implements HospitalCoreDAO {
@@ -296,6 +297,39 @@ public class HibernateHospitalCoreDAO implements HospitalCoreDAO {
 		criteria.setFirstResult(0);
 		criteria.setMaxResults(1);
 		return (Encounter) criteria.uniqueResult();
+	}
+	
+	//
+	// CORE FORM
+	//
+	public CoreForm saveCoreForm(CoreForm form) {
+		return (CoreForm) sessionFactory.getCurrentSession().merge(form);
+	}
+
+	public CoreForm getCoreForm(Integer id) {
+		Criteria criteria = sessionFactory.getCurrentSession().createCriteria(
+				CoreForm.class);
+		criteria.add(Restrictions.eq("id", id));
+		return (CoreForm) criteria.uniqueResult();
+	}
+
+	@SuppressWarnings("unchecked")
+	public List<CoreForm> getCoreForms(String conceptName) {
+		Criteria criteria = sessionFactory.getCurrentSession().createCriteria(
+				CoreForm.class);
+		criteria.add(Restrictions.eq("conceptName", conceptName));
+		return criteria.list();
+	}
+
+	@SuppressWarnings("unchecked")
+	public List<CoreForm> getCoreForms() {
+		Criteria criteria = sessionFactory.getCurrentSession().createCriteria(
+				CoreForm.class);
+		return criteria.list();
+	}
+
+	public void deleteCoreForm(CoreForm form) {
+		sessionFactory.getCurrentSession().delete(form);
 	}
 
 }
