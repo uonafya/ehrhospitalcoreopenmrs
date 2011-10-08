@@ -5,41 +5,23 @@ For licensing, see LICENSE.html or http://ckeditor.com/license
 
 CKEDITOR.editorConfig = function( config )
 {
-	config.extraPlugins = 'formtextbox,formradio,formselection,formcontent,forminfo';
-	url = document.location.href;
-	if(url.indexOf("radiology/editForm.form")>=0){
-		config.toolbar =[
-			[ 'Source','-','Save','NewPage','DocProps','Preview','Print','-','Templates' ],
-			[ 'Cut','Copy','Paste','PasteText','PasteFromWord','-','Undo','Redo' ],
-			[ 'Find','Replace','-','SelectAll','-','SpellChecker', 'Scayt' ],		
-				'/',
-			[ 'Bold','Italic','Underline','Strike','Subscript','Superscript','-','RemoveFormat' ],
-			[ 'NumberedList','BulletedList','-','Outdent','Indent','-','Blockquote','CreateDiv','-','JustifyLeft','JustifyCenter','JustifyRight','JustifyBlock','-','BidiLtr','BidiRtl' ],
-			[ 'Link','Unlink','Anchor' ],
-			[ 'Image','Flash','Table','HorizontalRule','Smiley','SpecialChar','PageBreak','Iframe' ],
-				'/',
-			[ 'Styles','Format','Font','FontSize' ],
-			[ 'TextColor','BGColor' ],
-			[ 'Maximize', 'ShowBlocks','-','About' ],
+	config.extraPlugins = 'formtextbox,formradio,formselection,formdate,formcontent,forminfo';
+	config.toolbar =[
+		[ 'Source','-','Save','NewPage','DocProps','Preview','Print','-','Templates' ],
+		[ 'Cut','Copy','Paste','PasteText','PasteFromWord','-','Undo','Redo' ],
+		[ 'Find','Replace','-','SelectAll','-','SpellChecker', 'Scayt' ],		
 			'/',
-			['formtextbox', 'formradio', 'formselection']
-		];
-	} else if(url.indexOf("radiology/editTemplate.form")>=0) {
-		config.toolbar =[
-			[ 'Source','-','Save','NewPage','DocProps','Preview','Print','-','Templates' ],
-			[ 'Cut','Copy','Paste','PasteText','PasteFromWord','-','Undo','Redo' ],
-			[ 'Find','Replace','-','SelectAll','-','SpellChecker', 'Scayt' ],		
-				'/',
-			[ 'Bold','Italic','Underline','Strike','Subscript','Superscript','-','RemoveFormat' ],
-			[ 'NumberedList','BulletedList','-','Outdent','Indent','-','Blockquote','CreateDiv','-','JustifyLeft','JustifyCenter','JustifyRight','JustifyBlock','-','BidiLtr','BidiRtl' ],
-			[ 'Link','Unlink','Anchor' ],
-			[ 'Image','Flash','Table','HorizontalRule','Smiley','SpecialChar','PageBreak','Iframe' ],
-				'/',
-			[ 'Styles','Format','Font','FontSize' ],
-			[ 'TextColor','BGColor' ],
-			[ 'Maximize', 'ShowBlocks','-','About' ],
+		[ 'Bold','Italic','Underline','Strike','Subscript','Superscript','-','RemoveFormat' ],
+		[ 'NumberedList','BulletedList','-','Outdent','Indent','-','Blockquote','CreateDiv','-','JustifyLeft','JustifyCenter','JustifyRight','JustifyBlock','-','BidiLtr','BidiRtl' ],
+		[ 'Link','Unlink','Anchor' ],
+		[ 'Image','Flash','Table','HorizontalRule','Smiley','SpecialChar','PageBreak','Iframe' ],
 			'/',
-			['formcontent', 'forminfo']
-		];
-	}
+		[ 'Styles','Format','Font','FontSize' ],
+		[ 'TextColor','BGColor' ],
+		[ 'Maximize', 'ShowBlocks','-','About' ],
+		'/',
+		['formtextbox', 'formradio', 'formselection', 'formdate'],
+		['formcontent', 'forminfo']
+	];
+	
 };
