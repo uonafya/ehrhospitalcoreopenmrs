@@ -60,32 +60,9 @@
 			jQuery("#ageRange", this.form).blur(function(){
 				PATIENTSEARCH.search(true);
 			});
-			
-			// Add Validation
-			jQuery.validator.addMethod("nameOrIdentifier", function(value, element) { 
-				result = true;
-				value = value.toUpperCase();
-				if(value.length>3){
-					pattern = /[A-Z0-9\s-]+/;
-					for(i=0; i<value.length; i++){
-						if(!pattern.test(value[i])){																
-							result = false;							
-							break;
-						}
-					}					
-				}					
-				return result;
-			}, "Please enter patient name/identifier in correct format!");
-			
-			jQuery.validator.addMethod("ageValidator", function(value, element) { 
-				console.debug("ageValidator -> " + value);		
-				allowable = "0123456789";
-				for(i=0; i<value.length; i++){
-					if(allowable.indexOf(value[i])<0)
-						return false;
-				}
-				return true;				
-			}, "Please enter patient age in digits");
+			jQuery("#phoneNumber", this.form).blur(function(){
+				PATIENTSEARCH.search(true);
+			});						
 		},
 		
 		/** SEARCH */
@@ -186,6 +163,7 @@
 				this.buildAgeQuery();
 				this.buildRelativeNameQuery();
 				this.buildLastVisitQuery();
+				this.buildPhoneNumberQuery();
 			}
 			
 			// Return the built query
@@ -215,6 +193,7 @@
 				this.buildAgeQuery();
 				this.buildRelativeNameQuery();
 				this.buildLastVisitQuery();
+				this.buildPhoneNumberQuery();
 			}
 			
 			// Return the built query
@@ -297,6 +276,17 @@
 			}
 		},
 		
+		/** BUILD QUERY FOR PHONE NUMBER */
+		buildPhoneNumberQuery: function(){
+			value = jQuery.trim(jQuery("#phoneNumber", this.form).val());
+			phoneNumberAttributeTypeName = "Phone Number";
+			if(value!=undefined && value.length>0){
+				this.fromClause += " INNER JOIN person_attribute paPhoneNumber ON ps.person_id= paPhoneNumber.person_id";
+				this.fromClause += " INNER JOIN person_attribute_type patPhoneNumber ON paPhoneNumber.person_attribute_type_id = patPhoneNumber.person_attribute_type_id ";
+				this.whereClause += " AND (patPhoneNumber.name LIKE '%" + phoneNumberAttributeTypeName + "%' AND paPhoneNumber.value LIKE '%" + value + "%')";
+			}
+		},
+		
 		/** BUILD QUERY FOR LAST VISIT */
 		buildLastVisitQuery: function(){
 			value = jQuery.trim(jQuery("#lastVisit", this.form).val());
@@ -329,6 +319,7 @@
 			result = true;
 			result = result && this.validateNameOrIdentifier();
 			result = result && this.validateAge();
+			result = result && this.validatePhoneNumber();
 			return result;
 		},
 		
@@ -360,6 +351,23 @@
 				for(i=0; i<value.length; i++){
 					if(pattern.indexOf(value[i])<0){	
 						jQuery("#errorList", this.form).append("<li>Please enter patient age in digits!</li>");
+						return false;							
+					}
+				}	
+				return true;
+			} else {
+				return true;
+			}
+		},
+		
+		/** VALIDATE PHONE NUMBER */
+		validatePhoneNumber: function(){
+			if(this.advanceSearch){				
+				value = jQuery("#phoneNumber", this.form).val();
+				pattern = "0123456789+ ";
+				for(i=0; i<value.length; i++){
+					if(pattern.indexOf(value[i])<0){	
+						jQuery("#errorList", this.form).append("<li>Please enter phone number in digits!</li>");
 						return false;							
 					}
 				}	
@@ -421,6 +429,12 @@
 						<option value="183">Last 6 months</option>
 						<option value="366">Last year</option>
 					</select>
+				</td>	
+			</tr>
+			<tr>
+				<td>Phone number</td>
+				<td colspan="3">
+					<input id="phoneNumber" style="width: 100px"/>
 				</td>	
 			</tr>
 			<tr>
