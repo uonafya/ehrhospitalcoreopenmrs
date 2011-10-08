@@ -1,5 +1,5 @@
 /**
- *  Copyright 2010 Health Information Systems Project of India
+ *  Copyright 2011 Health Information Systems Project of India
  *
  *  This file is part of Hospital-core module.
  *
@@ -17,6 +17,7 @@
  *  along with Hospital-core module.  If not, see <http://www.gnu.org/licenses/>.
  *
  **/
+
 
 package org.openmrs.module.hospitalcore.db.hibernate;
 
