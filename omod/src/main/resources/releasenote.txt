@@ -1,3 +1,6 @@
+1.4.9.1
+- Added patient search for SOLAN
+
 1.4.9.0
 - Added CKEditor into core
 
