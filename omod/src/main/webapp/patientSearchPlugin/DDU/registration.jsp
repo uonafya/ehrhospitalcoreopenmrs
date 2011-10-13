@@ -59,10 +59,33 @@
 			});
 			jQuery("#ageRange", this.form).blur(function(){
 				PATIENTSEARCH.search(true);
-			});
-			jQuery("#phoneNumber", this.form).blur(function(){
-				PATIENTSEARCH.search(true);
-			});						
+			});			
+			
+			// Add Validation
+			jQuery.validator.addMethod("nameOrIdentifier", function(value, element) { 
+				result = true;
+				value = value.toUpperCase();
+				if(value.length>3){
+					pattern = /[A-Z0-9\s-]+/;
+					for(i=0; i<value.length; i++){
+						if(!pattern.test(value[i])){																
+							result = false;							
+							break;
+						}
+					}					
+				}					
+				return result;
+			}, "Please enter patient name/identifier in correct format!");
+			
+			jQuery.validator.addMethod("ageValidator", function(value, element) { 
+				console.debug("ageValidator -> " + value);		
+				allowable = "0123456789";
+				for(i=0; i<value.length; i++){
+					if(allowable.indexOf(value[i])<0)
+						return false;
+				}
+				return true;				
+			}, "Please enter patient age in digits");
 		},
 		
 		/** SEARCH */
@@ -76,12 +99,11 @@
 					this.currentRow = 0;		
 					// callback
 					PATIENTSEARCH.beforeNewSearch();
-					jQuery("#searchLoader", PATIENTSEARCH.form).html("<img src='" + openmrsContextPath + "/moduleResources/hospitalcore/ajax-loader.gif" + "'/>&nbsp;");				
 				}
 				
 				var query = this.buildQuery();				
 				
-				jQuery(PATIENTSEARCH.target).mask("<img src='" + openmrsContextPath + "/moduleResources/hospitalcore/ajax-loader.gif" + "'/>&nbsp;");				
+				jQuery(PATIENTSEARCH.target).mask("<img src='" + openmrsContextPath + "/moduleResources/hospitalcore/ajax-loader.gif" + "'/>&nbsp;");
 				
 				jQuery.ajax({
 					type : "POST",
@@ -94,7 +116,6 @@
 						jQuery(PATIENTSEARCH.target).html(data);						
 						if(PATIENTSEARCH.currentRow==0){
 							PATIENTSEARCH.getPatientResultCount();
-							jQuery("#searchLoader", PATIENTSEARCH.form).html("");
 						} else {						
 							jQuery(PATIENTSEARCH.target).append("<div>" + PATIENTSEARCH.generateNavigation() + "</div>");	
 							
@@ -152,10 +173,8 @@
 			this.fromClause  += " INNER JOIN person ps ON ps.person_id = pt.patient_id";
 			this.fromClause  += " INNER JOIN person_name pn ON pn.person_id = ps.person_id";
 			this.fromClause  += " INNER JOIN patient_identifier pi ON pi.patient_id = pt.patient_id";
-			this.fromClause  += " INNER JOIN registration_fee rf ON rf.patient_id = pt.patient_id";
 			this.whereClause  = " WHERE";
-			this.whereClause += " (pi.identifier LIKE '%" + nameOrIdentifier + "%' OR CONCAT(IFNULL(pn.given_name, ''), IFNULL(pn.middle_name, ''), IFNULL(pn.family_name,'')) LIKE '" + nameOrIdentifier + "%')";
-			this.whereClause += " AND (DATEDIFF(NOW(),rf.created_on) <= 30)";
+			this.whereClause += " (pi.identifier LIKE '%" + nameOrIdentifier + "%' OR CONCAT(IFNULL(pn.given_name, ''), IFNULL(pn.middle_name, ''), IFNULL(pn.family_name,'')) LIKE '" + nameOrIdentifier + "%')";			
 			this.orderClause = " ORDER BY pt.patient_id ASC";
 			this.limitClause = " LIMIT " + this.currentRow + ", " + this.rowPerPage;			
 
@@ -165,7 +184,6 @@
 				this.buildAgeQuery();
 				this.buildRelativeNameQuery();
 				this.buildLastVisitQuery();
-				this.buildPhoneNumberQuery();
 			}
 			
 			// Return the built query
@@ -186,10 +204,8 @@
 			this.fromClause  += " INNER JOIN person ps ON ps.person_id = pt.patient_id";
 			this.fromClause  += " INNER JOIN person_name pn ON pn.person_id = ps.person_id";
 			this.fromClause  += " INNER JOIN patient_identifier pi ON pi.patient_id = pt.patient_id";
-			this.fromClause  += " INNER JOIN registration_fee rf ON rf.patient_id = pt.patient_id";
 			this.whereClause  = " WHERE";
-			this.whereClause += " (pi.identifier LIKE '%" + nameOrIdentifier + "%' OR CONCAT(IFNULL(pn.given_name, ''), IFNULL(pn.middle_name, ''), IFNULL(pn.family_name,'')) LIKE '" + nameOrIdentifier + "%')";
-			this.whereClause += " AND (DATEDIFF(NOW(),rf.created_on) <= 30)";
+			this.whereClause += " (pi.identifier LIKE '%" + nameOrIdentifier + "%' OR CONCAT(IFNULL(pn.given_name, ''), IFNULL(pn.middle_name, ''), IFNULL(pn.family_name,'')) LIKE '" + nameOrIdentifier + "%')";						
 
 			//	Build extended queries
 			if(this.advanceSearch){
@@ -197,7 +213,6 @@
 				this.buildAgeQuery();
 				this.buildRelativeNameQuery();
 				this.buildLastVisitQuery();
-				this.buildPhoneNumberQuery();
 			}
 			
 			// Return the built query
@@ -240,8 +255,9 @@
 		/** BUILD QUERY FOR AGE */
 		buildAgeQuery: function(){
 			value =jQuery.trim(jQuery("#age", this.form).val());
+			
+			
 			if(value!=undefined && value.length>0){
-				
 				if(StringUtils.isDigit(StringUtils.right(value, 1))){
 					value += "y";					
 				}
@@ -254,6 +270,7 @@
 					jQuery("#rangeUnit").html("Year(s)");
 					this.whereClause += "AND (EXTRACT(YEAR FROM (FROM_DAYS(DATEDIFF(NOW(),ps.birthdate)))) >=" + (value - range) + " AND EXTRACT(YEAR FROM (FROM_DAYS(DATEDIFF(NOW(),ps.birthdate)))) <= " + (value + range) + ") ";
 				} else {
+					
 					days = value + range;
 					if(type=="m"){
 						days = days * 30;
@@ -266,6 +283,10 @@
 					}
 					this.whereClause += "AND (DATEDIFF(NOW(),ps.birthdate) <= " + (days) + ") ";
 				}
+				
+				/*
+				
+				*/
 			}
 		},
 		
@@ -277,17 +298,6 @@
 				this.fromClause += " INNER JOIN person_attribute paRelativeName ON ps.person_id= paRelativeName.person_id";
 				this.fromClause += " INNER JOIN person_attribute_type patRelativeName ON paRelativeName.person_attribute_type_id = patRelativeName.person_attribute_type_id ";
 				this.whereClause += " AND (patRelativeName.name LIKE '%" + personAttributeTypeName + "%' AND paRelativeName.value LIKE '%" + value + "%')";
-			}
-		},
-		
-		/** BUILD QUERY FOR PHONE NUMBER */
-		buildPhoneNumberQuery: function(){
-			value = jQuery.trim(jQuery("#phoneNumber", this.form).val());
-			phoneNumberAttributeTypeName = "Phone Number";
-			if(value!=undefined && value.length>0){
-				this.fromClause += " INNER JOIN person_attribute paPhoneNumber ON ps.person_id= paPhoneNumber.person_id";
-				this.fromClause += " INNER JOIN person_attribute_type patPhoneNumber ON paPhoneNumber.person_attribute_type_id = patPhoneNumber.person_attribute_type_id ";
-				this.whereClause += " AND (patPhoneNumber.name LIKE '%" + phoneNumberAttributeTypeName + "%' AND paPhoneNumber.value LIKE '%" + value + "%')";
 			}
 		},
 		
@@ -323,7 +333,6 @@
 			result = true;
 			result = result && this.validateNameOrIdentifier();
 			result = result && this.validateAge();
-			result = result && this.validatePhoneNumber();
 			return result;
 		},
 		
@@ -362,23 +371,6 @@
 			} else {
 				return true;
 			}
-		},
-		
-		/** VALIDATE PHONE NUMBER */
-		validatePhoneNumber: function(){
-			if(this.advanceSearch){				
-				value = jQuery("#phoneNumber", this.form).val();
-				pattern = "0123456789+ ";
-				for(i=0; i<value.length; i++){
-					if(pattern.indexOf(value[i])<0){	
-						jQuery("#errorList", this.form).append("<li>Please enter phone number in digits!</li>");
-						return false;							
-					}
-				}	
-				return true;
-			} else {
-				return true;
-			}
 		}
 	}
 </script>
@@ -386,12 +378,10 @@
 	<div id="errorSection">
 		
 	</div>
-	<table cellspacing="10">
-		<tr>	
-			<td>Name/Identifier</td>
+	<table>
+		<tr>			
 			<td><input id="nameOrIdentifier" style="width:300px;"/></td>
 			<td><a href="javascript:PATIENTSEARCH.toggleAdvanceSearch();">Advance search</a></td>
-			<td id="searchLoader"></td>
 		</tr>	
 	</table>
 	<div id="advanceSearch">
@@ -433,12 +423,6 @@
 						<option value="183">Last 6 months</option>
 						<option value="366">Last year</option>
 					</select>
-				</td>	
-			</tr>
-			<tr>
-				<td>Phone number</td>
-				<td colspan="3">
-					<input id="phoneNumber" style="width: 100px"/>
 				</td>	
 			</tr>
 			<tr>
