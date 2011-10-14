@@ -35,8 +35,11 @@
 							Delete
 						</a>
 						&nbsp;&nbsp;|&nbsp;&nbsp;
-						<a href="showForm.form?id=${form.id}&mode=preview&height=600&width=800&modal=true" class="thickbox">
+						<a href="showForm.form?formId=${form.id}&mode=preview&height=600&width=800&modal=true" class="thickbox">
 							Preview
+						</a>
+						<a href="showForm.form?formId=${form.id}&mode=edit&height=600&width=800&modal=true&encounterId=132211" class="thickbox">
+							Enter
 						</a>
 					</center>
 				</td>

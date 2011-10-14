@@ -7,7 +7,7 @@
 		});
 		
 		editor.ui.addButton( 'formtextbox', {
-			label: 'Insert formtextbox',
+			label: 'Insert textbox',
 			command: 'insertformtextbox',
 			icon: this.path + 'images/formtextbox.png'
 		});

@@ -15,7 +15,9 @@
 	}
 </script>
 
-<form id="formContent">
+<form id="formContent" method="post">
+	<input type="hidden" name="encounterId" value="${encounterId}"/>
+	<input type="hidden" name="redirect" value="${redirect}"/>
 	${form.content}
 </form>
 
