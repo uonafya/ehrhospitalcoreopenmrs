@@ -20,6 +20,8 @@
 
 package org.openmrs.module.hospitalcore.web.controller.form;
 
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.Enumeration;
 import java.util.HashMap;
 import java.util.Map;
@@ -27,6 +29,7 @@ import java.util.Map;
 import javax.servlet.http.HttpServletRequest;
 
 import org.apache.commons.lang.StringUtils;
+import java.lang.StringBuilder;
 import org.openmrs.Concept;
 import org.openmrs.Encounter;
 import org.openmrs.Obs;
@@ -60,7 +63,41 @@ public class ShowFormController {
 			model.addAttribute("encounterId", encounterId);
 			model.addAttribute("redirect", redirect);
 		}
+
+		// get values from encounter
+		if (encounterId != null) {
+
+			StringBuilder builder = new StringBuilder();
+			Encounter encounter = Context.getEncounterService().getEncounter(
+					encounterId);
+			for (Obs obs : encounter.getAllObs()) {
+				builder.append(obs.getConcept().getName().getName() + "=="
+						+ getObsValue(obs) + "||");
+			}
+			model.addAttribute("values", builder.toString());
+		}
+
 		return "/module/hospitalcore/form/show";
+	}
+
+	/**
+	 * Get value from observation
+	 * @param obs
+	 * @return
+	 */
+	private static String getObsValue(Obs obs) {
+		Concept concept = obs.getConcept();
+		if (concept.getDatatype().getName().equalsIgnoreCase("Text")) {
+			return obs.getValueText();
+		} else if (concept.getDatatype().getName().equalsIgnoreCase("Numeric")) {
+			return obs.getValueNumeric().toString();
+		} else if (concept.getDatatype().getName().equalsIgnoreCase("Coded")) {
+			return obs.getValueCoded().getName().getName();
+		} else if (concept.getDatatype().getName().equalsIgnoreCase("Datetime")) {
+			SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy");
+			return sdf.format(obs.getValueDatetime());
+		}
+		return null;
 	}
 
 	@RequestMapping(method = RequestMethod.POST)
@@ -68,13 +105,14 @@ public class ShowFormController {
 			HttpServletRequest request,
 			@RequestParam("encounterId") Integer encounterId,
 			@RequestParam(value = "redirect", required = false) String redirect,
-			Model model) {
+			Model model) throws ParseException {
 
 		Map<String, String> parameters = buildParameterList(request);
 		Encounter encounter = Context.getEncounterService().getEncounter(
 				encounterId);
 		if (encounter != null) {
 			for (String key : parameters.keySet()) {
+				System.out.println(key);
 				Concept concept = Context.getConceptService().getConcept(key);
 				Obs obs = insertValue(encounter, concept, parameters.get(key));
 				if (obs.getId() == null)
@@ -82,7 +120,6 @@ public class ShowFormController {
 			}
 			Context.getEncounterService().saveEncounter(encounter);
 			model.addAttribute("status", "success");
-			return "/module/radiology/form/enterForm";
 		}
 		if (!StringUtils.isBlank(redirect))
 			return redirect;
@@ -99,25 +136,31 @@ public class ShowFormController {
 			if (!parameterName.equalsIgnoreCase("id"))
 				if (!parameterName.equalsIgnoreCase("mode"))
 					if (!parameterName.equalsIgnoreCase("encounterId"))
-						if (!parameterName.equalsIgnoreCase("redirectUrl"))
+						if (!parameterName.equalsIgnoreCase("redirect"))
 							parameters.put(parameterName,
 									request.getParameter(parameterName));
 
 		}
 		return parameters;
 	}
-	
-	private Obs insertValue(Encounter encounter, Concept concept, String value) {
+
+	private Obs insertValue(Encounter encounter, Concept concept, String value)
+			throws ParseException {
 
 		Obs obs = getObs(encounter, concept);
 		obs.setConcept(concept);
+		System.out.println("Concept: " + concept);
 		if (concept.getDatatype().getName().equalsIgnoreCase("Text")) {
 			value = value.replace("\n", "\\n");
 			obs.setValueText(value);
 		} else if (concept.getDatatype().getName().equalsIgnoreCase("Numeric")) {
 			obs.setValueNumeric(new Double(value));
+		} else if (concept.getDatatype().getName().equalsIgnoreCase("Datetime")) {
+			SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy");
+			obs.setValueDatetime(sdf.parse(value));
 		} else if (concept.getDatatype().getName().equalsIgnoreCase("Coded")) {
-			Concept answerConcept = Context.getConceptService().getConcept(value);
+			Concept answerConcept = Context.getConceptService().getConcept(
+					value);
 			obs.setValueCoded(answerConcept);
 		}
 		return obs;

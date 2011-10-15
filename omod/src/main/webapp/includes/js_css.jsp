@@ -11,6 +11,8 @@
 <script type="text/javascript" src="${pageContext.request.contextPath}/moduleResources/hospitalcore/scripts/jquery/jquery.autocomplete.js"></script>
 <script type="text/javascript" src="${pageContext.request.contextPath}/moduleResources/hospitalcore/scripts/jquery/jquery.PrintArea.js"></script>
 <script type="text/javascript" src="${pageContext.request.contextPath}/moduleResources/hospitalcore/scripts/jquery/jquery.thickbox.js"></script>
+<script type="text/javascript" src="${pageContext.request.contextPath}/moduleResources/hospitalcore/scripts/jquery/jquery.form.js"></script>
+<script type="text/javascript" src="${pageContext.request.contextPath}/moduleResources/hospitalcore/scripts/jquery/jquery.formfilling.js"></script>
 <script type="text/javascript"  src="${pageContext.request.contextPath}/moduleResources/hospitalcore/scripts/lists.js" ></script>
 <script type="text/javascript"  src="${pageContext.request.contextPath}/moduleResources/hospitalcore/scripts/common-utils.js" ></script>
 <script type="text/javascript"  src="${pageContext.request.contextPath}/moduleResources/hospitalcore/scripts/paging.js" ></script>

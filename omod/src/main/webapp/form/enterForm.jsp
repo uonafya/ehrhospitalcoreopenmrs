@@ -1,2 +1,4 @@
 <%@ include file="/WEB-INF/template/include.jsp" %>
-${status}
+{
+	"status": "${status}"
+}
