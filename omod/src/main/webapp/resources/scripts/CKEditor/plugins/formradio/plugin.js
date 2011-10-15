@@ -7,7 +7,7 @@
 		});
 		
 		editor.ui.addButton( 'formradio', {
-			label: 'Insert formradio',
+			label: 'Insert radio',
 			command: 'insertformradio',
 			icon: this.path + 'images/formradio.png'
 		});

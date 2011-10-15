@@ -7,7 +7,7 @@
 		});
 		
 		editor.ui.addButton( 'formdate', {
-			label: 'Insert formdate',
+			label: 'Insert date',
 			command: 'insertformdate',
 			icon: this.path + 'images/formdate.gif'
 		});

@@ -7,7 +7,7 @@
 		});
 		
 		editor.ui.addButton( 'formselection', {
-			label: 'Insert formselection',
+			label: 'Insert dropdown',
 			command: 'insertformselection',
 			icon: this.path + 'images/formselection.png'
 		});

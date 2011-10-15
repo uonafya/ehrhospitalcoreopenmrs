@@ -8,7 +8,7 @@
 		});
 		
 		editor.ui.addButton( 'forminfo', {
-			label: 'Insert forminfo',
+			label: 'Insert patient information section',
 			command: 'insertforminfo',
 			icon: this.path + 'images/forminfo.png'
 		});
