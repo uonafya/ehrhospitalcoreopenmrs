@@ -18,10 +18,10 @@
  *
  **/
 
-
 package org.openmrs.module.hospitalcore.util;
 
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -36,7 +36,7 @@ import org.openmrs.PersonAttributeType;
 import org.openmrs.api.context.Context;
 import org.openmrs.module.hospitalcore.HospitalCoreService;
 
-public class PatientUtil {
+public class PatientUtils {
 
 	public static final String MODULE_ID = "hospitalcore.";
 	public final static String PATIENT_ATTRIBUTE_CATEGORY = "Patient Category";
@@ -156,36 +156,80 @@ public class PatientUtil {
 		patient.removeAttribute(pa);
 		Context.getPatientService().savePatient(patient);
 	}
-	
-	public static Map<String, String> getAttributes(Patient patient){		
+
+	public static Map<String, String> getAttributes(Patient patient) {
 		Map<String, String> attributes = new HashMap<String, String>();
-		
+
 		for (String key : patient.getAttributeMap().keySet()) {
-			attributes.put(patient.getAttributeMap().get(key).getAttributeType().getName(),
-					patient.getAttributeMap().get(key).getValue());
+			attributes.put(patient.getAttributeMap().get(key)
+					.getAttributeType().getName(), patient.getAttributeMap()
+					.get(key).getValue());
 		}
-		
-		// get last encounter 
+
+		// get last encounter
 		List<EncounterType> types = new ArrayList<EncounterType>();
-		EncounterType reginit = Context.getEncounterService().getEncounterType(1);
+		EncounterType reginit = Context.getEncounterService().getEncounterType(
+				1);
 		types.add(reginit);
-		EncounterType revisit = Context.getEncounterService().getEncounterType(2);
-		types.add(revisit);		
-		Encounter lastVisit = Context.getService(HospitalCoreService.class).getLastVisitEncounter(patient, types);
-		
-		if(lastVisit!=null){
-			for(Obs obs:lastVisit.getAllObs()){
-				if(!obs.isVoided()){
-					if(obs.getConcept().getDatatype().getName().equalsIgnoreCase("Coded")){
-						attributes.put(obs.getConcept().getName().getName(), obs.getValueCoded().getName().getName());	
-					} else if(obs.getConcept().getDatatype().getName().equalsIgnoreCase("Text")){
-						attributes.put(obs.getConcept().getName().getName(), obs.getValueText());	
+		EncounterType revisit = Context.getEncounterService().getEncounterType(
+				2);
+		types.add(revisit);
+		Encounter lastVisit = Context.getService(HospitalCoreService.class)
+				.getLastVisitEncounter(patient, types);
+
+		if (lastVisit != null) {
+			for (Obs obs : lastVisit.getAllObs()) {
+				if (!obs.isVoided()) {
+					if (obs.getConcept().getDatatype().getName()
+							.equalsIgnoreCase("Coded")) {
+						attributes.put(obs.getConcept().getName().getName(),
+								obs.getValueCoded().getName().getName());
+					} else if (obs.getConcept().getDatatype().getName()
+							.equalsIgnoreCase("Text")) {
+						attributes.put(obs.getConcept().getName().getName(),
+								obs.getValueText());
 					}
-					
+
 				}
 			}
 		}
-		
+
 		return attributes;
+	}
+
+	public static String estimateAge(Patient patient) {
+		String age = "~ ";
+		long diff = Math.abs(patient.getBirthdate().getTime() - (new Date()).getTime())
+				/ (1000 * 60 * 60 * 24);
+		long yearDiff = diff / 365;
+
+		if (yearDiff > 0) {
+			if (yearDiff == 1) {
+				age += yearDiff + " year";
+			} else {
+				age += yearDiff + " years ";
+			}
+		} else {
+			long monthDiff = (diff % 365) / 30;
+
+			if (monthDiff > 0) {
+
+				if (monthDiff == 1) {
+					age += monthDiff + " month";
+				} else {
+					age += monthDiff + " months";
+				}
+			} else {
+				long dateDiff = (diff % 365) % 30;
+				if (dateDiff > 0) {
+					if (dateDiff == 1) {
+						age += dateDiff + " day";
+					} else {
+						age += dateDiff + " days";
+					}
+				}
+			}
+		}
+		return age;
 	}
 }

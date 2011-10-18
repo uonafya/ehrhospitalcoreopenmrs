@@ -30,7 +30,7 @@ import org.openmrs.Concept;
 import org.openmrs.Patient;
 import org.openmrs.User;
 import org.openmrs.module.hospitalcore.util.DateUtils;
-import org.openmrs.module.hospitalcore.util.PatientUtil;
+import org.openmrs.module.hospitalcore.util.PatientUtils;
 
 /**
  * <p> Class: IpdPatientAdmitted </p>
@@ -102,7 +102,7 @@ public class IpdPatientAdmitted implements Serializable{
 	}
 	public String getPatientCategory()
 	{
-		return PatientUtil.getPatientCategory(patient);
+		return PatientUtils.getPatientCategory(patient);
 	}
 	public String getPatientName() {
 		return patientName;
