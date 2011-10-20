@@ -1,3 +1,6 @@
+1.4.9.3
+- Added validation to coreform.
+
 1.4.9.2
 - Added method to estimate patient's age.
 
