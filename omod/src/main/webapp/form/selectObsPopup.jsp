@@ -29,7 +29,7 @@
 	}
 	
 	jQuery(document).ready(function(){		
-		jQuery("#conceptPopup").autocomplete(getContextPath() + '/module/radiology/ajax/autocompleteConceptSearch.htm').result(function(event, item){window.parent.insertObs(jQuery('#conceptPopup').val(), '${type}'); tb_remove();});
+		jQuery("#conceptPopup").autocomplete(getContextPath() + '/module/hospitalcore/ajax/autocompleteConceptSearch.htm').result(function(event, item){window.parent.insertObs(jQuery('#conceptPopup').val(), '${type}'); tb_remove();});
 		jQuery("#conceptPopup").focus();
 	});
 </script>
