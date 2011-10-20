@@ -1,6 +1,7 @@
 1.4.9.2
 - Added method to estimate patient's age.
 - Test git 1
+- Test git 2
 
 1.4.9.1
 - Added patient search for SOLAN
