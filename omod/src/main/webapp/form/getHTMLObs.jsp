@@ -23,7 +23,7 @@
 		<input type="text" name="${obsName}" value="" title="${obsName}"/>
 	</c:when>
 	<c:when test="${type eq 'datetime'}">
-		<input type="text" name="${obsName}" value="" title="${obsName}"/>
+		<input type="text" name="${obsName}" value="" title="${obsName}" class="date"/>
 	</c:when>
 	<c:when test="${type eq 'selection'}">
 		<select name="${obsName}" title="${obsName}">
