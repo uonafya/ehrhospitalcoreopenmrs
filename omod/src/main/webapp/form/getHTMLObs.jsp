@@ -19,8 +19,11 @@
 --%> 
 <%@ taglib uri="http://java.sun.com/jstl/core_rt" prefix="c"%>
 <c:choose>
-	<c:when test="${type eq 'textbox'}">
+	<c:when test="${type eq 'text'}">
 		<input type="text" name="${obsName}" value="" title="${obsName}"/>
+	</c:when>
+	<c:when test="${type eq 'number'}">
+		<input type="text" name="${obsName}" value="" title="${obsName}" class="digit"/>
 	</c:when>
 	<c:when test="${type eq 'datetime'}">
 		<input type="text" name="${obsName}" value="" title="${obsName}" class="date"/>

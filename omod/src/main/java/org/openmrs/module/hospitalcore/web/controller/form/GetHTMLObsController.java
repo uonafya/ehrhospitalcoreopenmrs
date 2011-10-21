@@ -46,11 +46,13 @@ public class GetHTMLObsController {
 		Concept concept = Context.getConceptService().getConcept(name);
 		if (concept != null) {
 			model.addAttribute("obsName", name);
-			if ((concept.getDatatype().getName().equalsIgnoreCase("text"))
-					|| (concept.getDatatype().getName()
-							.equalsIgnoreCase("numeric"))) {
-				model.addAttribute("type", "textbox");
-			} else if (concept.getDatatype().getName().equalsIgnoreCase("datetime")) {
+			if (concept.getDatatype().getName().equalsIgnoreCase("text")) {
+				model.addAttribute("type", "text");
+			} else if (concept.getDatatype().getName()
+					.equalsIgnoreCase("numeric")) {
+				model.addAttribute("type", "number");
+			} else if (concept.getDatatype().getName()
+					.equalsIgnoreCase("datetime")) {
 				model.addAttribute("type", "datetime");
 			} else if (concept.getDatatype().getName()
 					.equalsIgnoreCase("coded")) {

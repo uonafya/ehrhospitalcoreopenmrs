@@ -78,7 +78,20 @@ VALIDATEFORM = {
 				return false;
 			},
 			message: "This field must be digits!"
-		}
+		},
+		{
+			name: "date",
+			check: function(value){
+				try {
+					jQuery.datepicker.parseDate("dd/mm/yy", value, null);
+					return true;
+				}
+				catch (error){
+					return false;
+				}
+			},
+			message: "This field must be a valid date!"
+		}		
 	],
 	
 	/** SHOW ERROR */
@@ -114,3 +127,10 @@ VALIDATEFORM = {
 		return result;
 	}
 };
+
+
+
+
+
+var strDate = "03.09.1979";
+
