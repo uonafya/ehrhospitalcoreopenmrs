@@ -5,7 +5,7 @@ For licensing, see LICENSE.html or http://ckeditor.com/license
 
 CKEDITOR.editorConfig = function( config )
 {
-	config.extraPlugins = 'formtextbox,formradio,formselection,formdate,formcontent,forminfo';
+	config.extraPlugins = 'formtextbox,formradio,formselection,formdate,formcontent,forminfo,formtextarea';
 	config.toolbar =[
 		[ 'Source','-','Save','NewPage','DocProps','Preview','Print','-','Templates' ],
 		[ 'Cut','Copy','Paste','PasteText','PasteFromWord','-','Undo','Redo' ],
@@ -20,7 +20,7 @@ CKEDITOR.editorConfig = function( config )
 		[ 'TextColor','BGColor' ],
 		[ 'Maximize', 'ShowBlocks','-','About' ],
 		'/',
-		['formtextbox', 'formradio', 'formselection', 'formdate'],
+		['formtextbox', 'formtextarea', 'formradio', 'formselection', 'formdate'],
 		['formcontent', 'forminfo']
 	];
 	

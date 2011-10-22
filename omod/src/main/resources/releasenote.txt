@@ -1,3 +1,9 @@
+1.4.10.0
+- Added feature view coreform.
+- Added textarea button to coreform.
+- Update validation jquery plugin.
+- Added validation requirement into coreform.
+
 1.4.9.3
 - Added validation to coreform.
 

@@ -60,6 +60,9 @@
 						<a href="showForm.form?formId=${form.id}&mode=edit&height=600&width=800&modal=true&encounterId=1" class="thickbox">
 							Enter
 						</a>
+						<a href="showForm.form?formId=${form.id}&mode=view&height=600&width=800&modal=true&encounterId=1" class="thickbox">
+							View
+						</a>
 					</center>
 				</td>
 			</tr>	

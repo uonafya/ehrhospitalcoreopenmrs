@@ -29,7 +29,7 @@
 	}
 	
 	jQuery(document).ready(function(){		
-		jQuery("#conceptPopup").autocomplete(getContextPath() + '/module/hospitalcore/ajax/autocompleteConceptSearch.htm').result(function(event, item){window.parent.insertObs(jQuery('#conceptPopup').val(), '${type}'); tb_remove();});
+		jQuery("#conceptPopup").autocomplete(getContextPath() + '/module/hospitalcore/ajax/autocompleteConceptSearch.htm').result(function(event, item){window.parent.insertObs(jQuery('#conceptPopup').val(), '${type}', jQuery('#required').is(':checked')); tb_remove();});
 		jQuery("#conceptPopup").focus();
 	});
 </script>
@@ -43,8 +43,11 @@
 			<td>
 				<input id="conceptPopup" style="width:350px;"/>
 			</td>
+			<td>
+				<label for="required">Required </label><input type="checkbox" id="required" value="required" checked="checked"/>
+			</td>
 		</tr>
 	</table>
-	<input type="button" onClick="javascript:window.parent.insertObs(jQuery('#conceptPopup').val()); tb_remove();" value="Insert"/>
+	<input type="button" onClick="javascript:window.parent.insertObs(jQuery('#conceptPopup').val(), '${type}', jQuery('#required').is(':checked')); tb_remove();" value="Insert"/>
 	<input type="button" onClick="tb_remove();" value="Close"/>
 </center>

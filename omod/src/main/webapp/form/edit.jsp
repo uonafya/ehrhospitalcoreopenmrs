@@ -33,13 +33,14 @@
 	});
 	
 	// insert obs from thickbox
-	function insertObs(name, type){		
+	function insertObs(name, type, required){				
 		jQuery.ajax({
 			type : "GET",
 			url : openmrsContextPath + "/module/hospitalcore/getHTMLObs.form",
 			data : ({
 				name			: name,
-				type			: type
+				type			: type,
+				required		: required == true
 			}),
 			success : function(data) {
 				CKEDITOR.instances.editor1.insertHtml(data);

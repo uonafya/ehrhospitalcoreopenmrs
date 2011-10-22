@@ -52,18 +52,26 @@ VALIDATEFORM = {
 	validators: [
 		{
 			name: "required",
-			check: function(value){
+			check: function(value, type, name){				
 				
-				if(value!=undefined)
-					if(value.length>0) 
+				if(type=='radio') {					
+					
+					if(jQuery("input[name=" + name + "]:checked").length>0)
 						return true;
+						
+				} else {
+				
+					if(value!=undefined)
+						if(value.length>0) 
+							return true;
+				}
 				return false;
 			},
 			message: "This field must be filled!"
 		},
 		{
 			name: "digit",
-			check: function(value){
+			check: function(value, type, name){
 			
 				if(value!=undefined){
 					if(value.length>0){
@@ -81,7 +89,7 @@ VALIDATEFORM = {
 		},
 		{
 			name: "date",
-			check: function(value){
+			check: function(value, type, name){
 				try {
 					jQuery.datepicker.parseDate("dd/mm/yy", value, null);
 					return true;
@@ -108,21 +116,29 @@ VALIDATEFORM = {
 		
 		// validate
 		result = true;
+		
+		var names = "";
 		jQuery("input", obj).each(function(index, value){
 			input = jQuery(value);
 			clss = input.attr("class");
-			data = input.val();			
+			data = input.val();
+			type = input.attr("type");
+			name = input.attr("name");
 			
-			jQuery.each(VALIDATEFORM.validators, function(index, validator){
-				
-				if(clss.indexOf(validator.name)>=0){							
-					if(!validator.check(data)) {
-						VALIDATEFORM.showError(input, validator.message);
-						result = false;
-						return false; // break the loop through validators
+			if(names.indexOf("<" + name + ">")<0){
+				jQuery.each(VALIDATEFORM.validators, function(index, validator){
+					
+					if(clss.indexOf(validator.name)>=0){							
+						if(!validator.check(data, type, name)) {
+							VALIDATEFORM.showError(input, validator.message);
+							result = false;
+							return false; // break the loop through validators
+						}
 					}
-				}
-			});
+				});				
+			}		
+
+			names = names + "<" + name + ">";			
 		});
 		return result;
 	}
