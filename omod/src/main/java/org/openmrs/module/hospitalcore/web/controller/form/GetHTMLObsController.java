@@ -41,13 +41,15 @@ import org.springframework.web.bind.annotation.RequestParam;
 public class GetHTMLObsController {
 
 	@RequestMapping(method = RequestMethod.GET)
-	public String getHTMLObs(@RequestParam("name") String name,
-			@RequestParam("type") String type, @RequestParam(value="required", required=false) Boolean required, Model model) {
+	public String getHTMLObs(
+			@RequestParam("name") String name,
+			@RequestParam("type") String type,
+			Model model) {
 		Concept concept = Context.getConceptService().getConcept(name);
 		if (concept != null) {
+
+			// Design the form content
 			model.addAttribute("obsName", name);
-			if(required)
-				model.addAttribute("required", "required");
 			if (concept.getDatatype().getName().equalsIgnoreCase("text")) {
 				if (type.equalsIgnoreCase("textbox")) {
 					model.addAttribute("type", "text");

@@ -24,64 +24,42 @@
 <script type="text/javascript" src="${pageContext.request.contextPath}/moduleResources/hospitalcore/scripts/CKEditor/ckeditor.js"></script>
 
 <script type="text/javascript">		
-	var DUPLICATED_FORM = false;
+
+	EDIT = {
 	
-	jQuery(document).ready(function(){		
-		jQuery("#concept").autocomplete(openmrsContextPath + '/module/hospitalcore/ajax/autocompleteConceptSearch.htm').result(function(event, item){
-			checkExistingForm();
-		});;		
-	});
-	
-	// insert obs from thickbox
-	function insertObs(name, type, required){				
-		jQuery.ajax({
-			type : "GET",
-			url : openmrsContextPath + "/module/hospitalcore/getHTMLObs.form",
-			data : ({
-				name			: name,
-				type			: type,
-				required		: required == true
-			}),
-			success : function(data) {
-				CKEDITOR.instances.editor1.insertHtml(data);
-			},
-			error : function(xhr, ajaxOptions, thrownError) {
-				alert("ERROR " + xhr);
-			}
-		});		
-	}
-	
-	// check existing form with concept/type
-	function checkExistingForm(item){		
-		type = jQuery('#formType').val();
-		conceptName = jQuery("#concept").val();
-		jQuery.ajax({
-			type : "GET",
-			url : openmrsContextPath + "/module/hospitalcore/ajax/checkExistingForm.htm",
-			data : ({
-				conceptName		: conceptName,
-				type			: type,
-				formId			: '${param.id}'
-			}),
-			success : function(data) {
-				jQuery('#checkExistingFormStatus').html(data);
-			},
-			error : function(xhr, ajaxOptions, thrownError) {
-				alert("ERROR " + xhr);
-			}
-		});			
-	}
-	
-	// validate all data before submitting
-	function submitForm(){		
-		if(DUPLICATED_FORM){
-			alert('Please check form type and concept and submit again!');			
-		} else {
+		// Insert obs from popup
+		insertObs: function(name, type){
+			jQuery.ajax({
+				type : "GET",
+				url : openmrsContextPath + "/module/hospitalcore/getHTMLObs.form",
+				data : ({
+					name			: name,
+					type			: type
+				}),
+				success : function(data) {
+					CKEDITOR.instances.editor1.insertHtml(data);
+				},
+				error : function(xhr, ajaxOptions, thrownError) {
+					alert(thrownError);
+				}
+			});	
+		},
+		
+		insertMetadata: function(name, title, validation){
+			
+		},
+		
+		// validate all data before submitting
+		submitForm: function(){				
 			jQuery("#coreForm").submit();
 		}
-	}
+	};
+	
+	
 </script>
 
+<div id='metadata' style='display:none;'>
+</div>
 <form id='coreForm' method="post" enctype="multipart/form-data">		 
 	<table>
 		<tr>
@@ -102,7 +80,12 @@
 			${status.value}
 		</textarea>
 	</spring:bind>
-	<input type="button" value="Save" onClick="submitForm();"/>	
+	<spring:bind path="form.metadata">
+		<textarea name="${status.expression}" style="display:none;">
+			${status.value}
+		</textarea>
+	</spring:bind>	
+	<input type="button" value="Save" onClick="EDIT.submitForm();"/>	
 	<input type="button" value="Cancel" onClick="javascript:window.location.href='listForm.form'"/>	
 </form>
 

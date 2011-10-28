@@ -332,5 +332,4 @@ public class HibernateHospitalCoreDAO implements HospitalCoreDAO {
 	public void deleteCoreForm(CoreForm form) {
 		sessionFactory.getCurrentSession().delete(form);
 	}
-
 }

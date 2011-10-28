@@ -18,36 +18,92 @@
  *
 --%> 
 <%@ include file="/WEB-INF/template/include.jsp" %>
-<%@ include file="../includes/js_css.jsp" %>
 
-<script type="text/javascript">	
-	function getContextPath() {
-		pn = location.pathname;
-		len = pn.indexOf("/", 1);
-		cp = pn.substring(0, len);
-		return cp;
-	}
+<script type="text/javascript">
 	
 	jQuery(document).ready(function(){		
-		jQuery("#conceptPopup").autocomplete(getContextPath() + '/module/hospitalcore/ajax/autocompleteConceptSearch.htm').result(function(event, item){window.parent.insertObs(jQuery('#conceptPopup').val(), '${type}', jQuery('#required').is(':checked')); tb_remove();});
+		jQuery("#conceptPopup").autocomplete(openmrsContextPath + '/module/hospitalcore/ajax/autocompleteConceptSearch.htm').result(function(event, item){
+			SELECTOBSPOPUP.showConceptInfo();
+		});
 		jQuery("#conceptPopup").focus();
 	});
+	
+	SELECTOBSPOPUP = {
+		
+		// Get concept information and display on popup
+		showConceptInfo: function(){
+			
+			jQuery.ajax({
+				type : "GET",
+				url : openmrsContextPath + "/module/hospitalcore/getConceptInfo.form",
+				data : ({
+					name: jQuery('#conceptPopup').val()
+				}),
+				dataType: "json",
+				success : function(data) {
+					jQuery("#title").val(data.description);
+				},
+				error : function(xhr, ajaxOptions, thrownError) {
+					alert(thrownError);
+				}
+			});		
+		},
+		
+		// Insert obs
+		insert: function(){
+			EDIT.insertObs(jQuery('#conceptPopup').val(), '${type}', jQuery('#required').is(':checked')); 
+			tb_remove();
+		}
+	}
 </script>
 
 <center>
-	<table cellspacing="20">
+	<table>
 		<tr>
 			<td>
 				<b>Concept</b>
 			</td>
-			<td>
+			<td colspan='4'>
 				<input id="conceptPopup" style="width:350px;"/>
 			</td>
+		</tr>
+		<tr>			
 			<td>
-				<label for="required">Required </label><input type="checkbox" id="required" value="required" checked="checked"/>
+				<c:if test="${type eq 'selection'}">
+					<input type="checkbox" name="sex" id="multiple" /><label for="multiple"> Multiple selection</label>
+				</c:if>
+			</td>
+			<td colspan='4'></td>
+		</tr>
+		<tr>
+			<td valign='top'><b>Hint</b></td>
+			<td colspan='4'>
+				<textarea id="title" style="width:350px; height: 50px;"></textarea>
 			</td>
 		</tr>
-	</table>
-	<input type="button" onClick="javascript:window.parent.insertObs(jQuery('#conceptPopup').val(), '${type}', jQuery('#required').is(':checked')); tb_remove();" value="Insert"/>
+		<tr>
+			<td><b>Validation</b></td>
+			<td>
+				<input type="checkbox" id="validation_mandatory" checked="checked"/><label for="validation_required"> Mandatory</label>
+			</td>
+			<td>
+				<input type="checkbox" id="validation_number"/><label for="validation_number"> Number</label>
+			</td>			
+			<td>
+				<input type="checkbox" id="validation_digit"/><label for="validation_digit"> Digit</label>
+			</td>
+			<td>
+				<input type="checkbox" id="validation_date"/><label for="validation_date"> Date</label>
+			</td>
+		</tr>
+		<tr>
+			<td><b>Custom validation</b></td>
+			<td colspan='4'>
+				<input id="validation_customized"/>
+			</td>
+		</tr>
+	</table>	
+	
+	<input type="button" onClick="SELECTOBSPOPUP.insert();" value="Insert"/>
 	<input type="button" onClick="tb_remove();" value="Close"/>
 </center>

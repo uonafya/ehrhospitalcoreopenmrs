@@ -30,7 +30,8 @@ public class CoreForm {
 	private Integer id;
 	private String name;
 	private String content;
-	private String description;	
+	private String metadata;
+	private String description;
 	private Date createdOn;
 	private User createdBy;
 
@@ -80,6 +81,14 @@ public class CoreForm {
 
 	public void setCreatedBy(User createdBy) {
 		this.createdBy = createdBy;
+	}
+
+	public String getMetadata() {
+		return metadata;
+	}
+
+	public void setMetadata(String metadata) {
+		this.metadata = metadata;
 	}
 
 	@Override

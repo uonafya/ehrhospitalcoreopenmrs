@@ -165,4 +165,15 @@
 			) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 		</sql>
 	</diff>	
+	<diff>
+		<version>1.7</version>
+		<author>Truong Ha</author>
+		<date>Oct 27th 2011</date>
+		<description>
+			Add column metadata to forms
+		</description>
+		<sql>			
+			ALTER TABLE core_form ADD metadata blob NOT NULL;
+		</sql>
+	</diff>	
 </sqldiff>
