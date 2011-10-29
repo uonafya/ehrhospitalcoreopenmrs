@@ -20,20 +20,20 @@
 <%@ taglib uri="http://java.sun.com/jstl/core_rt" prefix="c"%>
 <c:choose>
 	<c:when test="${type eq 'text'}">
-		<input type="text" name="${obsName}" value="" title="${obsName}"/>
+		<input style="width:150px;" class="parameter" type="text" name="${obsName}" value="" title="${title}" data="${data}"/>
 	</c:when>
 	<c:when test="${type eq 'textarea'}">
-		<textarea name="${obsName}" rows="2" cols="20">
+		<textarea name="${obsName}" rows="2" cols="15" data="${data}">
 		</textarea>
 	</c:when>
 	<c:when test="${type eq 'number'}">
-		<input type="text" name="${obsName}" value="" title="${obsName}"/>
+		<input style="width:150px;" class="parameter" type="text" name="${obsName}" value="" title="${title}" data="${data}"/>
 	</c:when>
 	<c:when test="${type eq 'datetime'}">
-		<input type="text" name="${obsName}" value="" title="${obsName}"/>
+		<input style="width:150px;" class="parameter date" type="text" name="${obsName}" value="" title="${title} data="${data}""/>
 	</c:when>
 	<c:when test="${type eq 'selection'}">
-		<select name="${obsName}" title="${obsName}" multiple="${multiple}">
+		<select style="width:150px;" class="parameter" name="${obsName}" title="${title}" data="${data}">
 			<option value=''>Please select</option>
 			<c:forEach var="option" items="${options}">
 				<option value="${option}">${option}</option>
@@ -42,7 +42,7 @@
 	</c:when>
 	<c:when test="${type eq 'radio'}">
 		<c:forEach var="option" items="${options}">
-			<span><input type="radio" name="${obsName}" value="${option}" title="${obsName}"> ${option}</span>
+			<span><input class="parameter" type="radio" name="${obsName}" value="${option}" title="${title}" data="${data}"> ${option}</span>
 		</c:forEach>
 	</c:when>
 </c:choose>

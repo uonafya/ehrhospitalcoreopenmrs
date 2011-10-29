@@ -44,12 +44,17 @@ public class GetHTMLObsController {
 	public String getHTMLObs(
 			@RequestParam("name") String name,
 			@RequestParam("type") String type,
+			@RequestParam("title") String title,
+			@RequestParam("data") String data,
 			Model model) {
 		Concept concept = Context.getConceptService().getConcept(name);
 		if (concept != null) {
 
-			// Design the form content
 			model.addAttribute("obsName", name);
+			data = data.replace("\"", "'");
+			model.addAttribute("data", data);
+			title = title.replace("\"", "'");
+			model.addAttribute("title", title);
 			if (concept.getDatatype().getName().equalsIgnoreCase("text")) {
 				if (type.equalsIgnoreCase("textbox")) {
 					model.addAttribute("type", "text");

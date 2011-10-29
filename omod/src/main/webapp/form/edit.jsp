@@ -28,13 +28,15 @@
 	EDIT = {
 	
 		// Insert obs from popup
-		insertObs: function(name, type){
+		insertObs: function(name, type, title, data){
 			jQuery.ajax({
 				type : "GET",
 				url : openmrsContextPath + "/module/hospitalcore/getHTMLObs.form",
 				data : ({
-					name			: name,
-					type			: type
+					name	: name,
+					type	: type,
+					title   : title,
+					data	: data
 				}),
 				success : function(data) {
 					CKEDITOR.instances.editor1.insertHtml(data);
@@ -43,10 +45,6 @@
 					alert(thrownError);
 				}
 			});	
-		},
-		
-		insertMetadata: function(name, title, validation){
-			
 		},
 		
 		// validate all data before submitting
@@ -58,8 +56,6 @@
 	
 </script>
 
-<div id='metadata' style='display:none;'>
-</div>
 <form id='coreForm' method="post" enctype="multipart/form-data">		 
 	<table>
 		<tr>
@@ -80,11 +76,6 @@
 			${status.value}
 		</textarea>
 	</spring:bind>
-	<spring:bind path="form.metadata">
-		<textarea name="${status.expression}" style="display:none;">
-			${status.value}
-		</textarea>
-	</spring:bind>	
 	<input type="button" value="Save" onClick="EDIT.submitForm();"/>	
 	<input type="button" value="Cancel" onClick="javascript:window.location.href='listForm.form'"/>	
 </form>

@@ -2,7 +2,7 @@
 	init: function( editor ){
 		editor.addCommand( 'insertformselection',{
 			exec : function( editor ) {    						
-				tb_show("testing", "selectObsPopup.form?type=selection&modal=true&height=140&width=640");
+				tb_show("testing", "selectObsPopup.form?type=selection&modal=true&height=250&width=500");
 			}
 		});
 		

@@ -23,13 +23,13 @@
 	jQuery(document).ready(function(){
 		jQuery(".date").datepicker({yearRange:'c-100:c+100', dateFormat: 'dd/mm/yy', changeMonth: true, changeYear: true});	
 		jQuery("#formContent").fillForm("${values}");
-	});
+		jQuery(".parameter").tipTip();
 	
-	FORMPREVIEW = {
+	EDIT = {
 	
 		/** SUBMIT THE FORM */
 		submit: function(){
-			if(jQuery("#formContent").validateForm()){
+			if(EDIT.validate()){
 				jQuery("#formContent").ajaxSubmit({
 					success: function(responseText, statusText, xhr){
 						json = jQuery.parseJSON(responseText);
@@ -39,6 +39,46 @@
 					}
 				});	
 			}			
+		},
+		
+		// Validate form
+		validate: function(){
+		
+			validateResult = true;
+			pairs = jQuery("#formContent").serialize();
+			jQuery(".validationError").hide();
+			
+			jQuery(pairs.split("&")).each(function(index, item){
+				params = item.split("=");				
+				parameter = params[0];
+				value = params[1];				
+				parameter = parameter.replace(/\+/g , " ");
+				
+				json = EDIT.getMetadata(parameter);
+				if(json!=null){
+					validations = json.validations;
+					
+					jQuery(validations).each(function(index, validation){
+						pattern = new RegExp(validation.regex, "g");
+						if(!pattern.test(jQuery("input[name='" + parameter + "']").val())){
+							jQuery("input[name='" + parameter + "']").after("<span class='validationError' style='color:red;'>" + validation.message + "</span>");
+							validateResult = false;
+						}
+					});
+				}
+			});			
+			return validateResult;
+		},
+		
+		// Get metadata from form
+		getMetadata: function(parameter){			
+			data = jQuery("input[name='" + parameter + "']").attr("data");
+			if(data!=undefined){
+				data = data.replace(/'/g, '"');
+				return jQuery.parseJSON(data);
+			} else {
+				return null;
+			}
 		}
 	}
 </script>
@@ -49,5 +89,5 @@
 	${form.content}
 </form>
 
-<input type="button" value="Save" onClick="FORMPREVIEW.submit();"/>
+<input type="button" value="Save" onClick="EDIT.submit();"/>
 <input type="button" value="Cancel" onClick="tb_remove();"/>

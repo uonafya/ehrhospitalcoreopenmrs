@@ -2,7 +2,7 @@
 	init: function( editor ){
 		editor.addCommand( 'insertformtextarea',{
 			exec : function( editor ) {    						
-				tb_show("testing", "selectObsPopup.form?type=textarea&modal=true&height=120&width=600");
+				tb_show("testing", "selectObsPopup.form?type=textarea&modal=true&height=250&width=500");
 			}
 		});
 		
