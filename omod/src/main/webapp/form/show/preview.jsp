@@ -30,6 +30,7 @@
 		// Submit the form
 		submit: function(){
 			if(FORMPREVIEW.validate()){
+				eval('${form.afterSubmit}');
 				tb_remove();
 			}
 		},

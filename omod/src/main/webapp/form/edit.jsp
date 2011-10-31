@@ -50,6 +50,10 @@
 		// validate all data before submitting
 		submitForm: function(){				
 			jQuery("#coreForm").submit();
+		},
+		
+		toggleEvents: function(){
+			jQuery("#events").toggle();
 		}
 	};
 	
@@ -57,7 +61,10 @@
 </script>
 
 <form id='coreForm' method="post" enctype="multipart/form-data">		 
-	<table>
+	<spring:bind path="form.id">
+		<input type='hidden' name="${status.expression}" value="${status.value}"/>
+	</spring:bind>
+	<table>		
 		<tr>
 			<spring:bind path="form.name">
 				<td>Name</td>
@@ -76,6 +83,21 @@
 			${status.value}
 		</textarea>
 	</spring:bind>
+	<a href="javascript:EDIT.toggleEvents();">Events</a><br/>
+	<div id="events" style="display:none;">
+		<table cellspacing="20">		
+			<tr>
+				<spring:bind path="form.afterSubmit">
+					<td valign="top">After submit</td>
+					<td>
+						<textarea name="${status.expression}" style="width:350px;" rows="5">
+							${status.value}
+						</textarea>
+					</td>
+				</spring:bind>
+			</tr>
+		</table>
+	</div>
 	<input type="button" value="Save" onClick="EDIT.submitForm();"/>	
 	<input type="button" value="Cancel" onClick="javascript:window.location.href='listForm.form'"/>	
 </form>

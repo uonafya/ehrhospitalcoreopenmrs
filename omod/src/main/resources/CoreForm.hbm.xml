@@ -13,7 +13,7 @@
 		</id>
 		<property name="name" column="name" />		
 		<property name="content" column="content" />
-		<property name="metadata" column="metadata" />		
+		<property name="afterSubmit" column="after_submit" />		
 		<property name="description" column="description" />
 		<property name="createdOn" column="created_on" />
 		<many-to-one name="createdBy" column="created_by" class="org.openmrs.User" lazy="false"/>

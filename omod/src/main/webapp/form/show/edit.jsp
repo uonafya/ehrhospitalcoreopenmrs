@@ -34,6 +34,7 @@
 					success: function(responseText, statusText, xhr){
 						json = jQuery.parseJSON(responseText);
 						if(json.status="success"){
+							eval('${form.afterSubmit}');
 							tb_remove();
 						}
 					}

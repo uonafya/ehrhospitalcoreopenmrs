@@ -1,3 +1,6 @@
+1.4.10.1
+- Added event listeners to coreform.
+
 1.4.10.0
 - Added feature view coreform.
 - Added textarea button to coreform.

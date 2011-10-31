@@ -170,10 +170,10 @@
 		<author>Truong Ha</author>
 		<date>Oct 27th 2011</date>
 		<description>
-			Add column metadata to forms
+			Add column after_submit
 		</description>
 		<sql>			
-			ALTER TABLE core_form ADD metadata blob NOT NULL;
+			ALTER TABLE core_form ADD after_submit varchar(300) DEFAULT NULL;
 		</sql>
 	</diff>	
 </sqldiff>
