@@ -29,7 +29,6 @@ import java.util.Date;
 import org.openmrs.Concept;
 import org.openmrs.Patient;
 import org.openmrs.User;
-import org.openmrs.module.hospitalcore.util.DateUtils;
 import org.openmrs.module.hospitalcore.util.PatientUtils;
 
 /**
@@ -117,11 +116,7 @@ public class IpdPatientAdmitted implements Serializable{
 		this.birthDate = birthDate;
 	}
 	public String getAge(){
-		Integer age =DateUtils.getAgeFromBirthday(birthDate);
-		if(age == null){
-			return "";
-		}
-		return  age > 0? age.intValue()+"" : "<1"; 
+		return PatientUtils.estimateAge(patient);
 	}
 	public String getGender() {
 		return gender;
