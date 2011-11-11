@@ -1,3 +1,6 @@
+1.4.10.3
+- Added ObsUtils
+
 1.4.10.1
 - Added event listeners to coreform.
 
