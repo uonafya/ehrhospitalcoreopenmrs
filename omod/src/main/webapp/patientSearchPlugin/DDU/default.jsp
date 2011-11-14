@@ -194,7 +194,6 @@
 			this.fromClause  += " INNER JOIN person ps ON ps.person_id = pt.patient_id";
 			this.fromClause  += " INNER JOIN person_name pn ON pn.person_id = ps.person_id";
 			this.fromClause  += " INNER JOIN patient_identifier pi ON pi.patient_id = pt.patient_id";
-			this.fromClause  += " INNER JOIN registration_fee rf ON rf.patient_id = pt.patient_id";
 			this.whereClause  = " WHERE";
 			this.whereClause += " (pi.identifier LIKE '%" + nameOrIdentifier + "%' OR CONCAT(IFNULL(pn.given_name, ''), IFNULL(pn.middle_name, ''), IFNULL(pn.family_name,'')) LIKE '" + nameOrIdentifier + "%')";		
 			
