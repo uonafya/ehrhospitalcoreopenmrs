@@ -32,7 +32,6 @@
 	<span class="error"><spring:message code="${error.defaultMessage}" text="${error.defaultMessage}"/></span><
 </c:forEach>
 <input type="button" value="<spring:message code='hospitalcore.department.add'/>" onclick="ACT.go('department.form');"/>
-
 <br /><br />
 <form method="get" >
 <span class="boxHeader"><spring:message code="hospitalcore.department.list"/></span>
