@@ -20,6 +20,7 @@
 
 package org.openmrs.module.hospitalcore.util;
 
+import java.text.ParseException;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.HashMap;
@@ -197,36 +198,53 @@ public class PatientUtils {
 		return attributes;
 	}
 
+	/**
+	 * Estimate patient age
+	 * @param patient
+	 * @return
+	 */
 	public static String estimateAge(Patient patient) {
+		return estimateAge(patient.getBirthdate());
+	}
+	
+	/**
+	 * Estimate age using birthdate
+	 * 
+	 * @param birthdate
+	 * @return
+	 * @throws ParseException
+	 */
+	public static String estimateAge(Date date) {
+
 		String age = "~ ";
-		long diff = Math.abs(patient.getBirthdate().getTime() - (new Date()).getTime())
+		long diff = Math.abs(date.getTime() - (new Date()).getTime())
 				/ (1000 * 60 * 60 * 24);
 		long yearDiff = diff / 365;
+		System.out.println("diff -> " + diff);
 
 		if (yearDiff > 0) {
 			if (yearDiff == 1) {
-				age += yearDiff + " year";
+				age += yearDiff + " year ";
 			} else {
 				age += yearDiff + " years ";
 			}
 		} else {
 			long monthDiff = (diff % 365) / 30;
-
+			
 			if (monthDiff > 0) {
-
 				if (monthDiff == 1) {
-					age += monthDiff + " month";
+					age += monthDiff + " month ";
 				} else {
-					age += monthDiff + " months";
+					age += monthDiff + " months ";
 				}
-			} else {
-				long dateDiff = (diff % 365) % 30;
-				if (dateDiff > 0) {
-					if (dateDiff == 1) {
-						age += dateDiff + " day";
-					} else {
-						age += dateDiff + " days";
-					}
+			}
+
+			long dateDiff = (diff % 365) % 30;
+			if (dateDiff > 0) {
+				if (dateDiff == 1) {
+					age += dateDiff + " day ";
+				} else {
+					age += dateDiff + " days ";
 				}
 			}
 		}
