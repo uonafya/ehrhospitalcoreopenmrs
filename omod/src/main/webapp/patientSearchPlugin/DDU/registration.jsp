@@ -187,14 +187,11 @@
 			nameOrIdentifier = nameOrIdentifier.replace(/\s/g, "");			
 		
 			// Build essential query
-			this.selectClause = "SELECT DISTINCT pt.patient_id, pi.identifier, pn.given_name, pn.middle_name, pn.family_name, ps.gender, ps.birthdate, EXTRACT(YEAR FROM (FROM_DAYS(DATEDIFF(NOW(),ps.birthdate)))) age, pn.person_name_id";
-			this.fromClause   = " FROM `patient` pt";
-			this.fromClause  += " INNER JOIN person ps ON ps.person_id = pt.patient_id";
-			this.fromClause  += " INNER JOIN person_name pn ON pn.person_id = ps.person_id";
-			this.fromClause  += " INNER JOIN patient_identifier pi ON pi.patient_id = pt.patient_id";
+			this.selectClause = "SELECT ps.patient_id, ps.identifier, ps.given_name, ps.middle_name, ps.family_name, ps.gender, ps.birthdate, ps.age, ps.person_name_id ";
+			this.fromClause   = " FROM patient_search ps";
 			this.whereClause  = " WHERE";
-			this.whereClause += " (pi.identifier LIKE '%" + nameOrIdentifier + "%' OR CONCAT(IFNULL(pn.given_name, ''), IFNULL(pn.middle_name, ''), IFNULL(pn.family_name,'')) LIKE '" + nameOrIdentifier + "%')";			
-			this.orderClause = " ORDER BY pt.patient_id ASC";
+			this.whereClause += " (ps.identifier LIKE '%" + nameOrIdentifier + "%' OR ps.fullname LIKE '" + nameOrIdentifier + "%')";			
+			this.orderClause = " ORDER BY ps.patient_id ASC";
 			this.limitClause = " LIMIT " + this.currentRow + ", " + this.rowPerPage;			
 
 			//	Build extended queries
@@ -218,13 +215,10 @@
 			nameOrIdentifier = nameOrIdentifier.replace(/\s/g, "");
 		
 			// Build essential query
-			this.selectClause = "SELECT COUNT(DISTINCT pt.patient_id)";
-			this.fromClause   = " FROM `patient` pt";
-			this.fromClause  += " INNER JOIN person ps ON ps.person_id = pt.patient_id";
-			this.fromClause  += " INNER JOIN person_name pn ON pn.person_id = ps.person_id";
-			this.fromClause  += " INNER JOIN patient_identifier pi ON pi.patient_id = pt.patient_id";
+			this.selectClause = "SELECT COUNT(*)";
+			this.fromClause   = " FROM patient_search ps";
 			this.whereClause  = " WHERE";
-			this.whereClause += " (pi.identifier LIKE '%" + nameOrIdentifier + "%' OR CONCAT(IFNULL(pn.given_name, ''), IFNULL(pn.middle_name, ''), IFNULL(pn.family_name,'')) LIKE '" + nameOrIdentifier + "%')";						
+			this.whereClause += " (ps.identifier LIKE '%" + nameOrIdentifier + "%' OR ps.fullname LIKE '" + nameOrIdentifier + "%')";						
 
 			//	Build extended queries
 			if(this.advanceSearch){

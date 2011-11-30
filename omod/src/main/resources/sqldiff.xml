@@ -176,4 +176,27 @@
 			ALTER TABLE core_form ADD after_submit varchar(300) DEFAULT NULL;
 		</sql>
 	</diff>	
+	<diff>
+		<version>1.8</version>
+		<author>Truong Ha</author>
+		<date>Nov 11th 2011</date>
+		<description>
+			Add table patient search
+		</description>
+		<sql>			
+			CREATE TABLE IF NOT EXISTS `patient_search` (
+			  `patient_id` int(11) NOT NULL,
+			  `identifier` varchar(30) DEFAULT NULL,
+			  `fullname` varchar(200) DEFAULT NULL,
+			  `given_name` varchar(60) DEFAULT NULL,
+			  `middle_name` varchar(60) DEFAULT NULL,
+			  `family_name` varchar(60) DEFAULT NULL,
+			  `gender` varchar(10) DEFAULT NULL,
+			  `birthdate` datetime DEFAULT NULL,
+			  `age` int(11) DEFAULT NULL,
+			  `person_name_id` int(11) DEFAULT NULL,
+			  PRIMARY KEY (`patient_id`)
+			) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+		</sql>
+	</diff>	
 </sqldiff>
