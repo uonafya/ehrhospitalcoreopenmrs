@@ -32,6 +32,7 @@ import org.openmrs.PersonAttribute;
 import org.openmrs.api.db.DAOException;
 import org.openmrs.module.hospitalcore.concept.ConceptModel;
 import org.openmrs.module.hospitalcore.model.CoreForm;
+import org.openmrs.module.hospitalcore.model.PatientSearch;
 
 public interface HospitalCoreDAO {
 
@@ -101,4 +102,11 @@ public interface HospitalCoreDAO {
 	 * @param form
 	 */
 	public void deleteCoreForm(CoreForm form);
+	
+	/**
+	 * Save patientSearch
+	 * @param patientSearch
+	 * @return
+	 */
+	public PatientSearch savePatientSearch(PatientSearch patientSearch);
 }

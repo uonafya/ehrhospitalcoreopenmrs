@@ -1,3 +1,6 @@
+1.4.10.6
+- Fixed bug not calculate age of patient when current date is entered as the birthday.
+
 1.4.10.5
 - Added patient_search table to cache patient for search.
 

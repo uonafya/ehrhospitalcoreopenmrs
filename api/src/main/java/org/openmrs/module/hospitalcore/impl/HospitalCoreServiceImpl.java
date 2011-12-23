@@ -69,6 +69,7 @@ import org.openmrs.module.hospitalcore.concept.Mapping;
 import org.openmrs.module.hospitalcore.concept.Synonym;
 import org.openmrs.module.hospitalcore.db.HospitalCoreDAO;
 import org.openmrs.module.hospitalcore.model.CoreForm;
+import org.openmrs.module.hospitalcore.model.PatientSearch;
 import org.openmrs.module.hospitalcore.util.HospitalCoreConstants;
 import org.w3c.dom.Document;
 import org.w3c.dom.NamedNodeMap;
@@ -723,5 +724,12 @@ public class HospitalCoreServiceImpl extends BaseOpenmrsService implements
 	 */
 	public void deleteCoreForm(CoreForm form){
 		dao.deleteCoreForm(form);
+	}
+	
+	/**
+	 * Save patientSearch
+	 */
+	public PatientSearch savePatientSearch(PatientSearch patientSearch){
+		return dao.savePatientSearch(patientSearch);
 	}
 }

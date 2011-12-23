@@ -55,6 +55,7 @@ import org.openmrs.module.hospitalcore.concept.ConceptModel;
 import org.openmrs.module.hospitalcore.concept.Mapping;
 import org.openmrs.module.hospitalcore.db.HospitalCoreDAO;
 import org.openmrs.module.hospitalcore.model.CoreForm;
+import org.openmrs.module.hospitalcore.model.PatientSearch;
 import org.openmrs.module.hospitalcore.util.DateUtils;
 
 public class HibernateHospitalCoreDAO implements HospitalCoreDAO {
@@ -331,5 +332,12 @@ public class HibernateHospitalCoreDAO implements HospitalCoreDAO {
 
 	public void deleteCoreForm(CoreForm form) {
 		sessionFactory.getCurrentSession().delete(form);
+	}
+	
+	//
+	// PATIENT_SEARCH
+	//
+	public PatientSearch savePatientSearch(PatientSearch patientSearch) {
+		return (PatientSearch) sessionFactory.getCurrentSession().merge(patientSearch);
 	}
 }

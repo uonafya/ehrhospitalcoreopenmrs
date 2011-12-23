@@ -8,8 +8,7 @@
 	<class name="PatientSearch" table="patient_search" batch-size="500">
 
 		<id name="patientId" type="int" column="patient_id"
-			unsaved-value="0">
-				<generator class="native" />
+			unsaved-value="0">				
 		</id>		
 		<property name="identifier" column="identifier" />
 		<property name="fullname" column="fullname" />

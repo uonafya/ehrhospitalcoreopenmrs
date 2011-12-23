@@ -220,7 +220,6 @@ public class PatientUtils {
 		long diff = Math.abs(date.getTime() - (new Date()).getTime())
 				/ (1000 * 60 * 60 * 24);
 		long yearDiff = diff / 365;
-		System.out.println("diff -> " + diff);
 
 		if (yearDiff > 0) {
 			if (yearDiff == 1) {
@@ -240,8 +239,8 @@ public class PatientUtils {
 			}
 
 			long dateDiff = (diff % 365) % 30;
-			if (dateDiff > 0) {
-				if (dateDiff == 1) {
+			if (dateDiff >= 0) {
+				if ((dateDiff == 1) || (dateDiff == 0)){
 					age += dateDiff + " day ";
 				} else {
 					age += dateDiff + " days ";

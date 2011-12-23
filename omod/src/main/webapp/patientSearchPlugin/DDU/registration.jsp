@@ -78,7 +78,10 @@
 			});
 			jQuery("#ageRange", this.form).blur(function(){
 				PATIENTSEARCH.search(true);
-			});			
+			});
+			jQuery("#phoneNumber", this.form).blur(function(){
+				PATIENTSEARCH.search(true);
+			});
 			
 			// Add Validation
 			jQuery.validator.addMethod("nameOrIdentifier", function(value, element) { 
@@ -200,6 +203,7 @@
 				this.buildAgeQuery();
 				this.buildRelativeNameQuery();
 				this.buildLastVisitQuery();
+				this.buildPhoneNumberQuery();
 			}
 			
 			// Return the built query
@@ -226,6 +230,7 @@
 				this.buildAgeQuery();
 				this.buildRelativeNameQuery();
 				this.buildLastVisitQuery();
+				this.buildPhoneNumberQuery();
 			}
 			
 			// Return the built query
@@ -308,9 +313,20 @@
 			value = jQuery.trim(jQuery("#relativeName", this.form).val());
 			personAttributeTypeName = "Father/Husband Name";
 			if(value!=undefined && value.length>0){
-				this.fromClause += " INNER JOIN person_attribute paRelativeName ON ps.person_id= paRelativeName.person_id";
+				this.fromClause += " INNER JOIN person_attribute paRelativeName ON ps.patient_id= paRelativeName.person_id";
 				this.fromClause += " INNER JOIN person_attribute_type patRelativeName ON paRelativeName.person_attribute_type_id = patRelativeName.person_attribute_type_id ";
 				this.whereClause += " AND (patRelativeName.name LIKE '%" + personAttributeTypeName + "%' AND paRelativeName.value LIKE '%" + value + "%')";
+			}
+		},
+		
+		/** BUILD QUERY FOR PHONE NUMBER */
+		buildPhoneNumberQuery: function(){
+			value = jQuery.trim(jQuery("#phoneNumber", this.form).val());
+			phoneNumberAttributeTypeName = "Phone Number";
+			if(value!=undefined && value.length>0){
+				this.fromClause += " INNER JOIN person_attribute paPhoneNumber ON ps.patient_id= paPhoneNumber.person_id";
+				this.fromClause += " INNER JOIN person_attribute_type patPhoneNumber ON paPhoneNumber.person_attribute_type_id = patPhoneNumber.person_attribute_type_id ";
+				this.whereClause += " AND (patPhoneNumber.name LIKE '%" + phoneNumberAttributeTypeName + "%' AND paPhoneNumber.value LIKE '%" + value + "%')";
 			}
 		},
 		
@@ -318,7 +334,7 @@
 		buildLastVisitQuery: function(){
 			value = jQuery.trim(jQuery("#lastVisit", this.form).val());
 			if(value!='Any'){
-				this.fromClause += " INNER JOIN encounter e ON e.patient_id = pt.patient_id";
+				this.fromClause += " INNER JOIN encounter e ON e.patient_id = ps.patient_id";
 				this.whereClause += " AND (DATEDIFF(NOW(), e.date_created) <= " + value + ")";
 			}
 		},
@@ -436,6 +452,12 @@
 						<option value="183">Last 6 months</option>
 						<option value="366">Last year</option>
 					</select>
+				</td>	
+			</tr>
+			<tr>
+				<td>Phone number</td>
+				<td colspan="3">
+					<input id="phoneNumber" style="width: 100px"/>
 				</td>	
 			</tr>
 			<tr>

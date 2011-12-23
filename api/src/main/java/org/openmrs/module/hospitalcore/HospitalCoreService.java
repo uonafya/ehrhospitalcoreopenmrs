@@ -40,6 +40,7 @@ import org.openmrs.api.APIException;
 import org.openmrs.api.ConceptService;
 import org.openmrs.api.OpenmrsService;
 import org.openmrs.module.hospitalcore.model.CoreForm;
+import org.openmrs.module.hospitalcore.model.PatientSearch;
 import org.springframework.transaction.annotation.Transactional;
 import org.xml.sax.SAXException;
 
@@ -189,4 +190,11 @@ public interface HospitalCoreService extends OpenmrsService {
 	 * @param form
 	 */
 	public void deleteCoreForm(CoreForm form);
+	
+	/**
+	 * Save patientSearch
+	 * @param patientSearch
+	 * @return
+	 */
+	public PatientSearch savePatientSearch(PatientSearch patientSearch);
 }
