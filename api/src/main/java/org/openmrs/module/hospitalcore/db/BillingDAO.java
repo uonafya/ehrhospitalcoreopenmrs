@@ -216,5 +216,7 @@ public interface BillingDAO {
     
 	public Receipt createReceipt(Receipt receipt) throws DAOException;
 	public void updateReceipt() throws DAOException;
+	
+	public void updateOldBills();
 }
 

@@ -18,7 +18,6 @@
  *
  **/
 
-
 package org.openmrs.module.hospitalcore.impl;
 
 import java.util.ArrayList;
@@ -1002,18 +1001,19 @@ public class BillingServiceImpl extends BaseOpenmrsService implements
 
 		Encounter labEncounter = null;
 		Encounter radiologyEncounter = null;
-		
-		// Get medical examination class
-		Integer medicalExaminationClassId = GlobalPropertyUtil.getInteger(HospitalCoreConstants.PROPERTY_MEDICAL_EXAMINATION, 9);
-		ConceptClass medicalExaminationClass = Context.getConceptService().getConceptClass(medicalExaminationClassId);
 
-		for (PatientServiceBillItem item : bill.getBillItems()) {			
+		// Get medical examination class
+		Integer medicalExaminationClassId = GlobalPropertyUtil.getInteger(
+				HospitalCoreConstants.PROPERTY_MEDICAL_EXAMINATION, 9);
+		ConceptClass medicalExaminationClass = Context.getConceptService()
+				.getConceptClass(medicalExaminationClassId);
+
+		for (PatientServiceBillItem item : bill.getBillItems()) {
 			Concept concept = Context.getConceptService().getConcept(
-					item.getService().getConceptId());			
+					item.getService().getConceptId());
 
 			// If item is a medical examination set
-			if (concept.getConceptClass().equals(
-					medicalExaminationClass)) {
+			if (concept.getConceptClass().equals(medicalExaminationClass)) {
 				Collection<ConceptSet> conceptSets = concept.getConceptSets();
 				if (conceptSets != null && conceptSets.size() > 0) {
 					for (ConceptSet con : conceptSets) {
@@ -1021,16 +1021,16 @@ public class BillingServiceImpl extends BaseOpenmrsService implements
 								.getConceptId())) {
 							labEncounter = getEncounter(bill, labEncounter,
 									labEncounterType);
-							Order order = addOrder(labEncounter, con.getConcept(), bill,
-									labOrderType);
+							Order order = addOrder(labEncounter,
+									con.getConcept(), bill, labOrderType);
 							item.setOrder(order);
 
 						} else if (radiologyConceptIds.contains(con
 								.getConcept().getConceptId())) {
 							radiologyEncounter = getEncounter(bill,
 									radiologyEncounter, radiologyEncounterType);
-							Order order = addOrder(radiologyEncounter, con.getConcept(),
-									bill, radiologyOrderType);
+							Order order = addOrder(radiologyEncounter,
+									con.getConcept(), bill, radiologyOrderType);
 							item.setOrder(order);
 						}
 					}
@@ -1234,6 +1234,10 @@ public class BillingServiceImpl extends BaseOpenmrsService implements
 
 	public void updateReceipt() throws APIException {
 		dao.updateReceipt();
+	}
+
+	public void updateOldBills() {
+		dao.updateOldBills();
 	}
 
 }

@@ -326,4 +326,6 @@ public interface BillingService extends OpenmrsService{
 	
 	@Authorized( { BillingConstants.PRIV_ADD_BILL})
 	public void updateReceipt() throws APIException;
+	
+	public void updateOldBills();
 }
