@@ -348,7 +348,7 @@
 			value = jQuery("#nameOrIdentifier", this.form).val();
 			value = value.toUpperCase();
 			if(value.length>=3){
-				pattern = "ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789 -";
+				pattern = "ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789$!#@^&*() -";
 				for(i=0; i<value.length; i++){
 					if(pattern.indexOf(value[i])<0){	
 						jQuery("#errorList", this.form).append("<li>Please enter patient name/identifier in correct format!</li>");
