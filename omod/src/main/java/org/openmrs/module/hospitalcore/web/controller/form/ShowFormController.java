@@ -112,7 +112,6 @@ public class ShowFormController {
 				encounterId);
 		if (encounter != null) {
 			for (String key : parameters.keySet()) {
-				System.out.println(key);
 				Concept concept = Context.getConceptService().getConcept(key);
 				Obs obs = insertValue(encounter, concept, parameters.get(key));
 				if (obs.getId() == null)
@@ -149,7 +148,6 @@ public class ShowFormController {
 
 		Obs obs = getObs(encounter, concept);
 		obs.setConcept(concept);
-		System.out.println("Concept: " + concept);
 		if (concept.getDatatype().getName().equalsIgnoreCase("Text")) {
 			value = value.replace("\n", "\\n");
 			obs.setValueText(value);
