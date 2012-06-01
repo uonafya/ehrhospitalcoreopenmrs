@@ -732,4 +732,12 @@ public class HospitalCoreServiceImpl extends BaseOpenmrsService implements
 	public PatientSearch savePatientSearch(PatientSearch patientSearch){
 		return dao.savePatientSearch(patientSearch);
 	}
+
+	/**
+	 * 
+	 * @see org.openmrs.module.hospitalcore.HospitalCoreService#getLastVisitTime(int)
+	 */
+	public java.util.Date getLastVisitTime(int patientID) {
+	    return dao.getLastVisitTime(patientID);
+    }
 }

@@ -24,6 +24,7 @@ package org.openmrs.module.hospitalcore;
 import java.io.IOException;
 import java.io.InputStream;
 import java.math.BigInteger;
+import java.sql.Date;
 import java.util.List;
 
 import javax.xml.parsers.ParserConfigurationException;
@@ -197,4 +198,13 @@ public interface HospitalCoreService extends OpenmrsService {
 	 * @return
 	 */
 	public PatientSearch savePatientSearch(PatientSearch patientSearch);
+	
+	/**
+	 * 
+	 * get Last Visit time
+	 * 
+	 * @param patientID
+	 * @return
+	 */
+	public java.util.Date getLastVisitTime (int patientID);
 }

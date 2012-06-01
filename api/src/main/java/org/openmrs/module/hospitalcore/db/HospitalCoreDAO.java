@@ -109,4 +109,13 @@ public interface HospitalCoreDAO {
 	 * @return
 	 */
 	public PatientSearch savePatientSearch(PatientSearch patientSearch);
+	
+	/**
+	 * 
+	 * Auto generated method comment
+	 * 
+	 * @param patientID
+	 * @return
+	 */
+	public java.util.Date getLastVisitTime (int patientID);
 }
