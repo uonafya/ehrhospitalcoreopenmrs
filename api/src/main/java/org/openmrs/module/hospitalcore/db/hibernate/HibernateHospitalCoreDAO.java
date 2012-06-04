@@ -327,8 +327,15 @@ public class HibernateHospitalCoreDAO implements HospitalCoreDAO {
 		Criteria criteria = sessionFactory.getCurrentSession().createCriteria(Encounter.class);
 		Encounter encounter = new Encounter();
 		criteria.add(Restrictions.eq("patientId", patientID));
+		
+		// Don't trust in system hour so we use encounterId (auto increase)
 		criteria.addOrder(Order.desc("encounterId"));
-		encounter = criteria.list().isEmpty() ? null : (Encounter) criteria.list().get(0);
+		
+		// return 1 last row
+		criteria.setFirstResult(0); // read the first row (desc reading)
+		criteria.setMaxResults(1); // return 1 row
+		
+		encounter = (Encounter) criteria.uniqueResult();
 		return (java.util.Date) (encounter == null ? null : encounter.getEncounterDatetime());
 	}
 }
