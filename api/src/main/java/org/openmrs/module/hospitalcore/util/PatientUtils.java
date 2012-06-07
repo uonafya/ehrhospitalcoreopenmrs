@@ -22,6 +22,7 @@ package org.openmrs.module.hospitalcore.util;
 
 import java.text.ParseException;
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
@@ -38,13 +39,17 @@ import org.openmrs.api.context.Context;
 import org.openmrs.module.hospitalcore.HospitalCoreService;
 
 public class PatientUtils {
-
+	
 	public static final String MODULE_ID = "hospitalcore.";
+	
 	public final static String PATIENT_ATTRIBUTE_CATEGORY = "Patient Category";
+	
 	public final static String PATIENT_ATTRIBUTE_BPL_NUMBER = "BPL Number";
+	
 	public final static String PATIENT_ATTRIBUTE_RSBY_NUMBER = "RSBY Number";
+	
 	public final static String PATIENT_AGE_CATEGORY = MODULE_ID + "ageCategory";
-
+	
 	/**
 	 * Get patient category printout based on patient's category
 	 * 
@@ -53,16 +58,13 @@ public class PatientUtils {
 	 */
 	public static String getPatientCategory(Patient patient) {
 		String category = "";
-
-		String patientCategory = getPatientAttribute(patient,
-				PATIENT_ATTRIBUTE_CATEGORY);
+		
+		String patientCategory = getPatientAttribute(patient, PATIENT_ATTRIBUTE_CATEGORY);
 		if (!StringUtils.isBlank(patientCategory)) {
 			if (patientCategory.contains("General"))
 				category += "General";
-			String RSBYNo = getPatientAttribute(patient,
-					PATIENT_ATTRIBUTE_RSBY_NUMBER);
-			String BPLNo = getPatientAttribute(patient,
-					PATIENT_ATTRIBUTE_BPL_NUMBER);
+			String RSBYNo = getPatientAttribute(patient, PATIENT_ATTRIBUTE_RSBY_NUMBER);
+			String BPLNo = getPatientAttribute(patient, PATIENT_ATTRIBUTE_BPL_NUMBER);
 			if (!StringUtils.isBlank(RSBYNo)) {
 				category += "RSBY";
 			} else if (!StringUtils.isBlank(BPLNo)) {
@@ -72,10 +74,10 @@ public class PatientUtils {
 				category += ", MLC";
 			}
 		}
-
+		
 		return category;
 	}
-
+	
 	/**
 	 * Get the fullname of patient
 	 * 
@@ -84,23 +86,23 @@ public class PatientUtils {
 	 */
 	public static String getFullName(Patient patient) {
 		String fullName = "";
-
+		
 		if (!StringUtils.isBlank(patient.getGivenName())) {
 			fullName += patient.getGivenName() + " ";
 		}
-
+		
 		if (!StringUtils.isBlank(patient.getMiddleName())) {
 			fullName += patient.getMiddleName() + " ";
 		}
-
+		
 		if (!StringUtils.isBlank(patient.getFamilyName())) {
 			fullName += patient.getFamilyName();
 		}
-
+		
 		fullName = StringUtils.trim(fullName);
 		return fullName;
 	}
-
+	
 	/**
 	 * Get the age category based on patient's age
 	 * 
@@ -108,8 +110,7 @@ public class PatientUtils {
 	 * @return
 	 */
 	public static String getAgeCategory(Patient patient) {
-		String ageCategories = GlobalPropertyUtil.getString(
-				PATIENT_AGE_CATEGORY, "null");
+		String ageCategories = GlobalPropertyUtil.getString(PATIENT_AGE_CATEGORY, "null");
 		try {
 			String[] categories = ageCategories.split(";");
 			for (String category : categories) {
@@ -122,14 +123,15 @@ public class PatientUtils {
 				if ((lower <= patient.getAge()) && (patient.getAge() <= upper))
 					return categoryName;
 			}
-		} catch (Exception e) {
+		}
+		catch (Exception e) {
 			System.out.println("Error while generating age category!");
 			e.printStackTrace();
 		}
-
+		
 		return null;
 	}
-
+	
 	/**
 	 * Get patient attribute
 	 * 
@@ -137,69 +139,58 @@ public class PatientUtils {
 	 * @param attributeNameType
 	 * @return
 	 */
-	public static String getPatientAttribute(Patient patient,
-			String attributeNameType) {
+	public static String getPatientAttribute(Patient patient, String attributeNameType) {
 		String value = null;
-		PersonAttributeType pat = Context.getPersonService()
-				.getPersonAttributeTypeByName(attributeNameType);
+		PersonAttributeType pat = Context.getPersonService().getPersonAttributeTypeByName(attributeNameType);
 		PersonAttribute pa = patient.getAttribute(pat);
 		if (pa != null) {
 			value = pa.getValue();
 		}
 		return value;
 	}
-
-	public static void removePatientAttribute(Patient patient,
-			String attributeNameType) {
-		PersonAttributeType pat = Context.getPersonService()
-				.getPersonAttributeTypeByName(attributeNameType);
+	
+	public static void removePatientAttribute(Patient patient, String attributeNameType) {
+		PersonAttributeType pat = Context.getPersonService().getPersonAttributeTypeByName(attributeNameType);
 		PersonAttribute pa = patient.getAttribute(pat);
 		patient.removeAttribute(pa);
 		Context.getPatientService().savePatient(patient);
 	}
-
+	
 	public static Map<String, String> getAttributes(Patient patient) {
 		Map<String, String> attributes = new HashMap<String, String>();
-
+		
 		for (String key : patient.getAttributeMap().keySet()) {
-			attributes.put(patient.getAttributeMap().get(key)
-					.getAttributeType().getName(), patient.getAttributeMap()
-					.get(key).getValue());
+			attributes.put(patient.getAttributeMap().get(key).getAttributeType().getName(),
+			    patient.getAttributeMap().get(key).getValue());
 		}
-
+		
 		// get last encounter
 		List<EncounterType> types = new ArrayList<EncounterType>();
-		EncounterType reginit = Context.getEncounterService().getEncounterType(
-				1);
+		EncounterType reginit = Context.getEncounterService().getEncounterType(1);
 		types.add(reginit);
-		EncounterType revisit = Context.getEncounterService().getEncounterType(
-				2);
+		EncounterType revisit = Context.getEncounterService().getEncounterType(2);
 		types.add(revisit);
-		Encounter lastVisit = Context.getService(HospitalCoreService.class)
-				.getLastVisitEncounter(patient, types);
-
+		Encounter lastVisit = Context.getService(HospitalCoreService.class).getLastVisitEncounter(patient, types);
+		
 		if (lastVisit != null) {
 			for (Obs obs : lastVisit.getAllObs()) {
 				if (!obs.isVoided()) {
-					if (obs.getConcept().getDatatype().getName()
-							.equalsIgnoreCase("Coded")) {
-						attributes.put(obs.getConcept().getName().getName(),
-								obs.getValueCoded().getName().getName());
-					} else if (obs.getConcept().getDatatype().getName()
-							.equalsIgnoreCase("Text")) {
-						attributes.put(obs.getConcept().getName().getName(),
-								obs.getValueText());
+					if (obs.getConcept().getDatatype().getName().equalsIgnoreCase("Coded")) {
+						attributes.put(obs.getConcept().getName().getName(), obs.getValueCoded().getName().getName());
+					} else if (obs.getConcept().getDatatype().getName().equalsIgnoreCase("Text")) {
+						attributes.put(obs.getConcept().getName().getName(), obs.getValueText());
 					}
-
+					
 				}
 			}
 		}
-
+		
 		return attributes;
 	}
-
+	
 	/**
 	 * Estimate patient age
+	 * 
 	 * @param patient
 	 * @return
 	 */
@@ -215,35 +206,70 @@ public class PatientUtils {
 	 * @throws ParseException
 	 */
 	public static String estimateAge(Date date) {
-
-		String age = "~ ";
-		long diff = Math.abs(date.getTime() - (new Date()).getTime())
-				/ (1000 * 60 * 60 * 24);
-		long yearDiff = diff / 365;
-
-		if (yearDiff > 0) {
-			if (yearDiff == 1) {
-				age += yearDiff + " year ";
-			} else {
-				age += yearDiff + " years ";
-			}
-		} else {
-			long monthDiff = (diff % 365) / 30;
+		
+		String age = "~";
+		// new date
+		Calendar cal = Calendar.getInstance();
+		
+		// set to old date
+		Calendar cal2 = Calendar.getInstance();
+		cal2.setTime(date);
+		
+		Date date2 = cal.getTime();
+		int yearNew = cal.get(Calendar.YEAR);
+		int yearOld = cal2.get(Calendar.YEAR);
+		int monthNew = cal.get(Calendar.MONTH);
+		int monthOld = cal2.get(Calendar.MONTH);
+		int dayNew = cal.get(Calendar.DAY_OF_MONTH);
+		int dayOld = cal2.get(Calendar.DAY_OF_MONTH);
+		int maxDayInOldMonth = cal2.getActualMaximum(Calendar.DAY_OF_MONTH);
+		
+		int yearDiff = yearNew - yearOld;
+		int monthDiff = monthNew - monthOld;
+		int dayDiff = dayNew - dayOld;
+		
+		int ageYear = yearDiff, ageMonth = monthDiff, ageDay = dayDiff;
+		
+		if (monthDiff < 0) {
+			ageYear--;
+			ageMonth = 12 - Math.abs(monthDiff);
 			
-			if (monthDiff > 0) {
-				if (monthDiff == 1) {
-					age += monthDiff + " month ";
+		}
+		if (dayDiff < 0) {
+			ageMonth--;
+			if (ageMonth < 0) {
+				ageYear--;
+				ageMonth = 12 - Math.abs(ageMonth);
+			}
+			ageDay = maxDayInOldMonth - dayOld + dayNew;
+		}
+		
+		
+		if (ageYear >= 1) {
+			
+			age += ageYear;
+			if (ageMonth >= 6) {
+				age += ".5";
+			}
+			if (ageYear == 1) {
+				age += " year";
+			} else {
+				age += " years";
+			}
+		} else if (ageYear <= 0) {
+			if (ageMonth >= 1) {
+				if (ageMonth == 1) {
+					age += ageMonth + " month ";
 				} else {
-					age += monthDiff + " months ";
+					age += ageMonth + " months ";
 				}
 			}
-
-			long dateDiff = (diff % 365) % 30;
-			if (dateDiff >= 0) {
-				if ((dateDiff == 1) || (dateDiff == 0)){
-					age += dateDiff + " day ";
+			if (ageMonth <= 0) {
+				
+				if ((ageDay == 1) || (ageDay == 0)) {
+					age += ageDay + " day ";
 				} else {
-					age += dateDiff + " days ";
+					age += ageDay + " days ";
 				}
 			}
 		}
