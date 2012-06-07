@@ -23,7 +23,6 @@ package org.openmrs.module.hospitalcore.web.controller.patientsearch;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.math.BigInteger;
-import java.sql.Date;
 import java.util.Enumeration;
 import java.util.HashMap;
 import java.util.List;
