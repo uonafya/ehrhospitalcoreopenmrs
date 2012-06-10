@@ -132,11 +132,82 @@
 			};
 		},
 		
+		/** SEARCH BY BILL ID
+		* June 6th 2012: Thai Chuong - Supported #247
+		*/
+		searchBillId: function(newQuery){
+				if(newQuery == true){
+					this.currentRow = 0;		
+					// callback
+					PATIENTSEARCH.beforeNewSearch();
+					jQuery("#searchLoaderBillId", "#searchboxBillId").html("<img src='" + openmrsContextPath + "/moduleResources/hospitalcore/ajax-loader.gif" + "'/>&nbsp;");				
+				}
+				
+				var query = this.buildBillIdQueryFinal();				
+				
+				jQuery(PATIENTSEARCH.target).mask("<img src='" + openmrsContextPath + "/moduleResources/hospitalcore/ajax-loader.gif" + "'/>&nbsp;");				
+				jQuery.ajax({
+					type : "POST",
+					url : openmrsContextPath + "/module/hospitalcore/searchPatient.form",
+					data : ({
+						query: query,
+						view: PATIENTSEARCH.resultView
+					}),				
+					success : function(data) {						
+						jQuery(PATIENTSEARCH.target).html(data);						
+						if(PATIENTSEARCH.currentRow==0){
+							PATIENTSEARCH.getPatientResultBillIdCount();
+							jQuery("#searchLoaderBillId", "#searchboxBillId").html("");
+						} else {						
+							jQuery(PATIENTSEARCH.target).append("<div>" + PATIENTSEARCH.generateNavigation() + "</div>");	
+							
+							// callback
+							PATIENTSEARCH.success({
+								totalRow: PATIENTSEARCH.totalRow
+							});
+						}
+						jQuery(PATIENTSEARCH.target).unmask();
+						
+					},
+					error : function(xhr, ajaxOptions, thrownError) {
+						alert(thrownError);
+					}
+				});
+		},
+
+		
 		/** GET PATIENT RESULT COUNT */
 		getPatientResultCount: function(){
 			
 			
 			var query = this.buildCountQuery();
+			
+			jQuery.ajax({
+				type : "POST",
+				url : openmrsContextPath + "/module/hospitalcore/getPatientResultCount.form",
+				data : ({
+					query: query
+				}),				
+				success : function(data) {					
+					PATIENTSEARCH.totalRow = data;	
+					jQuery(PATIENTSEARCH.target).append("<div>" + PATIENTSEARCH.generateNavigation() + "</div>");		
+					// callback
+					PATIENTSEARCH.success({
+						totalRow: PATIENTSEARCH.totalRow
+					});
+				},
+				error : function(xhr, ajaxOptions, thrownError) {
+					alert(thrownError);
+				}
+			});
+		},
+		
+		/** GET PATIENT RESULT COUNT BY BILL ID
+		* June 6th 2012: Thai Chuong - Supported #247
+		*/
+		getPatientResultBillIdCount: function(){
+			
+			var query = this.buildCountBillIdQuery();
 			
 			jQuery.ajax({
 				type : "POST",
@@ -191,6 +262,32 @@
 			return this.query;
 		},
 		
+		/** BUILD QUERY - SEARCH PATIENT BY BILL
+		* June 6th 2012: Thai Chuong - Supported #247
+		*/
+		buildBillIdQueryFinal: function(){
+			// Get value from form				
+		
+			// Build essential query
+			this.selectClause = "SELECT DISTINCT pt.patient_id, pi.identifier, pn.given_name, pn.middle_name, pn.family_name, ps.gender, ps.birthdate, EXTRACT(YEAR FROM (FROM_DAYS(DATEDIFF(NOW(),ps.birthdate)))) age, pn.person_name_id";
+			this.fromClause   = " FROM `patient` pt";
+			this.fromClause  += " INNER JOIN person ps ON ps.person_id = pt.patient_id";
+			this.fromClause  += " INNER JOIN person_name pn ON pn.person_id = ps.person_id";
+			this.fromClause  += " INNER JOIN patient_identifier pi ON pi.patient_id = pt.patient_id";
+			this.whereClause  = " WHERE";
+			this.orderClause = " ORDER BY pt.patient_id ASC";
+			this.limitClause = " LIMIT " + this.currentRow + ", " + this.rowPerPage;			
+
+			
+			//	Build extended queries
+			this.buildBillIdQuery();
+			
+			
+			// Return the built query
+			this.query = this.selectClause + this.fromClause + this.whereClause + this.orderClause + this.limitClause;		
+			return this.query;
+		},
+		
 		/** BUILD COUNT QUERY */
 		buildCountQuery: function(){
 		
@@ -220,6 +317,30 @@
 			this.query = this.selectClause + this.fromClause + this.whereClause;		
 			return this.query;
 		},
+		
+		/** BUILD COUNT PATIENT SEARCH BY BILL ID QUERY
+		* June 6th 2012: Thai Chuong - Supported #247
+		*/
+		buildCountBillIdQuery: function(){
+		
+			// Get value from form			
+		
+			// Build essential query
+			this.selectClause = "SELECT COUNT(DISTINCT pt.patient_id)";
+			this.fromClause   = " FROM `patient` pt";
+			this.fromClause  += " INNER JOIN person ps ON ps.person_id = pt.patient_id";
+			this.fromClause  += " INNER JOIN person_name pn ON pn.person_id = ps.person_id";
+			this.fromClause  += " INNER JOIN patient_identifier pi ON pi.patient_id = pt.patient_id";
+			this.whereClause  = " WHERE";
+
+			//	Build extended queries
+			this.buildBillIdQuery();
+			
+			// Return the built query
+			this.query = this.selectClause + this.fromClause + this.whereClause;		
+			return this.query;
+		},
+		
 		
 		/** NEXT PAGE */
 		nextPage: function(){
@@ -313,6 +434,20 @@
 			if(value!='Any'){
 				this.fromClause += " INNER JOIN encounter e ON e.patient_id = pt.patient_id";
 				this.whereClause += " AND (DATEDIFF(NOW(), e.date_created) <= " + value + ")";
+			}
+		},
+		
+		/** BUILD QUERY BILL ID
+		* June 6th 2012: Thai Chuong - Supported #247
+		*/
+		buildBillIdQuery: function(){
+			value = jQuery.trim(jQuery("#billId", "#searchboxBillId").val());
+			if(value!=undefined && value.length>0){
+				this.fromClause += " INNER JOIN billing_patient_service_bill bill ON bill.patient_id = pt.patient_id";
+				this.whereClause += " bill.receipt_id = '" + value + "'";
+			}else{
+				// look for all patient that have bill
+				this.whereClause = " WHERE pt.patient_id IN (SELECT DISTINCT bill.patient_id FROM billing_patient_service_bill bill WHERE bill.patient_id = pt.patient_id)";
 			}
 		},
 		
