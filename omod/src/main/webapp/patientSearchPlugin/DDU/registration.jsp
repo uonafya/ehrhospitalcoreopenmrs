@@ -58,10 +58,12 @@
 			jQuery("#advanceSearch", this.form).hide();	
 			jQuery("#ageRange", this.form).val(5);
 			jQuery("#nameOrIdentifier", this.form).keyup(function(event){				
-				if(event.keyCode == 13){	
+				if( event.keyCode == 13 ){	
 					nameInCapital = StringUtils.capitalize(jQuery("#nameOrIdentifier", PATIENTSEARCH.form).val());
 					jQuery("#nameOrIdentifier", PATIENTSEARCH.form).val(nameInCapital);
 					PATIENTSEARCH.search(true);
+				}else {
+					PATIENTSEARCH.checkNameOrIdentifierSpecialChar();
 				}
 			});
 			jQuery("#lastVisit", this.form).change(function(){
@@ -400,8 +402,33 @@
 			} else {
 				return true;
 			}
-		}
-	}
+		},
+
+	
+	/**check for special char whle typing **/
+	checkNameOrIdentifierSpecialChar: function(){
+		
+		value = jQuery("#nameOrIdentifier", this.form).val();
+		value = value.toUpperCase();
+		
+			pattern = "ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789 -";
+			for(i=0; i<value.length; i++){
+				if(pattern.indexOf(value[i])<0){
+						
+						jQuery("#errorSection", this.form).html("<ul id='errorList' class='error'></ul>");
+					jQuery("#errorList", this.form).append("<li>Please enter patient name/identifier in correct format!</li>");
+					return false;							
+				}else {
+					jQuery("#errorList", this.form).empty();
+						}
+			}	
+			return true;
+	
+		}			
+	}	
+	
+
+	
 </script>
 <form id="patientSearchForm">
 	<div id="errorSection">
@@ -409,7 +436,7 @@
 	</div>
 	<table>
 		<tr>			
-			<td><input id="nameOrIdentifier" style="width:300px;"/></td>
+			<td><input id="nameOrIdentifier" style="width:300px;" /></td>
 			<td><a href="javascript:PATIENTSEARCH.toggleAdvanceSearch();">Advance search</a></td>
 		</tr>	
 	</table>
