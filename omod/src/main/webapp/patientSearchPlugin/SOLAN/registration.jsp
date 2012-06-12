@@ -89,6 +89,10 @@
 					jQuery("#nameOrIdentifier", PATIENTSEARCH.form).val(nameInCapital);
 					PATIENTSEARCH.search(true);
 				}
+				// ghanshyam 2012-6-12 #261 added validation for special character in patient name
+ 				else{
+				PATIENTSEARCH.validateNameOrIdentifierWithSpecialChar();
+				}
 			});
 			jQuery("#advanceSearchCalendar", this.form).change(function() {
 				PATIENTSEARCH.search(true);
@@ -115,6 +119,29 @@
 				PATIENTSEARCH.search(true);
 			});			
 		},
+		
+		// ghanshyam 2012-6-12 #261 added validation for special character in patient name
+		/** VALIDATE NAME OR IDENTIFIER With Special Character*/
+		validateNameOrIdentifierWithSpecialChar: function(){
+			
+			value = jQuery("#nameOrIdentifier", this.form).val();
+			value = value.toUpperCase();
+			if(value.length>=3){
+				pattern = "ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789 -";
+				for(i=0; i<value.length; i++){
+					if(pattern.indexOf(value[i])<0){	
+						jQuery("#errorSection", this.form).html("<ul id='errorList' class='error'></ul>");
+						jQuery("#errorList", this.form).append("<li>Please enter patient name/identifier in correct format!</li>");
+						return false;							
+					}
+					jQuery("#errorList", this.form).empty();
+				}	
+				return true;
+			}
+		},
+		
+		
+		
 		
 		/** SEARCH */
 		search: function(newQuery){
