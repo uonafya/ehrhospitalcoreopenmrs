@@ -97,6 +97,12 @@
 									.val(nameInCapital);
 							PATIENTSEARCH.search(true);
 						}
+						
+				// ghanshyam 13-06-2012 #249 added validation for special character in patient name
+ 				else{
+				PATIENTSEARCH.validateNameOrIdentifierWithSpecialChar();
+				}
+						
 					});
 			jQuery("#advanceSearchCalendar", this.form).change(function() {
 				PATIENTSEARCH.search(true);
@@ -123,6 +129,29 @@
 				PATIENTSEARCH.search(true);
 			});
 		},
+		
+		
+		// ghanshyam 13-06-2012 #249 added validation for special character in patient name
+		/** VALIDATE NAME OR IDENTIFIER With Special Character*/
+		validateNameOrIdentifierWithSpecialChar: function(){
+			
+			value = jQuery("#nameOrIdentifier", this.form).val();
+			value = value.toUpperCase();
+			if(value.length>=3){
+				pattern = "ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789 -";
+				for(i=0; i<value.length; i++){
+					if(pattern.indexOf(value[i])<0){	
+						jQuery("#errorSection", this.form).html("<ul id='errorList' class='error'></ul>");
+						jQuery("#errorList", this.form).append("<li>Please enter patient name/identifier in correct format!</li>");
+						return false;							
+					}
+					jQuery("#errorList", this.form).empty();
+				}	
+				return true;
+			}
+		},
+		
+		
 
 		/** SEARCH */
 		search : function(newQuery) {
@@ -492,9 +521,11 @@
 	<div id="errorSection"></div>
 	<table>
 		<tr>
-			<td><input id="nameOrIdentifier" style="width: 300px;" /></td>
+			<td><input id="nameOrIdentifier" style="width: 300px;" />
+			</td>
 			<td><a href="javascript:PATIENTSEARCH.toggleAdvanceSearch();">Advance
-					search</a></td>
+					search</a>
+			</td>
 		</tr>
 	</table>
 	<div id="advanceSearch">
@@ -505,11 +536,13 @@
 						<option value="Any">Any</option>
 						<option value="M">Male</option>
 						<option value="F">Female</option>
-				</select></td>
+				</select>
+				</td>
 			</tr>
 			<tr>
 				<td>Age</td>
-				<td><input id="age" style="width: 100px" /></td>
+				<td><input id="age" style="width: 100px" />
+				</td>
 				<td>Range &plusmn;</td>
 				<td><select id="ageRange" style="width: 100px">
 						<option value="0">Exact</option>
@@ -518,14 +551,16 @@
 						<option value="3">3</option>
 						<option value="4">4</option>
 						<option value="5">5</option>
-				</select> <span id="rangeUnit"></span></td>
+				</select> <span id="rangeUnit"></span>
+				</td>
 			</tr>
 			<tr>
 				<td>Last day of visit</td>
 				<td><input id="advanceSearchCalendar" type="hidden" /> <input
 					id="lastDayOfVisit" name="lastDayOfVisit" style="width: 100px" />
 					<img id="advanceSearchCalendarButton"
-					src="moduleResources/hospitalcore/calendar.gif" /></td>
+					src="moduleResources/hospitalcore/calendar.gif" />
+				</td>
 			</tr>
 			<tr>
 				<td>Last Visit</td>
@@ -534,7 +569,8 @@
 						<option value="31">Last month</option>
 						<option value="183">Last 6 months</option>
 						<option value="366">Last year</option>
-				</select></td>
+				</select>
+				</td>
 			</tr>
 			<tr>
 				<td>Phone number</td>
