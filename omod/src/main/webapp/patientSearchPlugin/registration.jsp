@@ -225,7 +225,7 @@
 			this.fromClause  += " INNER JOIN patient_identifier pi ON pi.patient_id = pt.patient_id";
 			this.whereClause  = " WHERE";
 			this.whereClause += " (pi.identifier LIKE '%" + nameOrIdentifier + "%' OR CONCAT(IFNULL(pn.given_name, ''), IFNULL(pn.middle_name, ''), IFNULL(pn.family_name,'')) LIKE '" + nameOrIdentifier + "%')";						
-
+		
 			//	Build extended queries
 			if(this.advanceSearch){
 				this.buildGenderQuery();

@@ -230,7 +230,7 @@
 			this.fromClause  += " INNER JOIN patient_identifier pi ON pi.patient_id = pt.patient_id";
 			this.whereClause  = " WHERE";
 			this.whereClause += " (pi.identifier LIKE '%" + nameOrIdentifier + "%' OR CONCAT(IFNULL(pn.given_name, ''), IFNULL(pn.middle_name, ''), IFNULL(pn.family_name,'')) LIKE '" + nameOrIdentifier + "%')";			
-			this.whereClause+= "AND ps.dead=0"
+			this.whereClause+= "AND ps.dead=0";
 			this.orderClause = " ORDER BY pt.patient_id ASC";
 			this.limitClause = " LIMIT " + this.currentRow + ", " + this.rowPerPage;			
 
@@ -264,7 +264,7 @@
 			this.fromClause  += " INNER JOIN patient_identifier pi ON pi.patient_id = pt.patient_id";
 			this.whereClause  = " WHERE";
 			this.whereClause += " (pi.identifier LIKE '%" + nameOrIdentifier + "%' OR CONCAT(IFNULL(pn.given_name, ''), IFNULL(pn.middle_name, ''), IFNULL(pn.family_name,'')) LIKE '" + nameOrIdentifier + "%')";						
-			this.whereClause+= "AND ps.dead=0"
+			this.whereClause+= "AND ps.dead=0";
 			//	Build extended queries
 			if(this.advanceSearch){
 				this.buildGenderQuery();
