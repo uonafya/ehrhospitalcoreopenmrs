@@ -56,10 +56,13 @@ public class PatientUtils {
 	 * @param patient
 	 * @return
 	 */
+	
+	//ghanshyam 16-06-2012 Bug #44 OPD Dashboard/ Patient category,Temporary category is not being displayed
 	public static String getPatientCategory(Patient patient) {
 		String category = "";
 		
 		String patientCategory = getPatientAttribute(patient, PATIENT_ATTRIBUTE_CATEGORY);
+		/*
 		if (!StringUtils.isBlank(patientCategory)) {
 			if (patientCategory.contains("General"))
 				category += "General";
@@ -73,9 +76,9 @@ public class PatientUtils {
 			if (patientCategory.contains("MLC")) {
 				category += ", MLC";
 			}
-		}
+		}*/
 		
-		return category;
+		return patientCategory;
 	}
 	
 	/**
