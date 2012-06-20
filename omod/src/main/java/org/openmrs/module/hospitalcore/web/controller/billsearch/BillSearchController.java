@@ -30,10 +30,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 
 /**
- *
- * Author: Thai Chuong June 10th 2012
- * Search bill by Bill Id
- * Supported issue #247 & #254
+ * Author: Thai Chuong June 10th 2012 Search bill by Bill Id Supported issue #247 & #254
  */
 @Controller("HospitalcoreSearchBillController")
 @RequestMapping("/module/hospitalcore/findBill.htm")
@@ -42,11 +39,24 @@ public class BillSearchController {
 	@RequestMapping(method = RequestMethod.GET)
 	public String searchBill(@RequestParam("billId") String billId, Model model) {
 		BillingService bs = Context.getService(BillingService.class);
-		PatientServiceBill patienServiceBill = bs.getPatientServiceBillById(Integer.parseInt(billId));
+		int receiptId = 0;
+		try {
+			receiptId = Integer.parseInt(billId);
+		}
+		catch (NumberFormatException e) {
+			model.addAttribute("Found", "Cannot find bill");
+			return "redirect:/module/billing/main.form";
+		}
 		
-		if (null != patienServiceBill)
-			return "redirect:/module/billing/patientServiceBill.list?patientId=" + patienServiceBill.getPatient().getId()
-			        + "&billId=" + billId;
+		/**
+		 * June 20th 2012 - Thai Chuong supported getPatientServiceBillByReceiptId to solve issue
+		 * #271
+		 */
+		PatientServiceBill patientServiceBill = bs.getPatientServiceBillByReceiptId(receiptId);
+		
+		if (null != patientServiceBill)
+			return "redirect:/module/billing/patientServiceBill.list?patientId=" + patientServiceBill.getPatient().getId()
+			        + "&billId=" + patientServiceBill.getPatientServiceBillId();
 		
 		model.addAttribute("Found", "Cannot find bill");
 		return "redirect:/module/billing/main.form";

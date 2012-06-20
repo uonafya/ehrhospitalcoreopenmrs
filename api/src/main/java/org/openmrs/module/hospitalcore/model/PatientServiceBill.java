@@ -18,7 +18,6 @@
  *
  **/
 
-
 package org.openmrs.module.hospitalcore.model;
 
 import java.io.Serializable;
@@ -62,7 +61,7 @@ public class PatientServiceBill implements Serializable {
 	
 	private Receipt receipt;
 	
-	private Boolean freeBill = false;	
+	private Boolean freeBill = false;
 	
 	private Set<PatientServiceBillItem> billItems;
 	
@@ -151,27 +150,27 @@ public class PatientServiceBill implements Serializable {
 	public void setCreator(User creator) {
 		this.creator = creator;
 	}
-
+	
 	public Receipt getReceipt() {
 		return receipt;
 	}
-
+	
 	public void setReceipt(Receipt receipt) {
 		this.receipt = receipt;
 	}
-
+	
 	public Boolean getFreeBill() {
 		return freeBill;
 	}
-
+	
 	public void setFreeBill(Boolean freeBill) {
 		this.freeBill = freeBill;
 	}
-
+	
 	public BigDecimal getActualAmount() {
 		return actualAmount;
 	}
-
+	
 	public void setActualAmount(BigDecimal actualAmount) {
 		this.actualAmount = actualAmount;
 	}

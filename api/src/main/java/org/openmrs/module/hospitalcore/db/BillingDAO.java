@@ -18,7 +18,6 @@
  *
  **/
 
-
 package org.openmrs.module.hospitalcore.db;
 
 import java.util.List;
@@ -38,17 +37,16 @@ import org.openmrs.module.hospitalcore.model.Receipt;
 import org.openmrs.module.hospitalcore.model.Tender;
 import org.openmrs.module.hospitalcore.model.TenderBill;
 
-
 /**
  *
  */
 public interface BillingDAO {
 	
 	/**
-	 * TENDER 
+	 * TENDER
 	 */
 	public void setSessionFactory(SessionFactory sessionFactory) throws DAOException;
-
+	
 	public Tender saveTender(Tender tender) throws DAOException;
 	
 	public List<Tender> listTender(int min, int max) throws DAOException;
@@ -58,13 +56,13 @@ public interface BillingDAO {
 	public Tender getTenderById(Integer id) throws DAOException;
 	
 	public void deleteTender(Tender tender) throws DAOException;
-
+	
 	public Tender getTenderByNameAndNumber(String name, int number) throws DAOException;
 	
 	public List<Tender> getActiveTenders() throws DAOException;
-
+	
 	/**
-	 * COMPANY 
+	 * COMPANY
 	 */
 	public Company saveCompany(Company company) throws DAOException;
 	
@@ -76,16 +74,16 @@ public interface BillingDAO {
 	
 	public Company getCompanyById(Integer id) throws DAOException;
 	
-    public Company getCompanyByName(String name) throws DAOException;
-    
-    public List<Company> searchCompany(String searchText) throws DAOException;
-    
-    public List<Company> getAllCompany() throws DAOException;
-    
-    public List<Company> getAllActiveCompany() throws DAOException;
-    
-    /**
-	 * DRIVER 
+	public Company getCompanyByName(String name) throws DAOException;
+	
+	public List<Company> searchCompany(String searchText) throws DAOException;
+	
+	public List<Company> getAllCompany() throws DAOException;
+	
+	public List<Company> getAllActiveCompany() throws DAOException;
+	
+	/**
+	 * DRIVER
 	 */
 	public Driver saveDriver(Driver driver) throws DAOException;
 	
@@ -97,18 +95,18 @@ public interface BillingDAO {
 	
 	public Driver getDriverById(Integer id) throws DAOException;
 	
-    public Driver getDriveryByName(String name) throws DAOException;
-    
-    public List<Driver> searchDriver(String searchText) throws DAOException;
-    
-    public List<Driver> getAllDriver() throws DAOException;
-    
-    public List<Driver> getAllActiveDriver() throws DAOException;
-    
-    /**
-     * TENDER BILL
-     */
-    public TenderBill getTenderBillById(Integer tenderBillId) throws DAOException;
+	public Driver getDriveryByName(String name) throws DAOException;
+	
+	public List<Driver> searchDriver(String searchText) throws DAOException;
+	
+	public List<Driver> getAllDriver() throws DAOException;
+	
+	public List<Driver> getAllActiveDriver() throws DAOException;
+	
+	/**
+	 * TENDER BILL
+	 */
+	public TenderBill getTenderBillById(Integer tenderBillId) throws DAOException;
 	
 	public TenderBill saveTenderBill(TenderBill tenderBill) throws DAOException;
 	
@@ -119,7 +117,7 @@ public interface BillingDAO {
 	public List<TenderBill> getAllTenderBill() throws DAOException;
 	
 	/**
-	 * AMBULANCE 
+	 * AMBULANCE
 	 */
 	public Ambulance saveAmbulance(Ambulance ambulance) throws DAOException;
 	
@@ -131,7 +129,7 @@ public interface BillingDAO {
 	
 	public Ambulance getAmbulanceById(Integer id) throws DAOException;
 	
-    public Ambulance getAmbulanceByName(String name) throws DAOException;
+	public Ambulance getAmbulanceByName(String name) throws DAOException;
 	
 	public List<Ambulance> getAllAmbulance() throws DAOException;
 	
@@ -155,7 +153,7 @@ public interface BillingDAO {
 	 */
 	public BillableService getServiceById(Integer id) throws DAOException;
 	
-	public List<BillableService>  getAllServices() throws DAOException;
+	public List<BillableService> getAllServices() throws DAOException;
 	
 	public BillableService saveService(BillableService service) throws DAOException;
 	
@@ -176,20 +174,24 @@ public interface BillingDAO {
 	
 	public List<PatientServiceBill> getAllPatientServiceBill() throws DAOException;
 	
+	public PatientServiceBill getPatientServiceBillByReceiptId(Integer patientServiceBillReceiptId) throws DAOException;
+	
 	/**
 	 * MISCELLANEOUS BILL
 	 */
 	public MiscellaneousServiceBill getMiscellaneousServiceBillById(Integer MiscellaneousServiceBillId) throws DAOException;
 	
-	public MiscellaneousServiceBill saveMiscellaneousServiceBill(MiscellaneousServiceBill MiscellaneousServiceBill) throws DAOException;
+	public MiscellaneousServiceBill saveMiscellaneousServiceBill(MiscellaneousServiceBill MiscellaneousServiceBill)
+	                                                                                                               throws DAOException;
 	
 	public List<MiscellaneousServiceBill> listMiscellaneousServiceBill(int min, int max) throws DAOException;
 	
 	public int countListMiscellaneousServiceBill() throws DAOException;
 	
-	public List<MiscellaneousServiceBill> listMiscellaneousServiceBill(int min, int max, MiscellaneousService service ) throws DAOException;
+	public List<MiscellaneousServiceBill> listMiscellaneousServiceBill(int min, int max, MiscellaneousService service)
+	                                                                                                                  throws DAOException;
 	
-	public int countListMiscellaneousServiceBill( MiscellaneousService service) throws DAOException;
+	public int countListMiscellaneousServiceBill(MiscellaneousService service) throws DAOException;
 	
 	public List<MiscellaneousServiceBill> getAllMiscellaneousServiceBill() throws DAOException;
 	
@@ -205,18 +207,18 @@ public interface BillingDAO {
 	public int countListMiscellaneousService() throws DAOException;
 	
 	public List<MiscellaneousService> getAllMiscellaneousService() throws DAOException;
-
+	
 	public void deleteMiscellaneousService(MiscellaneousService miscellaneousService) throws DAOException;
 	
-    public MiscellaneousService getMiscellaneousServiceByName(String name) throws DAOException;
-
-    /**
-     * Receipt
-     */
-    
+	public MiscellaneousService getMiscellaneousServiceByName(String name) throws DAOException;
+	
+	/**
+	 * Receipt
+	 */
+	
 	public Receipt createReceipt(Receipt receipt) throws DAOException;
+	
 	public void updateReceipt() throws DAOException;
 	
 	public void updateOldBills();
 }
-
