@@ -26,6 +26,7 @@ import org.openmrs.module.hospitalcore.HospitalCoreService;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
+import org.springframework.validation.ObjectError;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
@@ -45,10 +46,11 @@ public class DiagnosisImporterController {
 	@RequestMapping(method = RequestMethod.POST)
 	public String create(UploadFile uploadFile, BindingResult result, Model model) {
 		if (result.hasErrors()) {
-			for (Object obj : result.getAllErrors()) {
-				Error error = (Error) obj;
-				System.err.println("Error: " + error.getCause() + " - "
-						+ error.getMessage());
+			//ghanshyam 25/06/2012 tag BC_IMPOSSIBLE_CAST code Error error = (Error) obj
+			
+			for (ObjectError obj : result.getAllErrors()) {
+				ObjectError error = (ObjectError) obj;
+				System.err.println("Error: " + error.toString()) ;
 			}
 			return "/module/hospitalcore/concept/uploadForm";
 		}
