@@ -72,7 +72,9 @@ public class HibernatePatientDashboardDAO implements PatientDashboardDAO{
 	}
 
     public List<Order> getOrders(List<Concept> concepts,  Patient patient, Location location, Date orderStartDate) throws DAOException {
-        Map<Integer,Integer> monthEOMMap = new HashMap<Integer, Integer>();
+       
+    	//ghanshyam 25/06/2012 tag DLS_DEAD_LOCAL_STORE code Map<Integer,Integer> monthEOMMap = new HashMap<Integer, Integer>();
+    	// Map<Integer,Integer> monthEOMMap = new HashMap<Integer, Integer>();
         
         String hql = "from Order as o where o.voided = 0 and ";
         
