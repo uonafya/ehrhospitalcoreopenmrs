@@ -35,10 +35,12 @@ public class OrderUtil {
 		String radiologyEncounterTypeName = GlobalPropertyUtil.getString(RADIOLOGY_ORDER_TYPE, null);
 		if(!StringUtils.isBlank(radiologyEncounterTypeName)){
 			EncounterType et = Context.getEncounterService().getEncounterType(radiologyEncounterTypeName);
+			//ghanshyam 27/06/2012 tag DLS_DEAD_LOCAL_STORE code Encounter encounter = new Encounter();
+			/*
 			if(et!=null){
 				Encounter encounter = new Encounter();
 				
-			}
+			}*/
 		}
 	}
 	

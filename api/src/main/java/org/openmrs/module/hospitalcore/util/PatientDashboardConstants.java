@@ -22,9 +22,10 @@
 package org.openmrs.module.hospitalcore.util;
 
 public class PatientDashboardConstants {
-	public static String MODULE_ID = "patientdashboard";
-	public static String CONCEPT_CLASS_NAME_DIAGNOSIS = "Diagnosis";
-	public static String CONCEPT_CLASS_NAME_PROCEDURE = "Procedure";
+	//ghanshyam 27/06/2012 tag MS_SHOULD_BE_FINAL code MODULE_ID,CONCEPT_CLASS_NAME_DIAGNOSIS,CONCEPT_CLASS_NAME_PROCEDURE
+	public static final String MODULE_ID = "patientdashboard";
+	public static final String CONCEPT_CLASS_NAME_DIAGNOSIS = "Diagnosis";
+	public static final String CONCEPT_CLASS_NAME_PROCEDURE = "Procedure";
 	public static String PROPERTY_OPDWARD = MODULE_ID + ".OPDRootConcept";
 	
 	public static String PROPERTY_IPDWARD = MODULE_ID + ".IPDRootConcept";

@@ -37,6 +37,7 @@ import java.util.Date;
  * <p> Update date: Jun 17, 2009 10:36:05 AM </p>
  **/
 public class DateUtils {
+	/*
 	private static SimpleDateFormat formatter = new SimpleDateFormat("dd/MM/yyyy HH:mm");
 	private static SimpleDateFormat DDMMYYYY_HHMM = new SimpleDateFormat("ddMMyyyy-HHmm");
 	private static SimpleDateFormat formatterDDMMYYYY = new SimpleDateFormat("dd/MM/yyyy");
@@ -45,6 +46,10 @@ public class DateUtils {
 	private static SimpleDateFormat formatterYYYY = new SimpleDateFormat("yyyy");
 	private static SimpleDateFormat formatterMM = new SimpleDateFormat("MM");
 	private static SimpleDateFormat formatterDDMMYYYYEx = new SimpleDateFormat("yyyy-MM-dd");
+	*/
+	
+	
+	
 	/**
 	 * <p> Method: main() </p>
 	 * <p> Objective: main's objective </p>
@@ -139,28 +144,39 @@ public class DateUtils {
 	public static long getCurrentDate(){
 		return Calendar.getInstance().getTimeInMillis();
 	}
+	
+	
+	//ghanshyam 26/06/2012 9 issues in tag STCAL_INVOKE_ON_STATIC_DATE_FORMAT_INSTANCE in DateUtils java class.
 	public static String getYYYYMMDD(){
+		SimpleDateFormat formatterYYYYMMDD = new SimpleDateFormat("yyyyMMdd");
 		return formatterYYYYMMDD.format(Calendar.getInstance().getTime());
 	}
 	public static String getYYYYMMDDEx(){
+		SimpleDateFormat formatterYYYYMMDDEx = new SimpleDateFormat("yyyy-dd-MM HH:mm:ss");
 		return formatterYYYYMMDDEx.format(Calendar.getInstance().getTime());
 	}
 	public static String getYYYYMMDDHHMM(){
+		SimpleDateFormat formatter = new SimpleDateFormat("dd/MM/yyyy HH:mm");
 		return formatter.format(Calendar.getInstance().getTime());
 	}
 	public static String getDDMMYYYY(){
+		SimpleDateFormat formatterDDMMYYYY = new SimpleDateFormat("dd/MM/yyyy");
 		return formatterDDMMYYYY.format(Calendar.getInstance().getTime());
 	}
 	public static String getDDMMYYY_HHMM(){
+		SimpleDateFormat DDMMYYYY_HHMM = new SimpleDateFormat("ddMMyyyy-HHmm");
 		return DDMMYYYY_HHMM.format(Calendar.getInstance().getTime());
 	}
 	public static String getYYYY(){
+		SimpleDateFormat formatterYYYY = new SimpleDateFormat("yyyy");
 		return formatterYYYY.format(Calendar.getInstance().getTime());
 	}
 	public static String getMM(){
+		SimpleDateFormat formatterMM = new SimpleDateFormat("MM");
 		return formatterMM.format(Calendar.getInstance().getTime());
 	}
 	public static String getMorMM(){
+		SimpleDateFormat formatterMM = new SimpleDateFormat("MM");
 		String ret = formatterMM.format(Calendar.getInstance().getTime());		
 		return (ret.startsWith("0")?ret.substring(1, 2):ret);
 	}
@@ -466,6 +482,7 @@ public class DateUtils {
     }
     
     public static String getDateFromRange(String date, int rangeDate){
+    	SimpleDateFormat formatterDDMMYYYYEx = new SimpleDateFormat("yyyy-MM-dd");
     	java.util.Calendar calendar = java.util.Calendar.getInstance();
         calendar.setTime(getDateFromStr(date));
         int iDay = calendar.get(calendar.DAY_OF_MONTH);

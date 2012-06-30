@@ -61,7 +61,8 @@ public class RegistrationUtils
 
     public static String getBase30Identifier( int length, String startID )
     {
-        String noCheck = new String();
+    	//ghanshyam 26/06/2012 tag DLS_DEAD_LOCAL_STORE code String noCheck = new String();
+    	// String noCheck = new String();
         String validChars = "0123456789ACDEFGHJKLMNPRSTUVWXY";
         boolean allY = false;
         for ( int i = 0; i < startID.length(); i++ )
@@ -155,8 +156,9 @@ public class RegistrationUtils
 		String result = "";
 //        var d = parseDateString(birth.substring(0,9));
 //        Date d2 = parseDateString(birth);
-
-        Date today = new Date();
+		
+		//ghanshyam 26/06/2012 tag DLS_DEAD_LOCAL_STORE code Date today = new Date();
+      //  Date today = new Date();
         Calendar now = Calendar.getInstance();
         Calendar bd = Calendar.getInstance();
         bd.setTime(birth);
