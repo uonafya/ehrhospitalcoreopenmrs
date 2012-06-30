@@ -67,6 +67,8 @@ public class IpdPatientAdmitted implements Serializable{
 	private String patientAddress;
 	private String bed;
 	private String fatherName;
+	// 30-6-2012 Marta - To handle relationship type #290
+		private String relationshipType;	// son/daughter/wife of
 	private String gender;
 	private Concept admittedWard; //    :  the ipd ward concept name that patient is transferd from
 	private User user; 			  // :     1 ) user who transferred  this patient
@@ -196,6 +198,13 @@ public class IpdPatientAdmitted implements Serializable{
 	}
 	public void setFatherName(String fatherName) {
 		this.fatherName = fatherName;
+	}
+	// 30-6-2012 Marta - To handle relationship type #290
+	public String getRelationshipType() {
+			return relationshipType;
+	}
+	public void setRelationshipType(String relationshipType) {
+		this.relationshipType = relationshipType;
 	}
 	public IpdPatientAdmittedLog getPatientAdmittedLogTransferFrom() {
 		return patientAdmittedLogTransferFrom;
