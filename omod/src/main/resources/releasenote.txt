@@ -1,3 +1,20 @@
+1.4.10.10
+- Added deployment repo settings in POM.xml
+- modified POM to add the findbugs-maven-plugin
+- Fixed Several High priority bugs detected by Jenkins
+- #248 				[PUNJAB] Search a patient on the basis of last day of visit
+- #247 				[PUNJAB] Search Patient in Billing by Bill ID
+- #239 				Fixed wrong age calculation & changed format of the displayed estimated date
+- #93 				changed query to search for alive patients only
+- #256 #257 		(Solan) Search a patient on the basis of last day of visit
+- #247 #254 		Find bill by billId
+- #226 #261 #249 	validation for special characters in the name field
+- #44 				OPD Dashboard/ Patient category,Temporary category is not being displayed
+- #271 				[3.2.6-SNAPSHOT][SOLAN/DDU] UNABLE TO SEARCH PATIENT WITH BILL ID and code format
+- #290				To add Relationship type to IpdPatientAdmitted
+ 
+ 
+
 1.4.10.6
 - Fixed bug not calculate age of patient when current date is entered as the birthday.
 
