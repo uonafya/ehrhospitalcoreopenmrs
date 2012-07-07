@@ -53,6 +53,16 @@ public class AmbulanceBillItem implements Serializable{
 	private Boolean voided = false;
 	
 	private Date voidedDate;
+	
+	// ghanshyam 07/07/2012 New Requirement #305: Additional details in Ambulance Bill
+	
+	private String patientName;
+	
+	private Integer receiptNumber;
+	
+    private String origin;
+	 
+	private String destination;
 
 	
     public String getName() {
@@ -145,4 +155,45 @@ public class AmbulanceBillItem implements Serializable{
     public void setAmbulanceBillItemId(Integer ambulanceBillItemId) {
     	this.ambulanceBillItemId = ambulanceBillItemId;
     }
+
+
+	public String getPatientName() {
+		return patientName;
+	}
+
+
+	public void setPatientName(String patientName) {
+		this.patientName = patientName;
+	}
+
+
+	public Integer getReceiptNumber() {
+		return receiptNumber;
+	}
+
+
+	public void setReceiptNumber(Integer receiptNumber) {
+		this.receiptNumber = receiptNumber;
+	}
+
+
+	public String getOrigin() {
+		return origin;
+	}
+
+
+	public void setOrigin(String origin) {
+		this.origin = origin;
+	}
+
+
+	public String getDestination() {
+		return destination;
+	}
+
+
+	public void setDestination(String destination) {
+		this.destination = destination;
+	}
+    
 }
