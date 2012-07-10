@@ -42,6 +42,9 @@ public class MiscellaneousServiceBill implements Serializable {
 	private Date voidedDate;
 	private Boolean printed = false;
 	private MiscellaneousService service;
+	
+	private Integer quantity;
+	
 	private Receipt receipt;
 
 	public Integer getId() {
@@ -131,4 +134,15 @@ public class MiscellaneousServiceBill implements Serializable {
 	public void setReceipt(Receipt receipt) {
 		this.receipt = receipt;
 	}
+
+	
+    public Integer getQuantity() {
+    	return quantity;
+    }
+
+	
+    public void setQuantity(Integer quantity) {
+    	this.quantity = quantity;
+    }
+	
 }

@@ -211,4 +211,15 @@
 			ALTER TABLE billing_ambulance_bill_item ADD(`patient_name`  varchar(50),`receipt_number`  int(13),`origin`  varchar(20),`destination`  varchar(20));
 		</sql>
 	</diff>
+	<diff>
+		<version>1.10</version>
+		<author>kesavulu</author>
+		<date>July 10 2012</date>
+		<description>
+			Add column quantity for 'billing_miscellaneous_service_bill' table
+		</description>
+		<sql>
+			ALTER TABLE billing_miscellaneous_service_bill ADD quantity integer NOT NULL;
+		</sql>
+	</diff>
 </sqldiff>
