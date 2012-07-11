@@ -19,7 +19,33 @@
  *
 --%>
 <script type="text/javascript">
-	
+/**
+ * July 10th 2012: Kesavulu add lastDayOfVisist
+ * Billing, feature: Search a patient on the basis of last day of visit
+ * UC-23- Advance search of patient
+ * New Requirement  #317
+ **/
+jQuery(document).ready(function() {
+
+	/* Format for Date picker plugin*/
+	jQuery('#advanceSearchCalendar').datepicker({
+		yearRange : 'c-100:c+100',
+		dateFormat : 'dd/mm/yy',
+		changeMonth : true,
+		changeYear : true
+	});
+
+	/* When click advanceSearchCalendarButton*/
+	jQuery("#advanceSearchCalendarButton").click(function() {
+		jQuery("#advanceSearchCalendar").datepicker("show");
+	});
+
+	/* display the change of advanceSearchCalendar (hidden input) to lastDayOfVisit (visible input)*/
+	jQuery("#advanceSearchCalendar").change(function() {
+		jQuery("#lastDayOfVisit").val(jQuery(this).val());
+	});
+
+});
 	/** 
 	 ** SEARCH FUNCTION
 	 **/
@@ -64,6 +90,12 @@
 					jQuery("#nameOrIdentifier", PATIENTSEARCH.form).val(nameInCapital);
 					PATIENTSEARCH.search(true);
 				}
+			});
+			jQuery("#advanceSearchCalendar", this.form).change(function() {
+				PATIENTSEARCH.search(true);
+			});
+			jQuery("#lastDayOfVisit", this.form).change(function() {
+				PATIENTSEARCH.search(true);
 			});
 			jQuery("#lastVisit", this.form).change(function(){
 				PATIENTSEARCH.search(true);
@@ -253,6 +285,7 @@
 				this.buildGenderQuery();
 				this.buildAgeQuery();
 				this.buildRelativeNameQuery();
+				this.buildLastDayOfVisitQuery();
 				this.buildLastVisitQuery();
 				this.buildPhoneNumberQuery();
 			}
@@ -309,6 +342,7 @@
 				this.buildGenderQuery();
 				this.buildAgeQuery();
 				this.buildRelativeNameQuery();
+				this.buildLastDayOfVisitQuery();
 				this.buildLastVisitQuery();
 				this.buildPhoneNumberQuery();
 			}
@@ -404,6 +438,21 @@
 				}
 			}
 		},
+		/**
+		 * July 10th 2012: Kesavulu add lastDayOfVisist
+		 * Billing, feature: Search a patient on the basis of last day of visit
+		 * UC-23- Advance search of patient
+		 * New Requirement  #317
+		 **/
+	/** BUILD QUERY FOR LAST DAY OF VISIT */
+	buildLastDayOfVisitQuery : function() {
+		value = jQuery.trim(jQuery("#lastDayOfVisit", this.form).val());
+		if (value != undefined && value.length > 0) {
+			this.fromClause += " INNER JOIN encounter en ON pt.patient_id = en.patient_id";
+			this.whereClause += " AND (DATE_FORMAT(DATE(en.encounter_datetime),'%d/%m/%Y') = '"
+					+ value + "')";
+		}
+	},
 		
 		/** BUILD QUERY FOR RELATIVE NAME */
 		buildRelativeNameQuery: function(){
@@ -564,6 +613,14 @@
 						<option value="4">4</option>
 						<option value="5">5</option>
 				</select> <span id="rangeUnit"></span></td>
+			</tr>
+			<tr>
+				<td>Last day of visit</td>
+				<td><input id="advanceSearchCalendar" type="hidden" /> <input
+					id="lastDayOfVisit" name="lastDayOfVisit" style="width: 100px" />
+					<img id="advanceSearchCalendarButton"
+					src="${pageContext.request.contextPath}/moduleResources/hospitalcore/calendar.gif" />
+				</td>
 			</tr>
 			<tr>
 				<td>Last Visit</td>
