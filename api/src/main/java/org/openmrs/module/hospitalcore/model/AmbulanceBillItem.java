@@ -58,7 +58,9 @@ public class AmbulanceBillItem implements Serializable{
 	
 	private String patientName;
 	
-	private Integer receiptNumber;
+	//ghanshyam 1/08/2012 feedback of New Requirement #305: Additional details in Ambulance Bill changed receiptNumber from Integer to varchar
+	
+	private String receiptNumber;
 	
     private String origin;
 	 
@@ -167,12 +169,12 @@ public class AmbulanceBillItem implements Serializable{
 	}
 
 
-	public Integer getReceiptNumber() {
+	public String getReceiptNumber() {
 		return receiptNumber;
 	}
 
 
-	public void setReceiptNumber(Integer receiptNumber) {
+	public void setReceiptNumber(String receiptNumber) {
 		this.receiptNumber = receiptNumber;
 	}
 

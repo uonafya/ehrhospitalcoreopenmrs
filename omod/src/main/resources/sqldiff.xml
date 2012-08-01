@@ -208,11 +208,12 @@
 			Add column patient_name,receipt_number,origin,destination for billing_ambulance_bill_item table
 		</description>
 		<sql>
-			ALTER TABLE billing_ambulance_bill_item ADD(`patient_name`  varchar(50),`receipt_number`  int(13),`origin`  varchar(20),`destination`  varchar(20));
+		<!-- ghanshyam 1/08/2012 feedback of New Requirement #305: Additional details in Ambulance Bill changed receiptNumber from Integer to varchar -->
+			ALTER TABLE billing_ambulance_bill_item ADD(`patient_name`  varchar(50),`receipt_number`  varchar(13),`origin`  varchar(20),`destination`  varchar(20));
 		</sql>
 	</diff>
 	<diff>
-		<version>1.10</version>
+		<version>2.0</version>
 		<author>kesavulu</author>
 		<date>July 10 2012</date>
 		<description>
