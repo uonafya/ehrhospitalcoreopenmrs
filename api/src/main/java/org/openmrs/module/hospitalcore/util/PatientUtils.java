@@ -179,9 +179,20 @@ public class PatientUtils {
 			for (Obs obs : lastVisit.getAllObs()) {
 				if (!obs.isVoided()) {
 					if (obs.getConcept().getDatatype().getName().equalsIgnoreCase("Coded")) {
-						attributes.put(obs.getConcept().getName().getName(), obs.getValueCoded().getName().getName());
-					} else if (obs.getConcept().getDatatype().getName().equalsIgnoreCase("Text")) {
-						attributes.put(obs.getConcept().getName().getName(), obs.getValueText());
+						//ghanshyam 8-august-2012 Bug #332 [Billing] java.lang.NullPointerException when searching for bill id(like 7749,7764,8000 etc)
+						String str=" ";
+						if (obs.getValueCoded()!=null){
+							str=obs.getValueCoded().getName().getName();
+						}
+						attributes.put(obs.getConcept().getName().getName(),str);
+					} 
+				   else if (obs.getConcept().getDatatype().getName().equalsIgnoreCase("Text")) {
+					 //ghanshyam 8-august-2012 [Billing] java.lang.NullPointerException when searching for bill id(like 7749,7764,8000 etc)
+						String str=" ";
+						if (obs.getValueText()!=null){
+							str=obs.getValueText();
+						}
+						attributes.put(obs.getConcept().getName().getName(), str);
 					}
 					
 				}
