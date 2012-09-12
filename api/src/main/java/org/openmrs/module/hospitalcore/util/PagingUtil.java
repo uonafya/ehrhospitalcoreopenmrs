@@ -32,6 +32,9 @@ public class PagingUtil
     private int total;
 
     private String link;
+    
+    // ghanshyam 12-sept-2012 Bug #357 [billing][3.2.7-SNAPSHOT] Error screen appears on clicking next page or changing page size in list of bills
+    private int patientId;
    
     public PagingUtil()
     {
@@ -51,6 +54,16 @@ public class PagingUtil
         this.total = total;
         this.currentPage =  currentPage == null || currentPage > total   ? 1 : currentPage;
         this.link = link;
+    }
+    
+    // ghanshyam 12-sept-2012 Bug #357 [billing][3.2.7-SNAPSHOT] Error screen appears on clicking next page or changing page size in list of bills
+    public PagingUtil( String link, Integer pageSize, Integer currentPage, int total,Integer patientId)
+    {
+        this.pageSize = pageSize != null ? pageSize : DEFAULT_PAGE_SIZE;
+        this.total = total;
+        this.currentPage =  currentPage == null || currentPage > total   ? 1 : currentPage;
+        this.link = link;
+        this.patientId = patientId;
     }
 
     public String getBaseLink()
@@ -144,6 +157,14 @@ public class PagingUtil
     {
         this.link = link;
     }
+    // ghanshyam 12-sept-2012 Bug #357 [billing][3.2.7-SNAPSHOT] Error screen appears on clicking next page or changing page size in list of bills
+	public int getPatientId() {
+		return patientId;
+	}
+
+	public void setPatientId(int patientId) {
+		this.patientId = patientId;
+	}
 
 }
 
