@@ -1,3 +1,5 @@
+1.4.10.11
+
 1.4.10.10
 - Added deployment repo settings in POM.xml
 - modified POM to add the findbugs-maven-plugin
