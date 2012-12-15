@@ -15,7 +15,7 @@
  *
  *  You should have received a copy of the GNU General Public License
  *  along with Hospitalcore module.  If not, see <http://www.gnu.org/licenses/>.
-  *  author: Ghanshyam
+ *  author: Ghanshyam
  *  date:   15-12-2012
 --%> 
 <script type="text/javascript">
