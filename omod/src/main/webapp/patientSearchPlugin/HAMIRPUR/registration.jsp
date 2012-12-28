@@ -67,20 +67,27 @@
 			jQuery("#lastVisit", this.form).change(function(){
 				PATIENTSEARCH.search(true);
 			});
-			jQuery("#relativeName", this.form).blur(function(){
-				PATIENTSEARCH.search(true);
+			// Kesavulu 2012-12-28 #570 added keyup functionality for Advance search
+			jQuery("#relativeName", this.form).keyup(function(event) {
+				if (event.keyCode == 13) {
+					PATIENTSEARCH.search(true);
+					}
 			});
-			jQuery("#age", this.form).blur(function(){
-				PATIENTSEARCH.search(true);
+			jQuery("#age", this.form).keyup(function(event) {
+				if (event.keyCode == 13) {
+					PATIENTSEARCH.search(true);
+					}
 			});
 			jQuery("#gender", this.form).change(function(){
 				PATIENTSEARCH.search(true);
 			});
-			jQuery("#ageRange", this.form).blur(function(){
+			jQuery("#ageRange", this.form).change(function() {
 				PATIENTSEARCH.search(true);
 			});
-			jQuery("#phoneNumber", this.form).blur(function(){
-				PATIENTSEARCH.search(true);
+			jQuery("#phoneNumber", this.form).keyup(function(event) {
+				if (event.keyCode == 13) {
+					PATIENTSEARCH.search(true);
+					}
 			});
 			
 			// Add Validation
