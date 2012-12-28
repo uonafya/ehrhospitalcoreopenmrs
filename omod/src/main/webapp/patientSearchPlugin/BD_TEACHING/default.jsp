@@ -1,4 +1,5 @@
- <%--
+
+<%--
  *  Copyright 2012 Society for Health Information Systems Programm's, India (HISP India)
  *
  *  This file is part of Hospitalcore module.
@@ -16,17 +17,12 @@
  *  You should have received a copy of the GNU General Public License
  *  along with Hospitalcore module.  If not, see <http://www.gnu.org/licenses/>.
  *  Author : Sagar Bele
- *  Date: 15-12-2012
+ *  Date: 27-12-2012
 --%>
 
 
 <script type="text/javascript">
-/**
- * July 10th 2012: Kesavulu add lastDayOfVisist
- * Billing, feature: Search a patient on the basis of last day of visit
- * UC-23- Advance search of patient
- * New Requirement  #317
- **/
+
 jQuery(document).ready(function() {
 
 	/* Format for Date picker plugin*/
@@ -117,6 +113,9 @@ jQuery(document).ready(function() {
 			jQuery("#phoneNumber", this.form).blur(function(){
 				PATIENTSEARCH.search(true);
 			});						
+			jQuery("#patientNationalId", this.form).blur(function(){
+				PATIENTSEARCH.search(true);
+			});			
 		},
 		
 		/** SEARCH */
@@ -287,6 +286,7 @@ jQuery(document).ready(function() {
 				this.buildLastDayOfVisitQuery();
 				this.buildLastVisitQuery();
 				this.buildPhoneNumberQuery();
+				this.buildPatientNationalIdQuery();
 			}
 			
 			// Return the built query
@@ -343,6 +343,7 @@ jQuery(document).ready(function() {
 				this.buildLastDayOfVisitQuery();
 				this.buildLastVisitQuery();
 				this.buildPhoneNumberQuery();
+				this.buildPatientNationalIdQuery();
 			}
 			
 			// Return the built query
@@ -458,6 +459,19 @@ jQuery(document).ready(function() {
 				this.whereClause += " AND (patPhoneNumber.name LIKE '%" + phoneNumberAttributeTypeName + "%' AND paPhoneNumber.value LIKE '%" + value + "%')";
 			}
 		},
+		
+		/** BUILD QUERY FOR National Id */
+		buildPatientNationalIdQuery: function(){
+			value = jQuery.trim(jQuery("#patientNationalId", this.form).val());
+			patientNationalIdAttributeTypeName = "National ID";
+			if(value!=undefined && value.length>0){
+				this.fromClause += " INNER JOIN person_attribute paNationalID ON ps.person_id= paNationalID.person_id";
+				this.fromClause += " INNER JOIN person_attribute_type patNationalID ON paNationalID.person_attribute_type_id = patNationalID.person_attribute_type_id ";
+				this.whereClause += " AND (patNationalID.name LIKE '%" + patientNationalIdAttributeTypeName + "%' AND paNationalID.value LIKE '%" + value + "%')";
+			}
+		},
+		
+		
 		/**
 		 * Billing, feature: Search a patient on the basis of last day of visit
 		 **/
@@ -575,45 +589,40 @@ jQuery(document).ready(function() {
 	}
 </script>
 <form id="patientSearchForm">
-	<div id="errorSection">
-		
-	</div>
+	<div id="errorSection"></div>
 	<table cellspacing="10">
-		<tr>	
+		<tr>
 			<td>Name/Identifier</td>
-			<td><input id="nameOrIdentifier" style="width:300px;"/></td>
-			<td><a href="javascript:PATIENTSEARCH.toggleAdvanceSearch();">Advance search</a></td>
+			<td><input id="nameOrIdentifier" style="width: 300px;" /></td>
+			<td><a href="javascript:PATIENTSEARCH.toggleAdvanceSearch();">Advance
+					search</a></td>
 			<td id="searchLoader"></td>
-		</tr>	
+		</tr>
 	</table>
 	<div id="advanceSearch">
 		<table cellspacing="10">
 			<tr>
 				<td>Gender</td>
-				<td colspan="3">
-					<select id="gender" style="width: 100px">
+				<td colspan="3"><select id="gender" style="width: 100px">
 						<option value="Any">Any</option>
 						<option value="M">Male</option>
 						<option value="F">Female</option>
-					</select>
+				</select>
 				</td>
 			</tr>
 			<tr>
 				<td>Age</td>
-				<td>
-					<input id="age" style="width: 100px"/>
-				</td>				
+				<td><input id="age" style="width: 100px" />
+				</td>
 				<td>Range &plusmn;</td>
-				<td>
-					<select id="ageRange" style="width: 100px">
+				<td><select id="ageRange" style="width: 100px">
 						<option value="0">Exact</option>
 						<option value="1">1</option>
 						<option value="2">2</option>
 						<option value="3">3</option>
 						<option value="4">4</option>
 						<option value="5">5</option>
-					</select>
-					<span id="rangeUnit"></span>
+				</select> <span id="rangeUnit"></span>
 				</td>
 			</tr>
 			<tr>
@@ -626,27 +635,32 @@ jQuery(document).ready(function() {
 			</tr>
 			<tr>
 				<td>Last Visit</td>
-				<td colspan="3">
-					<select id="lastVisit" style="width: 100px">
+				<td colspan="3"><select id="lastVisit" style="width: 100px">
 						<option value="Any">Anytime</option>
 						<option value="31">Last month</option>
 						<option value="183">Last 6 months</option>
 						<option value="366">Last year</option>
-					</select>
-				</td>	
+				</select>
+				</td>
 			</tr>
 			<tr>
 				<td>Phone number</td>
-				<td colspan="3">
-					<input id="phoneNumber" style="width: 100px"/>
-				</td>	
+				<td colspan="3"><input id="phoneNumber" style="width: 100px" />
+				</td>
 			</tr>
 			<tr>
 				<td>Relative Name</td>
-				<td colspan="3">
-					<input id="relativeName" style="width: 100px"/>
-				</td>	
+				<td colspan="3"><input id="relativeName" style="width: 100px" />
+				</td>
 			</tr>
+			<tr>
+			<!-- Sagar Bele date: 27-12-2012 : Added national id in advance search for Bangladesh requirement -->
+				<td>National Id</td>
+				<td colspan="3"><input id="patientNationalId"
+					style="width: 100px" />
+				</td>
+			</tr>
+
 		</table>
-	</div>	
+	</div>
 </form>

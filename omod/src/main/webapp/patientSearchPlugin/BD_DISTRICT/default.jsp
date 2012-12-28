@@ -111,7 +111,10 @@ jQuery(document).ready(function() {
 			});
 			jQuery("#phoneNumber", this.form).blur(function(){
 				PATIENTSEARCH.search(true);
-			});						
+			});		
+			jQuery("#patientNationalId", this.form).blur(function(){
+				PATIENTSEARCH.search(true);
+			});										
 		},
 		
 		/** SEARCH */
@@ -284,6 +287,7 @@ jQuery(document).ready(function() {
 				this.buildLastDayOfVisitQuery();
 				this.buildLastVisitQuery();
 				this.buildPhoneNumberQuery();
+				this.buildPatientNationalIdQuery();
 			}
 			
 			// Return the built query
@@ -340,6 +344,7 @@ jQuery(document).ready(function() {
 				this.buildLastDayOfVisitQuery();
 				this.buildLastVisitQuery();
 				this.buildPhoneNumberQuery();
+				this.buildPatientNationalIdQuery();
 			}
 			
 			// Return the built query
@@ -465,6 +470,19 @@ jQuery(document).ready(function() {
 					+ value + "')";
 		}
 	},
+	
+		/** BUILD QUERY FOR National Id */
+		buildPatientNationalIdQuery: function(){
+			value = jQuery.trim(jQuery("#patientNationalId", this.form).val());
+			patientNationalIdAttributeTypeName = "National ID";
+			if(value!=undefined && value.length>0){
+				this.fromClause += " INNER JOIN person_attribute paNationalID ON ps.person_id= paNationalID.person_id";
+				this.fromClause += " INNER JOIN person_attribute_type patNationalID ON paNationalID.person_attribute_type_id = patNationalID.person_attribute_type_id ";
+				this.whereClause += " AND (patNationalID.name LIKE '%" + patientNationalIdAttributeTypeName + "%' AND paNationalID.value LIKE '%" + value + "%')";
+			}
+		},
+			
+	
 		/** BUILD QUERY FOR LAST VISIT */
 		buildLastVisitQuery: function(){
 			value = jQuery.trim(jQuery("#lastVisit", this.form).val());
@@ -643,6 +661,13 @@ jQuery(document).ready(function() {
 					<input id="relativeName" style="width: 100px"/>
 				</td>	
 			</tr>
+			<tr>
+			<!-- Sagar Bele date: 27-12-2012 : Added national id in advance search for Bangladesh requirement -->
+				<td>National Id</td>
+				<td colspan="3"><input id="patientNationalId"
+					style="width: 100px" />
+				</td>
+			</tr>						
 		</table>
 	</div>	
 </form>
