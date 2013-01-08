@@ -147,6 +147,7 @@
         RadiologyDepartment.hbm.xml
         CoreForm.hbm.xml
         PatientSearch.hbm.xml
+        DmsOpdUnit.hbm.xml
     </mappingFiles>
 </module>
 
