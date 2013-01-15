@@ -35,7 +35,7 @@ public class DmsOpdUnit {
 	private String endTime;
 	private Date unitActiveDate;
 	private Date unitDeactiveDate;
-	private User userId;
+	private Integer creator;
 	
 	// setter and getter
 	public Integer getId() {
@@ -86,11 +86,11 @@ public class DmsOpdUnit {
 	public void setUnitDeactiveDate(Date unitDeactiveDate) {
 		this.unitDeactiveDate = unitDeactiveDate;
 	}
-	public User getUserId() {
-		return userId;
+	public Integer getCreator() {
+		return creator;
 	}
-	public void setUserId(User userId) {
-		this.userId = userId;
+	public void setCreator(Integer creator) {
+		this.creator = creator;
 	}
 	
 }
