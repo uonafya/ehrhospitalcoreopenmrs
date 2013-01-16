@@ -28,7 +28,7 @@
             <snapshotRepository>
                 <id>shimla-nexus</id>
                 <name>Shimla nexus repo</name>
-                <url>http://129.168.0.15/nexus/content/repositories/bd-snapshots/</url>
+                <url>http://hospdev.hispindia.org/nexus/content/repositories/bd-snapshots/</url>
                 <uniqueVersion>false</uniqueVersion>
              </snapshotRepository>
         </distributionManagement>
