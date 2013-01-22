@@ -31,7 +31,8 @@
 		<property name="dateExpiry" column="date_expiry" />
 		<property name="receiptDate" column="receipt_date" />
 		<property name="createdOn" column="created_on" />
-		
+		<!-- Sagar Bele : Date - 22-01-2013 Issue Number 660 : [Inventory] Add receipt from field in Table and front end -->
+		<property name="receiptFrom" column="receipt_from" />		
 		<property name="openingBalance" column="opening_balance"  />
 		<property name="closingBalance" column="closing_balance"  />
 		

@@ -49,7 +49,7 @@ public class InventoryStoreDrugTransactionDetail implements  Serializable , Comp
 	 private Date dateManufacture;
 	 private Date dateExpiry;
 	 private Date createdOn;
-	 
+	 private String receiptFrom;	 
 	 private long openingBalance;
 	 private long closingBalance;
 	 
@@ -111,6 +111,15 @@ public class InventoryStoreDrugTransactionDetail implements  Serializable , Comp
 	public void setCompanyName(String companyName) {
 		this.companyName = companyName;
 	}
+	
+//  Sagar Bele : Date - 22-01-2013 Issue Number 660 : [Inventory] Add receipt from field in Table and front end	
+	public String getReceiptFrom() {
+		return receiptFrom;
+	}
+	public void setReceiptFrom(String receiptFrom) {
+		this.receiptFrom = receiptFrom;
+	}
+
 	public Date getDateManufacture() {
 		return dateManufacture;
 	}
