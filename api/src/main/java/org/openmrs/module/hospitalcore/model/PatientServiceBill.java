@@ -63,6 +63,9 @@ public class PatientServiceBill implements Serializable {
 	
 	private Boolean freeBill = false;
 	
+	//ghanshyam 25-feb-2013 New Requirement #966[Billing]Add Paid Bill/Add Free Bill for Bangladesh module(added 'comment' property)
+	private String comment;
+	
 	private Set<PatientServiceBillItem> billItems;
 	
 	public Integer getPatientServiceBillId() {
@@ -173,5 +176,13 @@ public class PatientServiceBill implements Serializable {
 	
 	public void setActualAmount(BigDecimal actualAmount) {
 		this.actualAmount = actualAmount;
+	}
+	
+	public String getComment() {
+		return comment;
+	}
+	
+	public void setComment(String comment) {
+		this.comment = comment;
 	}
 }
