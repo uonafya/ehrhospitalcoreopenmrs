@@ -7,6 +7,7 @@
 - #512               Update registration page and print out page for BD_HOSPITAL
 - #511               Update registration page and print out page for MCHTI Hospital, Bangladesh
 - #510               Update registration page and print out page for Govenment Employee Hospital, Bangladesh
+- DMS module
 
 1.4.10.11
 
