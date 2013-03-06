@@ -4,8 +4,8 @@
 - #660               Add "Receipt from" field in Receipt to General Store option in mainstore for Bangladesh module.
 - #594               Error on saving a patient in BD_Specialized i.e(BD_HOSPITAL)
 - #556               Add Pharmacy record of patient in OPD for all Bangladesh Hospitals
-- #511               Update registration page and print out page for MCHTI Hospital, Bangladesh
 - #512               Update registration page and print out page for BD_HOSPITAL
+- #511               Update registration page and print out page for MCHTI Hospital, Bangladesh
 - #510               Update registration page and print out page for Govenment Employee Hospital, Bangladesh
 
 1.4.10.11
