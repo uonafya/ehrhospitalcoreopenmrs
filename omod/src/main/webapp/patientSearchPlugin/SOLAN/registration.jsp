@@ -54,6 +54,8 @@
 		selectClause: "",
 		fromClause: "",
 		whereClause: "",
+		//ghanshyam 16-march-2013 Support #1110[Registration]ddu server slow(added groupClause)
+		groupClause: "",
 		orderClause: "",
 		limitClause: "",
 		query: "",
@@ -237,7 +239,9 @@
 			this.fromClause  += " INNER JOIN patient_identifier pi ON pi.patient_id = pt.patient_id";
 			this.whereClause  = " WHERE";
 			this.whereClause += " (pi.identifier LIKE '%" + nameOrIdentifier + "%' OR CONCAT(IFNULL(pn.given_name, ''), IFNULL(pn.middle_name, ''), IFNULL(pn.family_name,'')) LIKE '" + nameOrIdentifier + "%')";			
-			this.whereClause+= "AND ps.dead=0";
+			this.whereClause+= " AND ps.dead=0";
+			//ghanshyam 16-march-2013 Support #1110[Registration]ddu server slow(added groupClause)
+			this.groupClause = " GROUP BY pt.patient_id";
 			this.orderClause = " ORDER BY pt.patient_id ASC";
 			this.limitClause = " LIMIT " + this.currentRow + ", " + this.rowPerPage;			
 
@@ -252,7 +256,9 @@
 			}
 			
 			// Return the built query
-			this.query = this.selectClause + this.fromClause + this.whereClause + this.orderClause + this.limitClause;		
+			//ghanshyam 16-march-2013 Support #1110[Registration]ddu server slow(added groupClause)
+			this.query = this.selectClause + this.fromClause + this.whereClause + this.groupClause + this.orderClause + this.limitClause;
+			//this.query = this.selectClause + this.fromClause + this.whereClause + this.orderClause + this.limitClause;		
 			return this.query;
 		},
 		
@@ -264,14 +270,16 @@
 			nameOrIdentifier = nameOrIdentifier.replace(/\s/g, "");
 		
 			// Build essential query
-			this.selectClause = "SELECT COUNT(DISTINCT pt.patient_id)";
+			//ghanshyam 16-march-2013 Support #1110[Registration]ddu server slow(removed DISTINCT keyword)
+			this.selectClause = "SELECT COUNT(pt.patient_id)";
+			//this.selectClause = "SELECT COUNT(DISTINCT pt.patient_id)";
 			this.fromClause   = " FROM `patient` pt";
 			this.fromClause  += " INNER JOIN person ps ON ps.person_id = pt.patient_id";
 			this.fromClause  += " INNER JOIN person_name pn ON pn.person_id = ps.person_id";
 			this.fromClause  += " INNER JOIN patient_identifier pi ON pi.patient_id = pt.patient_id";
 			this.whereClause  = " WHERE";
 			this.whereClause += " (pi.identifier LIKE '%" + nameOrIdentifier + "%' OR CONCAT(IFNULL(pn.given_name, ''), IFNULL(pn.middle_name, ''), IFNULL(pn.family_name,'')) LIKE '" + nameOrIdentifier + "%')";						
-			this.whereClause+= "AND ps.dead=0";
+			this.whereClause+= " AND ps.dead=0";
 			//	Build extended queries
 			if(this.advanceSearch){
 				this.buildGenderQuery();
