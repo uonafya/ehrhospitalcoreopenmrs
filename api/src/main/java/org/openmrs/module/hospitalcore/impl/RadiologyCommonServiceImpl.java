@@ -57,10 +57,6 @@ public class RadiologyCommonServiceImpl extends BaseOpenmrsService implements Ra
 		return dao.getAllTest(patient,date);
 	}
 	
-	public List<ConceptAnswer> getConceptAnswerr(Concept concept) throws APIException {
-		return dao.getConceptAnswerr(concept);
-	}
-	
 	public List<RadiologyTest> getAllTest(Patient patient,String date,Concept concept) throws APIException {
 		return dao.getAllTest(patient,date,concept);
 	}

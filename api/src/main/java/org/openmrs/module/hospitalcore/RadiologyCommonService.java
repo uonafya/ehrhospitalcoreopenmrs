@@ -40,9 +40,6 @@ public interface RadiologyCommonService extends OpenmrsService {
 	public List<RadiologyTest> getAllTest(Patient patient, String date)
 			throws APIException;
 
-	public List<ConceptAnswer> getConceptAnswerr(Concept concept)
-			throws APIException;
-
 	public List<RadiologyTest> getAllTest(Patient patient, String date,
 			Concept concept) throws APIException;
 

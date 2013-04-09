@@ -106,15 +106,6 @@ public class HibernateRadiologyCommonDAO implements RadiologyCommonDAO {
 	}
 
 	@SuppressWarnings("unchecked")
-	public List<ConceptAnswer> getConceptAnswerr(Concept concept)
-			throws DAOException {
-		Criteria criteria = sessionFactory.getCurrentSession().createCriteria(
-				ConceptAnswer.class);
-		criteria.add(Restrictions.eq("concept", concept));
-		return criteria.list();
-	}
-
-	@SuppressWarnings("unchecked")
 	public List<RadiologyTest> getAllTest(Patient patient, String date,
 			Concept concept) throws DAOException {
 		Criteria criteria = sessionFactory.getCurrentSession().createCriteria(

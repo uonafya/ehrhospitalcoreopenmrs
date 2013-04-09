@@ -39,9 +39,6 @@ public interface RadiologyCommonDAO {
 	public List<RadiologyTest> getAllTest(Patient patient, String date)
 			throws DAOException;
 
-	public List<ConceptAnswer> getConceptAnswerr(Concept concept)
-			throws DAOException;
-
 	public List<RadiologyTest> getAllTest(Patient patient, String date,
 			Concept concept) throws DAOException;
 
