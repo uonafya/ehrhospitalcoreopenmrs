@@ -53,6 +53,8 @@
 		selectClause: "",
 		fromClause: "",
 		whereClause: "",
+		//ghanshyam 11-april-2013 Support #1353 [Registration]patient search query optimization in Bangladesh module(added groupClause)
+		groupClause: "",
 		orderClause: "",
 		limitClause: "",
 		query: "",
@@ -220,6 +222,8 @@
 			nameOrIdentifier = nameOrIdentifier.replace(/\s/g, "");			
 		
 			// Build essential query
+			//ghanshyam 11-april-2013 Support #1353 [Registration]patient search query optimization in Bangladesh module(commented old query below and written new query after this commented query)
+			/*
 			this.selectClause = "SELECT DISTINCT pt.patient_id, pi.identifier, pn.given_name, pn.middle_name, pn.family_name, ps.gender, ps.birthdate, EXTRACT(YEAR FROM (FROM_DAYS(DATEDIFF(NOW(),ps.birthdate)))) age, pn.person_name_id";
 			this.fromClause   = " FROM `patient` pt";
 			this.fromClause  += " INNER JOIN person ps ON ps.person_id = pt.patient_id";
@@ -229,7 +233,18 @@
 			this.whereClause += " (pi.identifier LIKE '%" + nameOrIdentifier + "%' OR CONCAT(IFNULL(pn.given_name, ''), IFNULL(pn.middle_name, ''), IFNULL(pn.family_name,'')) LIKE '" + nameOrIdentifier + "%')";			
 			this.whereClause+= "AND ps.dead=0";
 			this.orderClause = " ORDER BY pt.patient_id ASC";
-			this.limitClause = " LIMIT " + this.currentRow + ", " + this.rowPerPage;			
+			this.limitClause = " LIMIT " + this.currentRow + ", " + this.rowPerPage;
+			*/
+			
+			this.selectClause = "SELECT ps.patient_id, ps.identifier, ps.given_name, ps.middle_name, ps.family_name, ps.gender, ps.birthdate, ps.age, ps.person_name_id ";
+			this.fromClause   = " FROM patient_search ps";
+			this.fromClause  += " INNER JOIN person pe ON pe.person_id = ps.patient_id";
+			this.whereClause  = " WHERE";
+			this.whereClause += " (ps.identifier LIKE '%" + nameOrIdentifier + "%' OR ps.fullname LIKE '" + nameOrIdentifier + "%')";			
+			this.whereClause += " AND pe.dead=0";
+			this.groupClause = " GROUP BY ps.patient_id";
+			this.orderClause = " ORDER BY ps.patient_id ASC";
+			this.limitClause = " LIMIT " + this.currentRow + ", " + this.rowPerPage;						
 
 			//	Build extended queries
 			if(this.advanceSearch){
@@ -243,7 +258,9 @@
 			}
 			
 			// Return the built query
-			this.query = this.selectClause + this.fromClause + this.whereClause + this.orderClause + this.limitClause;		
+			//ghanshyam 11-april-2013 Support #1353 [Registration]patient search query optimization in Bangladesh module(added groupClause)
+			this.query = this.selectClause + this.fromClause + this.whereClause + this.groupClause + this.orderClause + this.limitClause;
+			//this.query = this.selectClause + this.fromClause + this.whereClause + this.orderClause + this.limitClause;		
 			return this.query;
 		},
 		
@@ -255,6 +272,8 @@
 			nameOrIdentifier = nameOrIdentifier.replace(/\s/g, "");
 		
 			// Build essential query
+			//ghanshyam 11-april-2013 Support #1353 [Registration]patient search query optimization in Bangladesh module(commented old query below and written new query after this commented query)
+			/*
 			this.selectClause = "SELECT COUNT(DISTINCT pt.patient_id)";
 			this.fromClause   = " FROM `patient` pt";
 			this.fromClause  += " INNER JOIN person ps ON ps.person_id = pt.patient_id";
@@ -263,6 +282,15 @@
 			this.whereClause  = " WHERE";
 			this.whereClause += " (pi.identifier LIKE '%" + nameOrIdentifier + "%' OR CONCAT(IFNULL(pn.given_name, ''), IFNULL(pn.middle_name, ''), IFNULL(pn.family_name,'')) LIKE '" + nameOrIdentifier + "%')";						
 			this.whereClause+= "AND ps.dead=0";
+			*/
+			
+			this.selectClause = "SELECT COUNT(*)";
+			this.fromClause   = " FROM patient_search ps";
+			this.fromClause  += " INNER JOIN person pe ON pe.person_id = ps.patient_id";
+			this.whereClause  = " WHERE";
+			this.whereClause += " (ps.identifier LIKE '%" + nameOrIdentifier + "%' OR ps.fullname LIKE '" + nameOrIdentifier + "%')";	
+			this.whereClause+= " AND pe.dead=0";
+			
 			//	Build extended queries
 			if(this.advanceSearch){
 				this.buildGenderQuery();
