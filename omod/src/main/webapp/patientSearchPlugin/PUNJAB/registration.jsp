@@ -574,11 +574,13 @@
 	<div id="advanceSearch">
 		<table cellspacing="10">
 			<tr>
-				<td>Gender</td>
+				<td>Gender *</td>
 				<td colspan="3"><select id="gender" style="width: 100px">
 						<option value="Any">Any</option>
 						<option value="M">Male</option>
 						<option value="F">Female</option>
+						<%-- ghanshyam 15-april-2013 New Requirement #1379 [Registration]Gender under Advance Search --%>
+						<option value="O">Others</option>
 				</select>
 				</td>
 			</tr>
