@@ -18,7 +18,33 @@
  *
 --%> 
 <script type="text/javascript">
+	/**
+	 * June 8th 2012: Thai Chuong add lastDayOfVisist
+	 * Registration, feature: Search a patient on the basis of last day of visit
+	 * UC-7- Advance search of patient
+	 * Supported issue #256
+	 */
+	jQuery(document).ready(function() {
 	
+		/* Format for Date picker plugin*/
+		jQuery('#advanceSearchCalendar').datepicker({
+			yearRange : 'c-100:c+100',
+			dateFormat : 'dd/mm/yy',
+			changeMonth : true,
+			changeYear : true
+		});
+	
+		/* When click advanceSearchCalendarButton*/
+		jQuery("#advanceSearchCalendarButton").click(function() {
+			jQuery("#advanceSearchCalendar").datepicker("show");
+		});
+	
+		/* display the change of advanceSearchCalendar (hidden input) to lastDayOfVisit (visible input)*/
+		jQuery("#advanceSearchCalendar").change(function() {
+			jQuery("#lastDayOfVisit").val(jQuery(this).val());
+		});
+	
+	});	
 	/** 
 	 ** SEARCH FUNCTION
 	 **/
@@ -28,6 +54,8 @@
 		selectClause: "",
 		fromClause: "",
 		whereClause: "",
+		//ghanshyam 16-march-2013 Support #1110[Registration]ddu server slow(added groupClause)
+		groupClause: "",
 		orderClause: "",
 		limitClause: "",
 		query: "",
@@ -63,49 +91,66 @@
 					jQuery("#nameOrIdentifier", PATIENTSEARCH.form).val(nameInCapital);
 					PATIENTSEARCH.search(true);
 				}
+				// ghanshyam 2012-6-12 #261 added validation for special character in patient name
+ 				else{
+				PATIENTSEARCH.validateNameOrIdentifierWithSpecialChar();
+				}
+			});
+			jQuery("#advanceSearchCalendar", this.form).change(function() {
+				PATIENTSEARCH.search(true);
+			});
+			jQuery("#lastDayOfVisit", this.form).change(function() {
+				PATIENTSEARCH.search(true);
 			});
 			jQuery("#lastVisit", this.form).change(function(){
 				PATIENTSEARCH.search(true);
 			});
-			jQuery("#relativeName", this.form).blur(function(){
-				PATIENTSEARCH.search(true);
+			// Kesavulu 2012-12-28 #570 added keyup functionality for Advance search
+			jQuery("#relativeName", this.form).keyup(function(event) {
+				if (event.keyCode == 13) {
+					PATIENTSEARCH.search(true);
+					}
 			});
-			jQuery("#age", this.form).blur(function(){
-				PATIENTSEARCH.search(true);
+			jQuery("#age", this.form).keyup(function(event) {
+				if (event.keyCode == 13) {
+					PATIENTSEARCH.search(true);
+					}
 			});
 			jQuery("#gender", this.form).change(function(){
 				PATIENTSEARCH.search(true);
 			});
-			jQuery("#ageRange", this.form).blur(function(){
+			jQuery("#ageRange", this.form).change(function() {
 				PATIENTSEARCH.search(true);
+			});						
+			jQuery("#phoneNumber", this.form).keyup(function(event) {
+				if (event.keyCode == 13) {
+					PATIENTSEARCH.search(true);
+					}
 			});			
-			
-			// Add Validation
-			jQuery.validator.addMethod("nameOrIdentifier", function(value, element) { 
-				result = true;
-				value = value.toUpperCase();
-				if(value.length>3){
-					pattern = /[A-Z0-9\s-]+/;
-					for(i=0; i<value.length; i++){
-						if(!pattern.test(value[i])){																
-							result = false;							
-							break;
-						}
-					}					
-				}					
-				return result;
-			}, "Please enter patient name/identifier in correct format!");
-			
-			jQuery.validator.addMethod("ageValidator", function(value, element) { 
-				console.debug("ageValidator -> " + value);		
-				allowable = "0123456789";
-				for(i=0; i<value.length; i++){
-					if(allowable.indexOf(value[i])<0)
-						return false;
-				}
-				return true;				
-			}, "Please enter patient age in digits");
 		},
+		
+		// ghanshyam 2012-6-12 #261 added validation for special character in patient name
+		/** VALIDATE NAME OR IDENTIFIER With Special Character*/
+		validateNameOrIdentifierWithSpecialChar: function(){
+			
+			value = jQuery("#nameOrIdentifier", this.form).val();
+			value = value.toUpperCase();
+			if(value.length>=3){
+				pattern = "ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789 -";
+				for(i=0; i<value.length; i++){
+					if(pattern.indexOf(value[i])<0){	
+						jQuery("#errorSection", this.form).html("<ul id='errorList' class='error'></ul>");
+						jQuery("#errorList", this.form).append("<li>Please enter patient name/identifier in correct format!</li>");
+						return false;							
+					}
+					jQuery("#errorList", this.form).empty();
+				}	
+				return true;
+			}
+		},
+		
+		
+		
 		
 		/** SEARCH */
 		search: function(newQuery){
@@ -187,6 +232,8 @@
 			nameOrIdentifier = nameOrIdentifier.replace(/\s/g, "");			
 		
 			// Build essential query
+			//ghanshyam 16-march-2013 Support #1110[Registration]ddu server slow(commented old query below and written new query after this commented query)
+			/*
 			this.selectClause = "SELECT DISTINCT pt.patient_id, pi.identifier, pn.given_name, pn.middle_name, pn.family_name, ps.gender, ps.birthdate, EXTRACT(YEAR FROM (FROM_DAYS(DATEDIFF(NOW(),ps.birthdate)))) age, pn.person_name_id";
 			this.fromClause   = " FROM `patient` pt";
 			this.fromClause  += " INNER JOIN person ps ON ps.person_id = pt.patient_id";
@@ -194,7 +241,19 @@
 			this.fromClause  += " INNER JOIN patient_identifier pi ON pi.patient_id = pt.patient_id";
 			this.whereClause  = " WHERE";
 			this.whereClause += " (pi.identifier LIKE '%" + nameOrIdentifier + "%' OR CONCAT(IFNULL(pn.given_name, ''), IFNULL(pn.middle_name, ''), IFNULL(pn.family_name,'')) LIKE '" + nameOrIdentifier + "%')";			
+			this.whereClause+= "AND ps.dead=0";
 			this.orderClause = " ORDER BY pt.patient_id ASC";
+			this.limitClause = " LIMIT " + this.currentRow + ", " + this.rowPerPage;	
+			*/
+			
+			this.selectClause = "SELECT ps.patient_id, ps.identifier, ps.given_name, ps.middle_name, ps.family_name, ps.gender, ps.birthdate, ps.age, ps.person_name_id ";
+			this.fromClause   = " FROM patient_search ps";
+			this.fromClause  += " INNER JOIN person pe ON pe.person_id = ps.patient_id";
+			this.whereClause  = " WHERE";
+			this.whereClause += " (ps.identifier LIKE '%" + nameOrIdentifier + "%' OR ps.fullname LIKE '" + nameOrIdentifier + "%')";			
+			this.whereClause += " AND pe.dead=0";
+			this.groupClause = " GROUP BY ps.patient_id";
+			this.orderClause = " ORDER BY ps.patient_id ASC";
 			this.limitClause = " LIMIT " + this.currentRow + ", " + this.rowPerPage;			
 
 			//	Build extended queries
@@ -202,11 +261,15 @@
 				this.buildGenderQuery();
 				this.buildAgeQuery();
 				this.buildRelativeNameQuery();
+				this.buildLastDayOfVisitQuery();
 				this.buildLastVisitQuery();
+				this.buildPhoneNumberQuery();
 			}
 			
 			// Return the built query
-			this.query = this.selectClause + this.fromClause + this.whereClause + this.orderClause + this.limitClause;		
+			//ghanshyam 16-march-2013 Support #1110[Registration]ddu server slow(added groupClause)
+			this.query = this.selectClause + this.fromClause + this.whereClause + this.groupClause + this.orderClause + this.limitClause;
+			//this.query = this.selectClause + this.fromClause + this.whereClause + this.orderClause + this.limitClause;		
 			return this.query;
 		},
 		
@@ -218,6 +281,8 @@
 			nameOrIdentifier = nameOrIdentifier.replace(/\s/g, "");
 		
 			// Build essential query
+			//ghanshyam 16-march-2013 Support #1110[Registration]ddu server slow(commented old query below and written new query after this commented query)
+			/*
 			this.selectClause = "SELECT COUNT(DISTINCT pt.patient_id)";
 			this.fromClause   = " FROM `patient` pt";
 			this.fromClause  += " INNER JOIN person ps ON ps.person_id = pt.patient_id";
@@ -225,13 +290,24 @@
 			this.fromClause  += " INNER JOIN patient_identifier pi ON pi.patient_id = pt.patient_id";
 			this.whereClause  = " WHERE";
 			this.whereClause += " (pi.identifier LIKE '%" + nameOrIdentifier + "%' OR CONCAT(IFNULL(pn.given_name, ''), IFNULL(pn.middle_name, ''), IFNULL(pn.family_name,'')) LIKE '" + nameOrIdentifier + "%')";						
-		
+			this.whereClause+= "AND ps.dead=0";
+			*/
+			
+			this.selectClause = "SELECT COUNT(*)";
+			this.fromClause   = " FROM patient_search ps";
+			this.fromClause  += " INNER JOIN person pe ON pe.person_id = ps.patient_id";
+			this.whereClause  = " WHERE";
+			this.whereClause += " (ps.identifier LIKE '%" + nameOrIdentifier + "%' OR ps.fullname LIKE '" + nameOrIdentifier + "%')";	
+			this.whereClause+= " AND pe.dead=0";
+			
 			//	Build extended queries
 			if(this.advanceSearch){
 				this.buildGenderQuery();
 				this.buildAgeQuery();
 				this.buildRelativeNameQuery();
+				this.buildLastDayOfVisitQuery();
 				this.buildLastVisitQuery();
+				this.buildPhoneNumberQuery();
 			}
 			
 			// Return the built query
@@ -302,10 +378,6 @@
 					}
 					this.whereClause += "AND (DATEDIFF(NOW(),ps.birthdate) <= " + (days) + ") ";
 				}
-				
-				/*
-				
-				*/
 			}
 		},
 		
@@ -314,9 +386,38 @@
 			value = jQuery.trim(jQuery("#relativeName", this.form).val());
 			personAttributeTypeName = "Father/Husband Name";
 			if(value!=undefined && value.length>0){
-				this.fromClause += " INNER JOIN person_attribute paRelativeName ON ps.person_id= paRelativeName.person_id";
+			    //ghanshyam 16-march-2013 Support #1110[Registration]ddu server slow
+			    this.fromClause += " INNER JOIN person_attribute paRelativeName ON ps.patient_id= paRelativeName.person_id";
+				//this.fromClause += " INNER JOIN person_attribute paRelativeName ON ps.person_id= paRelativeName.person_id";
 				this.fromClause += " INNER JOIN person_attribute_type patRelativeName ON paRelativeName.person_attribute_type_id = patRelativeName.person_attribute_type_id ";
 				this.whereClause += " AND (patRelativeName.name LIKE '%" + personAttributeTypeName + "%' AND paRelativeName.value LIKE '%" + value + "%')";
+			}
+		},
+		
+		/** BUILD QUERY FOR PHONE NUMBER */
+		buildPhoneNumberQuery: function(){
+			value = jQuery.trim(jQuery("#phoneNumber", this.form).val());
+			phoneNumberAttributeTypeName = "Phone Number";
+			if(value!=undefined && value.length>0){
+			     //ghanshyam 16-march-2013 Support #1110[Registration]ddu server slow
+			    this.fromClause += " INNER JOIN person_attribute paPhoneNumber ON ps.patient_id= paPhoneNumber.person_id";
+				//this.fromClause += " INNER JOIN person_attribute paPhoneNumber ON ps.person_id= paPhoneNumber.person_id";
+				this.fromClause += " INNER JOIN person_attribute_type patPhoneNumber ON paPhoneNumber.person_attribute_type_id = patPhoneNumber.person_attribute_type_id ";
+				this.whereClause += " AND (patPhoneNumber.name LIKE '%" + phoneNumberAttributeTypeName + "%' AND paPhoneNumber.value LIKE '%" + value + "%')";
+			}
+		},
+		
+		/** June 8th 2012: Thai Chuong added for lastDayOfVisit
+			Supported issue #256*/
+		/** BUILD QUERY FOR LAST DAY OF VISIT */
+		buildLastDayOfVisitQuery : function() {
+			value = jQuery.trim(jQuery("#lastDayOfVisit", this.form).val());
+			if (value != undefined && value.length > 0) {
+			    //ghanshyam 16-march-2013 Support #1110[Registration]ddu server slow
+			    this.fromClause += " INNER JOIN encounter en ON ps.patient_id = en.patient_id";
+				//this.fromClause += " INNER JOIN encounter en ON pt.patient_id = en.patient_id";
+				this.whereClause += " AND (DATE_FORMAT(DATE(en.encounter_datetime),'%d/%m/%Y') = '"
+						+ value + "')";
 			}
 		},
 		
@@ -324,7 +425,9 @@
 		buildLastVisitQuery: function(){
 			value = jQuery.trim(jQuery("#lastVisit", this.form).val());
 			if(value!='Any'){
-				this.fromClause += " INNER JOIN encounter e ON e.patient_id = pt.patient_id";
+			    //ghanshyam 16-march-2013 Support #1110[Registration]ddu server slow
+			    this.fromClause += " INNER JOIN encounter e ON e.patient_id = ps.patient_id";
+				//this.fromClause += " INNER JOIN encounter e ON e.patient_id = pt.patient_id";
 				this.whereClause += " AND (DATEDIFF(NOW(), e.date_created) <= " + value + ")";
 			}
 		},
@@ -352,6 +455,7 @@
 			result = true;
 			result = result && this.validateNameOrIdentifier();
 			result = result && this.validateAge();
+			result = result && this.validatePhoneNumber();
 			return result;
 		},
 		
@@ -390,6 +494,23 @@
 			} else {
 				return true;
 			}
+		},
+		
+		/** VALIDATE PHONE NUMBER */
+		validatePhoneNumber: function(){
+			if(this.advanceSearch){				
+				value = jQuery("#phoneNumber", this.form).val();
+				pattern = "0123456789+ ";
+				for(i=0; i<value.length; i++){
+					if(pattern.indexOf(value[i])<0){	
+						jQuery("#errorList", this.form).append("<li>Please enter phone number in digits!</li>");
+						return false;							
+					}
+				}	
+				return true;
+			} else {
+				return true;
+			}
 		}
 	}
 </script>
@@ -406,12 +527,14 @@
 	<div id="advanceSearch">
 		<table cellspacing="10">
 			<tr>
-				<td>Gender</td>
+				<td>Gender *</td>
 				<td colspan="3">
 					<select id="gender" style="width: 100px">
 						<option value="Any">Any</option>
 						<option value="M">Male</option>
 						<option value="F">Female</option>
+						<%-- ghanshyam 15-april-2013 New Requirement #1379 [Registration]Gender under Advance Search --%>
+						<option value="O">Others</option>
 					</select>
 				</td>
 			</tr>
@@ -434,6 +557,13 @@
 				</td>
 			</tr>
 			<tr>
+				<td>Last day of visit</td>
+				<td><input id="advanceSearchCalendar" type="hidden" /> <input
+					id="lastDayOfVisit" name="lastDayOfVisit" style="width: 100px" />
+					<img id="advanceSearchCalendarButton"
+					src="moduleResources/hospitalcore/calendar.gif" /></td>
+			</tr>
+			<tr>
 				<td>Last Visit</td>
 				<td colspan="3">
 					<select id="lastVisit" style="width: 100px">
@@ -442,6 +572,12 @@
 						<option value="183">Last 6 months</option>
 						<option value="366">Last year</option>
 					</select>
+				</td>	
+			</tr>
+			<tr>
+				<td>Phone number</td>
+				<td colspan="3">
+					<input id="phoneNumber" style="width: 100px"/>
 				</td>	
 			</tr>
 			<tr>
