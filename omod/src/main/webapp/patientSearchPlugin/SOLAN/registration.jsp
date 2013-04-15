@@ -386,7 +386,9 @@
 			value = jQuery.trim(jQuery("#relativeName", this.form).val());
 			personAttributeTypeName = "Father/Husband Name";
 			if(value!=undefined && value.length>0){
-				this.fromClause += " INNER JOIN person_attribute paRelativeName ON ps.person_id= paRelativeName.person_id";
+			    //ghanshyam 16-march-2013 Support #1110[Registration]ddu server slow
+			    this.fromClause += " INNER JOIN person_attribute paRelativeName ON ps.patient_id= paRelativeName.person_id";
+				//this.fromClause += " INNER JOIN person_attribute paRelativeName ON ps.person_id= paRelativeName.person_id";
 				this.fromClause += " INNER JOIN person_attribute_type patRelativeName ON paRelativeName.person_attribute_type_id = patRelativeName.person_attribute_type_id ";
 				this.whereClause += " AND (patRelativeName.name LIKE '%" + personAttributeTypeName + "%' AND paRelativeName.value LIKE '%" + value + "%')";
 			}
@@ -397,7 +399,9 @@
 			value = jQuery.trim(jQuery("#phoneNumber", this.form).val());
 			phoneNumberAttributeTypeName = "Phone Number";
 			if(value!=undefined && value.length>0){
-				this.fromClause += " INNER JOIN person_attribute paPhoneNumber ON ps.person_id= paPhoneNumber.person_id";
+			     //ghanshyam 16-march-2013 Support #1110[Registration]ddu server slow
+			    this.fromClause += " INNER JOIN person_attribute paPhoneNumber ON ps.patient_id= paPhoneNumber.person_id";
+				//this.fromClause += " INNER JOIN person_attribute paPhoneNumber ON ps.person_id= paPhoneNumber.person_id";
 				this.fromClause += " INNER JOIN person_attribute_type patPhoneNumber ON paPhoneNumber.person_attribute_type_id = patPhoneNumber.person_attribute_type_id ";
 				this.whereClause += " AND (patPhoneNumber.name LIKE '%" + phoneNumberAttributeTypeName + "%' AND paPhoneNumber.value LIKE '%" + value + "%')";
 			}
@@ -409,7 +413,9 @@
 		buildLastDayOfVisitQuery : function() {
 			value = jQuery.trim(jQuery("#lastDayOfVisit", this.form).val());
 			if (value != undefined && value.length > 0) {
-				this.fromClause += " INNER JOIN encounter en ON pt.patient_id = en.patient_id";
+			    //ghanshyam 16-march-2013 Support #1110[Registration]ddu server slow
+			    this.fromClause += " INNER JOIN encounter en ON ps.patient_id = en.patient_id";
+				//this.fromClause += " INNER JOIN encounter en ON pt.patient_id = en.patient_id";
 				this.whereClause += " AND (DATE_FORMAT(DATE(en.encounter_datetime),'%d/%m/%Y') = '"
 						+ value + "')";
 			}
@@ -419,7 +425,9 @@
 		buildLastVisitQuery: function(){
 			value = jQuery.trim(jQuery("#lastVisit", this.form).val());
 			if(value!='Any'){
-				this.fromClause += " INNER JOIN encounter e ON e.patient_id = pt.patient_id";
+			    //ghanshyam 16-march-2013 Support #1110[Registration]ddu server slow
+			    this.fromClause += " INNER JOIN encounter e ON e.patient_id = ps.patient_id";
+				//this.fromClause += " INNER JOIN encounter e ON e.patient_id = pt.patient_id";
 				this.whereClause += " AND (DATEDIFF(NOW(), e.date_created) <= " + value + ")";
 			}
 		},
