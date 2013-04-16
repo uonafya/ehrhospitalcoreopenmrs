@@ -548,12 +548,14 @@ jQuery(document).ready(function() {
 		buildBillIdQuery: function(){
 			value = jQuery.trim(jQuery("#billId", "#searchboxBillId").val());
 			if(value!=undefined && value.length>0){
-				this.fromClause += " INNER JOIN billing_patient_service_bill bill ON bill.patient_id = pt.patient_id";
+			     //ghanshyam 8-april-2013 Support #1300 [Registration]Slowness in the PUNJAB hospitalcore
+				this.fromClause += " INNER JOIN billing_patient_service_bill bill ON bill.patient_id = ps.patient_id";
+				//this.fromClause += " INNER JOIN billing_patient_service_bill bill ON bill.patient_id = pt.patient_id";
 				this.whereClause += " bill.receipt_id = '" + value + "'";
 			}else{
 				// look for all patient that have bill
 				//ghanshyam 8-april-2013 Support #1300 [Registration]Slowness in the PUNJAB hospitalcore(removed DISTINCT keyword and added groupClause)
-				this.whereClause = " WHERE pt.patient_id IN (SELECT bill.patient_id FROM billing_patient_service_bill bill WHERE bill.patient_id = pt.patient_id GROUP BY pt.patient_id)";
+				this.whereClause = " WHERE ps.patient_id IN (SELECT bill.patient_id FROM billing_patient_service_bill bill WHERE bill.patient_id = ps.patient_id GROUP BY ps.patient_id)";
 				//this.whereClause = " WHERE pt.patient_id IN (SELECT DISTINCT bill.patient_id FROM billing_patient_service_bill bill WHERE bill.patient_id = pt.patient_id)";
 			}
 		},
