@@ -1,5 +1,5 @@
  <%--
- *  Copyright 2009 Society for Health Information Systems Programmes, India (HISP India)
+ *  Copyright 2013 Society for Health Information Systems Programmes, India (HISP India)
  *
  *  This file is part of Hospitalcore module.
  *
@@ -15,10 +15,34 @@
  *
  *  You should have received a copy of the GNU General Public License
  *  along with Hospitalcore module.  If not, see <http://www.gnu.org/licenses/>.
- *
+ *  author: Ghanshyam
+ *  date:   20-02-2013
 --%> 
 <script type="text/javascript">
-	
+/**
+ * Billing, feature: Search a patient on the basis of last day of visit
+ **/
+jQuery(document).ready(function() {
+
+	/* Format for Date picker plugin*/
+	jQuery('#advanceSearchCalendar').datepicker({
+		yearRange : 'c-100:c+100',
+		dateFormat : 'dd/mm/yy',
+		changeMonth : true,
+		changeYear : true
+	});
+
+	/* When click advanceSearchCalendarButton*/
+	jQuery("#advanceSearchCalendarButton").click(function() {
+		jQuery("#advanceSearchCalendar").datepicker("show");
+	});
+
+	/* display the change of advanceSearchCalendar (hidden input) to lastDayOfVisit (visible input)*/
+	jQuery("#advanceSearchCalendar").change(function() {
+		jQuery("#lastDayOfVisit").val(jQuery(this).val());
+	});
+
+});
 	/** 
 	 ** SEARCH FUNCTION
 	 **/
@@ -28,6 +52,8 @@
 		selectClause: "",
 		fromClause: "",
 		whereClause: "",
+		//ghanshyam 16-april-2013 inventory search query optimization in Bangladesh module(added groupClause)
+		groupClause: "",
 		orderClause: "",
 		limitClause: "",
 		query: "",
@@ -64,6 +90,12 @@
 					PATIENTSEARCH.search(true);
 				}
 			});
+			jQuery("#advanceSearchCalendar", this.form).change(function() {
+				PATIENTSEARCH.search(true);
+			});
+			jQuery("#lastDayOfVisit", this.form).change(function() {
+				PATIENTSEARCH.search(true);
+			});
 			jQuery("#lastVisit", this.form).change(function(){
 				PATIENTSEARCH.search(true);
 			});
@@ -79,32 +111,12 @@
 			jQuery("#ageRange", this.form).blur(function(){
 				PATIENTSEARCH.search(true);
 			});
-			
-			// Add Validation
-			jQuery.validator.addMethod("nameOrIdentifier", function(value, element) { 
-				result = true;
-				value = value.toUpperCase();
-				if(value.length>3){
-					pattern = /[A-Z0-9\s-]+/;
-					for(i=0; i<value.length; i++){
-						if(!pattern.test(value[i])){																
-							result = false;							
-							break;
-						}
-					}					
-				}					
-				return result;
-			}, "Please enter patient name/identifier in correct format!");
-			
-			jQuery.validator.addMethod("ageValidator", function(value, element) { 
-				console.debug("ageValidator -> " + value);		
-				allowable = "0123456789";
-				for(i=0; i<value.length; i++){
-					if(allowable.indexOf(value[i])<0)
-						return false;
-				}
-				return true;				
-			}, "Please enter patient age in digits");
+			jQuery("#phoneNumber", this.form).blur(function(){
+				PATIENTSEARCH.search(true);
+			});	
+			jQuery("#patientNationalId", this.form).blur(function(){
+				PATIENTSEARCH.search(true);
+			});											
 		},
 		
 		/** SEARCH */
@@ -155,11 +167,80 @@
 			};
 		},
 		
+		/** SEARCH BY BILL ID
+		*/
+		searchBillId: function(newQuery){
+				if(newQuery == true){
+					this.currentRow = 0;		
+					// callback
+					PATIENTSEARCH.beforeNewSearch();
+					jQuery("#searchLoaderBillId", "#searchboxBillId").html("<img src='" + openmrsContextPath + "/moduleResources/hospitalcore/ajax-loader.gif" + "'/>&nbsp;");				
+				}
+				
+				var query = this.buildBillIdQueryFinal();				
+				
+				jQuery(PATIENTSEARCH.target).mask("<img src='" + openmrsContextPath + "/moduleResources/hospitalcore/ajax-loader.gif" + "'/>&nbsp;");				
+				jQuery.ajax({
+					type : "POST",
+					url : openmrsContextPath + "/module/hospitalcore/searchPatient.form",
+					data : ({
+						query: query,
+						view: PATIENTSEARCH.resultView
+					}),				
+					success : function(data) {						
+						jQuery(PATIENTSEARCH.target).html(data);						
+						if(PATIENTSEARCH.currentRow==0){
+							PATIENTSEARCH.getPatientResultBillIdCount();
+							jQuery("#searchLoaderBillId", "#searchboxBillId").html("");
+						} else {						
+							jQuery(PATIENTSEARCH.target).append("<div>" + PATIENTSEARCH.generateNavigation() + "</div>");	
+							
+							// callback
+							PATIENTSEARCH.success({
+								totalRow: PATIENTSEARCH.totalRow
+							});
+						}
+						jQuery(PATIENTSEARCH.target).unmask();
+						
+					},
+					error : function(xhr, ajaxOptions, thrownError) {
+						alert(thrownError);
+					}
+				});
+		},
+
+		
 		/** GET PATIENT RESULT COUNT */
 		getPatientResultCount: function(){
 			
 			
 			var query = this.buildCountQuery();
+			
+			jQuery.ajax({
+				type : "POST",
+				url : openmrsContextPath + "/module/hospitalcore/getPatientResultCount.form",
+				data : ({
+					query: query
+				}),				
+				success : function(data) {					
+					PATIENTSEARCH.totalRow = data;	
+					jQuery(PATIENTSEARCH.target).append("<div>" + PATIENTSEARCH.generateNavigation() + "</div>");		
+					// callback
+					PATIENTSEARCH.success({
+						totalRow: PATIENTSEARCH.totalRow
+					});
+				},
+				error : function(xhr, ajaxOptions, thrownError) {
+					alert(thrownError);
+				}
+			});
+		},
+		
+		/** GET PATIENT RESULT COUNT BY BILL ID
+		*/
+		getPatientResultBillIdCount: function(){
+			
+			var query = this.buildCountBillIdQuery();
 			
 			jQuery.ajax({
 				type : "POST",
@@ -189,26 +270,83 @@
 			nameOrIdentifier = nameOrIdentifier.replace(/\s/g, "");			
 		
 			// Build essential query
+			//ghanshyam 16-april-2013 inventory search query optimization in Bangladesh module(commented old query below and written new query after this commented query)
+			/*
 			this.selectClause = "SELECT DISTINCT pt.patient_id, pi.identifier, pn.given_name, pn.middle_name, pn.family_name, ps.gender, ps.birthdate, EXTRACT(YEAR FROM (FROM_DAYS(DATEDIFF(NOW(),ps.birthdate)))) age, pn.person_name_id";
 			this.fromClause   = " FROM `patient` pt";
 			this.fromClause  += " INNER JOIN person ps ON ps.person_id = pt.patient_id";
 			this.fromClause  += " INNER JOIN person_name pn ON pn.person_id = ps.person_id";
 			this.fromClause  += " INNER JOIN patient_identifier pi ON pi.patient_id = pt.patient_id";
 			this.whereClause  = " WHERE";
-			this.whereClause += " (pi.identifier LIKE '%" + nameOrIdentifier + "%' OR CONCAT(IFNULL(pn.given_name, ''), IFNULL(pn.middle_name, ''), IFNULL(pn.family_name,'')) LIKE '" + nameOrIdentifier + "%')";			
+			this.whereClause += " (pi.identifier LIKE '%" + nameOrIdentifier + "%' OR CONCAT(IFNULL(pn.given_name, ''), IFNULL(pn.middle_name, ''), IFNULL(pn.family_name,'')) LIKE '" + nameOrIdentifier + "%')";
+			this.whereClause+= "AND ps.dead=0 ";
 			this.orderClause = " ORDER BY pt.patient_id ASC";
-			this.limitClause = " LIMIT " + this.currentRow + ", " + this.rowPerPage;			
+			this.limitClause = " LIMIT " + this.currentRow + ", " + this.rowPerPage;
+			*/
+			
+			this.selectClause = "SELECT ps.patient_id, ps.identifier, ps.given_name, ps.middle_name, ps.family_name, ps.gender, ps.birthdate, ps.age, ps.person_name_id ";
+			this.fromClause   = " FROM patient_search ps";
+			this.fromClause  += " INNER JOIN person pe ON pe.person_id = ps.patient_id";
+			this.whereClause  = " WHERE";
+			this.whereClause += " (ps.identifier LIKE '%" + nameOrIdentifier + "%' OR ps.fullname LIKE '" + nameOrIdentifier + "%')";			
+			this.whereClause += " AND pe.dead=0";
+			this.groupClause = " GROUP BY ps.patient_id";
+			this.orderClause = " ORDER BY ps.patient_id ASC";
+			this.limitClause = " LIMIT " + this.currentRow + ", " + this.rowPerPage;							
 
 			//	Build extended queries
 			if(this.advanceSearch){
 				this.buildGenderQuery();
 				this.buildAgeQuery();
 				this.buildRelativeNameQuery();
+				this.buildLastDayOfVisitQuery();
 				this.buildLastVisitQuery();
+				this.buildPhoneNumberQuery();
+				this.buildPatientNationalIdQuery();
 			}
 			
 			// Return the built query
-			this.query = this.selectClause + this.fromClause + this.whereClause + this.orderClause + this.limitClause;		
+			//ghanshyam 16-april-2013 inventory search query optimization in Bangladesh module(added groupClause)
+			this.query = this.selectClause + this.fromClause + this.whereClause + this.groupClause + this.orderClause + this.limitClause;
+			//this.query = this.selectClause + this.fromClause + this.whereClause + this.orderClause + this.limitClause;		
+			return this.query;
+		},
+		
+		/** BUILD QUERY - SEARCH PATIENT BY BILL
+		*/
+		buildBillIdQueryFinal: function(){
+			// Get value from form				
+		
+			// Build essential query
+			//ghanshyam 16-april-2013 inventory search query optimization in Bangladesh module(commented old query below and written new query after this commented query)
+			/*
+			this.selectClause = "SELECT DISTINCT pt.patient_id, pi.identifier, pn.given_name, pn.middle_name, pn.family_name, ps.gender, ps.birthdate, EXTRACT(YEAR FROM (FROM_DAYS(DATEDIFF(NOW(),ps.birthdate)))) age, pn.person_name_id";
+			this.fromClause   = " FROM `patient` pt";
+			this.fromClause  += " INNER JOIN person ps ON ps.person_id = pt.patient_id";
+			this.fromClause  += " INNER JOIN person_name pn ON pn.person_id = ps.person_id";
+			this.fromClause  += " INNER JOIN patient_identifier pi ON pi.patient_id = pt.patient_id";
+			this.whereClause  = " WHERE";
+			this.orderClause = " ORDER BY pt.patient_id ASC";
+			this.limitClause = " LIMIT " + this.currentRow + ", " + this.rowPerPage;
+			*/
+			
+			this.selectClause = "SELECT ps.patient_id, ps.identifier, ps.given_name, ps.middle_name, ps.family_name, ps.gender, ps.birthdate, ps.age, ps.person_name_id ";
+			this.fromClause   = " FROM patient_search ps";
+			this.fromClause  += " INNER JOIN person pe ON pe.person_id = ps.patient_id";
+			this.whereClause  = " WHERE";		
+			this.groupClause = " GROUP BY ps.patient_id";
+			this.orderClause = " ORDER BY ps.patient_id ASC";
+			this.limitClause = " LIMIT " + this.currentRow + ", " + this.rowPerPage;					
+
+			
+			//	Build extended queries
+			this.buildBillIdQuery();
+			
+			
+			// Return the built query
+			//ghanshyam 16-april-2013 inventory search query optimization in Bangladesh module(added groupClause)
+			this.query = this.selectClause + this.fromClause + this.whereClause + this.groupClause + this.orderClause + this.limitClause;
+			//this.query = this.selectClause + this.fromClause + this.whereClause + this.orderClause + this.limitClause;		
 			return this.query;
 		},
 		
@@ -220,26 +358,71 @@
 			nameOrIdentifier = nameOrIdentifier.replace(/\s/g, "");
 		
 			// Build essential query
+			//ghanshyam 16-april-2013 inventory search query optimization in Bangladesh module(commented old query below and written new query after this commented query)
+			/*
 			this.selectClause = "SELECT COUNT(DISTINCT pt.patient_id)";
 			this.fromClause   = " FROM `patient` pt";
 			this.fromClause  += " INNER JOIN person ps ON ps.person_id = pt.patient_id";
 			this.fromClause  += " INNER JOIN person_name pn ON pn.person_id = ps.person_id";
 			this.fromClause  += " INNER JOIN patient_identifier pi ON pi.patient_id = pt.patient_id";
 			this.whereClause  = " WHERE";
-			this.whereClause += " (pi.identifier LIKE '%" + nameOrIdentifier + "%' OR CONCAT(IFNULL(pn.given_name, ''), IFNULL(pn.middle_name, ''), IFNULL(pn.family_name,'')) LIKE '" + nameOrIdentifier + "%')";						
-
+			this.whereClause += " (pi.identifier LIKE '%" + nameOrIdentifier + "%' OR CONCAT(IFNULL(pn.given_name, ''), IFNULL(pn.middle_name, ''), IFNULL(pn.family_name,'')) LIKE '" + nameOrIdentifier + "%')";
+			this.whereClause+= "AND ps.dead=0 ";
+			*/
+			
+			this.selectClause = "SELECT COUNT(*)";
+			this.fromClause   = " FROM patient_search ps";
+			this.fromClause  += " INNER JOIN person pe ON pe.person_id = ps.patient_id";
+			this.whereClause  = " WHERE";
+			this.whereClause += " (ps.identifier LIKE '%" + nameOrIdentifier + "%' OR ps.fullname LIKE '" + nameOrIdentifier + "%')";	
+			this.whereClause += " AND pe.dead=0";
+			
 			//	Build extended queries
 			if(this.advanceSearch){
 				this.buildGenderQuery();
 				this.buildAgeQuery();
 				this.buildRelativeNameQuery();
+				this.buildLastDayOfVisitQuery();
 				this.buildLastVisitQuery();
+				this.buildPhoneNumberQuery();
+				this.buildPatientNationalIdQuery();
 			}
 			
 			// Return the built query
 			this.query = this.selectClause + this.fromClause + this.whereClause;		
 			return this.query;
 		},
+		
+		/** BUILD COUNT PATIENT SEARCH BY BILL ID QUERY
+		*/
+		buildCountBillIdQuery: function(){
+		
+			// Get value from form			
+		
+			// Build essential query
+			//ghanshyam 16-april-2013 inventory search query optimization in Bangladesh module(commented old query below and written new query after this commented query)
+			/*
+			this.selectClause = "SELECT COUNT(DISTINCT pt.patient_id)";
+			this.fromClause   = " FROM `patient` pt";
+			this.fromClause  += " INNER JOIN person ps ON ps.person_id = pt.patient_id";
+			this.fromClause  += " INNER JOIN person_name pn ON pn.person_id = ps.person_id";
+			this.fromClause  += " INNER JOIN patient_identifier pi ON pi.patient_id = pt.patient_id";
+			this.whereClause  = " WHERE";
+			*/
+			
+			this.selectClause = "SELECT COUNT(*)";
+			this.fromClause   = " FROM patient_search ps";
+			this.fromClause  += " INNER JOIN person pe ON pe.person_id = ps.patient_id";
+			this.whereClause  = " WHERE";
+
+			//	Build extended queries
+			this.buildBillIdQuery();
+			
+			// Return the built query
+			this.query = this.selectClause + this.fromClause + this.whereClause;		
+			return this.query;
+		},
+		
 		
 		/** NEXT PAGE */
 		nextPage: function(){
@@ -310,18 +493,78 @@
 			value = jQuery.trim(jQuery("#relativeName", this.form).val());
 			personAttributeTypeName = "Father/Husband Name";
 			if(value!=undefined && value.length>0){
-				this.fromClause += " INNER JOIN person_attribute paRelativeName ON ps.person_id= paRelativeName.person_id";
+			    //ghanshyam 16-april-2013 inventory search query optimization in Bangladesh module
+			    this.fromClause += " INNER JOIN person_attribute paRelativeName ON ps.patient_id= paRelativeName.person_id";
+				//this.fromClause += " INNER JOIN person_attribute paRelativeName ON ps.person_id= paRelativeName.person_id";
 				this.fromClause += " INNER JOIN person_attribute_type patRelativeName ON paRelativeName.person_attribute_type_id = patRelativeName.person_attribute_type_id ";
 				this.whereClause += " AND (patRelativeName.name LIKE '%" + personAttributeTypeName + "%' AND paRelativeName.value LIKE '%" + value + "%')";
 			}
 		},
 		
+		/** BUILD QUERY FOR PHONE NUMBER */
+		buildPhoneNumberQuery: function(){
+			value = jQuery.trim(jQuery("#phoneNumber", this.form).val());
+			phoneNumberAttributeTypeName = "Phone Number";
+			if(value!=undefined && value.length>0){
+			    //ghanshyam 16-april-2013 inventory search query optimization in Bangladesh module
+			    this.fromClause += " INNER JOIN person_attribute paPhoneNumber ON ps.patient_id= paPhoneNumber.person_id";
+				//this.fromClause += " INNER JOIN person_attribute paPhoneNumber ON ps.person_id= paPhoneNumber.person_id";
+				this.fromClause += " INNER JOIN person_attribute_type patPhoneNumber ON paPhoneNumber.person_attribute_type_id = patPhoneNumber.person_attribute_type_id ";
+				this.whereClause += " AND (patPhoneNumber.name LIKE '%" + phoneNumberAttributeTypeName + "%' AND paPhoneNumber.value LIKE '%" + value + "%')";
+			}
+		},
+
+		/** BUILD QUERY FOR National Id */
+		buildPatientNationalIdQuery: function(){
+			value = jQuery.trim(jQuery("#patientNationalId", this.form).val());
+			patientNationalIdAttributeTypeName = "National ID";
+			if(value!=undefined && value.length>0){
+			    //ghanshyam 16-april-2013 inventory search query optimization in Bangladesh module
+			    this.fromClause += " INNER JOIN person_attribute paNationalId ON ps.patient_id= paNationalId.person_id";
+				//this.fromClause += " INNER JOIN person_attribute paNationalID ON ps.person_id= paNationalID.person_id";
+				this.fromClause += " INNER JOIN person_attribute_type patNationalID ON paNationalID.person_attribute_type_id = patNationalID.person_attribute_type_id ";
+				this.whereClause += " AND (patNationalID.name LIKE '%" + patientNationalIdAttributeTypeName + "%' AND paNationalID.value LIKE '%" + value + "%')";
+			}
+		},
+				
+	
+	/** BUILD QUERY FOR LAST DAY OF VISIT */
+	buildLastDayOfVisitQuery : function() {
+		value = jQuery.trim(jQuery("#lastDayOfVisit", this.form).val());
+		if (value != undefined && value.length > 0) {
+		    //ghanshyam 16-april-2013 inventory search query optimization in Bangladesh module
+		    this.fromClause += " INNER JOIN encounter en ON ps.patient_id = en.patient_id";
+			//this.fromClause += " INNER JOIN encounter en ON pt.patient_id = en.patient_id";
+			this.whereClause += " AND (DATE_FORMAT(DATE(en.encounter_datetime),'%d/%m/%Y') = '"
+					+ value + "')";
+		}
+	},
 		/** BUILD QUERY FOR LAST VISIT */
 		buildLastVisitQuery: function(){
 			value = jQuery.trim(jQuery("#lastVisit", this.form).val());
 			if(value!='Any'){
-				this.fromClause += " INNER JOIN encounter e ON e.patient_id = pt.patient_id";
+			    //ghanshyam 16-april-2013 inventory search query optimization in Bangladesh module
+			    this.fromClause += " INNER JOIN encounter e ON e.patient_id = ps.patient_id";
+				//this.fromClause += " INNER JOIN encounter e ON e.patient_id = pt.patient_id";
 				this.whereClause += " AND (DATEDIFF(NOW(), e.date_created) <= " + value + ")";
+			}
+		},
+		
+		/** BUILD QUERY BILL ID
+		* June 6th 2012: Thai Chuong - Supported #247
+		*/
+		buildBillIdQuery: function(){
+			value = jQuery.trim(jQuery("#billId", "#searchboxBillId").val());
+			if(value!=undefined && value.length>0){
+			    //ghanshyam 16-april-2013 inventory search query optimization in Bangladesh module
+				this.fromClause += " INNER JOIN billing_patient_service_bill bill ON bill.patient_id = ps.patient_id";
+				//this.fromClause += " INNER JOIN billing_patient_service_bill bill ON bill.patient_id = pt.patient_id";
+				this.whereClause += " bill.receipt_id = '" + value + "'";
+			}else{
+				// look for all patient that have bill
+			   //ghanshyam 16-april-2013 inventory search query optimization in Bangladesh module(removed DISTINCT keyword and added groupClause)
+				this.whereClause = " WHERE ps.patient_id IN (SELECT bill.patient_id FROM billing_patient_service_bill bill WHERE bill.patient_id = ps.patient_id GROUP BY ps.patient_id)";
+				//this.whereClause = " WHERE pt.patient_id IN (SELECT DISTINCT bill.patient_id FROM billing_patient_service_bill bill WHERE bill.patient_id = pt.patient_id)";
 			}
 		},
 		
@@ -348,6 +591,7 @@
 			result = true;
 			result = result && this.validateNameOrIdentifier();
 			result = result && this.validateAge();
+			result = result && this.validatePhoneNumber();
 			return result;
 		},
 		
@@ -379,6 +623,23 @@
 				for(i=0; i<value.length; i++){
 					if(pattern.indexOf(value[i])<0){	
 						jQuery("#errorList", this.form).append("<li>Please enter patient age in digits!</li>");
+						return false;							
+					}
+				}	
+				return true;
+			} else {
+				return true;
+			}
+		},
+		
+		/** VALIDATE PHONE NUMBER */
+		validatePhoneNumber: function(){
+			if(this.advanceSearch){				
+				value = jQuery("#phoneNumber", this.form).val();
+				pattern = "0123456789+ ";
+				for(i=0; i<value.length; i++){
+					if(pattern.indexOf(value[i])<0){	
+						jQuery("#errorList", this.form).append("<li>Please enter phone number in digits!</li>");
 						return false;							
 					}
 				}	
@@ -432,6 +693,14 @@
 				</td>
 			</tr>
 			<tr>
+				<td>Last day of visit</td>
+				<td><input id="advanceSearchCalendar" type="hidden" /> <input
+					id="lastDayOfVisit" name="lastDayOfVisit" style="width: 100px" />
+					<img id="advanceSearchCalendarButton"
+					src="${pageContext.request.contextPath}/moduleResources/hospitalcore/calendar.gif" />
+				</td>
+			</tr>
+			<tr>
 				<td>Last Visit</td>
 				<td colspan="3">
 					<select id="lastVisit" style="width: 100px">
@@ -443,11 +712,24 @@
 				</td>	
 			</tr>
 			<tr>
+				<td>Phone number</td>
+				<td colspan="3">
+					<input id="phoneNumber" style="width: 100px"/>
+				</td>	
+			</tr>
+			<tr>
 				<td>Relative Name</td>
 				<td colspan="3">
 					<input id="relativeName" style="width: 100px"/>
 				</td>	
 			</tr>
+			<tr>
+			<!-- Sagar Bele date: 27-12-2012 : Added national id in advance search for Bangladesh requirement -->
+				<td>National Id</td>
+				<td colspan="3"><input id="patientNationalId"
+					style="width: 100px" />
+				</td>
+			</tr>			
 		</table>
 	</div>	
 </form>

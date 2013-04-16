@@ -492,7 +492,9 @@ jQuery(document).ready(function() {
 			value = jQuery.trim(jQuery("#relativeName", this.form).val());
 			personAttributeTypeName = "Father/Husband Name";
 			if(value!=undefined && value.length>0){
-				this.fromClause += " INNER JOIN person_attribute paRelativeName ON ps.person_id= paRelativeName.person_id";
+			    //ghanshyam 11-april-2013 Support #1353 [Registration]patient search query optimization in Bangladesh module
+			    this.fromClause += " INNER JOIN person_attribute paRelativeName ON ps.patient_id= paRelativeName.person_id";
+				//this.fromClause += " INNER JOIN person_attribute paRelativeName ON ps.person_id= paRelativeName.person_id";
 				this.fromClause += " INNER JOIN person_attribute_type patRelativeName ON paRelativeName.person_attribute_type_id = patRelativeName.person_attribute_type_id ";
 				this.whereClause += " AND (patRelativeName.name LIKE '%" + personAttributeTypeName + "%' AND paRelativeName.value LIKE '%" + value + "%')";
 			}
@@ -503,7 +505,9 @@ jQuery(document).ready(function() {
 			value = jQuery.trim(jQuery("#phoneNumber", this.form).val());
 			phoneNumberAttributeTypeName = "Phone Number";
 			if(value!=undefined && value.length>0){
-				this.fromClause += " INNER JOIN person_attribute paPhoneNumber ON ps.person_id= paPhoneNumber.person_id";
+			    //ghanshyam 11-april-2013 Support #1353 [Registration]patient search query optimization in Bangladesh module
+			    this.fromClause += " INNER JOIN person_attribute paPhoneNumber ON ps.patient_id= paPhoneNumber.person_id";
+				//this.fromClause += " INNER JOIN person_attribute paPhoneNumber ON ps.person_id= paPhoneNumber.person_id";
 				this.fromClause += " INNER JOIN person_attribute_type patPhoneNumber ON paPhoneNumber.person_attribute_type_id = patPhoneNumber.person_attribute_type_id ";
 				this.whereClause += " AND (patPhoneNumber.name LIKE '%" + phoneNumberAttributeTypeName + "%' AND paPhoneNumber.value LIKE '%" + value + "%')";
 			}
@@ -514,7 +518,9 @@ jQuery(document).ready(function() {
 			value = jQuery.trim(jQuery("#patientNationalId", this.form).val());
 			patientNationalIdAttributeTypeName = "National ID";
 			if(value!=undefined && value.length>0){
-				this.fromClause += " INNER JOIN person_attribute paNationalID ON ps.person_id= paNationalID.person_id";
+			    //ghanshyam 11-april-2013 Support #1353 [Registration]patient search query optimization in Bangladesh module
+			    this.fromClause += " INNER JOIN person_attribute paNationalId ON ps.patient_id= paNationalId.person_id";
+				//this.fromClause += " INNER JOIN person_attribute paNationalID ON ps.person_id= paNationalID.person_id";
 				this.fromClause += " INNER JOIN person_attribute_type patNationalID ON paNationalID.person_attribute_type_id = patNationalID.person_attribute_type_id ";
 				this.whereClause += " AND (patNationalID.name LIKE '%" + patientNationalIdAttributeTypeName + "%' AND paNationalID.value LIKE '%" + value + "%')";
 			}
@@ -528,7 +534,9 @@ jQuery(document).ready(function() {
 	buildLastDayOfVisitQuery : function() {
 		value = jQuery.trim(jQuery("#lastDayOfVisit", this.form).val());
 		if (value != undefined && value.length > 0) {
-			this.fromClause += " INNER JOIN encounter en ON pt.patient_id = en.patient_id";
+		    //ghanshyam 11-april-2013 Support #1353 [Registration]patient search query optimization in Bangladesh module
+		    this.fromClause += " INNER JOIN encounter en ON ps.patient_id = en.patient_id";
+			//this.fromClause += " INNER JOIN encounter en ON pt.patient_id = en.patient_id";
 			this.whereClause += " AND (DATE_FORMAT(DATE(en.encounter_datetime),'%d/%m/%Y') = '"
 					+ value + "')";
 		}
@@ -537,7 +545,9 @@ jQuery(document).ready(function() {
 		buildLastVisitQuery: function(){
 			value = jQuery.trim(jQuery("#lastVisit", this.form).val());
 			if(value!='Any'){
-				this.fromClause += " INNER JOIN encounter e ON e.patient_id = pt.patient_id";
+			    //ghanshyam 11-april-2013 Support #1353 [Registration]patient search query optimization in Bangladesh module
+			    this.fromClause += " INNER JOIN encounter e ON e.patient_id = ps.patient_id";
+				//this.fromClause += " INNER JOIN encounter e ON e.patient_id = pt.patient_id";
 				this.whereClause += " AND (DATEDIFF(NOW(), e.date_created) <= " + value + ")";
 			}
 		},
@@ -547,12 +557,14 @@ jQuery(document).ready(function() {
 		buildBillIdQuery: function(){
 			value = jQuery.trim(jQuery("#billId", "#searchboxBillId").val());
 			if(value!=undefined && value.length>0){
-				this.fromClause += " INNER JOIN billing_patient_service_bill bill ON bill.patient_id = pt.patient_id";
+			    //ghanshyam 11-april-2013 Support #1353 [Registration]patient search query optimization in Bangladesh module
+				this.fromClause += " INNER JOIN billing_patient_service_bill bill ON bill.patient_id = ps.patient_id";
+				//this.fromClause += " INNER JOIN billing_patient_service_bill bill ON bill.patient_id = pt.patient_id";
 				this.whereClause += " bill.receipt_id = '" + value + "'";
 			}else{
 				// look for all patient that have bill
 				//ghanshyam 11-april-2013 Support #1353 [Registration]patient search query optimization in Bangladesh module(removed DISTINCT keyword and added groupClause)
-				this.whereClause = " WHERE pt.patient_id IN (SELECT bill.patient_id FROM billing_patient_service_bill bill WHERE bill.patient_id = pt.patient_id GROUP BY pt.patient_id)";
+				this.whereClause = " WHERE ps.patient_id IN (SELECT bill.patient_id FROM billing_patient_service_bill bill WHERE bill.patient_id = ps.patient_id GROUP BY ps.patient_id)";
 				//this.whereClause = " WHERE pt.patient_id IN (SELECT DISTINCT bill.patient_id FROM billing_patient_service_bill bill WHERE bill.patient_id = pt.patient_id)";
 			}
 		},
