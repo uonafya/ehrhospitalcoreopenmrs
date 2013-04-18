@@ -363,5 +363,41 @@
 		</property>
 	</bean>
 	
+	<!--  ghanshyam date:18-april-2013 this required for patientdashboard module(i.e pharmacy record in opd) for issue #1391 -->
+	<bean parent="serviceContext">
+		<property name="moduleService">
+			<list>
+				<value>org.openmrs.module.hospitalcore.InventoryCommonService</value>
+				<bean
+					class="org.springframework.transaction.interceptor.TransactionProxyFactoryBean">
+					<property name="transactionManager">
+						<ref bean="transactionManager" />
+					</property>
+					<property name="target">
+						<bean class="org.openmrs.module.hospitalcore.impl.InventoryCommonServiceImpl">
+							<property name="dao">
+								<bean
+									class="org.openmrs.module.hospitalcore.db.hibernate.HibernateInventoryCommonDAO">
+									<property name="sessionFactory">
+										<ref bean="sessionFactory" />
+									</property>
+								</bean>
+							</property>
+						</bean>
+					</property>
+					<property name="preInterceptors">
+						<list>
+							<ref bean="authorizationInterceptor" />
+						</list>
+					</property>
+					<property name="transactionAttributeSource">
+						<bean
+							class="org.springframework.transaction.annotation.AnnotationTransactionAttributeSource" />
+					</property>
+				</bean>
+			</list>
+		</property>
+	</bean>
+	
 </beans>
 
