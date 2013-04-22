@@ -54,7 +54,7 @@
 		selectClause: "",
 		fromClause: "",
 		whereClause: "",
-		//ghanshyam 15-april-2013 inventory search(added groupClause)
+		//ghanshyam 16-march-2013 Support #1110[Registration]ddu server slow(added groupClause)
 		groupClause: "",
 		orderClause: "",
 		limitClause: "",
@@ -232,7 +232,7 @@
 			nameOrIdentifier = nameOrIdentifier.replace(/\s/g, "");			
 		
 			// Build essential query
-			//ghanshyam 15-april-2013 inventory search(commented old query below and written new query after this commented query)
+			//ghanshyam 16-march-2013 Support #1110[Registration]ddu server slow(commented old query below and written new query after this commented query)
 			/*
 			this.selectClause = "SELECT DISTINCT pt.patient_id, pi.identifier, pn.given_name, pn.middle_name, pn.family_name, ps.gender, ps.birthdate, EXTRACT(YEAR FROM (FROM_DAYS(DATEDIFF(NOW(),ps.birthdate)))) age, pn.person_name_id";
 			this.fromClause   = " FROM `patient` pt";
@@ -267,7 +267,7 @@
 			}
 			
 			// Return the built query
-			//ghanshyam 15-april-2013 inventory search(added groupClause)
+			//ghanshyam 16-march-2013 Support #1110[Registration]ddu server slow(added groupClause)
 			this.query = this.selectClause + this.fromClause + this.whereClause + this.groupClause + this.orderClause + this.limitClause;
 			//this.query = this.selectClause + this.fromClause + this.whereClause + this.orderClause + this.limitClause;		
 			return this.query;
@@ -281,7 +281,7 @@
 			nameOrIdentifier = nameOrIdentifier.replace(/\s/g, "");
 		
 			// Build essential query
-			//ghanshyam 15-april-2013 inventory search(commented old query below and written new query after this commented query)
+			//ghanshyam 16-march-2013 Support #1110[Registration]ddu server slow(commented old query below and written new query after this commented query)
 			/*
 			this.selectClause = "SELECT COUNT(DISTINCT pt.patient_id)";
 			this.fromClause   = " FROM `patient` pt";
@@ -293,7 +293,7 @@
 			this.whereClause+= "AND ps.dead=0";
 			*/
 			
-			this.selectClause = "SELECT COUNT(*)";
+			this.selectClause = "SELECT COUNT(DISTINCT ps.patient_id)";
 			this.fromClause   = " FROM patient_search ps";
 			this.fromClause  += " INNER JOIN person pe ON pe.person_id = ps.patient_id";
 			this.whereClause  = " WHERE";
@@ -386,7 +386,7 @@
 			value = jQuery.trim(jQuery("#relativeName", this.form).val());
 			personAttributeTypeName = "Father/Husband Name";
 			if(value!=undefined && value.length>0){
-			    //ghanshyam 15-april-2013 inventory search
+			    //ghanshyam 16-march-2013 Support #1110[Registration]ddu server slow
 			    this.fromClause += " INNER JOIN person_attribute paRelativeName ON ps.patient_id= paRelativeName.person_id";
 				//this.fromClause += " INNER JOIN person_attribute paRelativeName ON ps.person_id= paRelativeName.person_id";
 				this.fromClause += " INNER JOIN person_attribute_type patRelativeName ON paRelativeName.person_attribute_type_id = patRelativeName.person_attribute_type_id ";
@@ -399,7 +399,7 @@
 			value = jQuery.trim(jQuery("#phoneNumber", this.form).val());
 			phoneNumberAttributeTypeName = "Phone Number";
 			if(value!=undefined && value.length>0){
-			     //ghanshyam 15-april-2013 inventory search
+			     //ghanshyam 16-march-2013 Support #1110[Registration]ddu server slow
 			    this.fromClause += " INNER JOIN person_attribute paPhoneNumber ON ps.patient_id= paPhoneNumber.person_id";
 				//this.fromClause += " INNER JOIN person_attribute paPhoneNumber ON ps.person_id= paPhoneNumber.person_id";
 				this.fromClause += " INNER JOIN person_attribute_type patPhoneNumber ON paPhoneNumber.person_attribute_type_id = patPhoneNumber.person_attribute_type_id ";
@@ -413,7 +413,7 @@
 		buildLastDayOfVisitQuery : function() {
 			value = jQuery.trim(jQuery("#lastDayOfVisit", this.form).val());
 			if (value != undefined && value.length > 0) {
-			    //ghanshyam 15-april-2013 inventory search
+			    //ghanshyam 16-march-2013 Support #1110[Registration]ddu server slow
 			    this.fromClause += " INNER JOIN encounter en ON ps.patient_id = en.patient_id";
 				//this.fromClause += " INNER JOIN encounter en ON pt.patient_id = en.patient_id";
 				this.whereClause += " AND (DATE_FORMAT(DATE(en.encounter_datetime),'%d/%m/%Y') = '"
@@ -425,7 +425,7 @@
 		buildLastVisitQuery: function(){
 			value = jQuery.trim(jQuery("#lastVisit", this.form).val());
 			if(value!='Any'){
-			    //ghanshyam 15-april-2013 inventory search
+			    //ghanshyam 16-march-2013 Support #1110[Registration]ddu server slow
 			    this.fromClause += " INNER JOIN encounter e ON e.patient_id = ps.patient_id";
 				//this.fromClause += " INNER JOIN encounter e ON e.patient_id = pt.patient_id";
 				this.whereClause += " AND (DATEDIFF(NOW(), e.date_created) <= " + value + ")";
@@ -527,7 +527,7 @@
 	<div id="advanceSearch">
 		<table cellspacing="10">
 			<tr>
-				<td>Gender *</td>
+				<td>Gender</td>
 				<td colspan="3">
 					<select id="gender" style="width: 100px">
 						<option value="Any">Any</option>

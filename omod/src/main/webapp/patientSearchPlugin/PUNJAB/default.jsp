@@ -371,7 +371,7 @@ jQuery(document).ready(function() {
 			this.whereClause+= "AND ps.dead=0 ";
 			*/
 			
-			this.selectClause = "SELECT COUNT(*)";
+			this.selectClause = "SELECT COUNT(DISTINCT ps.patient_id)";
 			this.fromClause   = " FROM patient_search ps";
 			this.fromClause  += " INNER JOIN person pe ON pe.person_id = ps.patient_id";
 			this.whereClause  = " WHERE";
@@ -411,7 +411,7 @@ jQuery(document).ready(function() {
 			this.whereClause  = " WHERE";
 			*/
 			
-			this.selectClause = "SELECT COUNT(*)";
+			this.selectClause = "SELECT COUNT(DISTINCT ps.patient_id)";
 			this.fromClause   = " FROM patient_search ps";
 			this.fromClause  += " INNER JOIN person pe ON pe.person_id = ps.patient_id";
 			this.whereClause  = " WHERE";
@@ -655,7 +655,7 @@ jQuery(document).ready(function() {
 	<div id="advanceSearch">
 		<table cellspacing="10">
 			<tr>
-				<td>Gender *</td>
+				<td>Gender</td>
 				<td colspan="3"><select id="gender" style="width: 100px">
 						<option value="Any">Any</option>
 						<option value="M">Male</option>
