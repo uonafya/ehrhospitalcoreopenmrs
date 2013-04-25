@@ -35,7 +35,7 @@ import org.openmrs.module.hospitalcore.model.RadiologyTest;
 
 public class RadiologyDashboardUtil {
 
-	private static SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy HH:mm:ss");
+	private static SimpleDateFormat sdf = new SimpleDateFormat("dd-MMM-yyyy HH:mm:ss");
 	private static Map<Concept, String> conceptNames = new HashMap<Concept, String>();
 	private static Concept xrayConcept = null;
 	private static Set<Concept> xrayConcepts = null;
