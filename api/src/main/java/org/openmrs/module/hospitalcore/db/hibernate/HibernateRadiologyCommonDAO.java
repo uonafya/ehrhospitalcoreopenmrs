@@ -27,11 +27,11 @@ import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
-
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.hibernate.Criteria;
 import org.hibernate.SessionFactory;
+import org.hibernate.criterion.Order;
 import org.hibernate.criterion.Restrictions;
 import org.openmrs.Concept;
 import org.openmrs.ConceptAnswer;
@@ -69,6 +69,9 @@ public class HibernateRadiologyCommonDAO implements RadiologyCommonDAO {
 				RadiologyTest.class);
 		criteria.add(Restrictions.eq("patient", patient));
 		criteria.add(Restrictions.eq("status", "completed"));
+		//ghanshyam,date:25-april-2013 Feedback #1302 Add Radiology record of patient in patientdashboard(note:added below sorting criteria)
+		//criteria.addOrder(Order.asc("date"));
+		criteria.addOrder(Order.desc("date"));
 
 		return criteria.list();
 	}
@@ -157,6 +160,9 @@ public class HibernateRadiologyCommonDAO implements RadiologyCommonDAO {
 			e.printStackTrace();
 		}
 		criteria.add(Restrictions.eq("status", "completed"));
+		//ghanshyam,date:25-april-2013 Feedback #1302 Add Radiology record of patient in patientdashboard(note:added below sorting criteria)
+		//criteria.addOrder(Order.asc("date"));
+		criteria.addOrder(Order.desc("date"));
 		return criteria.list();
 	}
 

@@ -90,6 +90,11 @@ public class HibernateInventoryCommonDAO implements InventoryCommonDAO {
 				e.printStackTrace();
 			}
 		}
+		else{
+			//ghanshyam,date:25-april-2013 Feedback #1391 Add Pharmacy record of patient in Dashboard(note:added below sorting criteria)
+			//criteria.addOrder(Order.asc("createdOn"));
+			criteria.addOrder(Order.desc("createdOn"));
+		}
 		
 		return criteria.list();
 	}
