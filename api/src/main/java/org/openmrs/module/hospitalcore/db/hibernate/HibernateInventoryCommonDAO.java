@@ -30,6 +30,7 @@ import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.hibernate.Criteria;
 import org.hibernate.SessionFactory;
+import org.hibernate.criterion.Order;
 import org.hibernate.criterion.Restrictions;
 import org.openmrs.Patient;
 import org.openmrs.api.db.DAOException;
@@ -65,6 +66,9 @@ public class HibernateInventoryCommonDAO implements InventoryCommonDAO {
 		Criteria criteria = sessionFactory.getCurrentSession().createCriteria(
 				InventoryStoreDrugPatient.class);
 		criteria.add(Restrictions.eq("patient", patient));
+		//ghanshyam,date:25-april-2013 Feedback #1391 Add Pharmacy record of patient in Dashboard(note:added below sorting criteria)
+		//criteria.addOrder(Order.asc("createdOn"));
+		criteria.addOrder(Order.desc("createdOn"));
 
 		return criteria.list();
 	}
