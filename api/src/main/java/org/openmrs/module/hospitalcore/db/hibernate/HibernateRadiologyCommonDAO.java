@@ -90,6 +90,7 @@ public class HibernateRadiologyCommonDAO implements RadiologyCommonDAO {
 		Criteria criteria = sessionFactory.getCurrentSession().createCriteria(
 				RadiologyTest.class, "radiologytest");
 		criteria.add(Restrictions.eq("patient", patient));
+		if(!date.equals("all")){
 		String dat = date;
 		String startFromDate = dat + " 00:00:00";
 		String endFromDate = dat + " 23:59:59";
@@ -103,6 +104,7 @@ public class HibernateRadiologyCommonDAO implements RadiologyCommonDAO {
 			// TODO: handle exception
 			System.out.println("Error convert date: " + e.toString());
 			e.printStackTrace();
+		}
 		}
 		criteria.add(Restrictions.eq("status", "completed"));
 		return criteria.list();
