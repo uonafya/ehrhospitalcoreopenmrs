@@ -655,7 +655,7 @@ jQuery(document).ready(function() {
 	<div id="advanceSearch">
 		<table cellspacing="10">
 			<tr>
-				<td>Gender</td>
+				<td>Gender *</td>
 				<td colspan="3"><select id="gender" style="width: 100px">
 						<option value="Any">Any</option>
 						<option value="M">Male</option>

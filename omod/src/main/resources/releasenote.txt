@@ -1,4 +1,15 @@
+1.4.10.12
+released by ghanshyam on 20-may-2013
+- #357   Bug #357 [billing][3.2.7-SNAPSHOT] Error screen appears on clicking next page or changing page size in list of bills
+- #570   Bug #570 Advanced search
+- #1110  Support #1110 [Registration]ddu server slow
+- #1300  Support #1300 [Registration]Slowness in the PUNJAB hospitalcore
+- #1302  New Requirement #1302 [PatientDashboard] Add Radiology record of patient in patientdashboard(india module)
+- #1379  New Requirement #1379 [Registration]Gender under Advance Search
+- #1391  New Requirement #1391 [Patient Dashboard] Add Pharmacy record of patient in Dashboard(in all hospital of india module)
+
 1.4.10.11
+released by harsh
 
 1.4.10.10
 - Added deployment repo settings in POM.xml
