@@ -41,6 +41,7 @@ import org.openmrs.module.hospitalcore.PatientDashboardService;
 import org.openmrs.module.hospitalcore.db.PatientDashboardDAO;
 import org.openmrs.module.hospitalcore.model.Department;
 import org.openmrs.module.hospitalcore.model.DepartmentConcept;
+import org.openmrs.module.hospitalcore.model.OpdOrder;
 import org.openmrs.module.hospitalcore.util.PatientDashboardConstants;
 
 public class PatientDashboardServiceImpl implements PatientDashboardService {
@@ -162,6 +163,14 @@ public class PatientDashboardServiceImpl implements PatientDashboardService {
 	public List<Concept> listByDepartmentByWard(Integer wardId,
 			Integer typeConcept) throws APIException {
 		return dao.listByDepartmentByWard(wardId, typeConcept);
+	}
+	//ghanshyam 1-june-2013 New Requirement #1633 User must be able to send investigation orders from dashboard to billing
+	public List<Concept> searchInvestigation(String text) throws APIException {
+		ConceptClass cc =  Context.getConceptService().getConceptClassByName(PatientDashboardConstants.CONCEPT_CLASS_NAME_INVESTIGATION);
+		return dao.searchConceptsByNameAndClass(text, cc);
+	}
+	public OpdOrder saveOrUpdateOpdOrder(OpdOrder opdOrder) throws APIException {
+		return dao.saveOrUpdateOpdOrder(opdOrder);
 	}
 	
 	

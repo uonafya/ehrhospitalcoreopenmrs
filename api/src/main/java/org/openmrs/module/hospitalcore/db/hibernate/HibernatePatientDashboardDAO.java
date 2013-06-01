@@ -52,6 +52,7 @@ import org.openmrs.api.db.DAOException;
 import org.openmrs.module.hospitalcore.db.PatientDashboardDAO;
 import org.openmrs.module.hospitalcore.model.Department;
 import org.openmrs.module.hospitalcore.model.DepartmentConcept;
+import org.openmrs.module.hospitalcore.model.OpdOrder;
 
 public class HibernatePatientDashboardDAO implements PatientDashboardDAO{
 	SimpleDateFormat formatter = new SimpleDateFormat("dd/MM/yyyy HH:mm:ss");
@@ -262,6 +263,12 @@ public class HibernatePatientDashboardDAO implements PatientDashboardDAO{
 			return listConcept;
 		}
 		return null;
+	}
+	
+	//ghanshyam 1-june-2013 New Requirement #1633 User must be able to send investigation orders from dashboard to billing
+	public OpdOrder saveOrUpdateOpdOrder(OpdOrder opdOrder) throws DAOException {
+		sessionFactory.getCurrentSession().saveOrUpdate(opdOrder);
+		return opdOrder;
 	}
 	
 }

@@ -1,0 +1,29 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC
+    "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+    "http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd" >
+
+<hibernate-mapping package="org.openmrs.module.hospitalcore.model">
+
+	<class name="OpdOrder" table="opd_order" batch-size="500">
+
+		<id name="opdOrderId" type="int" column="opd_order_id"
+			unsaved-value="0">
+			<generator class="native" />
+		</id>
+		<many-to-one name="patient" column="patient_id" class="org.openmrs.Patient" />
+		<many-to-one name="encounter" column="encounter_id"
+			class="org.openmrs.Encounter" />
+		<many-to-one name="concept" column="concept_id" class="org.openmrs.Concept" />
+		<property name="typeConcept" column="type_concept" />
+		<many-to-one name="valueCoded" column="value_coded"
+			class="org.openmrs.Concept" />
+		<many-to-one name="creator" column="created_by" class="org.openmrs.User" />
+		<property name="createdOn" type="java.util.Date" column="created_on"
+			not-null="true" length="19" />
+		<property name="orderStatus" column="order_status" length="1"
+			not-null="true" />
+		<property name="orderReschedule" type="java.util.Date"
+			column="order_reschedule" length="19" />
+	</class>
+</hibernate-mapping>

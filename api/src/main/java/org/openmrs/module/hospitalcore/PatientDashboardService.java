@@ -34,6 +34,7 @@ import org.openmrs.Patient;
 import org.openmrs.api.APIException;
 import org.openmrs.module.hospitalcore.model.Department;
 import org.openmrs.module.hospitalcore.model.DepartmentConcept;
+import org.openmrs.module.hospitalcore.model.OpdOrder;
 import org.springframework.transaction.annotation.Transactional;
 
 @Transactional
@@ -65,6 +66,9 @@ public interface PatientDashboardService {
 	public void removeDepartmentConcept(DepartmentConcept departmentConcept) throws APIException;
 	public List<DepartmentConcept> listByDepartment(Integer departmentId, Integer typeConcept) throws APIException;
 	public List<Concept> listByDepartmentByWard(Integer wardId, Integer typeConcept) throws APIException;
+	//ghanshyam 1-june-2013 New Requirement #1633 User must be able to send investigation orders from dashboard to billing
+	public List<Concept> searchInvestigation(String text) throws APIException;
+	public OpdOrder saveOrUpdateOpdOrder(OpdOrder opdOrder) throws APIException;
 	
 	
 }
