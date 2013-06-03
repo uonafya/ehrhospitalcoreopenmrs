@@ -36,6 +36,7 @@ import org.openmrs.module.hospitalcore.model.Company;
 import org.openmrs.module.hospitalcore.model.Driver;
 import org.openmrs.module.hospitalcore.model.MiscellaneousService;
 import org.openmrs.module.hospitalcore.model.MiscellaneousServiceBill;
+import org.openmrs.module.hospitalcore.model.PatientSearch;
 import org.openmrs.module.hospitalcore.model.PatientServiceBill;
 import org.openmrs.module.hospitalcore.model.Receipt;
 import org.openmrs.module.hospitalcore.model.Tender;
@@ -328,4 +329,9 @@ public interface BillingService extends OpenmrsService {
 	public void updateReceipt() throws APIException;
 	
 	public void updateOldBills();
+	//ghanshyam 3-june-2013 New Requirement #1632 Orders from dashboard must be appear in billing queue.User must be able to generate bills from this queue
+	public List<PatientSearch> searchListOfPatient(String searchKey) throws APIException;
+	public List<Patient> listOfPatient() throws APIException;
+	public List<BillableService> listOfServiceOrder(Integer patientId) throws APIException;
+	public BillableService getServiceByConceptName(String conceptName) throws APIException;
 }

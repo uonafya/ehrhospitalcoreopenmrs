@@ -23,10 +23,10 @@ package org.openmrs.module.hospitalcore.db.hibernate;
 import java.text.ParseException;
 import java.util.Date;
 import java.util.List;
-
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.hibernate.Criteria;
+import org.hibernate.Query;
 import org.hibernate.SessionFactory;
 import org.hibernate.Transaction;
 import org.hibernate.classic.Session;
@@ -46,6 +46,7 @@ import org.openmrs.module.hospitalcore.model.Company;
 import org.openmrs.module.hospitalcore.model.Driver;
 import org.openmrs.module.hospitalcore.model.MiscellaneousService;
 import org.openmrs.module.hospitalcore.model.MiscellaneousServiceBill;
+import org.openmrs.module.hospitalcore.model.PatientSearch;
 import org.openmrs.module.hospitalcore.model.PatientServiceBill;
 import org.openmrs.module.hospitalcore.model.PatientServiceBillItem;
 import org.openmrs.module.hospitalcore.model.Receipt;
@@ -781,6 +782,43 @@ public class HibernateBillingDAO implements BillingDAO {
 		
 		criteria.add(Restrictions.eq("receipt", receipt));
 		return (PatientServiceBill) criteria.uniqueResult();
+	}
+	
+	//ghanshyam 3-june-2013 New Requirement #1632 Orders from dashboard must be appear in billing queue.User must be able to generate bills from this queue
+	public List<PatientSearch> searchListOfPatient(String searchKey) throws DAOException {
+        String hql = "from PatientSearch ps where ps.identifier LIKE '%"
+		+ searchKey
+		+ "%' OR ps.fullname LIKE '"
+		+ searchKey
+		+ "%' OR ps.patientId LIKE '"
+		+ searchKey
+		+ "%' AND ps.patientId IN (SELECT o.patient FROM OpdOrder o GROUP BY o.patient)";
+        Session session = sessionFactory.getCurrentSession();
+        Query q = session.createQuery(hql);
+        List<PatientSearch> list = q.list();
+        return list;
+    }
+	
+	public List<Patient> listOfPatient() throws DAOException {
+		String hql = "from Patient p where p.patientId IN (SELECT o.patient FROM OpdOrder o GROUP BY o.patient)";
+		Session session = sessionFactory.getCurrentSession();
+		Query q = session.createQuery(hql);
+		List<Patient> list = q.list();
+		return list;
+	}
+	
+	public List<BillableService> listOfServiceOrder(Integer patientId)throws DAOException {
+		String hql = "from BillableService b where b.conceptId IN (SELECT o.valueCoded FROM OpdOrder o where o.patient='" + patientId + "')";
+		Session session = sessionFactory.getCurrentSession();
+		Query q = session.createQuery(hql);
+		List<BillableService> list = q.list();
+		return list;
+	}
+	
+	public BillableService getServiceByConceptName(String conceptName) throws DAOException {
+		Criteria criteria = sessionFactory.getCurrentSession().createCriteria(BillableService.class);
+		criteria.add(Restrictions.eq("name", conceptName));
+		return (BillableService) criteria.uniqueResult();
 	}
 	
 }
