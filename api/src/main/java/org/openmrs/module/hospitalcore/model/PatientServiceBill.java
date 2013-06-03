@@ -61,7 +61,8 @@ public class PatientServiceBill implements Serializable {
 	
 	private Receipt receipt;
 	
-	private Boolean freeBill = false;
+	//ghanshyam 3-june-2013 New Requirement #1632 Orders from dashboard must be appear in billing queue.User must be able to generate bills from this queue
+	private Integer freeBill;//0=paidBill,1=freeBill,2=mixedBill
 	
 	//ghanshyam 25-feb-2013 New Requirement #966[Billing]Add Paid Bill/Add Free Bill for Bangladesh module(added 'comment' property)
 	private String comment;
@@ -162,14 +163,15 @@ public class PatientServiceBill implements Serializable {
 		this.receipt = receipt;
 	}
 	
-	public Boolean getFreeBill() {
+	//ghanshyam 3-june-2013 New Requirement #1632 Orders from dashboard must be appear in billing queue.User must be able to generate bills from this queue
+	public Integer getFreeBill() {
 		return freeBill;
 	}
-	
-	public void setFreeBill(Boolean freeBill) {
+
+	public void setFreeBill(Integer freeBill) {
 		this.freeBill = freeBill;
 	}
-	
+
 	public BigDecimal getActualAmount() {
 		return actualAmount;
 	}
