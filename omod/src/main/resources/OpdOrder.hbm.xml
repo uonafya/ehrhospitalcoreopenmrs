@@ -24,7 +24,6 @@
 		<property name="billingStatus" column="billing_status" length="1"
 			not-null="true" />
 	    <property name="cancelStatus" column="cancel_status" length="1"
-			not-null="true" />
-		<many-to-one name="patientServiceBillItem" column="patient_service_bill_item_id" class="org.openmrs.module.hospitalcore.model.PatientServiceBillItem" />		
+			not-null="true" />	
 	</class>
 </hibernate-mapping>
