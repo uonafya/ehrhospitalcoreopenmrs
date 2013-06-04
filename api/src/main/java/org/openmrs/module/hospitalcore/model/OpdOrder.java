@@ -39,7 +39,9 @@ public class OpdOrder {
 	private Concept valueCoded;
 	private User creator;
 	private Date createdOn;
-	private int orderStatus; //1=billed,0=canceled
+	private int billingStatus; //0=not yet billed,1=billed
+	private int cancelStatus; //0=not yet canceled,1=canceled
+	private PatientServiceBillItem patientServiceBillItem;
 	private Date orderReschedule;
 
 	public Integer getOpdOrderId() {
@@ -106,12 +108,29 @@ public class OpdOrder {
 		this.createdOn = createdOn;
 	}
 
-	public int getOrderStatus() {
-		return orderStatus;
+	public int getBillingStatus() {
+		return billingStatus;
 	}
 
-	public void setOrderStatus(int orderStatus) {
-		this.orderStatus = orderStatus;
+	public void setBillingStatus(int billingStatus) {
+		this.billingStatus = billingStatus;
+	}
+
+	public int getCancelStatus() {
+		return cancelStatus;
+	}
+
+	public void setCancelStatus(int cancelStatus) {
+		this.cancelStatus = cancelStatus;
+	}
+
+	public PatientServiceBillItem getPatientServiceBillItem() {
+		return patientServiceBillItem;
+	}
+
+	public void setPatientServiceBillItem(
+			PatientServiceBillItem patientServiceBillItem) {
+		this.patientServiceBillItem = patientServiceBillItem;
 	}
 
 	public Date getOrderReschedule() {

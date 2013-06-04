@@ -31,6 +31,7 @@ import org.openmrs.module.hospitalcore.model.Company;
 import org.openmrs.module.hospitalcore.model.Driver;
 import org.openmrs.module.hospitalcore.model.MiscellaneousService;
 import org.openmrs.module.hospitalcore.model.MiscellaneousServiceBill;
+import org.openmrs.module.hospitalcore.model.OpdOrder;
 import org.openmrs.module.hospitalcore.model.PatientSearch;
 import org.openmrs.module.hospitalcore.model.PatientServiceBill;
 import org.openmrs.module.hospitalcore.model.Receipt;
@@ -225,9 +226,13 @@ public interface BillingDAO {
 	//ghanshyam 3-june-2013 New Requirement #1632 Orders from dashboard must be appear in billing queue.User must be able to generate bills from this queue
 	public List<PatientSearch> searchListOfPatient(String searchKey) throws DAOException;
 	
-	public List<Patient> listOfPatient() throws DAOException;
+	public List<PatientSearch> listOfPatient() throws DAOException;
 
-	public List<BillableService> listOfServiceOrder(Integer patientId) throws DAOException;
+	public List<BillableService> listOfServiceOrder(Integer patientId, Integer encounterId) throws DAOException;
 	
 	public BillableService getServiceByConceptName(String conceptName) throws DAOException;
+	
+	public List<OpdOrder> listOfOrder(Patient patient) throws DAOException;
+	
+	public OpdOrder getOpdTestOrder(Integer encounterId,Integer conceptId) throws DAOException;
 }

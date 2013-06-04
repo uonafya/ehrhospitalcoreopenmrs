@@ -59,6 +59,7 @@ import org.openmrs.module.hospitalcore.model.Driver;
 import org.openmrs.module.hospitalcore.model.Lab;
 import org.openmrs.module.hospitalcore.model.MiscellaneousService;
 import org.openmrs.module.hospitalcore.model.MiscellaneousServiceBill;
+import org.openmrs.module.hospitalcore.model.OpdOrder;
 import org.openmrs.module.hospitalcore.model.PatientSearch;
 import org.openmrs.module.hospitalcore.model.PatientServiceBill;
 import org.openmrs.module.hospitalcore.model.PatientServiceBillItem;
@@ -1101,14 +1102,20 @@ public class BillingServiceImpl extends BaseOpenmrsService implements BillingSer
 	public List<PatientSearch> searchListOfPatient(String searchKey) throws APIException {
 		return dao.searchListOfPatient(searchKey);
 	}
-	public List<Patient> listOfPatient() throws APIException {
+	public List<PatientSearch> listOfPatient() throws APIException {
 		return dao.listOfPatient();
 	}
-	public List<BillableService> listOfServiceOrder(Integer patientId) throws APIException {
-		return dao.listOfServiceOrder(patientId);
+	public List<BillableService> listOfServiceOrder(Integer patientId, Integer encounterId) throws APIException {
+		return dao.listOfServiceOrder(patientId,encounterId);
 	}
 	public BillableService getServiceByConceptName(String conceptName) throws APIException {
 		return dao.getServiceByConceptName(conceptName);
+	}
+	public List<OpdOrder> listOfOrder(Patient patient) throws APIException {
+		return dao.listOfOrder(patient);
+	}
+	public OpdOrder getOpdTestOrder(Integer encounterId,Integer conceptId) throws APIException {
+		return dao.getOpdTestOrder(encounterId,conceptId);
 	}
 	
 }

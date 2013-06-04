@@ -46,6 +46,7 @@ import org.openmrs.module.hospitalcore.model.Company;
 import org.openmrs.module.hospitalcore.model.Driver;
 import org.openmrs.module.hospitalcore.model.MiscellaneousService;
 import org.openmrs.module.hospitalcore.model.MiscellaneousServiceBill;
+import org.openmrs.module.hospitalcore.model.OpdOrder;
 import org.openmrs.module.hospitalcore.model.PatientSearch;
 import org.openmrs.module.hospitalcore.model.PatientServiceBill;
 import org.openmrs.module.hospitalcore.model.PatientServiceBillItem;
@@ -58,14 +59,14 @@ import org.openmrs.module.hospitalcore.util.PatientUtils;
  * Hibernate specific Idcards database methods
  */
 public class HibernateBillingDAO implements BillingDAO {
-	
+
 	protected final Log log = LogFactory.getLog(getClass());
-	
+
 	/**
 	 * Hibernate session factory
 	 */
 	private SessionFactory sessionFactory;
-	
+
 	/**
 	 * Set session factory
 	 * 
@@ -74,476 +75,548 @@ public class HibernateBillingDAO implements BillingDAO {
 	public void setSessionFactory(SessionFactory sessionFactory) {
 		this.sessionFactory = sessionFactory;
 	}
-	
+
 	/**
 	 * @see org.openmrs.module.billing.db.BillingDAO#listTender(int, int)
 	 */
 	@SuppressWarnings("unchecked")
 	public List<Tender> listTender(int min, int max) throws DAOException {
-		Criteria criteria = sessionFactory.getCurrentSession().createCriteria(Tender.class);
+		Criteria criteria = sessionFactory.getCurrentSession().createCriteria(
+				Tender.class);
 		criteria.setFirstResult(min).setMaxResults(max);
 		return criteria.list();
 	}
-	
+
 	/**
 	 * @see org.openmrs.module.billing.db.BillingDAO#saveTender(org.openmrs.module.billing.model.Tender)
 	 */
 	public Tender saveTender(Tender tender) throws DAOException {
 		return (Tender) sessionFactory.getCurrentSession().merge(tender);
 	}
-	
+
 	/**
 	 * @see org.openmrs.module.billing.db.BillingDAO#countListTender()
 	 */
 	public int countListTender() throws DAOException {
-		Criteria criteria = sessionFactory.getCurrentSession().createCriteria(Tender.class);
-		Number rs = (Number) criteria.setProjection(Projections.rowCount()).uniqueResult();
+		Criteria criteria = sessionFactory.getCurrentSession().createCriteria(
+				Tender.class);
+		Number rs = (Number) criteria.setProjection(Projections.rowCount())
+				.uniqueResult();
 		return rs != null ? rs.intValue() : 0;
 	}
-	
+
 	public void deleteTender(Tender tender) {
 		sessionFactory.getCurrentSession().delete(tender);
 	}
-	
+
 	public Tender getTenderById(Integer id) {
-		Criteria criteria = sessionFactory.getCurrentSession().createCriteria(Tender.class);
+		Criteria criteria = sessionFactory.getCurrentSession().createCriteria(
+				Tender.class);
 		criteria.add(Restrictions.eq("tenderId", id));
 		return (Tender) criteria.uniqueResult();
 	}
-	
+
 	public Tender getTenderByNameAndNumber(String name, int number) {
-		Criteria crit = sessionFactory.getCurrentSession().createCriteria(Tender.class);
+		Criteria crit = sessionFactory.getCurrentSession().createCriteria(
+				Tender.class);
 		crit.add(Restrictions.eq("name", name));
 		crit.add(Restrictions.eq("number", number));
 		return (Tender) crit.uniqueResult();
 	}
-	
+
 	/**
 	 * @see org.openmrs.module.billing.db.BillingDAO#countListCompany()
 	 */
 	public int countListCompany() throws DAOException {
-		Criteria criteria = sessionFactory.getCurrentSession().createCriteria(Company.class);
-		Number rs = (Number) criteria.setProjection(Projections.rowCount()).uniqueResult();
+		Criteria criteria = sessionFactory.getCurrentSession().createCriteria(
+				Company.class);
+		Number rs = (Number) criteria.setProjection(Projections.rowCount())
+				.uniqueResult();
 		return rs != null ? rs.intValue() : 0;
 	}
-	
+
 	/**
 	 * @see org.openmrs.module.billing.db.BillingDAO#deleteCompany(org.openmrs.module.billing.model.Company)
 	 */
 	public void deleteCompany(Company company) throws DAOException {
 		sessionFactory.getCurrentSession().delete(company);
 	}
-	
+
 	/**
 	 * @see org.openmrs.module.billing.db.BillingDAO#getCompanyById(java.lang.Integer)
 	 */
 	public Company getCompanyById(Integer id) throws DAOException {
-		Criteria criteria = sessionFactory.getCurrentSession().createCriteria(Company.class);
+		Criteria criteria = sessionFactory.getCurrentSession().createCriteria(
+				Company.class);
 		criteria.add(Restrictions.eq("companyId", id));
 		return (Company) criteria.uniqueResult();
 	}
-	
+
 	/**
 	 * @see org.openmrs.module.billing.db.BillingDAO#listCompany(int, int)
 	 */
 	@SuppressWarnings("unchecked")
 	public List<Company> listCompany(int min, int max) throws DAOException {
-		Criteria criteria = sessionFactory.getCurrentSession().createCriteria(Company.class);
+		Criteria criteria = sessionFactory.getCurrentSession().createCriteria(
+				Company.class);
 		criteria.setFirstResult(min).setMaxResults(max);
 		return criteria.list();
 	}
-	
+
 	/**
 	 * @see org.openmrs.module.billing.db.BillingDAO#saveCompany(org.openmrs.module.billing.model.Company)
 	 */
 	public Company saveCompany(Company company) throws DAOException {
 		return (Company) sessionFactory.getCurrentSession().merge(company);
 	}
-	
+
 	public Company getCompanyByName(String name) {
-		Criteria crit = sessionFactory.getCurrentSession().createCriteria(Company.class);
+		Criteria crit = sessionFactory.getCurrentSession().createCriteria(
+				Company.class);
 		crit.add(Restrictions.eq("name", name));
 		return (Company) crit.uniqueResult();
 	}
-	
+
 	/**
 	 * @see org.openmrs.module.billing.db.BillingDAO#countListDriver()
 	 */
 	public int countListDriver() throws DAOException {
-		Criteria criteria = sessionFactory.getCurrentSession().createCriteria(Driver.class);
-		Number rs = (Number) criteria.setProjection(Projections.rowCount()).uniqueResult();
+		Criteria criteria = sessionFactory.getCurrentSession().createCriteria(
+				Driver.class);
+		Number rs = (Number) criteria.setProjection(Projections.rowCount())
+				.uniqueResult();
 		return rs != null ? rs.intValue() : 0;
 	}
-	
+
 	/**
 	 * @see org.openmrs.module.billing.db.BillingDAO#deleteDriver(org.openmrs.module.billing.model.Driver)
 	 */
 	public void deleteDriver(Driver driver) throws DAOException {
 		sessionFactory.getCurrentSession().delete(driver);
 	}
-	
+
 	/**
 	 * @see org.openmrs.module.billing.db.BillingDAO#getDriverById(java.lang.Integer)
 	 */
 	public Driver getDriverById(Integer id) throws DAOException {
-		Criteria criteria = sessionFactory.getCurrentSession().createCriteria(Driver.class);
+		Criteria criteria = sessionFactory.getCurrentSession().createCriteria(
+				Driver.class);
 		criteria.add(Restrictions.eq("driverId", id));
 		return (Driver) criteria.uniqueResult();
 	}
-	
+
 	/**
 	 * @see org.openmrs.module.billing.db.BillingDAO#getDriveryByName(java.lang.String)
 	 */
 	public Driver getDriveryByName(String name) throws DAOException {
-		Criteria crit = sessionFactory.getCurrentSession().createCriteria(Driver.class);
+		Criteria crit = sessionFactory.getCurrentSession().createCriteria(
+				Driver.class);
 		crit.add(Restrictions.eq("name", name));
 		return (Driver) crit.uniqueResult();
 	}
-	
+
 	/**
 	 * @see org.openmrs.module.billing.db.BillingDAO#listDriver(int, int)
 	 */
 	@SuppressWarnings("unchecked")
 	public List<Driver> listDriver(int min, int max) throws DAOException {
-		Criteria criteria = sessionFactory.getCurrentSession().createCriteria(Driver.class);
+		Criteria criteria = sessionFactory.getCurrentSession().createCriteria(
+				Driver.class);
 		criteria.setFirstResult(min).setMaxResults(max);
 		return criteria.list();
 	}
-	
+
 	/**
 	 * @see org.openmrs.module.billing.db.BillingDAO#saveDriver(org.openmrs.module.billing.model.Driver)
 	 */
 	public Driver saveDriver(Driver driver) throws DAOException {
 		return (Driver) sessionFactory.getCurrentSession().merge(driver);
 	}
-	
+
 	/**
 	 * @see org.openmrs.module.billing.db.BillingDAO#searchCompany(java.lang.String)
 	 */
 	@SuppressWarnings("unchecked")
 	public List<Company> searchCompany(String searchText) throws DAOException {
-		Criteria crit = sessionFactory.getCurrentSession().createCriteria(Company.class);
-		crit.add(Restrictions.like("name", searchText + "%")).add(Restrictions.eq("retired", false));
+		Criteria crit = sessionFactory.getCurrentSession().createCriteria(
+				Company.class);
+		crit.add(Restrictions.like("name", searchText + "%")).add(
+				Restrictions.eq("retired", false));
 		return crit.list();
 	}
-	
+
 	/**
 	 * @see org.openmrs.module.billing.db.BillingDAO#searchDriver(java.lang.String)
 	 */
 	@SuppressWarnings("unchecked")
 	public List<Driver> searchDriver(String searchText) throws DAOException {
-		Criteria crit = sessionFactory.getCurrentSession().createCriteria(Driver.class);
-		crit.add(Restrictions.like("name", searchText + "%")).add(Restrictions.eq("retired", false));
+		Criteria crit = sessionFactory.getCurrentSession().createCriteria(
+				Driver.class);
+		crit.add(Restrictions.like("name", searchText + "%")).add(
+				Restrictions.eq("retired", false));
 		;
 		return crit.list();
 	}
-	
+
 	/**
 	 * @see org.openmrs.module.billing.db.BillingDAO#getAllCompany()
 	 */
 	@SuppressWarnings("unchecked")
 	public List<Company> getAllCompany() throws DAOException {
-		Criteria crit = sessionFactory.getCurrentSession().createCriteria(Company.class);
+		Criteria crit = sessionFactory.getCurrentSession().createCriteria(
+				Company.class);
 		crit.addOrder(Order.asc("name"));
 		return crit.list();
 	}
-	
+
 	/**
 	 * @see org.openmrs.module.billing.db.BillingDAO#getAllDriver()
 	 */
 	@SuppressWarnings("unchecked")
 	public List<Driver> getAllDriver() throws DAOException {
-		Criteria crit = sessionFactory.getCurrentSession().createCriteria(Driver.class);
+		Criteria crit = sessionFactory.getCurrentSession().createCriteria(
+				Driver.class);
 		crit.addOrder(Order.asc("name"));
 		return crit.list();
 	}
-	
+
 	@SuppressWarnings("unchecked")
 	public List<Tender> getActiveTenders() {
-		Criteria criteria = sessionFactory.getCurrentSession().createCriteria(Tender.class);
+		Criteria criteria = sessionFactory.getCurrentSession().createCriteria(
+				Tender.class);
 		Date today;
 		try {
-			today = Context.getDateFormat().parse(Context.getDateFormat().format(new Date()));
-			criteria.add(Restrictions.ge("closingDate", new java.sql.Date(today.getTime())));
+			today = Context.getDateFormat().parse(
+					Context.getDateFormat().format(new Date()));
+			criteria.add(Restrictions.ge("closingDate",
+					new java.sql.Date(today.getTime())));
 			criteria.add(Restrictions.eq("retired", false));
-		}
-		catch (ParseException e) {
+		} catch (ParseException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-		
+
 		return criteria.list();
 	}
-	
+
 	/**
 	 * @see org.openmrs.module.billing.db.BillingDAO#countListTenderBillByCompany(org.openmrs.module.billing.model.Company)
 	 */
-	public int countListTenderBillByCompany(Company company) throws DAOException {
-		Criteria criteria = sessionFactory.getCurrentSession().createCriteria(TenderBill.class);
+	public int countListTenderBillByCompany(Company company)
+			throws DAOException {
+		Criteria criteria = sessionFactory.getCurrentSession().createCriteria(
+				TenderBill.class);
 		criteria.add(Restrictions.eq("company", company));
-		Number rs = (Number) criteria.setProjection(Projections.rowCount()).uniqueResult();
+		Number rs = (Number) criteria.setProjection(Projections.rowCount())
+				.uniqueResult();
 		return rs != null ? rs.intValue() : 0;
 	}
-	
+
 	/**
 	 * @see org.openmrs.module.billing.db.BillingDAO#getAllTenderBill()
 	 */
 	@SuppressWarnings("unchecked")
 	public List<TenderBill> getAllTenderBill() throws DAOException {
-		Criteria criteria = sessionFactory.getCurrentSession().createCriteria(TenderBill.class);
+		Criteria criteria = sessionFactory.getCurrentSession().createCriteria(
+				TenderBill.class);
 		return criteria.list();
 	}
-	
+
 	/**
 	 * @see org.openmrs.module.billing.db.BillingDAO#getTenderBillById(java.lang.Integer)
 	 */
-	public TenderBill getTenderBillById(Integer tenderBillId) throws DAOException {
-		Criteria criteria = sessionFactory.getCurrentSession().createCriteria(TenderBill.class);
+	public TenderBill getTenderBillById(Integer tenderBillId)
+			throws DAOException {
+		Criteria criteria = sessionFactory.getCurrentSession().createCriteria(
+				TenderBill.class);
 		criteria.add(Restrictions.eq("tenderBillId", tenderBillId));
 		return (TenderBill) criteria.uniqueResult();
 	}
-	
+
 	/**
-	 * @see org.openmrs.module.billing.db.BillingDAO#listTenderBillByCompany(int, int,
-	 *      org.openmrs.module.billing.model.Company)
+	 * @see org.openmrs.module.billing.db.BillingDAO#listTenderBillByCompany(int,
+	 *      int, org.openmrs.module.billing.model.Company)
 	 */
 	@SuppressWarnings("unchecked")
-	public List<TenderBill> listTenderBillByCompany(int min, int max, Company company) throws DAOException {
-		Criteria criteria = sessionFactory.getCurrentSession().createCriteria(TenderBill.class);
-		criteria.add(Restrictions.eq("company", company)).addOrder(Order.desc("createdDate")).setFirstResult(min)
-		        .setMaxResults(max);
+	public List<TenderBill> listTenderBillByCompany(int min, int max,
+			Company company) throws DAOException {
+		Criteria criteria = sessionFactory.getCurrentSession().createCriteria(
+				TenderBill.class);
+		criteria.add(Restrictions.eq("company", company))
+				.addOrder(Order.desc("createdDate")).setFirstResult(min)
+				.setMaxResults(max);
 		return criteria.list();
 	}
-	
+
 	/**
 	 * @see org.openmrs.module.billing.db.BillingDAO#saveTenderBill(org.openmrs.module.billing.model.TenderBill)
 	 */
 	public TenderBill saveTenderBill(TenderBill tenderBill) throws DAOException {
-		return (TenderBill) sessionFactory.getCurrentSession().merge(tenderBill);
+		return (TenderBill) sessionFactory.getCurrentSession()
+				.merge(tenderBill);
 	}
-	
+
 	/**
 	 * @see org.openmrs.module.billing.db.BillingDAO#countListAmbulance()
 	 */
 	public int countListAmbulance() throws DAOException {
-		Criteria criteria = sessionFactory.getCurrentSession().createCriteria(Ambulance.class);
-		Number rs = (Number) criteria.setProjection(Projections.rowCount()).uniqueResult();
+		Criteria criteria = sessionFactory.getCurrentSession().createCriteria(
+				Ambulance.class);
+		Number rs = (Number) criteria.setProjection(Projections.rowCount())
+				.uniqueResult();
 		return rs != null ? rs.intValue() : 0;
 	}
-	
+
 	/**
 	 * @see org.openmrs.module.billing.db.BillingDAO#deleteAmbulance(org.openmrs.module.billing.model.Ambulance)
 	 */
 	public void deleteAmbulance(Ambulance ambulance) throws DAOException {
 		sessionFactory.getCurrentSession().delete(ambulance);
 	}
-	
+
 	/**
 	 * @see org.openmrs.module.billing.db.BillingDAO#getAllAmbulance()
 	 */
 	@SuppressWarnings("unchecked")
 	public List<Ambulance> getAllAmbulance() throws DAOException {
-		Criteria crit = sessionFactory.getCurrentSession().createCriteria(Company.class);
+		Criteria crit = sessionFactory.getCurrentSession().createCriteria(
+				Company.class);
 		crit.addOrder(Order.asc("name"));
 		return crit.list();
 	}
-	
+
 	/**
 	 * @see org.openmrs.module.billing.db.BillingDAO#getAmbulanceById(java.lang.Integer)
 	 */
 	public Ambulance getAmbulanceById(Integer id) throws DAOException {
-		Criteria criteria = sessionFactory.getCurrentSession().createCriteria(Ambulance.class);
+		Criteria criteria = sessionFactory.getCurrentSession().createCriteria(
+				Ambulance.class);
 		criteria.add(Restrictions.eq("ambulanceId", id));
 		return (Ambulance) criteria.uniqueResult();
 	}
-	
+
 	/**
 	 * @see org.openmrs.module.billing.db.BillingDAO#getAmbulanceByName(java.lang.String)
 	 */
 	public Ambulance getAmbulanceByName(String name) throws DAOException {
-		Criteria crit = sessionFactory.getCurrentSession().createCriteria(Ambulance.class);
+		Criteria crit = sessionFactory.getCurrentSession().createCriteria(
+				Ambulance.class);
 		crit.add(Restrictions.eq("name", name));
 		return (Ambulance) crit.uniqueResult();
 	}
-	
+
 	/**
 	 * @see org.openmrs.module.billing.db.BillingDAO#listAmbulance(int, int)
 	 */
 	@SuppressWarnings("unchecked")
 	public List<Ambulance> listAmbulance(int min, int max) throws DAOException {
-		Criteria criteria = sessionFactory.getCurrentSession().createCriteria(Ambulance.class);
+		Criteria criteria = sessionFactory.getCurrentSession().createCriteria(
+				Ambulance.class);
 		criteria.setFirstResult(min).setMaxResults(max);
 		return criteria.list();
 	}
-	
+
 	/**
 	 * @see org.openmrs.module.billing.db.BillingDAO#saveAmbulance(org.openmrs.module.billing.model.Ambulance)
 	 */
 	public Ambulance saveAmbulance(Ambulance ambulance) throws DAOException {
 		return (Ambulance) sessionFactory.getCurrentSession().merge(ambulance);
 	}
-	
+
 	/**
 	 * @see org.openmrs.module.billing.db.BillingDAO#countListAmbulanceBillByCompany(org.openmrs.module.billing.model.Driver)
 	 */
-	public int countListAmbulanceBillByDriver(Driver driver) throws DAOException {
-		Criteria criteria = sessionFactory.getCurrentSession().createCriteria(AmbulanceBill.class);
+	public int countListAmbulanceBillByDriver(Driver driver)
+			throws DAOException {
+		Criteria criteria = sessionFactory.getCurrentSession().createCriteria(
+				AmbulanceBill.class);
 		criteria.add(Restrictions.eq("driver", driver));
-		Number rs = (Number) criteria.setProjection(Projections.rowCount()).uniqueResult();
+		Number rs = (Number) criteria.setProjection(Projections.rowCount())
+				.uniqueResult();
 		return rs != null ? rs.intValue() : 0;
 	}
-	
+
 	/**
 	 * @see org.openmrs.module.billing.db.BillingDAO#getAllAmbulanceBill()
 	 */
 	@SuppressWarnings("unchecked")
 	public List<AmbulanceBill> getAllAmbulanceBill() throws DAOException {
-		Criteria crit = sessionFactory.getCurrentSession().createCriteria(AmbulanceBill.class);
+		Criteria crit = sessionFactory.getCurrentSession().createCriteria(
+				AmbulanceBill.class);
 		crit.addOrder(Order.desc("createdDate"));
 		return crit.list();
 	}
-	
+
 	/**
 	 * @see org.openmrs.module.billing.db.BillingDAO#getAmbulanceBillById(java.lang.Integer)
 	 */
-	public AmbulanceBill getAmbulanceBillById(Integer ambulanceBillId) throws DAOException {
-		Criteria criteria = sessionFactory.getCurrentSession().createCriteria(AmbulanceBill.class);
+	public AmbulanceBill getAmbulanceBillById(Integer ambulanceBillId)
+			throws DAOException {
+		Criteria criteria = sessionFactory.getCurrentSession().createCriteria(
+				AmbulanceBill.class);
 		criteria.add(Restrictions.eq("ambulanceBillId", ambulanceBillId));
 		return (AmbulanceBill) criteria.uniqueResult();
 	}
-	
+
 	/**
-	 * @see org.openmrs.module.billing.db.BillingDAO#listAmbulanceBillByDriver(int, int,
-	 *      org.openmrs.module.billing.model.Driver)
+	 * @see org.openmrs.module.billing.db.BillingDAO#listAmbulanceBillByDriver(int,
+	 *      int, org.openmrs.module.billing.model.Driver)
 	 */
 	@SuppressWarnings("unchecked")
-	public List<AmbulanceBill> listAmbulanceBillByDriver(int min, int max, Driver driver) throws DAOException {
-		Criteria criteria = sessionFactory.getCurrentSession().createCriteria(AmbulanceBill.class);
-		criteria.add(Restrictions.eq("driver", driver)).addOrder(Order.desc("createdDate")).setFirstResult(min)
-		        .setMaxResults(max);
+	public List<AmbulanceBill> listAmbulanceBillByDriver(int min, int max,
+			Driver driver) throws DAOException {
+		Criteria criteria = sessionFactory.getCurrentSession().createCriteria(
+				AmbulanceBill.class);
+		criteria.add(Restrictions.eq("driver", driver))
+				.addOrder(Order.desc("createdDate")).setFirstResult(min)
+				.setMaxResults(max);
 		return criteria.list();
 	}
-	
+
 	/**
 	 * @see org.openmrs.module.billing.db.BillingDAO#saveAmbulanceBill(org.openmrs.module.billing.model.AmbulanceBill)
 	 */
-	public AmbulanceBill saveAmbulanceBill(AmbulanceBill ambulanceBill) throws DAOException {
-		return (AmbulanceBill) sessionFactory.getCurrentSession().merge(ambulanceBill);
+	public AmbulanceBill saveAmbulanceBill(AmbulanceBill ambulanceBill)
+			throws DAOException {
+		return (AmbulanceBill) sessionFactory.getCurrentSession().merge(
+				ambulanceBill);
 	}
-	
+
 	/**
 	 * @see org.openmrs.module.billing.db.BillingDAO#getActiveAmbulances()
 	 */
 	@SuppressWarnings("unchecked")
 	public List<Ambulance> getActiveAmbulances() throws DAOException {
-		Criteria crit = sessionFactory.getCurrentSession().createCriteria(Ambulance.class);
+		Criteria crit = sessionFactory.getCurrentSession().createCriteria(
+				Ambulance.class);
 		crit.addOrder(Order.asc("name"));
 		crit.add(Restrictions.eq("retired", false));
 		return crit.list();
 	}
-	
+
 	/**
 	 * @see org.openmrs.module.billing.db.BillingDAO#getAllServices()
 	 */
 	@SuppressWarnings("unchecked")
 	public List<BillableService> getAllServices() throws DAOException {
-		Criteria criteria = sessionFactory.getCurrentSession().createCriteria(BillableService.class);
+		Criteria criteria = sessionFactory.getCurrentSession().createCriteria(
+				BillableService.class);
 		return criteria.list();
 	}
-	
+
 	/**
 	 * @see org.openmrs.module.billing.db.BillingDAO#getServiceByConceptId(java.lang.Integer)
 	 */
-	public BillableService getServiceByConceptId(Integer conceptId) throws DAOException {
-		Criteria criteria = sessionFactory.getCurrentSession().createCriteria(BillableService.class);
+	public BillableService getServiceByConceptId(Integer conceptId)
+			throws DAOException {
+		Criteria criteria = sessionFactory.getCurrentSession().createCriteria(
+				BillableService.class);
 		criteria.add(Restrictions.eq("conceptId", conceptId));
 		return (BillableService) criteria.uniqueResult();
 	}
-	
+
 	/**
 	 * @see org.openmrs.module.billing.db.BillingDAO#getServiceById(java.lang.Integer)
 	 */
 	public BillableService getServiceById(Integer id) throws DAOException {
-		Criteria criteria = sessionFactory.getCurrentSession().createCriteria(BillableService.class);
+		Criteria criteria = sessionFactory.getCurrentSession().createCriteria(
+				BillableService.class);
 		criteria.add(Restrictions.eq("serviceId", id));
 		return (BillableService) criteria.uniqueResult();
 	}
-	
+
 	/**
 	 * @see org.openmrs.module.billing.db.BillingDAO#saveService(org.openmrs.module.billing.model.BillableService)
 	 */
-	public BillableService saveService(BillableService service) throws DAOException {
-		return (BillableService) sessionFactory.getCurrentSession().merge(service);
+	public BillableService saveService(BillableService service)
+			throws DAOException {
+		return (BillableService) sessionFactory.getCurrentSession().merge(
+				service);
 	}
-	
+
 	/**
 	 * @see org.openmrs.module.billing.db.BillingDAO#countListPatientServiceBillByPatient(org.openmrs.Patient)
 	 */
-	public int countListPatientServiceBillByPatient(Patient patient) throws DAOException {
-		Criteria criteria = sessionFactory.getCurrentSession().createCriteria(PatientServiceBill.class);
+	public int countListPatientServiceBillByPatient(Patient patient)
+			throws DAOException {
+		Criteria criteria = sessionFactory.getCurrentSession().createCriteria(
+				PatientServiceBill.class);
 		criteria.add(Restrictions.eq("patient", patient));
-		Number rs = (Number) criteria.setProjection(Projections.rowCount()).uniqueResult();
+		Number rs = (Number) criteria.setProjection(Projections.rowCount())
+				.uniqueResult();
 		return rs != null ? rs.intValue() : 0;
 	}
-	
+
 	/**
 	 * @see org.openmrs.module.billing.db.BillingDAO#getAllPatientServiceBill()
 	 */
 	@SuppressWarnings("unchecked")
-	public List<PatientServiceBill> getAllPatientServiceBill() throws DAOException {
-		Criteria crit = sessionFactory.getCurrentSession().createCriteria(PatientServiceBill.class);
+	public List<PatientServiceBill> getAllPatientServiceBill()
+			throws DAOException {
+		Criteria crit = sessionFactory.getCurrentSession().createCriteria(
+				PatientServiceBill.class);
 		crit.addOrder(Order.asc("createdDate"));
 		return crit.list();
 	}
-	
+
 	/**
 	 * @see org.openmrs.module.billing.db.BillingDAO#getPatientServiceBillById(java.lang.Integer)
 	 */
-	public PatientServiceBill getPatientServiceBillById(Integer patientServiceBillId) throws DAOException {
-		Criteria criteria = sessionFactory.getCurrentSession().createCriteria(PatientServiceBill.class);
-		criteria.add(Restrictions.eq("patientServiceBillId", patientServiceBillId));
+	public PatientServiceBill getPatientServiceBillById(
+			Integer patientServiceBillId) throws DAOException {
+		Criteria criteria = sessionFactory.getCurrentSession().createCriteria(
+				PatientServiceBill.class);
+		criteria.add(Restrictions.eq("patientServiceBillId",
+				patientServiceBillId));
 		return (PatientServiceBill) criteria.uniqueResult();
 	}
-	
+
 	/**
-	 * @see org.openmrs.module.billing.db.BillingDAO#listPatientServiceBillByDriver(int, int,
-	 *      org.openmrs.module.billing.model.Driver)
+	 * @see org.openmrs.module.billing.db.BillingDAO#listPatientServiceBillByDriver(int,
+	 *      int, org.openmrs.module.billing.model.Driver)
 	 */
 	@SuppressWarnings("unchecked")
-	public List<PatientServiceBill> listPatientServiceBillByPatient(int min, int max, Patient patient) throws DAOException {
-		Criteria criteria = sessionFactory.getCurrentSession().createCriteria(PatientServiceBill.class);
-		criteria.add(Restrictions.eq("patient", patient)).addOrder(Order.desc("createdDate")).setFirstResult(min)
-		        .setMaxResults(max);
+	public List<PatientServiceBill> listPatientServiceBillByPatient(int min,
+			int max, Patient patient) throws DAOException {
+		Criteria criteria = sessionFactory.getCurrentSession().createCriteria(
+				PatientServiceBill.class);
+		criteria.add(Restrictions.eq("patient", patient))
+				.addOrder(Order.desc("createdDate")).setFirstResult(min)
+				.setMaxResults(max);
 		return criteria.list();
 	}
-	
+
 	/**
 	 * @see org.openmrs.module.billing.db.BillingDAO#savePatientServiceBill(org.openmrs.module.billing.model.PatientServiceBill)
 	 */
-	public PatientServiceBill savePatientServiceBill(PatientServiceBill patientServiceBill) throws DAOException {
-		return (PatientServiceBill) sessionFactory.getCurrentSession().merge(patientServiceBill);
+	public PatientServiceBill savePatientServiceBill(
+			PatientServiceBill patientServiceBill) throws DAOException {
+		return (PatientServiceBill) sessionFactory.getCurrentSession().merge(
+				patientServiceBill);
 	}
-	
+
 	/**
 	 * @see org.openmrs.module.billing.db.BillingDAO#getAllActiveCompany()
 	 */
 	@SuppressWarnings("unchecked")
 	public List<Company> getAllActiveCompany() throws DAOException {
-		Criteria crit = sessionFactory.getCurrentSession().createCriteria(Company.class);
+		Criteria crit = sessionFactory.getCurrentSession().createCriteria(
+				Company.class);
 		crit.addOrder(Order.asc("name")).add(Restrictions.eq("retired", false));
 		return crit.list();
 	}
-	
+
 	/**
 	 * @see org.openmrs.module.billing.db.BillingDAO#getAllActiveDriver()
 	 */
 	@SuppressWarnings("unchecked")
 	public List<Driver> getAllActiveDriver() throws DAOException {
-		Criteria crit = sessionFactory.getCurrentSession().createCriteria(Driver.class);
+		Criteria crit = sessionFactory.getCurrentSession().createCriteria(
+				Driver.class);
 		crit.addOrder(Order.asc("name")).add(Restrictions.eq("retired", false));
 		return crit.list();
 	}
-	
+
 	public void disableService(Integer conceptId) throws DAOException {
 		BillableService service = getServiceByConceptId(conceptId);
 		if (service != null) {
@@ -551,93 +624,120 @@ public class HibernateBillingDAO implements BillingDAO {
 			saveService(service);
 		}
 	}
-	
+
 	public int countListMiscellaneousService() throws DAOException {
-		Criteria criteria = sessionFactory.getCurrentSession().createCriteria(MiscellaneousService.class);
-		Number rs = (Number) criteria.setProjection(Projections.rowCount()).uniqueResult();
+		Criteria criteria = sessionFactory.getCurrentSession().createCriteria(
+				MiscellaneousService.class);
+		Number rs = (Number) criteria.setProjection(Projections.rowCount())
+				.uniqueResult();
 		return rs != null ? rs.intValue() : 0;
 	}
-	
+
 	public int countListMiscellaneousServiceBill() throws DAOException {
-		Criteria criteria = sessionFactory.getCurrentSession().createCriteria(MiscellaneousServiceBill.class);
-		Number rs = (Number) criteria.setProjection(Projections.rowCount()).uniqueResult();
+		Criteria criteria = sessionFactory.getCurrentSession().createCriteria(
+				MiscellaneousServiceBill.class);
+		Number rs = (Number) criteria.setProjection(Projections.rowCount())
+				.uniqueResult();
 		return rs != null ? rs.intValue() : 0;
 	}
-	
+
 	@SuppressWarnings("unchecked")
-	public List<MiscellaneousService> getAllMiscellaneousService() throws DAOException {
-		Criteria crit = sessionFactory.getCurrentSession().createCriteria(MiscellaneousService.class);
+	public List<MiscellaneousService> getAllMiscellaneousService()
+			throws DAOException {
+		Criteria crit = sessionFactory.getCurrentSession().createCriteria(
+				MiscellaneousService.class);
 		crit.addOrder(Order.asc("name"));
 		crit.add(Restrictions.eq("retired", false));
 		return crit.list();
-		
+
 	}
-	
+
 	@SuppressWarnings("unchecked")
-	public List<MiscellaneousServiceBill> getAllMiscellaneousServiceBill() throws DAOException {
-		Criteria crit = sessionFactory.getCurrentSession().createCriteria(MiscellaneousServiceBill.class);
+	public List<MiscellaneousServiceBill> getAllMiscellaneousServiceBill()
+			throws DAOException {
+		Criteria crit = sessionFactory.getCurrentSession().createCriteria(
+				MiscellaneousServiceBill.class);
 		crit.addOrder(Order.asc("liableName"));
 		crit.add(Restrictions.eq("voided", false));
 		return crit.list();
 	}
-	
-	public MiscellaneousServiceBill getMiscellaneousServiceBillById(Integer id) throws DAOException {
-		Criteria criteria = sessionFactory.getCurrentSession().createCriteria(MiscellaneousServiceBill.class);
+
+	public MiscellaneousServiceBill getMiscellaneousServiceBillById(Integer id)
+			throws DAOException {
+		Criteria criteria = sessionFactory.getCurrentSession().createCriteria(
+				MiscellaneousServiceBill.class);
 		criteria.add(Restrictions.eq("id", id));
 		return (MiscellaneousServiceBill) criteria.uniqueResult();
 	}
-	
-	public MiscellaneousService getMiscellaneousServiceById(Integer serviceId) throws DAOException {
-		Criteria criteria = sessionFactory.getCurrentSession().createCriteria(MiscellaneousService.class);
+
+	public MiscellaneousService getMiscellaneousServiceById(Integer serviceId)
+			throws DAOException {
+		Criteria criteria = sessionFactory.getCurrentSession().createCriteria(
+				MiscellaneousService.class);
 		criteria.add(Restrictions.eq("id", serviceId));
 		return (MiscellaneousService) criteria.uniqueResult();
 	}
-	
+
 	@SuppressWarnings("unchecked")
-	public List<MiscellaneousService> listMiscellaneousService(int min, int max) throws DAOException {
-		Criteria criteria = sessionFactory.getCurrentSession().createCriteria(MiscellaneousService.class);
+	public List<MiscellaneousService> listMiscellaneousService(int min, int max)
+			throws DAOException {
+		Criteria criteria = sessionFactory.getCurrentSession().createCriteria(
+				MiscellaneousService.class);
 		criteria.setFirstResult(min).setMaxResults(max);
 		return criteria.list();
 	}
-	
+
 	@SuppressWarnings("unchecked")
-	public List<MiscellaneousServiceBill> listMiscellaneousServiceBill(int min, int max) throws DAOException {
-		Criteria criteria = sessionFactory.getCurrentSession().createCriteria(MiscellaneousServiceBill.class);
+	public List<MiscellaneousServiceBill> listMiscellaneousServiceBill(int min,
+			int max) throws DAOException {
+		Criteria criteria = sessionFactory.getCurrentSession().createCriteria(
+				MiscellaneousServiceBill.class);
 		criteria.setFirstResult(min).setMaxResults(max);
 		return criteria.list();
 	}
-	
-	public MiscellaneousService saveMiscellaneousService(MiscellaneousService service) throws DAOException {
-		return (MiscellaneousService) sessionFactory.getCurrentSession().merge(service);
+
+	public MiscellaneousService saveMiscellaneousService(
+			MiscellaneousService service) throws DAOException {
+		return (MiscellaneousService) sessionFactory.getCurrentSession().merge(
+				service);
 	}
-	
-	public MiscellaneousServiceBill saveMiscellaneousServiceBill(MiscellaneousServiceBill bill) throws DAOException {
-		return (MiscellaneousServiceBill) sessionFactory.getCurrentSession().merge(bill);
+
+	public MiscellaneousServiceBill saveMiscellaneousServiceBill(
+			MiscellaneousServiceBill bill) throws DAOException {
+		return (MiscellaneousServiceBill) sessionFactory.getCurrentSession()
+				.merge(bill);
 	}
-	
-	public void deleteMiscellaneousService(MiscellaneousService miscellaneousService) throws DAOException {
+
+	public void deleteMiscellaneousService(
+			MiscellaneousService miscellaneousService) throws DAOException {
 		sessionFactory.getCurrentSession().delete(miscellaneousService);
 	}
-	
-	public MiscellaneousService getMiscellaneousServiceByName(String name) throws DAOException {
-		Criteria crit = sessionFactory.getCurrentSession().createCriteria(MiscellaneousService.class);
+
+	public MiscellaneousService getMiscellaneousServiceByName(String name)
+			throws DAOException {
+		Criteria crit = sessionFactory.getCurrentSession().createCriteria(
+				MiscellaneousService.class);
 		crit.add(Restrictions.eq("name", name));
 		return (MiscellaneousService) crit.uniqueResult();
 	}
-	
-	public int countListMiscellaneousServiceBill(MiscellaneousService service) throws DAOException {
-		Criteria criteria = sessionFactory.getCurrentSession().createCriteria(MiscellaneousServiceBill.class);
+
+	public int countListMiscellaneousServiceBill(MiscellaneousService service)
+			throws DAOException {
+		Criteria criteria = sessionFactory.getCurrentSession().createCriteria(
+				MiscellaneousServiceBill.class);
 		if (service != null) {
 			criteria.add(Restrictions.eq("service", service));
 		}
-		Number rs = (Number) criteria.setProjection(Projections.rowCount()).uniqueResult();
+		Number rs = (Number) criteria.setProjection(Projections.rowCount())
+				.uniqueResult();
 		return rs != null ? rs.intValue() : 0;
 	}
-	
+
 	@SuppressWarnings("unchecked")
-	public List<MiscellaneousServiceBill> listMiscellaneousServiceBill(int min, int max, MiscellaneousService service)
-	                                                                                                                  throws DAOException {
-		Criteria criteria = sessionFactory.getCurrentSession().createCriteria(MiscellaneousServiceBill.class);
+	public List<MiscellaneousServiceBill> listMiscellaneousServiceBill(int min,
+			int max, MiscellaneousService service) throws DAOException {
+		Criteria criteria = sessionFactory.getCurrentSession().createCriteria(
+				MiscellaneousServiceBill.class);
 		if (service != null) {
 			criteria.add(Restrictions.eq("service", service));
 		}
@@ -645,31 +745,37 @@ public class HibernateBillingDAO implements BillingDAO {
 		criteria.addOrder(Order.desc("createdDate"));
 		return criteria.list();
 	}
-	
+
 	public Receipt createReceipt(Receipt receipt) throws DAOException {
 		return (Receipt) sessionFactory.getCurrentSession().merge(receipt);
 	}
-	
+
 	public void updateReceipt() {
-		
-		GlobalProperty isUpdated = Context.getAdministrationService().getGlobalPropertyObject("billing.updatedReceiptIds");
+
+		GlobalProperty isUpdated = Context.getAdministrationService()
+				.getGlobalPropertyObject("billing.updatedReceiptIds");
 		if ("false".equalsIgnoreCase(isUpdated.getPropertyValue())) {
 			try {
-				GlobalProperty encounterTypeId = Context.getAdministrationService().getGlobalPropertyObject(
-				    "billing.encounterTypeId");
-				if (encounterTypeId == null || !"6".equalsIgnoreCase(encounterTypeId.getPropertyValue())) {
+				GlobalProperty encounterTypeId = Context
+						.getAdministrationService().getGlobalPropertyObject(
+								"billing.encounterTypeId");
+				if (encounterTypeId == null
+						|| !"6".equalsIgnoreCase(encounterTypeId
+								.getPropertyValue())) {
 					encounterTypeId.setPropertyValue("6");
-					Context.getAdministrationService().saveGlobalProperty(encounterTypeId);
+					Context.getAdministrationService().saveGlobalProperty(
+							encounterTypeId);
 				}
-			}
-			catch (Exception e) {
+			} catch (Exception e) {
 				e.printStackTrace();
 			}
 			// update receipt for old bills
 			isUpdated.setPropertyValue("updating");
 			log.info("Start updating receipt ID for old BillingService ");
-			BillingService billingService = Context.getService(BillingService.class);
-			List<AmbulanceBill> ambulanceBills = billingService.getAllAmbulanceBill();
+			BillingService billingService = Context
+					.getService(BillingService.class);
+			List<AmbulanceBill> ambulanceBills = billingService
+					.getAllAmbulanceBill();
 			Session session = sessionFactory.getCurrentSession();
 			Transaction tx = session.beginTransaction();
 			tx.begin();
@@ -701,7 +807,8 @@ public class HibernateBillingDAO implements BillingDAO {
 					}
 				}
 			}
-			List<PatientServiceBill> patientServiceBills = billingService.getAllPatientServiceBill();
+			List<PatientServiceBill> patientServiceBills = billingService
+					.getAllPatientServiceBill();
 			log.info("Start updating receipt ID for old PatientServiceBill ");
 			i = 0;
 			for (PatientServiceBill bill : patientServiceBills) {
@@ -716,8 +823,9 @@ public class HibernateBillingDAO implements BillingDAO {
 					}
 				}
 			}
-			
-			List<MiscellaneousServiceBill> miscellaneousBills = billingService.getAllMiscellaneousServiceBill();
+
+			List<MiscellaneousServiceBill> miscellaneousBills = billingService
+					.getAllMiscellaneousServiceBill();
 			log.info("Start updating receipt ID for old MiscellaneousServiceBill ");
 			i = 0;
 			for (MiscellaneousServiceBill bill : miscellaneousBills) {
@@ -732,28 +840,29 @@ public class HibernateBillingDAO implements BillingDAO {
 					}
 				}
 			}
-			
+
 			isUpdated.setPropertyValue("true");
 			Context.getAdministrationService().saveGlobalProperty(isUpdated);
 			tx.commit();
 			log.info("End updating receipt ID for old bills ");
 		}
 	}
-	
+
 	public void updateOldBills() {
-		
+
 		Session session = sessionFactory.getCurrentSession();
 		Transaction tx = session.beginTransaction();
 		tx.begin();
-		Criteria criteria = sessionFactory.getCurrentSession().createCriteria(PatientServiceBillItem.class);
+		Criteria criteria = sessionFactory.getCurrentSession().createCriteria(
+				PatientServiceBillItem.class);
 		List<PatientServiceBillItem> items = criteria.list();
 		int i = 0;
 		for (PatientServiceBillItem item : items) {
-			
+
 			i++;
 			// update old bill
-			String category = PatientUtils
-			        .getPatientAttribute(item.getPatientServiceBill().getPatient(), "Patient Category");
+			String category = PatientUtils.getPatientAttribute(item
+					.getPatientServiceBill().getPatient(), "Patient Category");
 			System.out.println(category);
 			System.out.println(item.getPatientServiceBillItemId());
 			if (i % 50 == 0) {
@@ -762,7 +871,7 @@ public class HibernateBillingDAO implements BillingDAO {
 			}
 		}
 		tx.commit();
-		
+
 		/*
 		 * for (AmbulanceBill bill : ambulanceBills) { if (bill.getReceipt() ==
 		 * null) { i++; bill.setReceipt(billingService.createReceipt());
@@ -771,54 +880,78 @@ public class HibernateBillingDAO implements BillingDAO {
 		 * memory: session.flush(); session.clear(); } } }
 		 */
 	}
-	
+
 	/**
 	 * @see org.openmrs.module.billing.db.BillingDAO#getPatientServiceBillByReceiptId(java.lang.Integer)
 	 */
-	public PatientServiceBill getPatientServiceBillByReceiptId(Integer patientServiceBillReceiptId) throws DAOException {
-		Criteria criteria = sessionFactory.getCurrentSession().createCriteria(PatientServiceBill.class);
+	public PatientServiceBill getPatientServiceBillByReceiptId(
+			Integer patientServiceBillReceiptId) throws DAOException {
+		Criteria criteria = sessionFactory.getCurrentSession().createCriteria(
+				PatientServiceBill.class);
 		Receipt receipt = new Receipt();
 		receipt.setId(patientServiceBillReceiptId);
-		
+
 		criteria.add(Restrictions.eq("receipt", receipt));
 		return (PatientServiceBill) criteria.uniqueResult();
 	}
-	
-	//ghanshyam 3-june-2013 New Requirement #1632 Orders from dashboard must be appear in billing queue.User must be able to generate bills from this queue
-	public List<PatientSearch> searchListOfPatient(String searchKey) throws DAOException {
-        String hql = "from PatientSearch ps where ps.identifier LIKE '%"
-		+ searchKey
-		+ "%' OR ps.fullname LIKE '"
-		+ searchKey
-		+ "%' OR ps.patientId LIKE '"
-		+ searchKey
-		+ "%' AND ps.patientId IN (SELECT o.patient FROM OpdOrder o GROUP BY o.patient)";
-        Session session = sessionFactory.getCurrentSession();
-        Query q = session.createQuery(hql);
-        List<PatientSearch> list = q.list();
-        return list;
-    }
-	
-	public List<Patient> listOfPatient() throws DAOException {
-		String hql = "from Patient p where p.patientId IN (SELECT o.patient FROM OpdOrder o GROUP BY o.patient)";
+
+	// ghanshyam 3-june-2013 New Requirement #1632 Orders from dashboard must be appear in billing queue.User must be able to generate bills from this queue
+	public List<PatientSearch> searchListOfPatient(String searchKey)
+			throws DAOException {
+		String hql = "from PatientSearch ps where ps.patientId IN (SELECT o.patient FROM OpdOrder o GROUP BY o.patient) AND (ps.identifier LIKE '%"
+				+ searchKey
+				+ "%' OR ps.fullname LIKE '"
+				+ searchKey
+				+ "%' OR ps.patientId LIKE '" + searchKey + "%')";
 		Session session = sessionFactory.getCurrentSession();
 		Query q = session.createQuery(hql);
-		List<Patient> list = q.list();
+		List<PatientSearch> list = q.list();
 		return list;
 	}
-	
-	public List<BillableService> listOfServiceOrder(Integer patientId)throws DAOException {
-		String hql = "from BillableService b where b.conceptId IN (SELECT o.valueCoded FROM OpdOrder o where o.patient='" + patientId + "')";
+
+	public List<PatientSearch> listOfPatient() throws DAOException {
+		String hql = "from PatientSearch ps where ps.patientId IN (SELECT o.patient FROM OpdOrder o GROUP BY o.patient)";
+		Session session = sessionFactory.getCurrentSession();
+		Query q = session.createQuery(hql);
+		List<PatientSearch> list = q.list();
+		return list;
+	}
+
+	public List<BillableService> listOfServiceOrder(Integer patientId,
+			Integer encounterId) throws DAOException {
+		String hql = "from BillableService b where b.conceptId IN (SELECT o.valueCoded FROM OpdOrder o where o.patient='"
+				+ patientId + "' AND o.encounter='" + encounterId + "')";
 		Session session = sessionFactory.getCurrentSession();
 		Query q = session.createQuery(hql);
 		List<BillableService> list = q.list();
 		return list;
 	}
-	
-	public BillableService getServiceByConceptName(String conceptName) throws DAOException {
-		Criteria criteria = sessionFactory.getCurrentSession().createCriteria(BillableService.class);
+
+	public BillableService getServiceByConceptName(String conceptName)
+			throws DAOException {
+		Criteria criteria = sessionFactory.getCurrentSession().createCriteria(
+				BillableService.class);
 		criteria.add(Restrictions.eq("name", conceptName));
 		return (BillableService) criteria.uniqueResult();
 	}
+
+	public List<OpdOrder> listOfOrder(Patient patient) throws DAOException {
+		Criteria criteria = sessionFactory.getCurrentSession().createCriteria(
+				OpdOrder.class);
+
+		criteria.add(Restrictions.eq("patient", patient));
+		criteria.add(Restrictions.eq("billingStatus", 0));
+		criteria.add(Restrictions.eq("cancelStatus", 0));
+		return criteria.list();
+	}
 	
+	public OpdOrder getOpdTestOrder(Integer encounterId,Integer conceptId) throws DAOException {
+		Criteria criteria = sessionFactory.getCurrentSession().createCriteria(
+				OpdOrder.class);
+
+		criteria.add(Restrictions.eq("encounter.encounterId", encounterId));
+		criteria.add(Restrictions.eq("valueCoded.conceptId",conceptId));
+		return (OpdOrder) criteria.uniqueResult();
+	}
+
 }

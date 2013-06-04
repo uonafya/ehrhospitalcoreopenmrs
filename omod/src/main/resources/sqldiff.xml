@@ -200,7 +200,6 @@
 		</sql>
 	</diff>	
 	<!-- ghanshyam 1-june-2013 New Requirement #1633 User must be able to send investigation orders from dashboard to billing -->
-	<!-- 'order_status' column value if 1 then billed,if 0 then canceled -->
 	<diff>
 		<version>1.9</version>
 		<author>ghanshyam</author>
@@ -209,7 +208,7 @@
 			Create table opd_order
 		</description>
 		<sql>
-			CREATE TABLE IF NOT EXISTS `opd_order` (
+			CREATE TABLE IF NOT EXISTS `opd_test_order` (
 			`opd_order_id` int(11) NOT NULL AUTO_INCREMENT,
 			`patient_id` int(11) NOT NULL,
                         `encounter_id` int(11) NOT NULL,
@@ -218,8 +217,9 @@
                         `value_coded` int(11) DEFAULT NULL,
 			`created_by` int(11) NOT NULL,
 			`created_on` datetime NOT NULL,
-                        `order_status` smallint(6) NOT NULL DEFAULT '0',
-                        `order_reschedule` datetime DEFAULT NULL,
+			            `billing_status` smallint(1) NOT NULL DEFAULT '0',
+                        `cancel_status` smallint(1) NOT NULL DEFAULT '0',
+                        `patient_service_bill_item_id` int(11) DEFAULT NULL,
 			PRIMARY KEY (`opd_order_id`)
 			) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
