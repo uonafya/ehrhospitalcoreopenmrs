@@ -222,7 +222,6 @@
                         `patient_service_bill_item_id` int(11) DEFAULT NULL,
 			PRIMARY KEY (`opd_order_id`)
 			) ENGINE=InnoDB DEFAULT CHARSET=utf8;
-
 		</sql>
 	</diff>
 </sqldiff>

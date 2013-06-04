@@ -936,14 +936,21 @@ public class HibernateBillingDAO implements BillingDAO {
 	}
 
 	public List<OpdOrder> listOfOrder(Patient patient) throws DAOException {
+		/*
 		Criteria criteria = sessionFactory.getCurrentSession().createCriteria(
 				OpdOrder.class);
-
 		criteria.add(Restrictions.eq("patient", patient));
 		criteria.add(Restrictions.eq("billingStatus", 0));
 		criteria.add(Restrictions.eq("cancelStatus", 0));
 		return criteria.list();
+		*/
+		String hql = "from OpdOrder o where o.billingStatus=0 AND o.cancelStatus=0 GROUP BY encounter";
+		Session session = sessionFactory.getCurrentSession();
+		Query q = session.createQuery(hql);
+		List<OpdOrder> list = q.list();
+		return list;	
 	}
+
 	
 	public OpdOrder getOpdTestOrder(Integer encounterId,Integer conceptId) throws DAOException {
 		Criteria criteria = sessionFactory.getCurrentSession().createCriteria(
