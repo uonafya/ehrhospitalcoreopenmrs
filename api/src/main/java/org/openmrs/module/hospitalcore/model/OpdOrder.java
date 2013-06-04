@@ -42,7 +42,7 @@ public class OpdOrder {
 	private int billingStatus; //0=not yet billed,1=billed
 	private int cancelStatus; //0=not yet canceled,1=canceled
 	private PatientServiceBillItem patientServiceBillItem;
-	private Date orderReschedule;
+	//private Date orderReschedule;
 
 	public Integer getOpdOrderId() {
 		return opdOrderId;
@@ -131,14 +131,6 @@ public class OpdOrder {
 	public void setPatientServiceBillItem(
 			PatientServiceBillItem patientServiceBillItem) {
 		this.patientServiceBillItem = patientServiceBillItem;
-	}
-
-	public Date getOrderReschedule() {
-		return orderReschedule;
-	}
-
-	public void setOrderReschedule(Date orderReschedule) {
-		this.orderReschedule = orderReschedule;
 	}
 
 }
