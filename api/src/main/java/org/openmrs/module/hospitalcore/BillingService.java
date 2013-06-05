@@ -335,6 +335,6 @@ public interface BillingService extends OpenmrsService {
 	public List<PatientSearch> listOfPatient() throws APIException;
 	public List<BillableService> listOfServiceOrder(Integer patientId, Integer encounterId) throws APIException;
 	public BillableService getServiceByConceptName(String conceptName) throws APIException;
-	public List<OpdOrder> listOfOrder(Patient patient) throws APIException;
+	public List<OpdOrder> listOfOrder(Integer patientId) throws APIException;
 	public OpdOrder getOpdTestOrder(Integer encounterId,Integer conceptId) throws APIException;
 }

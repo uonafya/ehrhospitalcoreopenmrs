@@ -1111,8 +1111,8 @@ public class BillingServiceImpl extends BaseOpenmrsService implements BillingSer
 	public BillableService getServiceByConceptName(String conceptName) throws APIException {
 		return dao.getServiceByConceptName(conceptName);
 	}
-	public List<OpdOrder> listOfOrder(Patient patient) throws APIException {
-		return dao.listOfOrder(patient);
+	public List<OpdOrder> listOfOrder(Integer patientId) throws APIException {
+		return dao.listOfOrder(patientId);
 	}
 	public OpdOrder getOpdTestOrder(Integer encounterId,Integer conceptId) throws APIException {
 		return dao.getOpdTestOrder(encounterId,conceptId);

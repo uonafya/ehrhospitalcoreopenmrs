@@ -912,8 +912,9 @@ public class HibernateBillingDAO implements BillingDAO {
 	public List<PatientSearch> listOfPatient() throws DAOException {
 		String hql = "from PatientSearch ps where ps.patientId IN (SELECT o.patient FROM OpdOrder o where o.billingStatus=0 AND o.cancelStatus=0 GROUP BY o.patient)";
 		/*
-		 * alternate query
-		 * String hql = "from PatientSearch ps where ps.patientId IN (SELECT o.patient FROM OpdOrder o where o.valueCoded IN (SELECT b.conceptId FROM BillableService b where b.conceptId=o.valueCoded) AND o.billingStatus=0 AND o.cancelStatus=0 GROUP BY o.patient)";
+		 * alternate query String hql =
+		 * "from PatientSearch ps where ps.patientId IN (SELECT o.patient FROM OpdOrder o where o.valueCoded IN (SELECT b.conceptId FROM BillableService b where b.conceptId=o.valueCoded) AND o.billingStatus=0 AND o.cancelStatus=0 GROUP BY o.patient)"
+		 * ;
 		 */
 		Session session = sessionFactory.getCurrentSession();
 		Query q = session.createQuery(hql);
@@ -942,7 +943,7 @@ public class HibernateBillingDAO implements BillingDAO {
 		return (BillableService) criteria.uniqueResult();
 	}
 
-	public List<OpdOrder> listOfOrder(Patient patient) throws DAOException {
+	public List<OpdOrder> listOfOrder(Integer patientId) throws DAOException {
 		/*
 		 * Criteria criteria =
 		 * sessionFactory.getCurrentSession().createCriteria( OpdOrder.class);
@@ -951,7 +952,9 @@ public class HibernateBillingDAO implements BillingDAO {
 		 * criteria.add(Restrictions.eq("cancelStatus", 0)); return
 		 * criteria.list();
 		 */
-		String hql = "from OpdOrder o where o.billingStatus=0 AND o.cancelStatus=0 GROUP BY encounter";
+		String hql = "from OpdOrder o where o.patient='"
+				+ patientId
+				+ "' AND o.billingStatus=0 AND o.cancelStatus=0 GROUP BY encounter";
 		Session session = sessionFactory.getCurrentSession();
 		Query q = session.createQuery(hql);
 		List<OpdOrder> list = q.list();

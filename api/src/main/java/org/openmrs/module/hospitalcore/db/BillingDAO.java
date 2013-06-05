@@ -232,7 +232,7 @@ public interface BillingDAO {
 	
 	public BillableService getServiceByConceptName(String conceptName) throws DAOException;
 	
-	public List<OpdOrder> listOfOrder(Patient patient) throws DAOException;
+	public List<OpdOrder> listOfOrder(Integer patientId) throws DAOException;
 	
 	public OpdOrder getOpdTestOrder(Integer encounterId,Integer conceptId) throws DAOException;
 }
