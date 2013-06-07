@@ -898,7 +898,7 @@ public class HibernateBillingDAO implements BillingDAO {
 	// ghanshyam 3-june-2013 New Requirement #1632 Orders from dashboard must be appear in billing queue.User must be able to generate bills from this queue
 	public List<PatientSearch> searchListOfPatient(String searchKey)
 			throws DAOException {
-		String hql = "from PatientSearch ps where ps.patientId IN (SELECT o.patient FROM OpdOrder o GROUP BY o.patient) AND (ps.identifier LIKE '%"
+		String hql = "from PatientSearch ps where ps.patientId IN (SELECT o.patient FROM OpdOrder o where o.billingStatus=0 AND o.cancelStatus=0 GROUP BY o.patient) AND (ps.identifier LIKE '%"
 				+ searchKey
 				+ "%' OR ps.fullname LIKE '"
 				+ searchKey
