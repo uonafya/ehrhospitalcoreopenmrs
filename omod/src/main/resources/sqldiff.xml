@@ -243,6 +243,7 @@
                         `diet_advised` varchar(22) DEFAULT NULL,
                         `note` varchar(200) DEFAULT NULL,
 			`created_by` int(11) NOT NULL,
+			`created_on` datetime NOT NULL,
 			PRIMARY KEY (`id`)
 			) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 		</sql>

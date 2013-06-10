@@ -20,6 +20,7 @@
 		<property name="dietAdvised" column="diet_advised" />
 		<property name="note" column="note" />
 		<property name="creator" column="created_by" />
+		<property name="createdOn" type="java.util.Date" column="created_on" not-null="true" length="19" />
 	</class>
 
 </hibernate-mapping>

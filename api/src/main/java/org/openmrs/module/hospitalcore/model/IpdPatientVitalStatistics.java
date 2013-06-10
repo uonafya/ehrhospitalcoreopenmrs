@@ -23,6 +23,8 @@
 
 package org.openmrs.module.hospitalcore.model;
 
+import java.util.Date;
+
 import org.openmrs.Patient;
 
 public class IpdPatientVitalStatistics {
@@ -38,6 +40,7 @@ public class IpdPatientVitalStatistics {
 	private String dietAdvised;
 	private String note;
 	private Integer creator;
+	private Date createdOn;
 	
 	public Integer getId() {
 		return id;
@@ -99,6 +102,12 @@ public class IpdPatientVitalStatistics {
 	}
 	public void setCreator(Integer creator) {
 		this.creator = creator;
+	}
+	public Date getCreatedOn() {
+		return createdOn;
+	}
+	public void setCreatedOn(Date createdOn) {
+		this.createdOn = createdOn;
 	}
 
 }
