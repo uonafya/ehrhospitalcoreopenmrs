@@ -137,6 +137,8 @@
 		DmsOpdUnit.hbm.xml
 		<!-- ghanshyam 1-june-2013 New Requirement #1633 User must be able to send investigation orders from dashboard to billing -->
 		OpdOrder.hbm.xml
+		<!-- ghanshyam 10-june-2013 New Requirement #1847 Capture Vital statistics for admitted patient in ipd -->
+		IpdPatientVitalStatistics.hbm.xml
     </mappingFiles>
 </module>
 

@@ -39,6 +39,7 @@ import org.openmrs.module.hospitalcore.model.IpdPatientAdmission;
 import org.openmrs.module.hospitalcore.model.IpdPatientAdmissionLog;
 import org.openmrs.module.hospitalcore.model.IpdPatientAdmitted;
 import org.openmrs.module.hospitalcore.model.IpdPatientAdmittedLog;
+import org.openmrs.module.hospitalcore.model.IpdPatientVitalStatistics;
 import org.openmrs.module.hospitalcore.util.HospitalCoreConstants;
 
 public class IpdServiceImpl extends BaseOpenmrsService implements IpdService{
@@ -275,6 +276,12 @@ public class IpdServiceImpl extends BaseOpenmrsService implements IpdService{
 			throws APIException {
 		return dao.getAdmittedByPatientId(patientId);
 	}
+	
+	//ghanshyam 10-june-2013 New Requirement #1847 Capture Vital statistics for admitted patient in ipd
+	public IpdPatientVitalStatistics saveIpdPatientVitalStatistics(IpdPatientVitalStatistics vitalStatistics)
+	        throws APIException {
+        return dao.saveIpdPatientVitalStatistics(vitalStatistics);
+    }
 
 
  

@@ -223,4 +223,28 @@
 			) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 		</sql>
 	</diff>
+	<!-- ghanshyam 10-june-2013 New Requirement #1847 Capture Vital statistics for admitted patient in ipd -->
+	<diff>
+		<version>2.0</version>
+		<author>ghanshyam</author>
+		<date>June 10 2013</date>
+		<description>
+			Create table ipd_vital_statistics
+		</description>
+		<sql>
+			CREATE TABLE IF NOT EXISTS `ipd_vital_statistics` (
+			`id` int(11) NOT NULL AUTO_INCREMENT,
+			`patient_id` int(11) NOT NULL,
+                        `ipd_patientadmissionlog_id` int(11) NOT NULL,
+                        `systolic` varchar(11) DEFAULT NULL,
+                        `diastolic` varchar(11) DEFAULT NULL,
+                        `pulse` varchar(11) DEFAULT NULL,
+                        `temperature` varchar(11) DEFAULT NULL,
+                        `diet_advised` varchar(22) DEFAULT NULL,
+                        `note` varchar(200) DEFAULT NULL,
+			`created_by` int(11) NOT NULL,
+			PRIMARY KEY (`id`)
+			) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+		</sql>
+	</diff>
 </sqldiff>

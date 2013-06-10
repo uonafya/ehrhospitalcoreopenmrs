@@ -41,6 +41,7 @@ import org.openmrs.module.hospitalcore.model.IpdPatientAdmission;
 import org.openmrs.module.hospitalcore.model.IpdPatientAdmissionLog;
 import org.openmrs.module.hospitalcore.model.IpdPatientAdmitted;
 import org.openmrs.module.hospitalcore.model.IpdPatientAdmittedLog;
+import org.openmrs.module.hospitalcore.model.IpdPatientVitalStatistics;
 
 public class HibernateIpdDAO implements IpdDAO{
 	SimpleDateFormat formatter = new SimpleDateFormat("dd/MM/yyyy HH:mm:ss");
@@ -327,6 +328,12 @@ public class HibernateIpdDAO implements IpdDAO{
 		List<IpdPatientAdmitted> list = criteria.list();
 		return CollectionUtils.isEmpty(list)? null : list.get(0);
 	}
+	
+	//ghanshyam 10-june-2013 New Requirement #1847 Capture Vital statistics for admitted patient in ipd
+	public IpdPatientVitalStatistics saveIpdPatientVitalStatistics(IpdPatientVitalStatistics vitalStatistics)
+	throws DAOException {
+		return (IpdPatientVitalStatistics)sessionFactory.getCurrentSession().merge(vitalStatistics);
+    }
 
 	
 	
