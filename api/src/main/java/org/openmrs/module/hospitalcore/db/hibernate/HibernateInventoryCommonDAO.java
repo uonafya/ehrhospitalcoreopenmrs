@@ -34,6 +34,7 @@ import org.hibernate.criterion.Restrictions;
 import org.openmrs.Patient;
 import org.openmrs.api.db.DAOException;
 import org.openmrs.module.hospitalcore.db.InventoryCommonDAO;
+import org.openmrs.module.hospitalcore.model.InventoryDrug;
 import org.openmrs.module.hospitalcore.model.InventoryStoreDrugPatient;
 import org.openmrs.module.hospitalcore.model.InventoryStoreDrugPatientDetail;
 
@@ -97,5 +98,12 @@ public class HibernateInventoryCommonDAO implements InventoryCommonDAO {
 		criteria.add(Restrictions.eq("storeDrugPatient", isdpd));
 
 		return criteria.list();
+	}
+	
+	//ghanshyam 12-june-2013 New Requirement #1635 User should be able to send pharmacy orders to issue drugs to a patient from dashboard
+	public InventoryDrug getDrugByName(String name) throws DAOException {
+		Criteria criteria = sessionFactory.getCurrentSession().createCriteria(InventoryDrug.class, "drug")
+		        .add(Restrictions.eq("drug.name", name));
+		return (InventoryDrug) criteria.uniqueResult();
 	}
 }

@@ -28,6 +28,8 @@ public class PatientDashboardConstants {
 	public static final String CONCEPT_CLASS_NAME_PROCEDURE = "Procedure";
 	//ghanshyam 1-june-2013 New Requirement #1633 User must be able to send investigation orders from dashboard to billing
 	public static final String CONCEPT_CLASS_NAME_INVESTIGATION = "Test";
+	//ghanshyam 12-june-2013 New Requirement #1635 User should be able to send pharmacy orders to issue drugs to a patient from dashboard
+	public static final String CONCEPT_CLASS_NAME_DRUG = "Drug";
 	public static String PROPERTY_OPDWARD = MODULE_ID + ".OPDRootConcept";
 	
 	public static String PROPERTY_IPDWARD = MODULE_ID + ".IPDRootConcept";
@@ -36,6 +38,8 @@ public class PatientDashboardConstants {
 	public static String PROPERTY_POST_FOR_PROCEDURE = MODULE_ID + ".postForProcedureConcept";
 	//ghanshyam 1-june-2013 New Requirement #1633 User must be able to send investigation orders from dashboard to billing
 	public static String PROPERTY_FOR_INVESTIGATION = MODULE_ID + ".investigationConcept";
+	//ghanshyam 12-june-2013 New Requirement #1635 User should be able to send pharmacy orders to issue drugs to a patient from dashboard
+	public static String PROPERTY_FOR_DRUG = MODULE_ID + ".drugConcept";
 	public static String PROPERTY_INTERNAL_REFERRAL = MODULE_ID + ".internalReferralConcept";
 	public static String PROPERTY_EXTERNAL_REFERRAL = MODULE_ID +  ".externalReferralConcept";
 	public static String PROPERTY_VISIT_OUTCOME = MODULE_ID + ".visitOutcomeConcept";

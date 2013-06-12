@@ -69,6 +69,7 @@ public interface PatientDashboardService {
 	//ghanshyam 1-june-2013 New Requirement #1633 User must be able to send investigation orders from dashboard to billing
 	public List<Concept> searchInvestigation(String text) throws APIException;
 	public OpdOrder saveOrUpdateOpdOrder(OpdOrder opdOrder) throws APIException;
-	
+	//ghanshyam 12-june-2013 New Requirement #1635 User should be able to send pharmacy orders to issue drugs to a patient from dashboard
+	public List<Concept> searchDrug(String text) throws APIException;
 	
 }

@@ -173,6 +173,12 @@ public class PatientDashboardServiceImpl implements PatientDashboardService {
 		return dao.saveOrUpdateOpdOrder(opdOrder);
 	}
 	
+	//ghanshyam 12-june-2013 New Requirement #1635 User should be able to send pharmacy orders to issue drugs to a patient from dashboard
+	public List<Concept> searchDrug(String text) throws APIException {
+		ConceptClass cc =  Context.getConceptService().getConceptClassByName(PatientDashboardConstants.CONCEPT_CLASS_NAME_DRUG);
+		return dao.searchConceptsByNameAndClass(text, cc);
+	}
+	
 	
 	
 }
