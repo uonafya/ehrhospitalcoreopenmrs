@@ -25,6 +25,7 @@ package org.openmrs.module.hospitalcore.db;
 
 import java.util.List;
 
+import org.openmrs.Concept;
 import org.openmrs.Patient;
 import org.openmrs.api.db.DAOException;
 import org.openmrs.module.hospitalcore.model.InventoryDrug;
@@ -44,4 +45,6 @@ public interface InventoryCommonDAO {
 	
 	//ghanshyam 12-june-2013 New Requirement #1635 User should be able to send pharmacy orders to issue drugs to a patient from dashboard
 	public InventoryDrug getDrugByName(String name) throws DAOException;
+	
+	public List<Concept> getDrugFrequency() throws DAOException;
 }

@@ -25,6 +25,7 @@ package org.openmrs.module.hospitalcore.impl;
 
 import java.util.List;
 
+import org.openmrs.Concept;
 import org.openmrs.Patient;
 import org.openmrs.api.APIException;
 import org.openmrs.api.impl.BaseOpenmrsService;
@@ -63,5 +64,9 @@ public class InventoryCommonServiceImpl extends BaseOpenmrsService implements In
 	//ghanshyam 12-june-2013 New Requirement #1635 User should be able to send pharmacy orders to issue drugs to a patient from dashboard
 	public InventoryDrug getDrugByName(String name) throws APIException {
 		return dao.getDrugByName(name);
+	}
+	
+	public List<Concept> getDrugFrequency() throws APIException {
+		return dao.getDrugFrequency();
 	}
 }
