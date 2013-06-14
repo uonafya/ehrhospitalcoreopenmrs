@@ -41,7 +41,8 @@ import org.openmrs.module.hospitalcore.PatientDashboardService;
 import org.openmrs.module.hospitalcore.db.PatientDashboardDAO;
 import org.openmrs.module.hospitalcore.model.Department;
 import org.openmrs.module.hospitalcore.model.DepartmentConcept;
-import org.openmrs.module.hospitalcore.model.OpdOrder;
+import org.openmrs.module.hospitalcore.model.OpdDrugOrder;
+import org.openmrs.module.hospitalcore.model.OpdTestOrder;
 import org.openmrs.module.hospitalcore.util.PatientDashboardConstants;
 
 public class PatientDashboardServiceImpl implements PatientDashboardService {
@@ -169,14 +170,18 @@ public class PatientDashboardServiceImpl implements PatientDashboardService {
 		ConceptClass cc =  Context.getConceptService().getConceptClassByName(PatientDashboardConstants.CONCEPT_CLASS_NAME_INVESTIGATION);
 		return dao.searchConceptsByNameAndClass(text, cc);
 	}
-	public OpdOrder saveOrUpdateOpdOrder(OpdOrder opdOrder) throws APIException {
-		return dao.saveOrUpdateOpdOrder(opdOrder);
+	public OpdTestOrder saveOrUpdateOpdOrder(OpdTestOrder opdTestOrder) throws APIException {
+		return dao.saveOrUpdateOpdOrder(opdTestOrder);
 	}
 	
 	//ghanshyam 12-june-2013 New Requirement #1635 User should be able to send pharmacy orders to issue drugs to a patient from dashboard
 	public List<Concept> searchDrug(String text) throws APIException {
 		ConceptClass cc =  Context.getConceptService().getConceptClassByName(PatientDashboardConstants.CONCEPT_CLASS_NAME_DRUG);
 		return dao.searchConceptsByNameAndClass(text, cc);
+	}
+	
+	public OpdDrugOrder saveOrUpdateOpdDrugOrder(OpdDrugOrder opdDrugOrder) throws APIException {
+		return dao.saveOrUpdateOpdDrugOrder(opdDrugOrder);
 	}
 	
 	

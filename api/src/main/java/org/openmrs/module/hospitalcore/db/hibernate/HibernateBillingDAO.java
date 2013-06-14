@@ -46,7 +46,7 @@ import org.openmrs.module.hospitalcore.model.Company;
 import org.openmrs.module.hospitalcore.model.Driver;
 import org.openmrs.module.hospitalcore.model.MiscellaneousService;
 import org.openmrs.module.hospitalcore.model.MiscellaneousServiceBill;
-import org.openmrs.module.hospitalcore.model.OpdOrder;
+import org.openmrs.module.hospitalcore.model.OpdTestOrder;
 import org.openmrs.module.hospitalcore.model.PatientSearch;
 import org.openmrs.module.hospitalcore.model.PatientServiceBill;
 import org.openmrs.module.hospitalcore.model.PatientServiceBillItem;
@@ -898,7 +898,7 @@ public class HibernateBillingDAO implements BillingDAO {
 	// ghanshyam 3-june-2013 New Requirement #1632 Orders from dashboard must be appear in billing queue.User must be able to generate bills from this queue
 	public List<PatientSearch> searchListOfPatient(String searchKey)
 			throws DAOException {
-		String hql = "from PatientSearch ps where ps.patientId IN (SELECT o.patient FROM OpdOrder o where o.billingStatus=0 AND o.cancelStatus=0 GROUP BY o.patient) AND (ps.identifier LIKE '%"
+		String hql = "from PatientSearch ps where ps.patientId IN (SELECT o.patient FROM OpdTestOrder o where o.billingStatus=0 AND o.cancelStatus=0 GROUP BY o.patient) AND (ps.identifier LIKE '%"
 				+ searchKey
 				+ "%' OR ps.fullname LIKE '"
 				+ searchKey
@@ -910,10 +910,10 @@ public class HibernateBillingDAO implements BillingDAO {
 	}
 
 	public List<PatientSearch> listOfPatient() throws DAOException {
-		String hql = "from PatientSearch ps where ps.patientId IN (SELECT o.patient FROM OpdOrder o where o.billingStatus=0 AND o.cancelStatus=0 GROUP BY o.patient)";
+		String hql = "from PatientSearch ps where ps.patientId IN (SELECT o.patient FROM OpdTestOrder o where o.billingStatus=0 AND o.cancelStatus=0 GROUP BY o.patient)";
 		/*
 		 * alternate query String hql =
-		 * "from PatientSearch ps where ps.patientId IN (SELECT o.patient FROM OpdOrder o where o.valueCoded IN (SELECT b.conceptId FROM BillableService b where b.conceptId=o.valueCoded) AND o.billingStatus=0 AND o.cancelStatus=0 GROUP BY o.patient)"
+		 * "from PatientSearch ps where ps.patientId IN (SELECT o.patient FROM OpdTestOrder o where o.valueCoded IN (SELECT b.conceptId FROM BillableService b where b.conceptId=o.valueCoded) AND o.billingStatus=0 AND o.cancelStatus=0 GROUP BY o.patient)"
 		 * ;
 		 */
 		Session session = sessionFactory.getCurrentSession();
@@ -924,7 +924,7 @@ public class HibernateBillingDAO implements BillingDAO {
 
 	public List<BillableService> listOfServiceOrder(Integer patientId,
 			Integer encounterId) throws DAOException {
-		String hql = "from BillableService b where b.conceptId IN (SELECT o.valueCoded FROM OpdOrder o where o.patient='"
+		String hql = "from BillableService b where b.conceptId IN (SELECT o.valueCoded FROM OpdTestOrder o where o.patient='"
 				+ patientId
 				+ "' AND o.encounter='"
 				+ encounterId
@@ -943,7 +943,7 @@ public class HibernateBillingDAO implements BillingDAO {
 		return (BillableService) criteria.uniqueResult();
 	}
 
-	public List<OpdOrder> listOfOrder(Integer patientId) throws DAOException {
+	public List<OpdTestOrder> listOfOrder(Integer patientId) throws DAOException {
 		/*
 		 * Criteria criteria =
 		 * sessionFactory.getCurrentSession().createCriteria( OpdOrder.class);
@@ -952,23 +952,23 @@ public class HibernateBillingDAO implements BillingDAO {
 		 * criteria.add(Restrictions.eq("cancelStatus", 0)); return
 		 * criteria.list();
 		 */
-		String hql = "from OpdOrder o where o.patient='"
+		String hql = "from OpdTestOrder o where o.patient='"
 				+ patientId
 				+ "' AND o.billingStatus=0 AND o.cancelStatus=0 GROUP BY encounter";
 		Session session = sessionFactory.getCurrentSession();
 		Query q = session.createQuery(hql);
-		List<OpdOrder> list = q.list();
+		List<OpdTestOrder> list = q.list();
 		return list;
 	}
 
-	public OpdOrder getOpdTestOrder(Integer encounterId, Integer conceptId)
+	public OpdTestOrder getOpdTestOrder(Integer encounterId, Integer conceptId)
 			throws DAOException {
 		Criteria criteria = sessionFactory.getCurrentSession().createCriteria(
-				OpdOrder.class);
+				OpdTestOrder.class);
 
 		criteria.add(Restrictions.eq("encounter.encounterId", encounterId));
 		criteria.add(Restrictions.eq("valueCoded.conceptId", conceptId));
-		return (OpdOrder) criteria.uniqueResult();
+		return (OpdTestOrder) criteria.uniqueResult();
 	}
 
 }

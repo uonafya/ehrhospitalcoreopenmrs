@@ -30,6 +30,7 @@ import org.openmrs.Patient;
 import org.openmrs.api.APIException;
 import org.openmrs.api.OpenmrsService;
 import org.openmrs.module.hospitalcore.model.InventoryDrug;
+import org.openmrs.module.hospitalcore.model.InventoryDrugFormulation;
 import org.openmrs.module.hospitalcore.model.InventoryStoreDrugPatient;
 import org.openmrs.module.hospitalcore.model.InventoryStoreDrugPatientDetail;
 import org.springframework.transaction.annotation.Transactional;
@@ -50,4 +51,6 @@ public interface InventoryCommonService extends OpenmrsService{
 	public InventoryDrug getDrugByName(String name) throws APIException;
 	
 	public List<Concept> getDrugFrequency() throws APIException;
+	
+	public InventoryDrugFormulation getDrugFormulationById(Integer id) throws APIException;
 }

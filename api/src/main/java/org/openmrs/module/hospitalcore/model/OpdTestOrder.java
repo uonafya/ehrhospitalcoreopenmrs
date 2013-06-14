@@ -29,7 +29,7 @@ import org.openmrs.Encounter;
 import org.openmrs.Patient;
 import org.openmrs.User;
 
-public class OpdOrder {
+public class OpdTestOrder {
 	private static final long serialVersionUID = 1L;
 	private Integer opdOrderId;
 	private Patient patient;

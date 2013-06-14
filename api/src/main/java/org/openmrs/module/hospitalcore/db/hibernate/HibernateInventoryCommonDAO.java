@@ -38,6 +38,7 @@ import org.openmrs.api.context.Context;
 import org.openmrs.api.db.DAOException;
 import org.openmrs.module.hospitalcore.db.InventoryCommonDAO;
 import org.openmrs.module.hospitalcore.model.InventoryDrug;
+import org.openmrs.module.hospitalcore.model.InventoryDrugFormulation;
 import org.openmrs.module.hospitalcore.model.InventoryStoreDrugPatient;
 import org.openmrs.module.hospitalcore.model.InventoryStoreDrugPatientDetail;
 
@@ -120,5 +121,12 @@ public class HibernateInventoryCommonDAO implements InventoryCommonDAO {
 				.getConceptClassByName("Frequency");
 		criteria.add(Restrictions.eq("con.conceptClass", conClass));
 		return criteria.list();
+	}
+	
+	public InventoryDrugFormulation getDrugFormulationById(Integer id) throws DAOException {
+		Criteria criteria = sessionFactory.getCurrentSession()
+		        .createCriteria(InventoryDrugFormulation.class, "drugFormulation")
+		        .add(Restrictions.eq("drugFormulation.id", id));
+		return (InventoryDrugFormulation) criteria.uniqueResult();
 	}
 }

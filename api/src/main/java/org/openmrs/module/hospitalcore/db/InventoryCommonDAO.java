@@ -29,6 +29,7 @@ import org.openmrs.Concept;
 import org.openmrs.Patient;
 import org.openmrs.api.db.DAOException;
 import org.openmrs.module.hospitalcore.model.InventoryDrug;
+import org.openmrs.module.hospitalcore.model.InventoryDrugFormulation;
 import org.openmrs.module.hospitalcore.model.InventoryStoreDrugPatient;
 import org.openmrs.module.hospitalcore.model.InventoryStoreDrugPatientDetail;
 
@@ -47,4 +48,6 @@ public interface InventoryCommonDAO {
 	public InventoryDrug getDrugByName(String name) throws DAOException;
 	
 	public List<Concept> getDrugFrequency() throws DAOException;
+	
+	public InventoryDrugFormulation getDrugFormulationById(Integer id) throws DAOException;
 }

@@ -59,7 +59,7 @@ import org.openmrs.module.hospitalcore.model.Driver;
 import org.openmrs.module.hospitalcore.model.Lab;
 import org.openmrs.module.hospitalcore.model.MiscellaneousService;
 import org.openmrs.module.hospitalcore.model.MiscellaneousServiceBill;
-import org.openmrs.module.hospitalcore.model.OpdOrder;
+import org.openmrs.module.hospitalcore.model.OpdTestOrder;
 import org.openmrs.module.hospitalcore.model.PatientSearch;
 import org.openmrs.module.hospitalcore.model.PatientServiceBill;
 import org.openmrs.module.hospitalcore.model.PatientServiceBillItem;
@@ -1111,10 +1111,10 @@ public class BillingServiceImpl extends BaseOpenmrsService implements BillingSer
 	public BillableService getServiceByConceptName(String conceptName) throws APIException {
 		return dao.getServiceByConceptName(conceptName);
 	}
-	public List<OpdOrder> listOfOrder(Integer patientId) throws APIException {
+	public List<OpdTestOrder> listOfOrder(Integer patientId) throws APIException {
 		return dao.listOfOrder(patientId);
 	}
-	public OpdOrder getOpdTestOrder(Integer encounterId,Integer conceptId) throws APIException {
+	public OpdTestOrder getOpdTestOrder(Integer encounterId,Integer conceptId) throws APIException {
 		return dao.getOpdTestOrder(encounterId,conceptId);
 	}
 	

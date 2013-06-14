@@ -248,4 +248,30 @@
 			) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 		</sql>
 	</diff>
+	<!-- ghanshyam 12-june-2013 New Requirement #1635 User should be able to send pharmacy orders to issue drugs to a patient from dashboard -->
+	<diff>
+		<version>2.1</version>
+		<author>ghanshyam</author>
+		<date>June 12 2013</date>
+		<description>
+			Create table opd_drug_order
+		</description>
+		<sql>
+			CREATE TABLE IF NOT EXISTS `opd_drug_order` (
+			`opd_drug_order_id` int(11) NOT NULL AUTO_INCREMENT,
+			`patient_id` int(11) NOT NULL,
+                        `encounter_id` int(11) NOT NULL,
+                        `concept_id` int(11) NOT NULL,
+                        `formulation_id` int(11) DEFAULT NULL,
+                        `frequency_concept_id` int(11) DEFAULT NULL,
+                        `no_of_days` int(11) DEFAULT NULL,
+                        `comments` varchar(200) DEFAULT NULL,
+			`created_by` int(11) NOT NULL,
+			`created_on` datetime NOT NULL,
+			            `order_status` smallint(1) NOT NULL DEFAULT '0',
+                        `cancel_status` smallint(1) NOT NULL DEFAULT '0',
+			PRIMARY KEY (`opd_drug_order_id`)
+			) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+		</sql>
+	</diff>
 </sqldiff>
