@@ -223,6 +223,7 @@
 			) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 		</sql>
 	</diff>
+
 	<!-- ghanshyam 10-june-2013 New Requirement #1847 Capture Vital statistics for admitted patient in ipd -->
 	<diff>
 		<version>2.0</version>
@@ -272,6 +273,27 @@
                         `cancel_status` smallint(1) NOT NULL DEFAULT '0',
 			PRIMARY KEY (`opd_drug_order_id`)
 			) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+		</sql>
+	</diff>
+
+
+	<diff>
+		<version>2.1</version>
+		<author>harsh</author>
+		<date>June 4 2013</date>
+		<description>
+			Create table ward_bed_strength
+		</description>
+		<sql>
+			CREATE TABLE IF NOT EXISTS `ward_bed_strength` (
+			`ward_bed_strength_id` int(11) NOT NULL AUTO_INCREMENT,
+			`concept_id` int(11) NOT NULL,
+            `bed_strength` int(11) DEFAULT NULL,
+			`created_by` int(11) NOT NULL,
+			`created_on` datetime NOT NULL,
+             PRIMARY KEY (`ward_bed_strength_id`)
+			) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
 		</sql>
 	</diff>
 </sqldiff>

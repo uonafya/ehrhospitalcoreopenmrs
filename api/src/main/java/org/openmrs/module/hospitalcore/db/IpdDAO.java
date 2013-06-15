@@ -30,6 +30,7 @@ import org.openmrs.module.hospitalcore.model.IpdPatientAdmission;
 import org.openmrs.module.hospitalcore.model.IpdPatientAdmissionLog;
 import org.openmrs.module.hospitalcore.model.IpdPatientAdmitted;
 import org.openmrs.module.hospitalcore.model.IpdPatientAdmittedLog;
+import org.openmrs.module.hospitalcore.model.WardBedStrength;
 import org.openmrs.module.hospitalcore.model.IpdPatientVitalStatistics;
 
 public interface IpdDAO {
@@ -59,7 +60,14 @@ public interface IpdDAO {
 	public List<IpdPatientAdmittedLog> listAdmittedLogByPatientId(Integer patientId) throws DAOException;
 	
 	public IpdPatientAdmitted getAdmittedByPatientId(Integer patientId) throws DAOException;
+
+	public List<IpdPatientAdmitted> getAllIpdAdmittedPatientByWardId(Integer wardId)
+			throws DAOException;
+	public WardBedStrength getWardBedStrengthByWardId(Integer wardId) throws DAOException;
+	public void saveWardBedStrength(WardBedStrength wardBedStrength) throws DAOException;
+
 	
 	//ghanshyam 10-june-2013 New Requirement #1847 Capture Vital statistics for admitted patient in ipd
 	public IpdPatientVitalStatistics saveIpdPatientVitalStatistics(IpdPatientVitalStatistics vitalStatistics) throws DAOException;
+
 }

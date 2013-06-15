@@ -41,7 +41,9 @@ import org.openmrs.module.hospitalcore.model.IpdPatientAdmission;
 import org.openmrs.module.hospitalcore.model.IpdPatientAdmissionLog;
 import org.openmrs.module.hospitalcore.model.IpdPatientAdmitted;
 import org.openmrs.module.hospitalcore.model.IpdPatientAdmittedLog;
+import org.openmrs.module.hospitalcore.model.WardBedStrength;
 import org.openmrs.module.hospitalcore.model.IpdPatientVitalStatistics;
+
 
 public class HibernateIpdDAO implements IpdDAO{
 	SimpleDateFormat formatter = new SimpleDateFormat("dd/MM/yyyy HH:mm:ss");
@@ -334,6 +336,30 @@ public class HibernateIpdDAO implements IpdDAO{
 	throws DAOException {
 		return (IpdPatientVitalStatistics)sessionFactory.getCurrentSession().merge(vitalStatistics);
     }
+
+	@SuppressWarnings("unchecked")
+	public List<IpdPatientAdmitted> getAllIpdAdmittedPatientByWardId(Integer wardId)
+			throws DAOException {
+		Criteria criteria = sessionFactory.getCurrentSession().createCriteria(IpdPatientAdmitted.class);
+		criteria.add(Restrictions.eq("admittedWard.id", wardId));
+		return sessionFactory.getCurrentSession().createCriteria(IpdPatientAdmitted.class).list();
+	}
+	public WardBedStrength getWardBedStrengthByWardId(Integer wardId)
+			throws DAOException {
+		
+		Criteria criteria = sessionFactory.getCurrentSession().createCriteria(WardBedStrength.class);
+		criteria.add(Restrictions.eq("ward.id", wardId));
+		List<WardBedStrength> list = criteria.list();
+	
+		return CollectionUtils.isEmpty(list)? null : list.get(0);
+	}
+
+	public void saveWardBedStrength(WardBedStrength wardBedStrength)
+			throws DAOException {
+		 sessionFactory.getCurrentSession().saveOrUpdate(wardBedStrength);
+		
+		
+	}
 
 	
 	

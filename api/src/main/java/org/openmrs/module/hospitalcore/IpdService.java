@@ -26,10 +26,12 @@ import java.util.List;
 
 import org.openmrs.api.APIException;
 import org.openmrs.api.OpenmrsService;
+import org.openmrs.api.db.DAOException;
 import org.openmrs.module.hospitalcore.model.IpdPatientAdmission;
 import org.openmrs.module.hospitalcore.model.IpdPatientAdmissionLog;
 import org.openmrs.module.hospitalcore.model.IpdPatientAdmitted;
 import org.openmrs.module.hospitalcore.model.IpdPatientAdmittedLog;
+import org.openmrs.module.hospitalcore.model.WardBedStrength;
 import org.openmrs.module.hospitalcore.model.IpdPatientVitalStatistics;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -88,8 +90,11 @@ public interface IpdService extends OpenmrsService{
 	
 	@Transactional(readOnly = true)
 	public IpdPatientAdmitted getAdmittedByPatientId(Integer patientId) throws APIException;
-	
+	public void saveWardBedStrength(WardBedStrength wardBedStrength) throws APIException;
+	public WardBedStrength getWardBedStrengthByWardId(Integer wardId) throws APIException;
+
 	//ghanshyam 10-june-2013 New Requirement #1847 Capture Vital statistics for admitted patient in ipd
 	public IpdPatientVitalStatistics saveIpdPatientVitalStatistics(IpdPatientVitalStatistics vitalStatistics) throws APIException;
+
 
 }
