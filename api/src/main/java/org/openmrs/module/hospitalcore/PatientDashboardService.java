@@ -34,6 +34,7 @@ import org.openmrs.Patient;
 import org.openmrs.api.APIException;
 import org.openmrs.module.hospitalcore.model.Department;
 import org.openmrs.module.hospitalcore.model.DepartmentConcept;
+import org.openmrs.module.hospitalcore.model.InventoryDrug;
 import org.openmrs.module.hospitalcore.model.OpdDrugOrder;
 import org.openmrs.module.hospitalcore.model.OpdTestOrder;
 import org.springframework.transaction.annotation.Transactional;
@@ -73,5 +74,6 @@ public interface PatientDashboardService {
 	//ghanshyam 12-june-2013 New Requirement #1635 User should be able to send pharmacy orders to issue drugs to a patient from dashboard
 	public List<Concept> searchDrug(String text) throws APIException;
 	public OpdDrugOrder saveOrUpdateOpdDrugOrder(OpdDrugOrder opdDrugOrder) throws APIException;
+	public List<InventoryDrug> findDrug(String name) throws APIException;
 	
 }
