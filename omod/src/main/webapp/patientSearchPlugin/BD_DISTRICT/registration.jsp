@@ -336,6 +336,10 @@
 			if(value!='Any'){
 				this.whereClause += " AND (ps.gender = '" + value + "') ";
 			}
+			//ghanshyam 17-june-2013 New Requirement #1892 [Registration]error occured when selecting 'Any' under Gender
+			else{
+			this.whereClause += " AND 1 ";
+			}
 		},
 		
 		/** BUILD QUERY FOR AGE */
@@ -535,6 +539,8 @@
 						<option value="Any">Any</option>
 						<option value="M">Male</option>
 						<option value="F">Female</option>
+						<%-- ghanshyam 17-june-2013 New Requirement #1893 [Registration]Gender under Advance Search --%>
+						<option value="O">Others</option>
 					</select>
 				</td>
 			</tr>
