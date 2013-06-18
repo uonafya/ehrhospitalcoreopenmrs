@@ -262,7 +262,7 @@
 			`opd_drug_order_id` int(11) NOT NULL AUTO_INCREMENT,
 			`patient_id` int(11) NOT NULL,
                         `encounter_id` int(11) NOT NULL,
-                        `concept_id` int(11) NOT NULL,
+                        `inventory_drug_id` int(11) NOT NULL,
                         `formulation_id` int(11) DEFAULT NULL,
                         `frequency_concept_id` int(11) DEFAULT NULL,
                         `no_of_days` int(11) DEFAULT NULL,

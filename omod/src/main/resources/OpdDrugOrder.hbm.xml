@@ -14,7 +14,7 @@
 		<many-to-one name="patient" column="patient_id" class="org.openmrs.Patient" />
 		<many-to-one name="encounter" column="encounter_id"
 			class="org.openmrs.Encounter" />
-		<many-to-one name="drug" column="concept_id" class="org.openmrs.Concept" />
+		<many-to-one name="inventoryDrug" column="inventory_drug_id" class="org.openmrs.module.hospitalcore.model.InventoryDrug" />
 		<many-to-one name="inventoryDrugFormulation" column="formulation_id" class="org.openmrs.module.hospitalcore.model.InventoryDrugFormulation" />
 		<many-to-one name="frequency" column="frequency_concept_id" class="org.openmrs.Concept" />
 		<property name="noOfDays" column="no_of_days" />

@@ -34,7 +34,7 @@ public class OpdDrugOrder {
 	private Integer opdDrugOrderId;
 	private Patient patient;
 	private Encounter encounter;
-	private Concept drug;
+	private InventoryDrug inventoryDrug;
 	private InventoryDrugFormulation inventoryDrugFormulation;
 	private Concept frequency;
 	private Integer noOfDays;
@@ -61,11 +61,11 @@ public class OpdDrugOrder {
 	public void setEncounter(Encounter encounter) {
 		this.encounter = encounter;
 	}
-	public Concept getDrug() {
-		return drug;
+	public InventoryDrug getInventoryDrug() {
+		return inventoryDrug;
 	}
-	public void setDrug(Concept drug) {
-		this.drug = drug;
+	public void setInventoryDrug(InventoryDrug inventoryDrug) {
+		this.inventoryDrug = inventoryDrug;
 	}
 	public InventoryDrugFormulation getInventoryDrugFormulation() {
 		return inventoryDrugFormulation;
