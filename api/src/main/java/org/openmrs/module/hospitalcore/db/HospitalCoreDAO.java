@@ -118,4 +118,7 @@ public interface HospitalCoreDAO {
 	 * @return
 	 */
 	public java.util.Date getLastVisitTime (int patientID);
+	
+	//ghanshyam 3-june-2013 New Requirement #1632 Orders from dashboard must be appear in billing queue.User must be able to generate bills from this queue
+	public PatientSearch getPatientByPatientId(int patientId);
 }

@@ -338,4 +338,11 @@ public class HibernateHospitalCoreDAO implements HospitalCoreDAO {
 		encounter = (Encounter) criteria.uniqueResult();
 		return (java.util.Date) (encounter == null ? null : encounter.getEncounterDatetime());
 	}
+	
+	//ghanshyam 3-june-2013 New Requirement #1632 Orders from dashboard must be appear in billing queue.User must be able to generate bills from this queue
+	public PatientSearch getPatientByPatientId(int patientId) {
+		Criteria criteria = sessionFactory.getCurrentSession().createCriteria(PatientSearch.class);
+		criteria.add(Restrictions.eq("patientId", patientId));
+		return (PatientSearch) criteria.uniqueResult();
+	}
 }
