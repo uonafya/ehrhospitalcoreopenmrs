@@ -48,6 +48,14 @@ public class PagingUtil
         this.link = link;
     }
     
+    //ghanshyam 3-june-2013 New Requirement #1632 Orders from dashboard must be appear in billing queue.User must be able to generate bills from this queue
+    public PagingUtil(Integer pageSize, Integer currentPage, int total) {
+		this.pageSize = pageSize != null ? pageSize : DEFAULT_PAGE_SIZE;
+		this.total = total;
+		this.currentPage = currentPage == null || currentPage > total ? 1
+				: currentPage;
+	}
+    
     public PagingUtil( String link, Integer pageSize, Integer currentPage, int total )
     {
         this.pageSize = pageSize != null ? pageSize : DEFAULT_PAGE_SIZE;
@@ -164,6 +172,22 @@ public class PagingUtil
 
 	public void setPatientId(int patientId) {
 		this.patientId = patientId;
+	}
+	
+	//ghanshyam 3-june-2013 New Requirement #1632 Orders from dashboard must be appear in billing queue.User must be able to generate bills from this queue
+	public int getPrev() {
+		if (currentPage - 1 > 1)
+			return currentPage - 1;
+		else
+			return 1;
+	}
+
+	public int getNext() {
+		if (currentPage + 1 < getNumberOfPages()) {
+			return currentPage + 1;
+		} else {
+			return getNumberOfPages();
+		}
 	}
 
 }

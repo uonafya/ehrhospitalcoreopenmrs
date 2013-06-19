@@ -83,5 +83,8 @@ public class BillingConstants {
 
 	public static final String GLOBAL_PROPRETY_RADIOLOGY_ORDER_TYPE = MODULE
 			+ ".radiologyOrderType";
+	
+	//ghanshyam 3-june-2013 New Requirement #1632 Orders from dashboard must be appear in billing queue.User must be able to generate bills from this queue
+	public static final Integer PAGESIZE = 20;
 
 }

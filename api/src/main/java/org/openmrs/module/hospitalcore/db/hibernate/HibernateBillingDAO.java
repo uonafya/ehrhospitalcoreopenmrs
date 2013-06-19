@@ -21,6 +21,7 @@
 package org.openmrs.module.hospitalcore.db.hibernate;
 
 import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.List;
 import org.apache.commons.logging.Log;
@@ -37,6 +38,7 @@ import org.openmrs.GlobalProperty;
 import org.openmrs.Patient;
 import org.openmrs.api.context.Context;
 import org.openmrs.api.db.DAOException;
+import org.openmrs.module.hospitalcore.BillingConstants;
 import org.openmrs.module.hospitalcore.BillingService;
 import org.openmrs.module.hospitalcore.db.BillingDAO;
 import org.openmrs.module.hospitalcore.model.Ambulance;
@@ -896,13 +898,18 @@ public class HibernateBillingDAO implements BillingDAO {
 	}
 
 	// ghanshyam 3-june-2013 New Requirement #1632 Orders from dashboard must be appear in billing queue.User must be able to generate bills from this queue
-	public List<PatientSearch> searchListOfPatient(String searchKey)
+	public List<PatientSearch> searchListOfPatient(Date date, String searchKey,int page)
 			throws DAOException {
-		String hql = "from PatientSearch ps where ps.patientId IN (SELECT o.patient FROM OpdTestOrder o where o.billingStatus=0 AND o.cancelStatus=0 GROUP BY o.patient) AND (ps.identifier LIKE '%"
-				+ searchKey
-				+ "%' OR ps.fullname LIKE '"
-				+ searchKey
-				+ "%' OR ps.patientId LIKE '" + searchKey + "%')";
+		SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
+		String startDate = sdf.format(date) + " 00:00:00";
+		String endDate = sdf.format(date) + " 23:59:59";
+		String hql = "from PatientSearch ps where ps.patientId IN (SELECT o.patient FROM OpdTestOrder o where o.createdOn BETWEEN '"
+				+ startDate
+				+ "' AND '"
+				+ endDate
+				+ "' AND o.billingStatus=0 AND o.cancelStatus=0 GROUP BY o.patient) AND (ps.identifier LIKE '%"
+				+ searchKey + "%' OR ps.fullname LIKE '" + searchKey + "%')";
+		int firstResult = (page - 1) * BillingConstants.PAGESIZE;
 		Session session = sessionFactory.getCurrentSession();
 		Query q = session.createQuery(hql);
 		List<PatientSearch> list = q.list();
@@ -943,17 +950,24 @@ public class HibernateBillingDAO implements BillingDAO {
 		return (BillableService) criteria.uniqueResult();
 	}
 
-	public List<OpdTestOrder> listOfOrder(Integer patientId) throws DAOException {
+	public List<OpdTestOrder> listOfOrder(Integer patientId,Date date) throws DAOException {
 		/*
 		 * Criteria criteria =
-		 * sessionFactory.getCurrentSession().createCriteria( OpdOrder.class);
+		 * sessionFactory.getCurrentSession().createCriteria( OpdTestOrder.class);
 		 * criteria.add(Restrictions.eq("patient", patient));
 		 * criteria.add(Restrictions.eq("billingStatus", 0));
 		 * criteria.add(Restrictions.eq("cancelStatus", 0)); return
 		 * criteria.list();
 		 */
+		SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
+		String startDate = sdf.format(date) + " 00:00:00";
+		String endDate = sdf.format(date) + " 23:59:59";
 		String hql = "from OpdTestOrder o where o.patient='"
 				+ patientId
+				+ "' AND o.createdOn BETWEEN '"
+				+ startDate
+				+ "' AND '"
+				+ endDate
 				+ "' AND o.billingStatus=0 AND o.cancelStatus=0 GROUP BY encounter";
 		Session session = sessionFactory.getCurrentSession();
 		Query q = session.createQuery(hql);

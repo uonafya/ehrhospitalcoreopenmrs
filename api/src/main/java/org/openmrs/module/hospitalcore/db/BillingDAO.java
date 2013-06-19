@@ -20,6 +20,7 @@
 
 package org.openmrs.module.hospitalcore.db;
 
+import java.util.Date;
 import java.util.List;
 import org.hibernate.SessionFactory;
 import org.openmrs.Patient;
@@ -224,7 +225,7 @@ public interface BillingDAO {
 	public void updateOldBills();
 	
 	//ghanshyam 3-june-2013 New Requirement #1632 Orders from dashboard must be appear in billing queue.User must be able to generate bills from this queue
-	public List<PatientSearch> searchListOfPatient(String searchKey) throws DAOException;
+	public List<PatientSearch> searchListOfPatient(Date date, String searchKey,int page) throws DAOException;
 	
 	public List<PatientSearch> listOfPatient() throws DAOException;
 
@@ -232,7 +233,7 @@ public interface BillingDAO {
 	
 	public BillableService getServiceByConceptName(String conceptName) throws DAOException;
 	
-	public List<OpdTestOrder> listOfOrder(Integer patientId) throws DAOException;
+	public List<OpdTestOrder> listOfOrder(Integer patientId,Date date) throws DAOException;
 	
 	public OpdTestOrder getOpdTestOrder(Integer encounterId,Integer conceptId) throws DAOException;
 }

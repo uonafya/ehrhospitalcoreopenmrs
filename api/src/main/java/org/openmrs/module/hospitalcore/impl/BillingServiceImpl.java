@@ -1099,8 +1099,8 @@ public class BillingServiceImpl extends BaseOpenmrsService implements BillingSer
 	}
 	
 	//ghanshyam 3-june-2013 New Requirement #1632 Orders from dashboard must be appear in billing queue.User must be able to generate bills from this queue
-	public List<PatientSearch> searchListOfPatient(String searchKey) throws APIException {
-		return dao.searchListOfPatient(searchKey);
+	public List<PatientSearch> searchListOfPatient(Date date, String searchKey,int page) throws APIException {
+		return dao.searchListOfPatient(date,searchKey,page);
 	}
 	public List<PatientSearch> listOfPatient() throws APIException {
 		return dao.listOfPatient();
@@ -1111,8 +1111,8 @@ public class BillingServiceImpl extends BaseOpenmrsService implements BillingSer
 	public BillableService getServiceByConceptName(String conceptName) throws APIException {
 		return dao.getServiceByConceptName(conceptName);
 	}
-	public List<OpdTestOrder> listOfOrder(Integer patientId) throws APIException {
-		return dao.listOfOrder(patientId);
+	public List<OpdTestOrder> listOfOrder(Integer patientId,Date date) throws APIException {
+		return dao.listOfOrder(patientId,date);
 	}
 	public OpdTestOrder getOpdTestOrder(Integer encounterId,Integer conceptId) throws APIException {
 		return dao.getOpdTestOrder(encounterId,conceptId);

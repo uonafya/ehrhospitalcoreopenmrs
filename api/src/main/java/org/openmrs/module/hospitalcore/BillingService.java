@@ -21,6 +21,7 @@
 package org.openmrs.module.hospitalcore;
 
 import java.util.Collection;
+import java.util.Date;
 import java.util.List;
 import java.util.Map;
 
@@ -331,10 +332,10 @@ public interface BillingService extends OpenmrsService {
 	
 	public void updateOldBills();
 	//ghanshyam 3-june-2013 New Requirement #1632 Orders from dashboard must be appear in billing queue.User must be able to generate bills from this queue
-	public List<PatientSearch> searchListOfPatient(String searchKey) throws APIException;
+	public List<PatientSearch> searchListOfPatient(Date date, String searchKey,int page) throws APIException;
 	public List<PatientSearch> listOfPatient() throws APIException;
 	public List<BillableService> listOfServiceOrder(Integer patientId, Integer encounterId) throws APIException;
 	public BillableService getServiceByConceptName(String conceptName) throws APIException;
-	public List<OpdTestOrder> listOfOrder(Integer patientId) throws APIException;
+	public List<OpdTestOrder> listOfOrder(Integer patientId,Date date) throws APIException;
 	public OpdTestOrder getOpdTestOrder(Integer encounterId,Integer conceptId) throws APIException;
 }
