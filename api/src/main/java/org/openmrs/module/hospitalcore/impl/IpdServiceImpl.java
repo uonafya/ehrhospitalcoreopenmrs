@@ -283,6 +283,17 @@ public class IpdServiceImpl extends BaseOpenmrsService implements IpdService{
 	        throws APIException {
         return dao.saveIpdPatientVitalStatistics(vitalStatistics);
     }
+	
+	public List<IpdPatientVitalStatistics> getIpdPatientVitalStatistics(
+			Integer patientId, Integer patientAdmissionLogId)
+			throws APIException {
+		return dao.getIpdPatientVitalStatistics(patientId,
+				patientAdmissionLogId);
+	}
+
+	public List<Concept> getDiet() throws APIException {
+		return dao.getDiet();
+	}
 
 	public void saveWardBedStrength(WardBedStrength wardBedStrength)
 			throws APIException {

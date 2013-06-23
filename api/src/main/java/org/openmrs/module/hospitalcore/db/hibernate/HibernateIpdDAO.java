@@ -33,6 +33,8 @@ import org.hibernate.Criteria;
 import org.hibernate.SessionFactory;
 import org.hibernate.criterion.Order;
 import org.hibernate.criterion.Restrictions;
+import org.openmrs.Concept;
+import org.openmrs.ConceptClass;
 import org.openmrs.api.APIException;
 import org.openmrs.api.context.Context;
 import org.openmrs.api.db.DAOException;
@@ -336,6 +338,25 @@ public class HibernateIpdDAO implements IpdDAO{
 	throws DAOException {
 		return (IpdPatientVitalStatistics)sessionFactory.getCurrentSession().merge(vitalStatistics);
     }
+	
+	public List<Concept> getDiet() throws DAOException {
+		Criteria criteria = sessionFactory.getCurrentSession().createCriteria(
+				Concept.class, "con");
+		ConceptClass conClass = Context.getConceptService()
+				.getConceptClassByName("Diet");
+		criteria.add(Restrictions.eq("con.conceptClass", conClass));
+		return criteria.list();
+	}
+
+	public List<IpdPatientVitalStatistics> getIpdPatientVitalStatistics(
+			Integer patientId, Integer patientAdmissionLogId)
+			throws DAOException {
+		Criteria criteria = sessionFactory.getCurrentSession().createCriteria(
+				IpdPatientVitalStatistics.class);
+		criteria.add(Restrictions.eq("patient.personId", patientId));
+		criteria.add(Restrictions.eq("ipdPatientAdmissionLog.id", patientAdmissionLogId));
+		return criteria.list();
+	}
 
 	@SuppressWarnings("unchecked")
 	public List<IpdPatientAdmitted> getAllIpdAdmittedPatientByWardId(Integer wardId)

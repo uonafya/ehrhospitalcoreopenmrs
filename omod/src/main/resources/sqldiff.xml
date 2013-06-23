@@ -237,11 +237,10 @@
 			`id` int(11) NOT NULL AUTO_INCREMENT,
 			`patient_id` int(11) NOT NULL,
                         `ipd_patientadmissionlog_id` int(11) NOT NULL,
-                        `systolic` varchar(11) DEFAULT NULL,
-                        `diastolic` varchar(11) DEFAULT NULL,
-                        `pulse` varchar(11) DEFAULT NULL,
+                        `blood_pressure` varchar(11) DEFAULT NULL,
+                        `pulse_rate` varchar(11) DEFAULT NULL,
                         `temperature` varchar(11) DEFAULT NULL,
-                        `diet_advised` varchar(22) DEFAULT NULL,
+                        `diet_advised` varchar(50) DEFAULT NULL,
                         `note` varchar(200) DEFAULT NULL,
 			`created_by` int(11) NOT NULL,
 			`created_on` datetime NOT NULL,
@@ -276,7 +275,6 @@
 		</sql>
 	</diff>
 
-<!-- 
 	<diff>
 		<version>2.2</version>
 		<author>harsh</author>
@@ -293,8 +291,6 @@
 			`created_on` datetime NOT NULL,
              PRIMARY KEY (`ward_bed_strength_id`)
 			) ENGINE=InnoDB DEFAULT CHARSET=utf8;
-
 		</sql>
 	</diff>
-	-->
 </sqldiff>

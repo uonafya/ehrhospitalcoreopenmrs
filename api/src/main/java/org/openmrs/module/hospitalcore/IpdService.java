@@ -24,9 +24,9 @@ package org.openmrs.module.hospitalcore;
 import java.util.ArrayList;
 import java.util.List;
 
+import org.openmrs.Concept;
 import org.openmrs.api.APIException;
 import org.openmrs.api.OpenmrsService;
-import org.openmrs.api.db.DAOException;
 import org.openmrs.module.hospitalcore.model.IpdPatientAdmission;
 import org.openmrs.module.hospitalcore.model.IpdPatientAdmissionLog;
 import org.openmrs.module.hospitalcore.model.IpdPatientAdmitted;
@@ -95,6 +95,8 @@ public interface IpdService extends OpenmrsService{
 
 	//ghanshyam 10-june-2013 New Requirement #1847 Capture Vital statistics for admitted patient in ipd
 	public IpdPatientVitalStatistics saveIpdPatientVitalStatistics(IpdPatientVitalStatistics vitalStatistics) throws APIException;
+	public List<Concept> getDiet() throws APIException;
+	public List<IpdPatientVitalStatistics> getIpdPatientVitalStatistics(Integer patientId,Integer patientAdmissionLogId) throws APIException;
 
 
 }

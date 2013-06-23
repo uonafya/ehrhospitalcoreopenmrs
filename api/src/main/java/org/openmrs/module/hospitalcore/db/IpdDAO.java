@@ -24,6 +24,7 @@ package org.openmrs.module.hospitalcore.db;
 import java.util.ArrayList;
 import java.util.List;
 
+import org.openmrs.Concept;
 import org.openmrs.api.APIException;
 import org.openmrs.api.db.DAOException;
 import org.openmrs.module.hospitalcore.model.IpdPatientAdmission;
@@ -69,5 +70,7 @@ public interface IpdDAO {
 	
 	//ghanshyam 10-june-2013 New Requirement #1847 Capture Vital statistics for admitted patient in ipd
 	public IpdPatientVitalStatistics saveIpdPatientVitalStatistics(IpdPatientVitalStatistics vitalStatistics) throws DAOException;
+	public List<IpdPatientVitalStatistics> getIpdPatientVitalStatistics(Integer patientId,Integer patientAdmissionLogId) throws DAOException;
+	public List<Concept> getDiet() throws DAOException;
 
 }

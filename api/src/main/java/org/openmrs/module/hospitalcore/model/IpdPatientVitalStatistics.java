@@ -28,86 +28,97 @@ import java.util.Date;
 import org.openmrs.Patient;
 
 public class IpdPatientVitalStatistics {
-	
+
 	private Integer id;
 	private Patient patient;
 	private IpdPatientAdmissionLog ipdPatientAdmissionLog;
-	//vitalSatatistics Form
-	private String systolic;
-	private String diastolic;
-	private String pulse;
+	// vitalSatatistics Form
+	private String bloodPressure;
+	private String pulseRate;
 	private String temperature;
 	private String dietAdvised;
 	private String note;
 	private Integer creator;
 	private Date createdOn;
-	
+
 	public Integer getId() {
 		return id;
 	}
+
 	public void setId(Integer id) {
 		this.id = id;
 	}
+
 	public Patient getPatient() {
 		return patient;
 	}
+
 	public void setPatient(Patient patient) {
 		this.patient = patient;
 	}
+
 	public IpdPatientAdmissionLog getIpdPatientAdmissionLog() {
 		return ipdPatientAdmissionLog;
 	}
+
 	public void setIpdPatientAdmissionLog(
 			IpdPatientAdmissionLog ipdPatientAdmissionLog) {
 		this.ipdPatientAdmissionLog = ipdPatientAdmissionLog;
 	}
-	public String getSystolic() {
-		return systolic;
+
+	public String getBloodPressure() {
+		return bloodPressure;
 	}
-	public void setSystolic(String systolic) {
-		this.systolic = systolic;
+
+	public void setBloodPressure(String bloodPressure) {
+		this.bloodPressure = bloodPressure;
 	}
-	public String getDiastolic() {
-		return diastolic;
+
+	public String getPulseRate() {
+		return pulseRate;
 	}
-	public void setDiastolic(String diastolic) {
-		this.diastolic = diastolic;
+
+	public void setPulseRate(String pulseRate) {
+		this.pulseRate = pulseRate;
 	}
-	public String getPulse() {
-		return pulse;
-	}
-	public void setPulse(String pulse) {
-		this.pulse = pulse;
-	}
+
 	public String getTemperature() {
 		return temperature;
 	}
+
 	public void setTemperature(String temperature) {
 		this.temperature = temperature;
 	}
+
 	public String getDietAdvised() {
 		return dietAdvised;
 	}
+
 	public void setDietAdvised(String dietAdvised) {
 		this.dietAdvised = dietAdvised;
 	}
+
 	public String getNote() {
 		return note;
 	}
+
 	public void setNote(String note) {
 		this.note = note;
 	}
+
 	public Integer getCreator() {
 		return creator;
 	}
+
 	public void setCreator(Integer creator) {
 		this.creator = creator;
 	}
+
 	public Date getCreatedOn() {
 		return createdOn;
 	}
+
 	public void setCreatedOn(Date createdOn) {
 		this.createdOn = createdOn;
 	}
-
 }
