@@ -32,5 +32,6 @@
 		<property name="bed" column="bed" />
 		<property name="fatherName" column="father_name" />
 		<property name="admissionOutCome" column="admission_outcome" />
+		<property name="otherInstructions" column="other_instructions" />
 	</class>
 </hibernate-mapping>

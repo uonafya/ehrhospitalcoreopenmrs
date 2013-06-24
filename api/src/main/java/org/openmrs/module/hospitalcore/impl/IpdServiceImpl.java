@@ -208,7 +208,7 @@ public class IpdServiceImpl extends BaseOpenmrsService implements IpdService{
 		return to;
 	}
 
-	public IpdPatientAdmittedLog discharge(Integer id, Integer outComeConceptId)
+	public IpdPatientAdmittedLog discharge(Integer id, Integer outComeConceptId, String otherInstructions)
 			throws APIException {
 		
 		
@@ -234,6 +234,8 @@ public class IpdServiceImpl extends BaseOpenmrsService implements IpdService{
 		log.setPatientAdmittedLogTransferFrom(admitted.getPatientAdmittedLogTransferFrom());
 		log.setStatus(IpdPatientAdmitted.STATUS_DISCHARGE);
 		log.setAdmissionOutCome(outComeConcept.getName().getName());
+		// Kesavulu loka 24/06/2013 # 1926 One text filed for otherInstructions.
+		log.setOtherInstructions(otherInstructions);		
 		log = saveIpdPatientAdmittedLog(log);
 		if( log.getId() != null ){
 			//CHUYEN set status of admissionLog = discharge

@@ -293,4 +293,19 @@
 			) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 		</sql>
 	</diff>
+	
+		<diff>
+		<version>2.3</version>
+		<author>Kesavulu loka</author>
+		<date>june 24th 2013</date>
+		<description>
+			Add column otherInstructions for ipd_patient_admitted_log table
+		</description>
+		<sql>
+			ALTER TABLE ipd_patient_admitted_log
+			ADD COLUMN `other_instructions`  varchar(250)  default NULL;
+			
+		</sql>
+	</diff>
+	
 </sqldiff>

@@ -68,6 +68,8 @@ public class IpdPatientAdmittedLog implements Serializable{
 	private IpdPatientAdmissionLog  patientAdmissionLog;
 	private IpdPatientAdmittedLog patientAdmittedLogTransferFrom;
 	private String admissionOutCome;
+	// Kesavulu loka 24/06/2013 # 1926 One text filed for otherInstructions.
+	private String otherInstructions;
 	public Integer getId() {
 		return id;
 	}
@@ -196,6 +198,12 @@ public class IpdPatientAdmittedLog implements Serializable{
 	}
 	public void setAdmissionOutCome(String admissionOutCome) {
 		this.admissionOutCome = admissionOutCome;
+	}
+	public String getOtherInstructions() {
+		return otherInstructions;
+	}
+	public void setOtherInstructions(String otherInstructions) {
+		this.otherInstructions = otherInstructions;
 	}
 	
 	
