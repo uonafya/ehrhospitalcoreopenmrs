@@ -208,7 +208,7 @@ public class IpdServiceImpl extends BaseOpenmrsService implements IpdService{
 		return to;
 	}
 
-	public IpdPatientAdmittedLog discharge(Integer id, Integer outComeConceptId, String otherInstructions)
+	public IpdPatientAdmittedLog discharge(Integer id, Integer outComeConceptId)
 			throws APIException {
 		
 		
@@ -234,8 +234,7 @@ public class IpdServiceImpl extends BaseOpenmrsService implements IpdService{
 		log.setPatientAdmittedLogTransferFrom(admitted.getPatientAdmittedLogTransferFrom());
 		log.setStatus(IpdPatientAdmitted.STATUS_DISCHARGE);
 		log.setAdmissionOutCome(outComeConcept.getName().getName());
-		// Kesavulu loka 24/06/2013 # 1926 One text filed for otherInstructions.
-		log.setOtherInstructions(otherInstructions);		
+			
 		log = saveIpdPatientAdmittedLog(log);
 		if( log.getId() != null ){
 			//CHUYEN set status of admissionLog = discharge
@@ -270,6 +269,69 @@ public class IpdServiceImpl extends BaseOpenmrsService implements IpdService{
 		return log;
 	}
 
+	
+	// Kesavulu loka 24/06/2013 # 1926 One text filed for otherInstructions.
+	public IpdPatientAdmittedLog discharge(Integer id, Integer outComeConceptId, String otherInstructions)
+			throws APIException {
+		
+		
+		Concept outComeConcept = Context.getConceptService().getConcept(outComeConceptId);
+		IpdPatientAdmitted admitted = getIpdPatientAdmitted(id);
+		IpdPatientAdmittedLog log = new IpdPatientAdmittedLog();
+		log.setAdmissionDate(new Date());
+		log.setAdmittedWard(admitted.getAdmittedWard());
+		log.setBasicPay(admitted.getBasicPay());
+		log.setBed(admitted.getBed());
+		log.setBirthDate(admitted.getBirthDate());
+		log.setCaste(admitted.getCaste());
+		log.setFatherName(admitted.getFatherName());
+		log.setUser(Context.getAuthenticatedUser());
+		log.setGender(admitted.getGender());
+		log.setIpdAdmittedUser(admitted.getIpdAdmittedUser());
+		log.setMonthlyIncome(admitted.getMonthlyIncome());
+		log.setPatient(admitted.getPatient());
+		log.setPatientAddress(admitted.getPatientAddress());
+		log.setPatientIdentifier(admitted.getPatientIdentifier());
+		log.setPatientAdmissionLog(admitted.getPatientAdmissionLog());
+		log.setPatientName(admitted.getPatientName());
+		log.setPatientAdmittedLogTransferFrom(admitted.getPatientAdmittedLogTransferFrom());
+		log.setStatus(IpdPatientAdmitted.STATUS_DISCHARGE);
+		log.setAdmissionOutCome(outComeConcept.getName().getName());
+		log.setOtherInstructions(otherInstructions);		
+		log = saveIpdPatientAdmittedLog(log);
+		if( log.getId() != null ){
+			//CHUYEN set status of admissionLog = discharge
+			IpdPatientAdmissionLog admissionLog = admitted.getPatientAdmissionLog();
+			admissionLog.setStatus(IpdPatientAdmitted.STATUS_DISCHARGE);
+			saveIpdPatientAdmissionLog(admissionLog);
+			removeIpdPatientAdmitted(admitted);
+
+			// save discharge info to encounter
+			Concept conVisitOutCome = Context.getConceptService().getConcept(HospitalCoreConstants.CONCEPT_ADMISSION_OUTCOME);
+			Location location = new Location( 1 );
+			
+			Encounter ipdEncounter = admissionLog.getIpdEncounter();
+			
+			Obs dischargeObs = new Obs();
+			
+			dischargeObs.setConcept(conVisitOutCome);
+			dischargeObs.setValueCoded(outComeConcept);
+			dischargeObs.setCreator( Context.getAuthenticatedUser());
+			dischargeObs.setObsDatetime(new Date());
+			dischargeObs.setLocation(location);
+			dischargeObs.setDateCreated(new Date());
+			dischargeObs.setPatient(ipdEncounter.getPatient());
+			dischargeObs.setEncounter(ipdEncounter);
+			dischargeObs = Context.getObsService().saveObs(dischargeObs, "update obs dischargeObs if need");
+			ipdEncounter.addObs(dischargeObs);
+			Context.getEncounterService().saveEncounter(ipdEncounter);
+			
+		}
+		
+		
+		return log;
+	}
+	
 	public List<IpdPatientAdmittedLog> listAdmittedLogByPatientId(
 			Integer patientId) throws APIException {
 		return dao.listAdmittedLogByPatientId(patientId);

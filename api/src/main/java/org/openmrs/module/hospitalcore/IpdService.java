@@ -83,6 +83,9 @@ public interface IpdService extends OpenmrsService{
 	
 	public IpdPatientAdmitted transfer(Integer id, Integer wardId, Integer doctorId, String bed) throws APIException;
 	
+	public IpdPatientAdmittedLog discharge(Integer id, Integer outComeConceptId) throws APIException;
+	
+	// Kesavulu loka 24/06/2013 # 1926 One text filed for otherInstructions.
 	public IpdPatientAdmittedLog discharge(Integer id, Integer outComeConceptId, String otherInstructions) throws APIException;
 	
 	@Transactional(readOnly = true)
