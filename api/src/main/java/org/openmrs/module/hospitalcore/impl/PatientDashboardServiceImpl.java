@@ -168,8 +168,7 @@ public class PatientDashboardServiceImpl implements PatientDashboardService {
 	}
 	//ghanshyam 1-june-2013 New Requirement #1633 User must be able to send investigation orders from dashboard to billing
 	public List<Concept> searchInvestigation(String text) throws APIException {
-		ConceptClass cc =  Context.getConceptService().getConceptClassByName(PatientDashboardConstants.CONCEPT_CLASS_NAME_INVESTIGATION);
-		return dao.searchConceptsByNameAndClass(text, cc);
+		return dao.searchInvestigation(text);
 	}
 	public OpdTestOrder saveOrUpdateOpdOrder(OpdTestOrder opdTestOrder) throws APIException {
 		return dao.saveOrUpdateOpdOrder(opdTestOrder);

@@ -34,7 +34,9 @@ import org.apache.commons.logging.LogFactory;
 import org.hibernate.Criteria;
 import org.hibernate.Query;
 import org.hibernate.SessionFactory;
+import org.hibernate.criterion.Criterion;
 import org.hibernate.criterion.Expression;
+import org.hibernate.criterion.LogicalExpression;
 import org.hibernate.criterion.MatchMode;
 import org.hibernate.criterion.Restrictions;
 import org.openmrs.Concept;
@@ -308,6 +310,27 @@ public class HibernatePatientDashboardDAO implements PatientDashboardDAO {
 	}
 
 	// ghanshyam 1-june-2013 New Requirement #1633 User must be able to send investigation orders from dashboard to billing
+	
+	public List<Concept> searchInvestigation(String text)throws DAOException {
+		Criteria criteria = sessionFactory.getCurrentSession().createCriteria(
+				Concept.class);
+		ConceptClass cct =  Context.getConceptService().getConceptClassByName("Test");
+		ConceptClass ccl =  Context.getConceptService().getConceptClassByName("LabSet");
+		criteria.setResultTransformer(Criteria.DISTINCT_ROOT_ENTITY);
+		criteria.add(Expression.eq("retired", false));
+		Criterion lhs= Restrictions.eq("conceptClass", cct);
+		Criterion rhs= Restrictions.eq("conceptClass", ccl);
+		LogicalExpression orExp = Restrictions.or(lhs, rhs);
+		criteria.add( orExp );
+		if (StringUtils.isNotBlank(text)) {
+			criteria.createAlias("names", "names");
+			criteria.add(Expression
+					.like("names.name", text, MatchMode.ANYWHERE));
+		}
+		return criteria.list();
+		
+	}
+	
 	public OpdTestOrder saveOrUpdateOpdOrder(OpdTestOrder opdTestOrder)
 			throws DAOException {
 		sessionFactory.getCurrentSession().saveOrUpdate(opdTestOrder);

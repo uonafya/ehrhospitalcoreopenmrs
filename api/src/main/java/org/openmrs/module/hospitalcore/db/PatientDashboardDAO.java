@@ -58,6 +58,7 @@ public interface PatientDashboardDAO {
 	public List<DepartmentConcept> listByDepartment(Integer departmentId, Integer typeConcept) throws DAOException;
 	public List<Concept> listByDepartmentByWard(Integer wardId, Integer typeConcept) throws DAOException;
 	//ghanshyam 1-june-2013 New Requirement #1633 User must be able to send investigation orders from dashboard to billing
+	public List<Concept> searchInvestigation(String text) throws DAOException;
 	public OpdTestOrder saveOrUpdateOpdOrder(OpdTestOrder opdTestOrder) throws DAOException;
 	//ghanshyam 12-june-2013 New Requirement #1635 User should be able to send pharmacy orders to issue drugs to a patient from dashboard
 	public OpdDrugOrder saveOrUpdateOpdDrugOrder(OpdDrugOrder opdDrugOrder) throws DAOException;
