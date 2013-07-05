@@ -984,5 +984,16 @@ public class HibernateBillingDAO implements BillingDAO {
 		criteria.add(Restrictions.eq("valueCoded.conceptId", conceptId));
 		return (OpdTestOrder) criteria.uniqueResult();
 	}
+	
+	public PatientServiceBillItem getPatientServiceBillItem(Integer billId,
+			String name) throws DAOException {
+		Criteria criteria = sessionFactory.getCurrentSession().createCriteria(
+				PatientServiceBillItem.class);
+
+		criteria.add(Restrictions.eq("patientServiceBill.patientServiceBillId",
+				billId));
+		criteria.add(Restrictions.eq("name", name));
+		return (PatientServiceBillItem) criteria.uniqueResult();
+	}
 
 }
