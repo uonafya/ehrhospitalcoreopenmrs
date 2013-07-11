@@ -219,7 +219,7 @@
 			`created_on` datetime NOT NULL,
 			            `billing_status` smallint(1) NOT NULL DEFAULT '0',
                         `cancel_status` smallint(1) NOT NULL DEFAULT '0',
-                        `billableService_id` int(11) DEFAULT NULL,
+                        `billable_service_id` int(11) DEFAULT NULL,
 			PRIMARY KEY (`opd_order_id`)
 			) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 		</sql>
