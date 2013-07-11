@@ -219,7 +219,6 @@
 			`created_on` datetime NOT NULL,
 			            `billing_status` smallint(1) NOT NULL DEFAULT '0',
                         `cancel_status` smallint(1) NOT NULL DEFAULT '0',
-                        `billable_service_id` int(11) DEFAULT NULL,
 			PRIMARY KEY (`opd_order_id`)
 			) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 		</sql>
@@ -306,6 +305,47 @@
 			ALTER TABLE ipd_patient_admitted_log
 			ADD COLUMN `other_instructions`  varchar(250)  default NULL;
 			
+		</sql>
+	</diff>
+	
+	<!-- ghanshyam 11-july-2013 Support #1966 Patient does not disappear from queue even after billing is complete -->
+	<diff>
+		<version>2.4</version>
+		<author>ghanshyam</author>
+		<date>july 11th 2013</date>
+		<description>
+			Add column billable_service_id for opd_test_order table
+		</description>
+		<sql>
+			ALTER TABLE opd_test_order
+			ADD COLUMN `billable_service_id`  int(11) DEFAULT NULL;
+		</sql>
+	</diff>
+	
+	<!-- ghanshyam 11-july-2013 feedback # 1724 Introducing bed availability -->
+	<diff>
+		<version>2.5</version>
+		<author>ghanshyam</author>
+		<date>july 11th 2013</date>
+		<description>
+			Add column comments for ipd_patient_admitted table
+		</description>
+		<sql>
+			ALTER TABLE ipd_patient_admitted
+			ADD COLUMN `comments`  varchar(100)  default NULL;
+		</sql>
+	</diff>
+	
+	<diff>
+		<version>2.6</version>
+		<author>ghanshyam</author>
+		<date>july 11th 2013</date>
+		<description>
+			Add column comments for ipd_patient_admitted_log table
+		</description>
+		<sql>
+			ALTER TABLE ipd_patient_admitted_log
+			ADD COLUMN `comments`  varchar(100)  default NULL;
 		</sql>
 	</diff>
 	

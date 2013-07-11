@@ -207,6 +207,77 @@ public class IpdServiceImpl extends BaseOpenmrsService implements IpdService{
 		
 		return to;
 	}
+	
+	//ghanshyam 11-july-2013 feedback # 1724 Introducing bed availability
+	public IpdPatientAdmitted transfer(Integer id, Integer wardId,
+			Integer doctorId, String bed,String comments) throws APIException {
+		
+		
+		IpdPatientAdmitted from = getIpdPatientAdmitted(id);
+		if( from == null )
+			throw new APIException("Can not found IpdPatientAdmitted with id :"+id);
+		
+		Concept ward = Context.getConceptService().getConcept(wardId);
+		if( ward == null )
+			throw new APIException("Can not find IPD Ward with id : "+wardId);
+		
+		User user = Context.getUserService().getUser(doctorId);
+		if( user == null )
+			throw new APIException("Can not find Doctor with user id :" + doctorId);
+		
+		IpdPatientAdmittedLog log = new IpdPatientAdmittedLog();
+		log.setAdmissionDate(new Date());
+		log.setAdmittedWard(from.getAdmittedWard());
+		log.setBasicPay(from.getBasicPay());
+		log.setBed(from.getBed());
+		//ghanshyam 11-july-2013 feedback # 1724 Introducing bed availability
+		log.setComments(comments);
+		log.setBirthDate(from.getBirthDate());
+		log.setCaste(from.getCaste());
+		log.setFatherName(from.getFatherName());
+		log.setGender(from.getGender());
+		log.setIpdAdmittedUser(from.getIpdAdmittedUser());
+		log.setMonthlyIncome(from.getMonthlyIncome());
+		log.setPatient(from.getPatient());
+		log.setPatientAdmittedLogTransferFrom(from.getPatientAdmittedLogTransferFrom());
+		log.setPatientAddress(from.getPatientAddress());
+		log.setPatientIdentifier(from.getPatientIdentifier());
+		log.setPatientAdmissionLog(from.getPatientAdmissionLog());
+		log.setPatientName(from.getPatientName());
+		log.setUser(Context.getAuthenticatedUser());
+		log.setStatus(IpdPatientAdmitted.STATUS_TRANSFER);
+		log = saveIpdPatientAdmittedLog(log);
+		if( log.getId() != null ){
+			removeIpdPatientAdmitted(from);
+		}
+		
+		
+		IpdPatientAdmitted to = new IpdPatientAdmitted();
+		to.setAdmissionDate(new Date());
+		to.setAdmittedWard(ward);
+		to.setBasicPay(from.getBasicPay());
+		to.setBed(bed);
+		//ghanshyam 11-july-2013 feedback # 1724 Introducing bed availability
+		to.setComments(comments);
+		to.setBirthDate(from.getBirthDate());
+		to.setCaste(from.getCaste());
+		to.setFatherName(from.getFatherName());
+		to.setGender(from.getGender());
+		to.setUser(Context.getAuthenticatedUser());
+		to.setIpdAdmittedUser(user);
+		to.setMonthlyIncome(from.getMonthlyIncome());
+		to.setPatient(from.getPatient());
+		to.setPatientAddress(from.getPatientAddress());
+		to.setPatientIdentifier(from.getPatientIdentifier());
+		to.setPatientAdmissionLog(from.getPatientAdmissionLog());
+		to.setPatientName(from.getPatientName());
+		to.setStatus(IpdPatientAdmitted.STATUS_ADMITTED);
+		to.setPatientAdmissionLog(log.getPatientAdmissionLog());
+		to.setPatientAdmittedLogTransferFrom(log);
+		to = saveIpdPatientAdmitted(to);
+		
+		return to;
+	}
 
 	public IpdPatientAdmittedLog discharge(Integer id, Integer outComeConceptId)
 			throws APIException {
@@ -282,6 +353,8 @@ public class IpdServiceImpl extends BaseOpenmrsService implements IpdService{
 		log.setAdmittedWard(admitted.getAdmittedWard());
 		log.setBasicPay(admitted.getBasicPay());
 		log.setBed(admitted.getBed());
+		//ghanshyam 11-july-2013 feedback # 1724 Introducing bed availability
+		log.setComments(admitted.getComments());
 		log.setBirthDate(admitted.getBirthDate());
 		log.setCaste(admitted.getCaste());
 		log.setFatherName(admitted.getFatherName());

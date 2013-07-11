@@ -66,6 +66,8 @@ public class IpdPatientAdmitted implements Serializable{
 	private Date birthDate;
 	private String patientAddress;
 	private String bed;
+	//ghanshyam 11-july-2013 feedback # 1724 Introducing bed availability
+	private String comments;
 	private String fatherName;
 	// 30-6-2012 Marta - To handle relationship type #290
 		private String relationshipType;	// son/daughter/wife of
@@ -192,6 +194,13 @@ public class IpdPatientAdmitted implements Serializable{
 	}
 	public void setBed(String bed) {
 		this.bed = bed;
+	}
+	//ghanshyam 11-july-2013 feedback # 1724 Introducing bed availability
+	public String getComments() {
+		return comments;
+	}
+	public void setComments(String comments) {
+		this.comments = comments;
 	}
 	public String getFatherName() {
 		return fatherName;

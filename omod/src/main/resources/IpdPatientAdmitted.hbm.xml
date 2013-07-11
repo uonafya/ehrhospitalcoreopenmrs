@@ -30,6 +30,8 @@
 		<property name="status" column="status" />
 		<property name="patientAddress" column="patient_address" />
 		<property name="bed" column="bed" />
+		<!-- ghanshyam 11-july-2013 feedback # 1724 Introducing bed availability -->
+		<property name="comments" column="comments" />
 		<property name="fatherName" column="father_name" />
 		<property name="admissionOutCome" column="admission_outcome" />
 		

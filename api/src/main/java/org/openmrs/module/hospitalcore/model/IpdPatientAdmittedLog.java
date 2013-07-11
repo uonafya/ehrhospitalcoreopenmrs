@@ -49,6 +49,8 @@ public class IpdPatientAdmittedLog implements Serializable{
 	private String patientName;
 	private String patientAddress;
 	private String bed;
+	//ghanshyam 11-july-2013 feedback # 1724 Introducing bed availability
+	private String comments;
 	private String fatherName;
 	private String patientIdentifier;
 	private Date birthDate;
@@ -179,6 +181,13 @@ public class IpdPatientAdmittedLog implements Serializable{
 	}
 	public void setBed(String bed) {
 		this.bed = bed;
+	}
+	//ghanshyam 11-july-2013 feedback # 1724 Introducing bed availability
+	public String getComments() {
+		return comments;
+	}
+	public void setComments(String comments) {
+		this.comments = comments;
 	}
 	public String getFatherName() {
 		return fatherName;
