@@ -21,9 +21,11 @@
 		<many-to-one name="creator" column="created_by" class="org.openmrs.User" />
 		<property name="createdOn" type="java.util.Date" column="created_on"
 			not-null="true" length="19" />
-		<property name="billingStatus" column="billing_status" length="1"
+		<property name="billingStatus" column="billing_status"
+			length="1" not-null="true" />
+		<property name="cancelStatus" column="cancel_status" length="1"
 			not-null="true" />
-	    <property name="cancelStatus" column="cancel_status" length="1"
-			not-null="true" />	
+		<many-to-one name="billableService" column="billableService_id"
+			class="org.openmrs.module.hospitalcore.model.BillableService" />
 	</class>
 </hibernate-mapping>

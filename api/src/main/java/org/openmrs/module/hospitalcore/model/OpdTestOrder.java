@@ -41,8 +41,7 @@ public class OpdTestOrder {
 	private Date createdOn;
 	private int billingStatus; //0=not yet billed,1=billed
 	private int cancelStatus; //0=not yet canceled,1=canceled
-	//private PatientServiceBillItem patientServiceBillItem;
-	//private Date orderReschedule;
+	private BillableService billableService;
 
 	public Integer getOpdOrderId() {
 		return opdOrderId;
@@ -122,6 +121,14 @@ public class OpdTestOrder {
 
 	public void setCancelStatus(int cancelStatus) {
 		this.cancelStatus = cancelStatus;
+	}
+
+	public BillableService getBillableService() {
+		return billableService;
+	}
+
+	public void setBillableService(BillableService billableService) {
+		this.billableService = billableService;
 	}
 
 }

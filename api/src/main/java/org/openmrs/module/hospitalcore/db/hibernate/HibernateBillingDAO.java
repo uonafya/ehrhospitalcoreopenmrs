@@ -898,8 +898,8 @@ public class HibernateBillingDAO implements BillingDAO {
 	}
 
 	// ghanshyam 3-june-2013 New Requirement #1632 Orders from dashboard must be appear in billing queue.User must be able to generate bills from this queue
-	public List<PatientSearch> searchListOfPatient(Date date, String searchKey,int page)
-			throws DAOException {
+	public List<PatientSearch> searchListOfPatient(Date date, String searchKey,
+			int page) throws DAOException {
 		SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
 		String startDate = sdf.format(date) + " 00:00:00";
 		String endDate = sdf.format(date) + " 23:59:59";
@@ -907,7 +907,7 @@ public class HibernateBillingDAO implements BillingDAO {
 				+ startDate
 				+ "' AND '"
 				+ endDate
-				+ "' AND o.billingStatus=0 AND o.cancelStatus=0 GROUP BY o.patient) AND (ps.identifier LIKE '%"
+				+ "' AND o.billingStatus=0 AND o.cancelStatus=0 AND o.billableService is NOT NULL GROUP BY o.patient) AND (ps.identifier LIKE '%"
 				+ searchKey + "%' OR ps.fullname LIKE '" + searchKey + "%')";
 		int firstResult = (page - 1) * BillingConstants.PAGESIZE;
 		Session session = sessionFactory.getCurrentSession();
@@ -917,10 +917,10 @@ public class HibernateBillingDAO implements BillingDAO {
 	}
 
 	public List<PatientSearch> listOfPatient() throws DAOException {
-		String hql = "from PatientSearch ps where ps.patientId IN (SELECT o.patient FROM OpdTestOrder o where o.billingStatus=0 AND o.cancelStatus=0 GROUP BY o.patient)";
+		String hql = "from PatientSearch ps where ps.patientId IN (SELECT o.patient FROM OpdTestOrder o where o.billingStatus=0 AND o.cancelStatus=0 AND o.billableService is NOT NULL GROUP BY o.patient)";
 		/*
 		 * alternate query String hql =
-		 * "from PatientSearch ps where ps.patientId IN (SELECT o.patient FROM OpdTestOrder o where o.valueCoded IN (SELECT b.conceptId FROM BillableService b where b.conceptId=o.valueCoded) AND o.billingStatus=0 AND o.cancelStatus=0 GROUP BY o.patient)"
+		 * "from PatientSearch ps where ps.patientId IN (SELECT o.patient FROM OpdTestOrder o where o.valueCoded IN (SELECT b.conceptId FROM BillableService b where b.conceptId=o.valueCoded) AND o.billingStatus=0 AND o.cancelStatus=0 AND o.billableService is NOT NULL GROUP BY o.patient)"
 		 * ;
 		 */
 		Session session = sessionFactory.getCurrentSession();
@@ -935,7 +935,7 @@ public class HibernateBillingDAO implements BillingDAO {
 				+ patientId
 				+ "' AND o.encounter='"
 				+ encounterId
-				+ "' AND o.billingStatus=0 AND o.cancelStatus=0)";
+				+ "' AND o.billingStatus=0 AND o.cancelStatus=0 AND o.billableService is NOT NULL)";
 		Session session = sessionFactory.getCurrentSession();
 		Query q = session.createQuery(hql);
 		List<BillableService> list = q.list();
@@ -950,12 +950,13 @@ public class HibernateBillingDAO implements BillingDAO {
 		return (BillableService) criteria.uniqueResult();
 	}
 
-	public List<OpdTestOrder> listOfOrder(Integer patientId,Date date) throws DAOException {
+	public List<OpdTestOrder> listOfOrder(Integer patientId, Date date)
+			throws DAOException {
 		/*
 		 * Criteria criteria =
-		 * sessionFactory.getCurrentSession().createCriteria( OpdTestOrder.class);
-		 * criteria.add(Restrictions.eq("patient", patient));
-		 * criteria.add(Restrictions.eq("billingStatus", 0));
+		 * sessionFactory.getCurrentSession().createCriteria(
+		 * OpdTestOrder.class); criteria.add(Restrictions.eq("patient",
+		 * patient)); criteria.add(Restrictions.eq("billingStatus", 0));
 		 * criteria.add(Restrictions.eq("cancelStatus", 0)); return
 		 * criteria.list();
 		 */
@@ -968,7 +969,7 @@ public class HibernateBillingDAO implements BillingDAO {
 				+ startDate
 				+ "' AND '"
 				+ endDate
-				+ "' AND o.billingStatus=0 AND o.cancelStatus=0 GROUP BY encounter";
+				+ "' AND o.billingStatus=0 AND o.cancelStatus=0 AND o.billableService is NOT NULL GROUP BY encounter";
 		Session session = sessionFactory.getCurrentSession();
 		Query q = session.createQuery(hql);
 		List<OpdTestOrder> list = q.list();
@@ -984,7 +985,7 @@ public class HibernateBillingDAO implements BillingDAO {
 		criteria.add(Restrictions.eq("valueCoded.conceptId", conceptId));
 		return (OpdTestOrder) criteria.uniqueResult();
 	}
-	
+
 	public PatientServiceBillItem getPatientServiceBillItem(Integer billId,
 			String name) throws DAOException {
 		Criteria criteria = sessionFactory.getCurrentSession().createCriteria(
