@@ -55,7 +55,8 @@ public class BillSearchController {
 		PatientServiceBill patientServiceBill = bs.getPatientServiceBillByReceiptId(receiptId);
 		
 		if (null != patientServiceBill)
-			return "redirect:/module/billing/patientServiceBill.list?patientId=" + patientServiceBill.getPatient().getId()
+			//ghanshyam 24-july-2013 Bug #2259 Error on selecting Bill ID to search for a bill
+			return "redirect:/module/billing/patientServiceBillForBD.list?patientId=" + patientServiceBill.getPatient().getId()
 			        + "&billId=" + patientServiceBill.getPatientServiceBillId();
 		
 		model.addAttribute("Found", "Cannot find bill");
