@@ -68,7 +68,13 @@ public class HibernateDmsCommonDAO implements DmsCommonDAO {
 		int hour = date.getHours();
 		int minute = date.getMinutes();
 		int second = date.getSeconds();
-		String curtime = hour + ":" + minute + ":" + second;
+		String curtime = "";
+		if(hour<10){
+		curtime = "0" + hour + ":" + minute + ":" + second;
+		}
+		else{
+			curtime = hour + ":" + minute + ":" + second;
+		}
 		String days[] = { "Sunday", "Monday", "Tuesday", "Wednesday",
 				"Thursday", "Friday", "Saturday" };
 		GregorianCalendar gcalendar = new GregorianCalendar();
