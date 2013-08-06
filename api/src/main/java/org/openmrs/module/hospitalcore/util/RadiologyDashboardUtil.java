@@ -35,7 +35,8 @@ import org.openmrs.module.hospitalcore.model.RadiologyTest;
 
 public class RadiologyDashboardUtil {
 
-	private static SimpleDateFormat sdf = new SimpleDateFormat("dd-MMM-yyyy HH:mm:ss");
+	 //ghanshyam 6-august-2013 code review bug
+	//private static SimpleDateFormat sdf = new SimpleDateFormat("dd-MMM-yyyy HH:mm:ss");
 	private static Map<Concept, String> conceptNames = new HashMap<Concept, String>();
 	private static Concept xrayConcept = null;
 	private static Set<Concept> xrayConcepts = null;
@@ -75,6 +76,8 @@ public class RadiologyDashboardUtil {
 	private static TestModel generateModel(Order order, RadiologyTest test,
 			Map<Concept, Set<Concept>> testTreeMap) {
 
+		//ghanshyam 6-august-2013 code review bug
+		SimpleDateFormat sdf = new SimpleDateFormat("dd-MMM-yyyy HH:mm:ss");
 		TestModel tm = new TestModel();
 		tm.setStartDate(sdf.format(order.getStartDate()));
 		tm.setPatientIdentifier(order.getPatient().getPatientIdentifier()

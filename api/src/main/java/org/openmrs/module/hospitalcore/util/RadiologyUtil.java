@@ -45,7 +45,8 @@ import org.springframework.ui.Model;
 
 public class RadiologyUtil {
 
-	private static SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy");
+	 //ghanshyam 6-august-2013 code review bug
+	//private static SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy");
 	private static Map<Concept, String> conceptNames = new HashMap<Concept, String>();
 	private static Concept xrayConcept = null;
 	private static Set<Concept> xrayConcepts = null;
@@ -116,6 +117,8 @@ public class RadiologyUtil {
 	 * @return
 	 */
 	public static String formatDate(Date date) {
+		//ghanshyam 6-august-2013 code review bug
+		SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy");
 		return sdf.format(date);
 	}
 
@@ -127,6 +130,8 @@ public class RadiologyUtil {
 	 * @throws ParseException
 	 */
 	public static Date parseDate(String dateStr) throws ParseException {
+		//ghanshyam 6-august-2013 code review bug
+		SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy");
 		return sdf.parse(dateStr);
 	}
 
@@ -162,6 +167,8 @@ public class RadiologyUtil {
 	private static TestModel generateModel(Order order, RadiologyTest test,
 			Map<Concept, Set<Concept>> testTreeMap) {
 
+		//ghanshyam 6-august-2013 code review bug
+		SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy");
 		TestModel tm = new TestModel();
 		tm.setStartDate(sdf.format(order.getStartDate()));
 		tm.setPatientIdentifier(order.getPatient().getPatientIdentifier()

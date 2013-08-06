@@ -172,8 +172,10 @@ public class RegistrationUtils
 
         // Calculate the difference in milliseconds
         long difference_ms = Math.abs(date1_ms - date2_ms);
-
-    	int day = Math.round(difference_ms/ONE_DAY);
+        
+        //ghanshyam 6-august-2013 code review bug
+        float noOfDay = difference_ms/ONE_DAY;
+    	int day = Math.round(noOfDay);
 
         String est = "";
         

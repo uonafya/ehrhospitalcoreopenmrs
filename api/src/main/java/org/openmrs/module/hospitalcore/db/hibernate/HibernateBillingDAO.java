@@ -761,6 +761,8 @@ public class HibernateBillingDAO implements BillingDAO {
 				GlobalProperty encounterTypeId = Context
 						.getAdministrationService().getGlobalPropertyObject(
 								"billing.encounterTypeId");
+				//ghanshyam 6-august-2013 code review bug
+				/*
 				if (encounterTypeId == null
 						|| !"6".equalsIgnoreCase(encounterTypeId
 								.getPropertyValue())) {
@@ -768,6 +770,7 @@ public class HibernateBillingDAO implements BillingDAO {
 					Context.getAdministrationService().saveGlobalProperty(
 							encounterTypeId);
 				}
+				*/
 			} catch (Exception e) {
 				e.printStackTrace();
 			}
