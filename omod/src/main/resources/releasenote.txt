@@ -1,3 +1,15 @@
+1.4.10.13
+- #2259              Error on selecting Bill ID to search for a bill 
+- #1966              Patient does not disappear from queue even after billing is complete
+- #1926              'Other Instructions' field on the Discharge Page
+- #1893              in Advance Search Add 'Others' as an option in the Gender field
+- #1892              Advance Search
+- #1847              Capture Vital statistics for admitted patient in ipd
+- #1635              User should be able to send pharmacy orders to issue drugs to a patient from dashboard
+- #1633              User must be able to send investigation orders from dashboard to billing
+- #1632              Orders from dashboard must be appear in billing queue.User must be able to generate bills from this queue
+- #1353              patient search query optimization in Bangladesh module
+
 1.4.10.12
 - #967               change the age name default value from ADLOSCENT to ADOLESCENT for Bangladesh module
 - #966               Add Paid Bill/Add Free Bill for Bangladesh module
