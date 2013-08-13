@@ -5,6 +5,7 @@
 - #1893              in Advance Search Add 'Others' as an option in the Gender field
 - #1892              Advance Search
 - #1847              Capture Vital statistics for admitted patient in ipd
+- #1724              Introducing bed availability
 - #1635              User should be able to send pharmacy orders to issue drugs to a patient from dashboard
 - #1633              User must be able to send investigation orders from dashboard to billing
 - #1632              Orders from dashboard must be appear in billing queue.User must be able to generate bills from this queue
