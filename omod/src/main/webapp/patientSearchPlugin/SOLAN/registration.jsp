@@ -521,7 +521,12 @@
 	<table>
 		<tr>			
 			<td><input id="nameOrIdentifier" style="width:300px;"/></td>
+			<!-- ghanshyam 07-sept-2013 Support #2686 GUI Changes (spellings/ fonts/ alignments) -->
+			<!-- 
 			<td><a href="javascript:PATIENTSEARCH.toggleAdvanceSearch();">Advance search</a></td>
+			-->
+			<td><input type="button" value="Advance search"
+			onclick="PATIENTSEARCH.toggleAdvanceSearch();" />
 		</tr>	
 	</table>
 	<div id="advanceSearch">
