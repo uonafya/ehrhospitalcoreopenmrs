@@ -137,6 +137,12 @@
 				PATIENTSEARCH.search(true);
 				}
 			});
+			//ghanshyam 12-sept-2013 New Requirement #2684 Introducing a field at the time of registration to put Aadhar Card Number
+			jQuery("#acNo", this.form).keyup(function(event) {
+				if (event.keyCode == 13) {
+					PATIENTSEARCH.search(true);
+					}
+			});		
 		},
 		
 		
@@ -289,6 +295,8 @@
 				this.buildLastDayOfVisitQuery();
 				this.buildLastVisitQuery();
 				this.buildPhoneNumberQuery();
+				//ghanshyam 12-sept-2013 New Requirement #2684 Introducing a field at the time of registration to put Aadhar Card Number
+				this.buildAadharCardNumberQuery();
 			}
 
 			// Return the built query
@@ -337,6 +345,8 @@
 				this.buildLastDayOfVisitQuery();
 				this.buildLastVisitQuery();
 				this.buildPhoneNumberQuery();
+				//ghanshyam 12-sept-2013 New Requirement #2684 Introducing a field at the time of registration to put Aadhar Card Number
+				this.buildAadharCardNumberQuery();
 			}
 
 			// Return the built query
@@ -467,6 +477,17 @@
 				//this.fromClause += " INNER JOIN encounter e ON e.patient_id = pt.patient_id";
 				this.whereClause += " AND (DATEDIFF(NOW(), e.date_created) <= "
 						+ value + ")";
+			}
+		},
+		
+		//ghanshyam 12-sept-2013 New Requirement #2684 Introducing a field at the time of registration to put Aadhar Card Number
+		buildAadharCardNumberQuery: function(){
+		    value = jQuery.trim(jQuery("#acNo", this.form).val());
+			aadharCardNumberAttributeTypeName = "Aadhar Card Number";
+			if(value!=undefined && value.length>0){
+			    this.fromClause += " INNER JOIN person_attribute paAadharCardNumber ON ps.patient_id= paAadharCardNumber.person_id";
+				this.fromClause += " INNER JOIN person_attribute_type patAadharCardNumber ON paAadharCardNumber.person_attribute_type_id = patAadharCardNumber.person_attribute_type_id ";
+				this.whereClause += " AND (patAadharCardNumber.name LIKE '%" + aadharCardNumberAttributeTypeName + "%' AND paAadharCardNumber.value LIKE '%" + value + "%')";
 			}
 		},
 
@@ -628,6 +649,13 @@
 				<td>Relative Name</td>
 				<td colspan="3"><input id="relativeName" style="width: 100px" />
 				</td>
+			</tr>
+			<!-- ghanshyam 12-sept-2013 New Requirement #2684 Introducing a field at the time of registration to put Aadhar Card Number -->
+			<tr>
+				<td>Aadhar Card No</td>
+				<td colspan="3">
+					<input id="acNo" style="width: 100px"/>
+				</td>	
 			</tr>
 		</table>
 	</div>
