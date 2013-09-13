@@ -455,6 +455,10 @@ jQuery(document).ready(function() {
 			if(value!='Any'){
 				this.whereClause += " AND (ps.gender = '" + value + "') ";
 			}
+			//ghanshyam 13-september-2013 New Requirement #1625 Advance search-Without selecting gender if age is selected say undefined
+			else{
+			this.whereClause += " AND 1 ";
+			}
 		},
 		
 		/** BUILD QUERY FOR AGE */
