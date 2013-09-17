@@ -116,7 +116,13 @@ jQuery(document).ready(function() {
 			});
 			jQuery("#phoneNumber", this.form).blur(function(){
 				PATIENTSEARCH.search(true);
-			});						
+			});	
+			//ghanshyam 12-sept-2013 New Requirement #2684 Introducing a field at the time of registration to put Aadhar Card Number
+			jQuery("#acNo", this.form).keyup(function(event) {
+				if (event.keyCode == 13) {
+					PATIENTSEARCH.search(true);
+					}
+			});							
 		},
 		
 		/** SEARCH */
@@ -303,6 +309,8 @@ jQuery(document).ready(function() {
 				this.buildLastDayOfVisitQuery();
 				this.buildLastVisitQuery();
 				this.buildPhoneNumberQuery();
+				//ghanshyam 12-sept-2013 New Requirement #2684 Introducing a field at the time of registration to put Aadhar Card Number
+				this.buildAadharCardNumberQuery();
 			}
 			
 			// Return the built query
@@ -386,6 +394,8 @@ jQuery(document).ready(function() {
 				this.buildLastDayOfVisitQuery();
 				this.buildLastVisitQuery();
 				this.buildPhoneNumberQuery();
+				//ghanshyam 12-sept-2013 New Requirement #2684 Introducing a field at the time of registration to put Aadhar Card Number
+				this.buildAadharCardNumberQuery();
 			}
 			
 			// Return the built query
@@ -563,6 +573,16 @@ jQuery(document).ready(function() {
 				//this.whereClause = " WHERE pt.patient_id IN (SELECT DISTINCT bill.patient_id FROM billing_patient_service_bill bill WHERE bill.patient_id = pt.patient_id)";
 			}
 		},
+		//ghanshyam 12-sept-2013 New Requirement #2684 Introducing a field at the time of registration to put Aadhar Card Number
+		buildAadharCardNumberQuery: function(){
+		    value = jQuery.trim(jQuery("#acNo", this.form).val());
+			aadharCardNumberAttributeTypeName = "Aadhar Card Number";
+			if(value!=undefined && value.length>0){
+			    this.fromClause += " INNER JOIN person_attribute paAadharCardNumber ON ps.patient_id= paAadharCardNumber.person_id";
+				this.fromClause += " INNER JOIN person_attribute_type patAadharCardNumber ON paAadharCardNumber.person_attribute_type_id = patAadharCardNumber.person_attribute_type_id ";
+				this.whereClause += " AND (patAadharCardNumber.name LIKE '%" + aadharCardNumberAttributeTypeName + "%' AND paAadharCardNumber.value LIKE '%" + value + "%')";
+			}
+		},
 		/** GENERATE THE NAVIGATION BAR */
 		generateNavigation: function(){
 			navbar = this.totalRow + " patients found.";
@@ -659,7 +679,7 @@ jQuery(document).ready(function() {
 	<div id="advanceSearch">
 		<table cellspacing="10">
 			<tr>
-				<td>Gender *</td>
+				<td>Gender</td>
 				<td colspan="3"><select id="gender" style="width: 100px">
 						<option value="Any">Any</option>
 						<option value="M">Male</option>
@@ -707,6 +727,13 @@ jQuery(document).ready(function() {
 				<td>Relative Name</td>
 				<td colspan="3"><input id="relativeName" style="width: 100px" />
 				</td>
+			</tr>
+			<!-- ghanshyam 12-sept-2013 New Requirement #2684 Introducing a field at the time of registration to put Aadhar Card Number -->
+			<tr>
+				<td>Aadhar Card No</td>
+				<td colspan="3">
+					<input id="acNo" style="width: 100px"/>
+				</td>	
 			</tr>
 		</table>
 	</div>
