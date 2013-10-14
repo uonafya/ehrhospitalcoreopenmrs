@@ -349,4 +349,18 @@
 		</sql>
 	</diff>
 	
+	<!-- Abhishek-Ankur 07-Sep-2013 New Requirement # User must be able to schedule the procedure using the Calendar interface -->
+	<diff>
+		<version>2.7</version>
+		<author>Abhishek-Ankur</author>
+		<date>Sep 07th 2013</date>
+		<description>
+			Add column for keeping schedule date for minor OT procedures
+		</description>
+		<sql>
+			ALTER TABLE opd_test_order
+			ADD COLUMN `OT_schedule_date` datetime default NULL;
+		</sql>
+	</diff>
+	
 </sqldiff>

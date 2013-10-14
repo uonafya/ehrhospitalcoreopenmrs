@@ -27,5 +27,7 @@
 			not-null="true" />
 		<many-to-one name="billableService" column="billable_service_id"
 			class="org.openmrs.module.hospitalcore.model.BillableService" />
+		<property name="otschedule" type="java.util.Date" column="OT_schedule_date"
+			length="19" />
 	</class>
 </hibernate-mapping>

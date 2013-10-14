@@ -42,6 +42,7 @@ public class OpdTestOrder {
 	private int billingStatus; //0=not yet billed,1=billed
 	private int cancelStatus; //0=not yet canceled,1=canceled
 	private BillableService billableService;
+	private Date otschedule;
 
 	public Integer getOpdOrderId() {
 		return opdOrderId;
@@ -129,6 +130,14 @@ public class OpdTestOrder {
 
 	public void setBillableService(BillableService billableService) {
 		this.billableService = billableService;
+	}
+
+	public Date getOtschedule() {
+		return otschedule;
+	}
+
+	public void setOtschedule(Date otschedule) {
+		this.otschedule = otschedule;
 	}
 
 }
