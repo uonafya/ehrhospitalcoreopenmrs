@@ -291,7 +291,8 @@ jQuery(document).ready(function() {
 			this.limitClause = " LIMIT " + this.currentRow + ", " + this.rowPerPage;
 			*/	
 			
-			this.selectClause = "SELECT ps.patient_id, ps.identifier, ps.given_name, ps.middle_name, ps.family_name, ps.gender, ps.birthdate, ps.age, ps.person_name_id ";
+			//ghanshyam,22-oct-2013,New Requirement #2940 Dealing with dead patient
+			this.selectClause = "SELECT ps.patient_id, ps.identifier, ps.given_name, ps.middle_name, ps.family_name, ps.gender, ps.birthdate, ps.age, ps.person_name_id, ps.dead ";
 			this.fromClause   = " FROM patient_search ps";
 			this.fromClause  += " INNER JOIN person pe ON pe.person_id = ps.patient_id";
 			this.whereClause  = " WHERE";
@@ -339,7 +340,8 @@ jQuery(document).ready(function() {
 			this.limitClause = " LIMIT " + this.currentRow + ", " + this.rowPerPage;	
 			*/	
 			
-			this.selectClause = "SELECT ps.patient_id, ps.identifier, ps.given_name, ps.middle_name, ps.family_name, ps.gender, ps.birthdate, ps.age, ps.person_name_id ";
+			//ghanshyam,22-oct-2013,New Requirement #2940 Dealing with dead patient
+			this.selectClause = "SELECT ps.patient_id, ps.identifier, ps.given_name, ps.middle_name, ps.family_name, ps.gender, ps.birthdate, ps.age, ps.person_name_id, ps.dead ";
 			this.fromClause   = " FROM patient_search ps";
 			this.fromClause  += " INNER JOIN person pe ON pe.person_id = ps.patient_id";
 			this.whereClause  = " WHERE";		

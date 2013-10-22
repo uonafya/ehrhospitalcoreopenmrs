@@ -37,6 +37,8 @@ public class PatientSearch implements Serializable {
 	private Date birthdate;
 	private Integer age;
 	private Integer personNameId;
+	//ghanshyam,22-oct-2013,New Requirement #2940 Dealing with dead patient
+	private Boolean dead = false;
 
 	public Integer getPatientId() {
 		return patientId;
@@ -116,5 +118,13 @@ public class PatientSearch implements Serializable {
 
 	public void setPersonNameId(Integer personNameId) {
 		this.personNameId = personNameId;
+	}
+	
+	public Boolean getDead() {
+		return dead;
+	}
+
+	public void setDead(Boolean dead) {
+		this.dead = dead;
 	}
 }

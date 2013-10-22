@@ -233,6 +233,15 @@ public class HibernateHospitalCoreDAO implements HospitalCoreDAO {
 					patient.setIdentifiers(identifier);
 					patient.setGender((String) obss[5]);
 					patient.setBirthdate((Date) obss[6]);
+					//ghanshyam,22-oct-2013,New Requirement #2940 Dealing with dead patient
+					if(obss[9]!=null){
+						if(obss[9].toString().equals("1")){
+						patient.setDead(true);
+						}
+						else if(obss[9].toString().equals("0")){
+						patient.setDead(false);
+						}
+						}
 					patients.add(patient);
 				}
 			}
@@ -337,5 +346,12 @@ public class HibernateHospitalCoreDAO implements HospitalCoreDAO {
 		
 		encounter = (Encounter) criteria.uniqueResult();
 		return (java.util.Date) (encounter == null ? null : encounter.getEncounterDatetime());
+	}
+	
+	//ghanshyam,22-oct-2013,New Requirement #2940 Dealing with dead patient
+	public PatientSearch getPatient(int patientID) {
+		Criteria criteria = sessionFactory.getCurrentSession().createCriteria(PatientSearch.class);
+		criteria.add(Restrictions.eq("patientId", patientID));
+		return (PatientSearch) criteria.uniqueResult();
 	}
 }
