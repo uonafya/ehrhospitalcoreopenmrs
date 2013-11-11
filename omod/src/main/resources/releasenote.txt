@@ -1,3 +1,9 @@
+1.5.0
+released by ghanshyam on 11-Nov-2013
+- #1625 Advance search-Witout selecting gender if age is selected say undefined
+- #2684 Introducing a field at the time of registration to put Aadhar Card Number - IN Modules
+- #2940 Dealing with dead patient
+
 1.4.10.12
 released by ghanshyam on 20-may-2013
 - #357   Bug #357 [billing][3.2.7-SNAPSHOT] Error screen appears on clicking next page or changing page size in list of bills
