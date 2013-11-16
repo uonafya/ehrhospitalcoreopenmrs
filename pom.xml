@@ -4,7 +4,7 @@
 
 	<groupId>org.openmrs.module</groupId>
 	<artifactId>hospitalcore</artifactId>
-	<version>1.4.10.13</version>
+	<version>1.4.10.13-SNAPSHOT</version>
 	<packaging>pom</packaging>
 	<name>Hospital core module</name>
 	<description>Hospital core module</description>
@@ -22,13 +22,13 @@
             <repository>
                 <id>shimla-nexus</id>
                 <name>Shimla nexus repo</name>
-                <url>http://hospdev.hispindia.org/nexus/content/repositories/bd-releases/</url>
+                <url>http://hospdev.hispindia.org/nexus/content/repositories/version2.0-releases/</url>
             </repository>
         <!-- use the following if you ARE using a snapshot version. -->
             <snapshotRepository>
                 <id>shimla-nexus</id>
                 <name>Shimla nexus repo</name>
-                <url>http://hospdev.hispindia.org/nexus/content/repositories/bd-snapshots/</url>
+                <url>http://hospdev.hispindia.org/nexus/content/repositories/version2.0-snapshots/</url>
                 <uniqueVersion>false</uniqueVersion>
              </snapshotRepository>
         </distributionManagement>
