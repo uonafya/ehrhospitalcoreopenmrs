@@ -398,7 +398,7 @@
 		/** BUILD QUERY FOR OTHER NAME */
 		buildOtherNameQuery: function(){
 			value = jQuery.trim(jQuery("#otherName", this.form).val());
-			personAttributeTypeName = "Other Name ";
+			personAttributeTypeName = "Other Name%";
 			if(value!=undefined && value.length>0){
 			    this.fromClause += " INNER JOIN person_attribute paOtherName ON ps.patient_id= paOtherName.person_id";
 				this.fromClause += " INNER JOIN person_attribute_type patOtherName ON paOtherName.person_attribute_type_id = patOtherName.person_attribute_type_id ";
