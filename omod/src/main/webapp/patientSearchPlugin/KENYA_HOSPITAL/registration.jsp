@@ -109,6 +109,9 @@
 			jQuery("#otherName", this.form).blur(function(){
 				PATIENTSEARCH.search(true);
 			});
+			jQuery("#patientMaritalStatus", this.form).blur(function(){
+				PATIENTSEARCH.search(true);
+			});
 			jQuery("#nationalId", this.form).blur(function(){
 				PATIENTSEARCH.search(true);
 			});
@@ -255,6 +258,7 @@
 				this.buildAgeQuery();
 				this.buildRelativeNameQuery();
 				this.buildOtherNameQuery();
+				this.buildMaritalStatusQuery();
 				this.buildNationalIdQuery();
 				this.buildLastDayOfVisitQuery();
 				this.buildLastVisitQuery();
@@ -301,6 +305,7 @@
 				this.buildAgeQuery();
 				this.buildRelativeNameQuery();
 				this.buildOtherNameQuery();
+				this.buildMaritalStatusQuery();
 				this.buildNationalIdQuery();
 				this.buildLastDayOfVisitQuery();
 				this.buildLastVisitQuery();
@@ -403,6 +408,17 @@
 			    this.fromClause += " INNER JOIN person_attribute paOtherName ON ps.patient_id= paOtherName.person_id";
 				this.fromClause += " INNER JOIN person_attribute_type patOtherName ON paOtherName.person_attribute_type_id = patOtherName.person_attribute_type_id ";
 				this.whereClause += " AND (patOtherName.name LIKE '%" + personAttributeTypeName + "%' AND paOtherName.value LIKE '%" + value + "%')";
+			}
+		},
+		
+		/** BUILD QUERY FOR Marital Status */
+		buildMaritalStatusQuery: function(){
+			value = jQuery.trim(jQuery("#patientMaritalStatus", this.form).val());
+			personAttributeTypeName = "Marital Status%";
+			if(value!=undefined && value.length>0){
+			    this.fromClause += " INNER JOIN person_attribute paMaritalStatus ON ps.patient_id= paMaritalStatus.person_id";
+				this.fromClause += " INNER JOIN person_attribute_type patMaritalStatus ON paMaritalStatus.person_attribute_type_id = patMaritalStatus.person_attribute_type_id ";
+				this.whereClause += " AND (patMaritalStatus.name LIKE '%" + personAttributeTypeName + "%' AND paMaritalStatus.value LIKE '%" + value + "%')";
 			}
 		},
 		
@@ -583,6 +599,12 @@
 				<td>Other Name</td>
 				<td>
 					<input id="otherName" style="width: 100px"/>
+				</td>	
+			</tr>
+			<tr>
+				<td>Marital Status</td>
+				<td>
+					<input id="patientMaritalStatus" style="width: 100px"/>
 				</td>	
 			</tr>
 			<tr>
