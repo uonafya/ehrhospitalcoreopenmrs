@@ -63,4 +63,6 @@ public interface PatientDashboardDAO {
 	//ghanshyam 12-june-2013 New Requirement #1635 User should be able to send pharmacy orders to issue drugs to a patient from dashboard
 	public OpdDrugOrder saveOrUpdateOpdDrugOrder(OpdDrugOrder opdDrugOrder) throws DAOException;
 	public List<InventoryDrug> findDrug(String name) throws DAOException;
+	//Abhishek-Ankur 14-Dec-2013 New Requirement # Redirecting all indoor patient bills to indoor billing queue
+	public List<OpdTestOrder> getStatusList(Patient patient);
 }

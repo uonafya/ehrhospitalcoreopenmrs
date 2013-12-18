@@ -363,4 +363,30 @@
 		</sql>
 	</diff>
 	
+	<!-- Abhishek-Ankur 06-Dec-2013 New Requirement # Clicking on accept makes a patient's billing indoor -->
+	<diff>
+		<version>2.8</version>
+		<author>Abhishek-Ankur</author>
+		<date>Dec 06th 2013</date>
+		<description>
+			Add column for knowing the status of Patient as Indoor or outdoor
+		</description>
+		<sql>
+			ALTER TABLE opd_test_order
+			ADD COLUMN `indoor_status` smallint(1) NOT NULL DEFAULT '0';
+		</sql>
+	</diff>
+	
+	<diff>
+		<version>2.9</version>
+		<author>Abhishek-Ankur</author>
+		<date>Dec 07th 2013</date>
+		<description>
+			Add column for knowing the status of Patient as Indoor or outdoor
+		</description>
+		<sql>
+			ALTER TABLE ipd_patient_admission
+			ADD COLUMN `indoor_status` smallint(1) NOT NULL DEFAULT '0';
+		</sql>
+	</diff>
 </sqldiff>

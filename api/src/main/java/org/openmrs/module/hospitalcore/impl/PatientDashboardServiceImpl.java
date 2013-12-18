@@ -188,6 +188,19 @@ public class PatientDashboardServiceImpl implements PatientDashboardService {
 		return dao.findDrug(name);
 	}
 	
+	//Abhishek-Ankur 14-Dec-2013 New Requirement # Redirecting all indoor patient bills to indoor billing queue
+	public int getIndoorStatus(Patient patient) {
+		int indoorStatus = 0;
+		List<OpdTestOrder> statusList = dao.getStatusList(patient);
+		for (OpdTestOrder sl : statusList) {
+			if (sl.getIndoorStatus() == 1) {
+				indoorStatus = 1;
+				break;
+			}
+		}
+		return indoorStatus;
+	}
+	
 	
 	
 }

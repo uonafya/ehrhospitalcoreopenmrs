@@ -29,5 +29,7 @@
 			class="org.openmrs.module.hospitalcore.model.BillableService" />
 		<property name="otschedule" type="java.util.Date" column="OT_schedule_date"
 			length="19" />
+		<property name="indoorStatus" column="indoor_status"
+			length="1" not-null="true" />
 	</class>
 </hibernate-mapping>

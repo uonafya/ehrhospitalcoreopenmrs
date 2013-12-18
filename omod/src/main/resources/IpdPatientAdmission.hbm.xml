@@ -22,5 +22,7 @@
 		<property name="birthDate" column="birth_date" />
 		<property name="gender" column="gender" />
 		<property name="status" column="status" />
+		<property name="indoorStatus" column="indoor_status"
+			length="1" not-null="true" />
 	</class>
 </hibernate-mapping>

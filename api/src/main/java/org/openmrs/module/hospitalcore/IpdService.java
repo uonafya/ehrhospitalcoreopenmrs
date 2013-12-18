@@ -22,17 +22,20 @@
 package org.openmrs.module.hospitalcore;
 
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 import org.openmrs.Concept;
+import org.openmrs.Patient;
 import org.openmrs.api.APIException;
 import org.openmrs.api.OpenmrsService;
 import org.openmrs.module.hospitalcore.model.IpdPatientAdmission;
 import org.openmrs.module.hospitalcore.model.IpdPatientAdmissionLog;
 import org.openmrs.module.hospitalcore.model.IpdPatientAdmitted;
 import org.openmrs.module.hospitalcore.model.IpdPatientAdmittedLog;
-import org.openmrs.module.hospitalcore.model.WardBedStrength;
 import org.openmrs.module.hospitalcore.model.IpdPatientVitalStatistics;
+import org.openmrs.module.hospitalcore.model.OpdTestOrder;
+import org.openmrs.module.hospitalcore.model.WardBedStrength;
 import org.springframework.transaction.annotation.Transactional;
 
 @Transactional(readOnly=false)
@@ -103,6 +106,9 @@ public interface IpdService extends OpenmrsService{
 	public IpdPatientVitalStatistics saveIpdPatientVitalStatistics(IpdPatientVitalStatistics vitalStatistics) throws APIException;
 	public List<Concept> getDiet() throws APIException;
 	public List<IpdPatientVitalStatistics> getIpdPatientVitalStatistics(Integer patientId,Integer patientAdmissionLogId) throws APIException;
+
+	//Abhishek-Ankur 07-Dec-2013 #New Requirement: Accepting a patient as indoor Patient
+	public List<OpdTestOrder> searchPatientIndoorStatus(Patient patient, Date admissionDate);
 
 
 }

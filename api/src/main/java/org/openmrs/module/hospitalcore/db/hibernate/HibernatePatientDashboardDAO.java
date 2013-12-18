@@ -355,4 +355,11 @@ public class HibernatePatientDashboardDAO implements PatientDashboardDAO {
 		return l;
 	}
 
+	//Abhishek-Ankur 14-Dec-2013 New Requirement # Redirecting all indoor patient bills to indoor billing queue
+	public List<OpdTestOrder> getStatusList(Patient patient) {
+		Criteria criteria = sessionFactory.getCurrentSession().createCriteria(OpdTestOrder.class);
+		criteria.add(Restrictions.eq("patient", patient));
+		return criteria.list();
+	}
+
 }

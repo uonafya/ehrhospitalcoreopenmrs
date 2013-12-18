@@ -23,6 +23,7 @@ package org.openmrs.module.hospitalcore.db.hibernate;
 
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 import org.apache.commons.collections.CollectionUtils;
@@ -35,6 +36,7 @@ import org.hibernate.criterion.Order;
 import org.hibernate.criterion.Restrictions;
 import org.openmrs.Concept;
 import org.openmrs.ConceptClass;
+import org.openmrs.Patient;
 import org.openmrs.api.APIException;
 import org.openmrs.api.context.Context;
 import org.openmrs.api.db.DAOException;
@@ -43,6 +45,7 @@ import org.openmrs.module.hospitalcore.model.IpdPatientAdmission;
 import org.openmrs.module.hospitalcore.model.IpdPatientAdmissionLog;
 import org.openmrs.module.hospitalcore.model.IpdPatientAdmitted;
 import org.openmrs.module.hospitalcore.model.IpdPatientAdmittedLog;
+import org.openmrs.module.hospitalcore.model.OpdTestOrder;
 import org.openmrs.module.hospitalcore.model.WardBedStrength;
 import org.openmrs.module.hospitalcore.model.IpdPatientVitalStatistics;
 
@@ -382,7 +385,12 @@ public class HibernateIpdDAO implements IpdDAO{
 		
 	}
 
-	
-	
+	public List<OpdTestOrder> getPatientIndoorStatus(Patient patient,
+			Date admissionDate) {
+		Criteria criteria = sessionFactory.getCurrentSession().createCriteria(OpdTestOrder.class);
+		criteria.add(Restrictions.eq("patient", patient));
+//		criteria.add(Restrictions.eq("createdOn", admissionDate));
+		return criteria.list();
+	}	
 
 }

@@ -43,6 +43,7 @@ public class OpdTestOrder {
 	private int cancelStatus; //0=not yet canceled,1=canceled
 	private BillableService billableService;
 	private Date otschedule;
+	private int indoorStatus; //0=outdoor Patient, 1=indoor patient
 
 	public Integer getOpdOrderId() {
 		return opdOrderId;
@@ -138,6 +139,14 @@ public class OpdTestOrder {
 
 	public void setOtschedule(Date otschedule) {
 		this.otschedule = otschedule;
+	}
+
+	public int getIndoorStatus() {
+		return indoorStatus;
+	}
+
+	public void setIndoorStatus(int indoorStatus) {
+		this.indoorStatus = indoorStatus;
 	}
 
 }

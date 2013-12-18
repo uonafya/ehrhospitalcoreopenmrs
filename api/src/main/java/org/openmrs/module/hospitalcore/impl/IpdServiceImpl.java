@@ -29,6 +29,7 @@ import org.openmrs.Concept;
 import org.openmrs.Encounter;
 import org.openmrs.Location;
 import org.openmrs.Obs;
+import org.openmrs.Patient;
 import org.openmrs.User;
 import org.openmrs.api.APIException;
 import org.openmrs.api.context.Context;
@@ -39,6 +40,7 @@ import org.openmrs.module.hospitalcore.model.IpdPatientAdmission;
 import org.openmrs.module.hospitalcore.model.IpdPatientAdmissionLog;
 import org.openmrs.module.hospitalcore.model.IpdPatientAdmitted;
 import org.openmrs.module.hospitalcore.model.IpdPatientAdmittedLog;
+import org.openmrs.module.hospitalcore.model.OpdTestOrder;
 import org.openmrs.module.hospitalcore.model.WardBedStrength;
 import org.openmrs.module.hospitalcore.model.IpdPatientVitalStatistics;
 import org.openmrs.module.hospitalcore.util.HospitalCoreConstants;
@@ -445,7 +447,10 @@ public class IpdServiceImpl extends BaseOpenmrsService implements IpdService{
 		return dao.getWardBedStrengthByWardId(wardId);
 	}
 
-
- 
+	//Abhishek-Ankur 07-Dec-2013 #New Requirement: Accepting a patient as indoor Patient
+	public List<OpdTestOrder> searchPatientIndoorStatus(Patient patient,
+			Date admissionDate) {
+		return dao.getPatientIndoorStatus(patient, admissionDate);
+	}
 	
 }

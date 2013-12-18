@@ -54,6 +54,7 @@ public class IpdPatientAdmission implements Serializable{
 	private String status ; //: String  : admitted  /  canceled
 	private User opdAmittedUser;
 	private OpdPatientQueueLog opdLog;
+	private int indoorStatus; //0=outdoor Patient, 1=indoor patient
 	public Date getAdmissionDate() {
 		return admissionDate;
 	}
@@ -136,6 +137,12 @@ public class IpdPatientAdmission implements Serializable{
 				+ ", admissionWard=" + admissionWard + ", status=" + status
 				+ ", opdAmittedUser=" + opdAmittedUser + ", opdLog=" + opdLog
 				+ "]";
+	}
+	public int getIndoorStatus() {
+		return indoorStatus;
+	}
+	public void setIndoorStatus(int indoorStatus) {
+		this.indoorStatus = indoorStatus;
 	}
 	
 	

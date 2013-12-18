@@ -75,5 +75,7 @@ public interface PatientDashboardService {
 	public List<Concept> searchDrug(String text) throws APIException;
 	public OpdDrugOrder saveOrUpdateOpdDrugOrder(OpdDrugOrder opdDrugOrder) throws APIException;
 	public List<InventoryDrug> findDrug(String name) throws APIException;
+	//Abhishek-Ankur 14-Dec-2013 New Requirement # Redirecting all indoor patient bills to indoor billing queue
+	public int getIndoorStatus(Patient patient);
 	
 }

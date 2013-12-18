@@ -22,15 +22,18 @@
 package org.openmrs.module.hospitalcore.db;
 
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 import org.openmrs.Concept;
+import org.openmrs.Patient;
 import org.openmrs.api.APIException;
 import org.openmrs.api.db.DAOException;
 import org.openmrs.module.hospitalcore.model.IpdPatientAdmission;
 import org.openmrs.module.hospitalcore.model.IpdPatientAdmissionLog;
 import org.openmrs.module.hospitalcore.model.IpdPatientAdmitted;
 import org.openmrs.module.hospitalcore.model.IpdPatientAdmittedLog;
+import org.openmrs.module.hospitalcore.model.OpdTestOrder;
 import org.openmrs.module.hospitalcore.model.WardBedStrength;
 import org.openmrs.module.hospitalcore.model.IpdPatientVitalStatistics;
 
@@ -72,5 +75,9 @@ public interface IpdDAO {
 	public IpdPatientVitalStatistics saveIpdPatientVitalStatistics(IpdPatientVitalStatistics vitalStatistics) throws DAOException;
 	public List<IpdPatientVitalStatistics> getIpdPatientVitalStatistics(Integer patientId,Integer patientAdmissionLogId) throws DAOException;
 	public List<Concept> getDiet() throws DAOException;
+	
+	//Abhishek-Ankur 07-Dec-2013 #New Requirement: Accepting a patient as indoor Patient
+	public List<OpdTestOrder> getPatientIndoorStatus(Patient patient,
+			Date admissionDate);
 
 }
