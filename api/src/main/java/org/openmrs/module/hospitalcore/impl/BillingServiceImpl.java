@@ -1121,4 +1121,10 @@ public class BillingServiceImpl extends BaseOpenmrsService implements BillingSer
 		return dao.getPatientServiceBillItem(billId,name);
 	}
 	
+	//Abhishek-Ankur 18-Dec-2013 New Requirement #View Consolidated Bill
+	public List<PatientServiceBill> getPatientServiceByPatientId(Patient patient,
+			Date admissionDate) {
+		return dao.getPatientServiceBillList(patient, admissionDate);
+	}
+	
 }

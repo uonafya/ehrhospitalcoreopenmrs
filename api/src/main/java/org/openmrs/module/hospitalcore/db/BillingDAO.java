@@ -239,4 +239,8 @@ public interface BillingDAO {
 	public OpdTestOrder getOpdTestOrder(Integer encounterId,Integer conceptId) throws DAOException;
 	
 	public PatientServiceBillItem getPatientServiceBillItem(Integer billId,String name) throws DAOException;
+
+	//Abhishek-Ankur 18-Dec-2013 New Requirement #View Consolidated Bill
+	public List<PatientServiceBill> getPatientServiceBillList(Patient patient,
+			Date admissionDate);
 }

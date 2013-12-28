@@ -340,4 +340,7 @@ public interface BillingService extends OpenmrsService {
 	public List<OpdTestOrder> listOfOrder(Integer patientId,Date date) throws APIException;
 	public OpdTestOrder getOpdTestOrder(Integer encounterId,Integer conceptId) throws APIException;
 	public PatientServiceBillItem getPatientServiceBillItem(Integer billId,String name) throws APIException;
+	//Abhishek-Ankur 18-Dec-2013 New Requirement #View Consolidated Bill
+	public List<PatientServiceBill> getPatientServiceByPatientId(Patient patient,
+			Date admissionDate);
 }
