@@ -326,7 +326,7 @@ public class HibernateHospitalCoreDAO implements HospitalCoreDAO {
 	public java.util.Date getLastVisitTime(Patient patientID) {
 		Criteria criteria = sessionFactory.getCurrentSession().createCriteria(Encounter.class);
 		Encounter encounter = new Encounter();
-		criteria.add(Restrictions.eq("patientId", patientID));
+		criteria.add(Restrictions.eq("patient", patientID));
 		
 		// Don't trust in system hour so we use encounterId (auto increase)
 		criteria.addOrder(Order.desc("encounterId"));
