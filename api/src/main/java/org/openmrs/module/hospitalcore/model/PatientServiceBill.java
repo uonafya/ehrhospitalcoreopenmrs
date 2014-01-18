@@ -61,6 +61,8 @@ public class PatientServiceBill implements Serializable {
 	
 	private Receipt receipt;
 	
+	private BigDecimal waiverAmount;
+	
 	//ghanshyam 3-june-2013 New Requirement #1632 Orders from dashboard must be appear in billing queue.User must be able to generate bills from this queue
 	private Integer freeBill;//0=paidBill,1=freeBill,2=mixedBill
 	
@@ -186,5 +188,13 @@ public class PatientServiceBill implements Serializable {
 	
 	public void setComment(String comment) {
 		this.comment = comment;
+	}
+
+	public BigDecimal getWaiverAmount() {
+		return waiverAmount;
+	}
+
+	public void setWaiverAmount(BigDecimal waiverAmount) {
+		this.waiverAmount = waiverAmount;
 	}
 }
