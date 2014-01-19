@@ -1126,5 +1126,10 @@ public class BillingServiceImpl extends BaseOpenmrsService implements BillingSer
 			Date admissionDate) {
 		return dao.getPatientServiceBillList(patient, admissionDate);
 	}
+
+	public List<PatientServiceBillItem> getPatientServiceBillItems(
+			Integer patientServiceBillId) {
+		return dao.getPatientServiceBillItems(patientServiceBillId);
+	}
 	
 }

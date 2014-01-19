@@ -1010,4 +1010,13 @@ public class HibernateBillingDAO implements BillingDAO {
 		return criteria.list();
 	}
 
+	//Abhishek-Ankur 2-Jan-2014 New Requirement #View Consolidated Bill
+	public List<PatientServiceBillItem> getPatientServiceBillItems(
+			Integer patientServiceBillId) {
+		Criteria criteria = sessionFactory.getCurrentSession().createCriteria(
+				PatientServiceBillItem.class);
+		criteria.add(Restrictions.eq("patientServiceBill.patientServiceBillId", patientServiceBillId));
+		return criteria.list();
+	}
+
 }

@@ -61,6 +61,8 @@ public class PatientServiceBillItem implements Serializable {
 	
 	private Date voidedDate;
 	
+	private Integer pay;
+	
 	public BillableService getService() {
 		return service;
 	}
@@ -155,5 +157,13 @@ public class PatientServiceBillItem implements Serializable {
 
 	public void setActualAmount(BigDecimal actualAmount) {
 		this.actualAmount = actualAmount;
+	}
+
+	public Integer getPay() {
+		return pay;
+	}
+
+	public void setPay(Integer pay) {
+		this.pay = pay;
 	}
 }

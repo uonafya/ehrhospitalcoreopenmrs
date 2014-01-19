@@ -343,4 +343,6 @@ public interface BillingService extends OpenmrsService {
 	//Abhishek-Ankur 18-Dec-2013 New Requirement #View Consolidated Bill
 	public List<PatientServiceBill> getPatientServiceByPatientId(Patient patient,
 			Date admissionDate);
+	public List<PatientServiceBillItem> getPatientServiceBillItems(
+			Integer patientServiceBillId);
 }
