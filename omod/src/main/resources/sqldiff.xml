@@ -350,4 +350,17 @@
 		</sql>
 	</diff>
 	
+	<diff>
+		<version>2.7</version>
+		<author>ghanshyam</author>
+		<date>22 jan 2014</date>
+		<description>
+			Add triage patient queue tables
+		</description>
+		<sql>
+			CREATE TABLE IF NOT EXISTS triage_patient_queue (id integer not null auto_increment, user integer, patient_id integer, referral_concept_id integer, triage_concept_id integer, created_on datetime, triage_concept_name varchar(255), patient_name varchar(255), referral_concept_name varchar(255), sex varchar(255), status varchar(255), patient_identifier  varchar(50)  default NULL, birth_date  datetime  default NULL, primary key (id));
+            CREATE TABLE IF NOT EXISTS triage_patient_queue_log (id integer not null auto_increment, user integer, patient_id integer, referral_concept_id integer, triage_concept_id integer, created_on datetime, triage_concept_name varchar(255), patient_name varchar(255), referral_concept_name varchar(255), sex varchar(255), status varchar(255), patient_identifier  varchar(50)  default NULL, birth_date  datetime  default NULL, encounter_id integer default 0, primary key (id));
+		</sql>
+	</diff>	
+	
 </sqldiff>

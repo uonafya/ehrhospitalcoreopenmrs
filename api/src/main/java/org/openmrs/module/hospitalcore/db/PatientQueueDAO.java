@@ -27,6 +27,7 @@ import java.util.List;
 import org.openmrs.api.db.DAOException;
 import org.openmrs.module.hospitalcore.model.OpdPatientQueue;
 import org.openmrs.module.hospitalcore.model.OpdPatientQueueLog;
+import org.openmrs.module.hospitalcore.model.TriagePatientQueue;
 
 /**
  * <p> Class: PatientQueueDAO </p>
@@ -50,4 +51,6 @@ public interface PatientQueueDAO {
 	public OpdPatientQueueLog getOpdPatientQueueLogById(Integer id) throws DAOException;
 	public List<OpdPatientQueue> getAllPatientInQueue() throws DAOException ;
 	public OpdPatientQueue getOpdPatientQueue(String patientIdentifier,Integer opdConceptId) throws DAOException;
+	public TriagePatientQueue getTriagePatientQueue(String patientIdentifier,Integer triageConceptId) throws DAOException;
+	public TriagePatientQueue saveTriagePatientQueue(TriagePatientQueue triagePatientQueue) throws DAOException;
 }

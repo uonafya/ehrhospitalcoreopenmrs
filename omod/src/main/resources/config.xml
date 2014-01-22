@@ -152,6 +152,8 @@
 		<!-- ghanshyam 12-june-2013 New Requirement #1635 User should be able to send pharmacy orders to issue drugs to a patient from dashboard -->
 		OpdDrugOrder.hbm.xml
 		WardBedStrength.hbm.xml
+		TriagePatientQueue.hbm.xml
+		TriagePatientQueueLog.hbm.xml
     </mappingFiles>
 </module>
 

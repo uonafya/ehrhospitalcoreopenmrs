@@ -36,6 +36,7 @@ import org.openmrs.api.db.DAOException;
 import org.openmrs.module.hospitalcore.db.PatientQueueDAO;
 import org.openmrs.module.hospitalcore.model.OpdPatientQueue;
 import org.openmrs.module.hospitalcore.model.OpdPatientQueueLog;
+import org.openmrs.module.hospitalcore.model.TriagePatientQueue;
 
 public class HibernatePatientQueueDAO implements PatientQueueDAO {
 	SimpleDateFormat formatter = new SimpleDateFormat("dd/MM/yyyy HH:mm:ss");
@@ -91,6 +92,33 @@ public class HibernatePatientQueueDAO implements PatientQueueDAO {
 		criteria.addOrder(Order.desc("queue.createdOn"));
 		
 		List<OpdPatientQueue> list = criteria.list();
+		return CollectionUtils.isNotEmpty(list) ? list.get(0) : null;
+	}
+	
+	public TriagePatientQueue saveTriagePatientQueue(TriagePatientQueue triagePatientQueue) throws DAOException {
+		return (TriagePatientQueue) sessionFactory.getCurrentSession().merge(triagePatientQueue);
+	}
+	
+	public TriagePatientQueue getTriagePatientQueue(String patientIdentifier,Integer triageConceptId) throws DAOException {
+		Criteria criteria = sessionFactory.getCurrentSession().createCriteria(TriagePatientQueue.class, "queue")
+				.createAlias("queue.triageConcept", "triageConcept");
+		criteria.add(Restrictions.eq("queue.patientIdentifier", patientIdentifier));
+		criteria.add(Restrictions.eq("triageConcept.conceptId", triageConceptId));
+		String date = formatterExt.format(new Date());
+		String startFromDate = date + " 00:00:00";
+		String endFromDate = date + " 23:59:59";
+		try {
+			criteria.add(Restrictions.and(Restrictions.ge(
+					"queue.createdOn", formatter.parse(startFromDate)), Restrictions.le(
+					"queue.createdOn", formatter.parse(endFromDate))));
+		} catch (Exception e) {
+			// TODO: handle exception
+			System.out.println("Error convert date: "+ e.toString());
+			e.printStackTrace();
+		}
+		criteria.addOrder(Order.desc("queue.createdOn"));
+		
+		List<TriagePatientQueue> list = criteria.list();
 		return CollectionUtils.isNotEmpty(list) ? list.get(0) : null;
 	}
 	

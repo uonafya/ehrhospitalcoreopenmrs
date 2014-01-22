@@ -30,6 +30,7 @@ import org.openmrs.module.hospitalcore.PatientQueueService;
 import org.openmrs.module.hospitalcore.db.PatientQueueDAO;
 import org.openmrs.module.hospitalcore.model.OpdPatientQueue;
 import org.openmrs.module.hospitalcore.model.OpdPatientQueueLog;
+import org.openmrs.module.hospitalcore.model.TriagePatientQueue;
 
 /**
  * <p> Class: PatientQueueServiceImpl </p>
@@ -129,6 +130,16 @@ public class PatientQueueServiceImpl  extends BaseOpenmrsService implements Pati
 		// TODO Auto-generated method stub
 		return dao.getOpdPatientQueue(patientIdentifier,opdConceptId);
 	}
+	
+	public TriagePatientQueue getTriagePatientQueue(String patientIdentifier,Integer triageConceptId)throws APIException {
+		// TODO Auto-generated method stub
+		return dao.getTriagePatientQueue(patientIdentifier,triageConceptId);
+	}
+	
+	public TriagePatientQueue saveTriagePatientQueue(TriagePatientQueue triagePatientQueue)throws APIException {
+       // TODO Auto-generated method stub
+       return dao.saveTriagePatientQueue(triagePatientQueue);
+}
 
 	public List<OpdPatientQueue> getAllPatientInQueue() throws APIException {
 		return dao.getAllPatientInQueue();
