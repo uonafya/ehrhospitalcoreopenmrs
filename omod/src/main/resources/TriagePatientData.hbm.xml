@@ -1,0 +1,30 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC
+    "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+    "http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd" >
+
+<hibernate-mapping package="org.openmrs.module.hospitalcore.model">
+
+	<class name="TriagePatientDate" table="triage_patient_data" batch-size="500">
+
+		<id name="id" type="int" column="id" unsaved-value="0">
+				<generator class="native" />
+		</id>
+		<many-to-one name="patient" column="patient_id" class="org.openmrs.Patient" lazy="false" foreign-key="fk_triagepatientqueueservice_patient"/>
+		<many-to-one name="opdConceptId" column="opd_concept_id"  class="org.openmrs.Concept" foreign-key="fk_triagepatientqueueservice_concept"/>
+		<many-to-one name="triageId" column="triage_id"  class="org.openmrs.module.hospitalcore.model.TriagePatientQueueLog"/>
+		
+		<property name="weight" column="weight" />
+		<property name="height" column="height" />
+		<property name="temperature" column="temperature" />
+		<property name="systolic" column="systolic" />
+		<property name="daistolic" column="daistolic" />
+		<property name="respiratoryRate" column="respiratory_rate" />
+		<property name="pulseRate" column="pulse_rate" />
+		<property name="bloodGroup" column="blood_group" />
+		<property name="lastMenstrualDate" column="last_menstrual" />
+		<property name="rhesusFactor" column="rhesus_factor" />
+		<property name="pitch" column="pitch" />
+		<property name="createdOn" column="created_on" />
+	</class>
+</hibernate-mapping>
