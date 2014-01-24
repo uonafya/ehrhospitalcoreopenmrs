@@ -24,6 +24,8 @@ package org.openmrs.module.hospitalcore.db;
 
 import java.util.List;
 
+import org.openmrs.Concept;
+import org.openmrs.ConceptAnswer;
 import org.openmrs.api.db.DAOException;
 import org.openmrs.module.hospitalcore.model.OpdPatientQueue;
 import org.openmrs.module.hospitalcore.model.OpdPatientQueueLog;
@@ -45,6 +47,7 @@ public interface PatientQueueDAO {
 	public OpdPatientQueue getOpdPatientQueueById(Integer id) throws DAOException;
 	public void deleteOpdPatientQueue(OpdPatientQueue opdPatientQueue) throws DAOException;
 	public List<OpdPatientQueue> listOpdPatientQueue(String patientName ,  Integer referralConceptId,String status, int min, int max) throws DAOException;
+	public List<TriagePatientQueue> listTriagePatientQueue(String patientName ,  Integer referralConceptId,String status, int min, int max) throws DAOException;
 	public Integer countOpdPatientQueue(String patientName , String searchType,Integer referralConceptId,String status) throws DAOException;
 	//opd patient queue log
 	public OpdPatientQueueLog saveOpdPatientQueueLog(OpdPatientQueueLog opdPatientQueueLog) throws DAOException ;
@@ -53,4 +56,5 @@ public interface PatientQueueDAO {
 	public OpdPatientQueue getOpdPatientQueue(String patientIdentifier,Integer opdConceptId) throws DAOException;
 	public TriagePatientQueue getTriagePatientQueue(String patientIdentifier,Integer triageConceptId) throws DAOException;
 	public TriagePatientQueue saveTriagePatientQueue(TriagePatientQueue triagePatientQueue) throws DAOException;
+	public ConceptAnswer getConceptAnswer(Concept answerConcept) throws DAOException;
 }

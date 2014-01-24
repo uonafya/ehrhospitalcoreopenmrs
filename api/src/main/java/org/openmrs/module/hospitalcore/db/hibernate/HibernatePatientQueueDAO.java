@@ -32,6 +32,8 @@ import org.hibernate.SessionFactory;
 import org.hibernate.criterion.Order;
 import org.hibernate.criterion.Projections;
 import org.hibernate.criterion.Restrictions;
+import org.openmrs.Concept;
+import org.openmrs.ConceptAnswer;
 import org.openmrs.api.db.DAOException;
 import org.openmrs.module.hospitalcore.db.PatientQueueDAO;
 import org.openmrs.module.hospitalcore.model.OpdPatientQueue;
@@ -162,6 +164,42 @@ public class HibernatePatientQueueDAO implements PatientQueueDAO {
 		return list;
 	}
 	
+	@SuppressWarnings("unchecked")
+	public List<TriagePatientQueue> listTriagePatientQueue(String searchText ,  Integer conceptId,String status, int min, int max) throws DAOException{
+		Criteria criteria = sessionFactory.getCurrentSession().createCriteria(TriagePatientQueue.class,"triagePatientQueue");
+		if(!StringUtils.isBlank(searchText)){
+	    	criteria.add(Restrictions.or(Restrictions.like("triagePatientQueue.patientIdentifier",  "%"+searchText+"%"),Restrictions.like("triagePatientQueue.patientName",  "%"+searchText+"%")));
+		}
+		if(conceptId != null && conceptId > 0){
+			criteria.createAlias( "triagePatientQueue.triageConcept","triageConcept");
+			criteria.add(Restrictions.eq("triageConcept.conceptId", conceptId));
+		}
+		if(!StringUtils.isBlank(status)){
+			criteria.add(Restrictions.eq("triagePatientQueue.status", status));
+		}
+		//only get data if that's current date
+		//we need this because maybe cron-job not work normal
+		String date = formatterExt.format(new Date());
+		String startFromDate = date + " 00:00:00";
+		String endFromDate = date + " 23:59:59";
+		try {
+			criteria.add(Restrictions.and(Restrictions.ge(
+					"triagePatientQueue.createdOn", formatter.parse(startFromDate)), Restrictions.le(
+					"triagePatientQueue.createdOn", formatter.parse(endFromDate))));
+		} catch (Exception e) {
+			// TODO: handle exception
+			System.out.println("Error convert date: "+ e.toString());
+			e.printStackTrace();
+		}
+		criteria.addOrder(Order.asc("triagePatientQueue.createdOn"));
+		if(max > 0){
+			criteria.setFirstResult(min).setMaxResults(max);
+		}
+		 List<TriagePatientQueue> list =  criteria.list();
+
+		return list;
+	}
+	
 	public Integer countOpdPatientQueue(String patientName , String searchType,Integer conceptId,String status) throws DAOException{
 		Criteria criteria = sessionFactory.getCurrentSession().createCriteria(OpdPatientQueue.class,"opdPatientQueue");
 		if(!StringUtils.isBlank(patientName)){
@@ -219,6 +257,12 @@ public class HibernatePatientQueueDAO implements PatientQueueDAO {
 			e.printStackTrace();
 		}
 		return criteria.list();
+	}
+	
+	public ConceptAnswer getConceptAnswer(Concept answerConcept) throws DAOException {
+		Criteria criteria = sessionFactory.getCurrentSession().createCriteria(ConceptAnswer.class);
+		criteria.add(Restrictions.eq("answerConcept", answerConcept));
+		return (ConceptAnswer) criteria.uniqueResult();
 	}
 	
 }

@@ -24,6 +24,8 @@ package org.openmrs.module.hospitalcore.impl;
 
 import java.util.List;
 
+import org.openmrs.Concept;
+import org.openmrs.ConceptAnswer;
 import org.openmrs.api.APIException;
 import org.openmrs.api.impl.BaseOpenmrsService;
 import org.openmrs.module.hospitalcore.PatientQueueService;
@@ -88,6 +90,13 @@ public class PatientQueueServiceImpl  extends BaseOpenmrsService implements Pati
 		// TODO Auto-generated method stub
 		return dao.listOpdPatientQueue(patientName, referralConceptId, status, min, max);
 	}
+	
+	public List<TriagePatientQueue> listTriagePatientQueue(String patientName,
+			Integer referralConceptId, String status, int min, int max)
+			throws APIException {
+		// TODO Auto-generated method stub
+		return dao.listTriagePatientQueue(patientName, referralConceptId, status, min, max);
+	}
 
 	public Integer countOpdPatientQueue(String patientName, String searchType,
 			Integer referralConceptId, String status) throws APIException {
@@ -143,5 +152,10 @@ public class PatientQueueServiceImpl  extends BaseOpenmrsService implements Pati
 
 	public List<OpdPatientQueue> getAllPatientInQueue() throws APIException {
 		return dao.getAllPatientInQueue();
+	}
+	
+	public ConceptAnswer getConceptAnswer(Concept answerConcept)throws APIException {
+	       // TODO Auto-generated method stub
+	       return dao.getConceptAnswer(answerConcept);
 	}
 }
