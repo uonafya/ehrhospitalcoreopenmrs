@@ -371,19 +371,18 @@
 		</description>
 		<sql>
 			CREATE TABLE IF NOT EXISTS triage_patient_data (id INTEGER NOT NULL AUTO_INCREMENT, 
-			triage_id INTEGER, 
-			`weight` DECIMAL(19,2),
-			`height` DECIMAL(19,2),
-			`temperature` DECIMAL(19,2),
-			`systolic` DECIMAL(19,2),
-			`daistolic` DECIMAL(19,2),
-			`respiratory_rate` DECIMAL(19,2),
-			`pulse_rate` DECIMAL(19,2),
-			`blood_group` VARCHAR(20),
+			triage_log_id INTEGER, 
+			`weight` DECIMAL(5,2),
+			`height` DECIMAL(5,2),
+			`temperature` DECIMAL(5,2),
+			`systolic` int(5),
+			`daistolic` int(5),
+			`respiratory_rate` int(5),
+			`pulse_rate` int(5),
+			`blood_group` VARCHAR(10),
 			`last_menstrual` DATETIME,
-			`rhesus_factor` VARCHAR(20),
-			`pitct` VARCHAR(25),
-			`opd_concept_id` INTEGER,
+			`rhesus_factor` VARCHAR(10),
+			`pitct` VARCHAR(11),
 			created_on DATETIME, PRIMARY KEY (id));
 		</sql>
 	</diff>	

@@ -44,6 +44,7 @@ public class PatientDashboardConstants {
 	public static String PROPERTY_EXTERNAL_REFERRAL = MODULE_ID +  ".externalReferralConcept";
 	public static String PROPERTY_VISIT_OUTCOME = MODULE_ID + ".visitOutcomeConcept";
 	public static String PROPERTY_OPD_ENCOUTNER_TYPE = MODULE_ID + ".opdEncounterType";
+	public static String PROPERTY_TRIAGE_ENCOUTNER_TYPE = MODULE_ID + ".triageEncounterType";
 	public static String PROPERTY_LAB_ENCOUTNER_TYPE = MODULE_ID + ".labEncounterType";
 	public static String PROPERTY_INIT_CONCEPT = MODULE_ID + ".initNeededConcept";
 	

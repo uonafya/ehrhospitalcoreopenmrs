@@ -26,10 +26,13 @@ import java.util.List;
 
 import org.openmrs.Concept;
 import org.openmrs.ConceptAnswer;
+import org.openmrs.api.APIException;
 import org.openmrs.api.db.DAOException;
 import org.openmrs.module.hospitalcore.model.OpdPatientQueue;
 import org.openmrs.module.hospitalcore.model.OpdPatientQueueLog;
+import org.openmrs.module.hospitalcore.model.TriagePatientData;
 import org.openmrs.module.hospitalcore.model.TriagePatientQueue;
+import org.openmrs.module.hospitalcore.model.TriagePatientQueueLog;
 
 /**
  * <p> Class: PatientQueueDAO </p>
@@ -55,6 +58,10 @@ public interface PatientQueueDAO {
 	public List<OpdPatientQueue> getAllPatientInQueue() throws DAOException ;
 	public OpdPatientQueue getOpdPatientQueue(String patientIdentifier,Integer opdConceptId) throws DAOException;
 	public TriagePatientQueue getTriagePatientQueue(String patientIdentifier,Integer triageConceptId) throws DAOException;
+	public TriagePatientQueue getTriagePatientQueueById(Integer id) throws APIException;
 	public TriagePatientQueue saveTriagePatientQueue(TriagePatientQueue triagePatientQueue) throws DAOException;
+	public TriagePatientQueueLog saveTriagePatientQueueLog(TriagePatientQueueLog triagePatientQueueLog) throws APIException ;
+	public void deleteTriagePatientQueue(TriagePatientQueue triagePatientQueue) throws APIException;
+	public TriagePatientData saveTriagePatientData(TriagePatientData triagePatientData) throws APIException ;
 	public ConceptAnswer getConceptAnswer(Concept answerConcept) throws DAOException;
 }

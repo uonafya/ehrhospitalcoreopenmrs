@@ -154,6 +154,7 @@
 		WardBedStrength.hbm.xml
 		TriagePatientQueue.hbm.xml
 		TriagePatientQueueLog.hbm.xml
+		TriagePatientData.hbm.xml
     </mappingFiles>
 </module>
 
