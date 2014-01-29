@@ -22,13 +22,13 @@
             <repository>
                 <id>shimla-nexus</id>
                 <name>Shimla nexus repo</name>
-                <url>http://hospdev.hispindia.org/nexus/content/repositories/version3.0-releases/</url>
+                <url>http://hospdev.hispindia.org/nexus/content/repositories/version3.1-releases/</url>
             </repository>
         <!-- use the following if you ARE using a snapshot version. -->
             <snapshotRepository>
                 <id>shimla-nexus</id>
                 <name>Shimla nexus repo</name>
-                <url>http://hospdev.hispindia.org/nexus/content/repositories/version3.0-snapshots/</url>
+                <url>http://hospdev.hispindia.org/nexus/content/repositories/version3.1-snapshots/</url>
                 <uniqueVersion>false</uniqueVersion>
              </snapshotRepository>
         </distributionManagement>
