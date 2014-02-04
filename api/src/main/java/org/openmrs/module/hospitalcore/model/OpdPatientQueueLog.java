@@ -48,6 +48,7 @@ public class OpdPatientQueueLog implements  Serializable {
 	 private String status;
 	 private User user;
 	 private Date createdOn;
+	 private TriagePatientData triageDataId;
 	 private Encounter encounter;
 	 
 	 
@@ -59,7 +60,7 @@ public class OpdPatientQueueLog implements  Serializable {
 				+ ", referralConcept=" + referralConcept + ", opdConcept="
 				+ opdConcept + ", opdConceptName=" + opdConceptName
 				+ ", status=" + status + ", user=" + user + ", createdOn="
-				+ createdOn + "]";
+				+ createdOn + ",triageDataId=" + triageDataId + "]";
 	}
 	public Integer getId() {
 		return id;
@@ -138,6 +139,12 @@ public class OpdPatientQueueLog implements  Serializable {
 	}
 	public void setBirthDate(Date birthDate) {
 		this.birthDate = birthDate;
+	}
+	public TriagePatientData getTriageDataId() {
+		return triageDataId;
+	}
+	public void setTriageDataId(TriagePatientData triageDataId) {
+		this.triageDataId = triageDataId;
 	}
 	public Encounter getEncounter() {
 		return encounter;

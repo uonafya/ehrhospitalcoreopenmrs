@@ -362,6 +362,7 @@
             CREATE TABLE IF NOT EXISTS triage_patient_queue_log (id integer not null auto_increment, user integer, patient_id integer, referral_concept_id integer, triage_concept_id integer, created_on datetime, triage_concept_name varchar(255), patient_name varchar(255), referral_concept_name varchar(255), sex varchar(255), status varchar(255), patient_identifier  varchar(50)  default NULL, birth_date  datetime  default NULL, encounter_id integer default 0, primary key (id));
 		</sql>
 	</diff>	
+	
 	<diff>
 		<version>2.8</version>
 		<author>sagar</author>
@@ -386,6 +387,22 @@
 			created_on DATETIME, PRIMARY KEY (id));
 		</sql>
 	</diff>	
+	
+	<diff>
+		<version>2.9</version>
+		<author>ghanshyam</author>
+		<date>04 feb 2014</date>
+		<description>
+			Add column triage_data_id for opd_patient_queue table and opd_patient_queue_log
+		</description>
+		<sql>
+			ALTER TABLE opd_patient_queue
+			ADD COLUMN `triage_data_id`  INTEGER;
+			
+			ALTER TABLE opd_patient_queue_log
+			ADD COLUMN `triage_data_id`  INTEGER;
+		</sql>
+	</diff>
 	
 	
 </sqldiff>
