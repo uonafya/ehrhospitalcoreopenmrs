@@ -233,6 +233,14 @@ public class HibernateHospitalCoreDAO implements HospitalCoreDAO {
 					patient.setIdentifiers(identifier);
 					patient.setGender((String) obss[5]);
 					patient.setBirthdate((Date) obss[6]);
+					if(obss[9]!=null){
+						if(obss[9].toString().equals("1")){
+							patient.setDead(true);
+						}
+						else if(obss[9].toString().equals("0")){
+							patient.setDead(false);
+						}
+					}
 					patients.add(patient);
 				}
 			}
@@ -343,6 +351,12 @@ public class HibernateHospitalCoreDAO implements HospitalCoreDAO {
 	public PatientSearch getPatientByPatientId(int patientId) {
 		Criteria criteria = sessionFactory.getCurrentSession().createCriteria(PatientSearch.class);
 		criteria.add(Restrictions.eq("patientId", patientId));
+		return (PatientSearch) criteria.uniqueResult();
+	}
+	
+	public PatientSearch getPatient(int patientID) {
+		Criteria criteria = sessionFactory.getCurrentSession().createCriteria(PatientSearch.class);
+		criteria.add(Restrictions.eq("patientId", patientID));
 		return (PatientSearch) criteria.uniqueResult();
 	}
 }

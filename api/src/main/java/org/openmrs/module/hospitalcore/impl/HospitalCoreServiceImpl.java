@@ -745,4 +745,8 @@ public class HospitalCoreServiceImpl extends BaseOpenmrsService implements
 	public PatientSearch getPatientByPatientId(int patientId){
 		return dao.getPatientByPatientId(patientId);
 	}
+	
+	public PatientSearch getPatient(int patientID){
+		return dao.getPatient(patientID);
+	}
 }
