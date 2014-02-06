@@ -26,6 +26,10 @@ import java.util.List;
 
 import org.openmrs.Concept;
 import org.openmrs.ConceptAnswer;
+import org.openmrs.Encounter;
+import org.openmrs.Obs;
+import org.openmrs.Patient;
+import org.openmrs.Person;
 import org.openmrs.api.APIException;
 import org.openmrs.api.OpenmrsService;
 import org.openmrs.module.hospitalcore.model.OpdPatientQueue;
@@ -67,4 +71,7 @@ public interface PatientQueueService extends OpenmrsService {
 	public void deleteTriagePatientQueue(TriagePatientQueue triagePatientQueue) throws APIException;
 	public TriagePatientData saveTriagePatientData(TriagePatientData triagePatientData) throws APIException ;
 	public ConceptAnswer getConceptAnswer(Concept answerConcept) throws APIException;
+	public Encounter getLastOPDEncounter(Patient patient) throws APIException;
+	public OpdPatientQueueLog getOpdPatientQueueLogByEncounter(Encounter encounter) throws APIException;
+	public Obs getObservationByPersonConceptAndEncounter(Person person,Concept concept,Encounter encounter) throws APIException;
 }

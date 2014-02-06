@@ -26,6 +26,10 @@ import java.util.List;
 
 import org.openmrs.Concept;
 import org.openmrs.ConceptAnswer;
+import org.openmrs.Encounter;
+import org.openmrs.Obs;
+import org.openmrs.Patient;
+import org.openmrs.Person;
 import org.openmrs.api.APIException;
 import org.openmrs.api.impl.BaseOpenmrsService;
 import org.openmrs.module.hospitalcore.PatientQueueService;
@@ -180,4 +184,17 @@ public class PatientQueueServiceImpl  extends BaseOpenmrsService implements Pati
 	       // TODO Auto-generated method stub
 	       return dao.getConceptAnswer(answerConcept);
 	}
+	
+	public Encounter getLastOPDEncounter(Patient patient) {
+		return dao.getLastOPDEncounter(patient);
+	}
+	
+	public OpdPatientQueueLog getOpdPatientQueueLogByEncounter(Encounter encounter) {
+		return dao.getOpdPatientQueueLogByEncounter(encounter);
+	}
+	
+	public Obs getObservationByPersonConceptAndEncounter(Person person,Concept concept,Encounter encounter) {
+		return dao.getObservationByPersonConceptAndEncounter(person,concept,encounter);
+	}
+	
 }

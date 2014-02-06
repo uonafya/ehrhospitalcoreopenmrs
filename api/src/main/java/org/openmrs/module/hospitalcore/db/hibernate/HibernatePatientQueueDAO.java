@@ -34,6 +34,10 @@ import org.hibernate.criterion.Projections;
 import org.hibernate.criterion.Restrictions;
 import org.openmrs.Concept;
 import org.openmrs.ConceptAnswer;
+import org.openmrs.Encounter;
+import org.openmrs.Obs;
+import org.openmrs.Patient;
+import org.openmrs.Person;
 import org.openmrs.api.db.DAOException;
 import org.openmrs.module.hospitalcore.db.PatientQueueDAO;
 import org.openmrs.module.hospitalcore.model.OpdPatientQueue;
@@ -283,6 +287,30 @@ public class HibernatePatientQueueDAO implements PatientQueueDAO {
 		Criteria criteria = sessionFactory.getCurrentSession().createCriteria(ConceptAnswer.class);
 		criteria.add(Restrictions.eq("answerConcept", answerConcept));
 		return (ConceptAnswer) criteria.uniqueResult();
+	}
+	
+	public Encounter getLastOPDEncounter(Patient patient) {
+		Criteria criteria = sessionFactory.getCurrentSession().createCriteria(Encounter.class,"encounter")
+				.createAlias("encounter.encounterType", "encounterType");
+		criteria.add(Restrictions.eq("patient", patient));
+		criteria.add(Restrictions.eq("encounterType.name","OPDENCOUNTER"));
+		criteria.addOrder(Order.desc("dateCreated"));
+		criteria.setMaxResults(1);
+		return (Encounter) criteria.uniqueResult();
+	}
+	
+	public OpdPatientQueueLog getOpdPatientQueueLogByEncounter(Encounter encounter) {
+		Criteria criteria = sessionFactory.getCurrentSession().createCriteria(OpdPatientQueueLog.class);
+		criteria.add(Restrictions.eq("encounter", encounter));
+		return (OpdPatientQueueLog) criteria.uniqueResult();
+	}
+	
+	public Obs getObservationByPersonConceptAndEncounter(Person person,Concept concept,Encounter encounter) {
+		Criteria criteria = sessionFactory.getCurrentSession().createCriteria(Obs.class);
+		criteria.add(Restrictions.eq("person", person));
+		criteria.add(Restrictions.eq("concept", concept));
+		criteria.add(Restrictions.eq("encounter", encounter));
+		return (Obs) criteria.uniqueResult();
 	}
 	
 }
