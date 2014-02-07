@@ -382,8 +382,8 @@
 			`pulse_rate` int(5),
 			`blood_group` VARCHAR(10),
 			`last_menstrual` DATETIME,
-			`rhesus_factor` VARCHAR(10),
-			`pitct` VARCHAR(11),
+			`rhesus_factor` VARCHAR(12),
+			`pitct` VARCHAR(12),
 			created_on DATETIME, PRIMARY KEY (id));
 		</sql>
 	</diff>	
