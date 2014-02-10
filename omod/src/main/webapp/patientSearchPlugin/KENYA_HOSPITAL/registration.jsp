@@ -595,12 +595,13 @@
 					<span id="rangeUnit"></span>
 				</td>
 			</tr>
+			<!--  
 			<tr>
 				<td>Other Name</td>
 				<td>
 					<input id="otherName" style="width: 100px"/>
 				</td>	
-			</tr>
+			</tr>-->
 			<tr>
 				<td>Marital Status</td>
 				<td>
