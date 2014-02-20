@@ -897,16 +897,12 @@ public class BillingServiceImpl extends BaseOpenmrsService implements BillingSer
 					for (ConceptSet con : conceptSets) {
 						if (labConceptIds.contains(con.getConcept().getConceptId())) {
 							labEncounter = getEncounter(bill, labEncounter, labEncounterType);
-							labEncounter=Context.getEncounterService().saveEncounter(labEncounter);
 							Order order = addOrder(labEncounter, con.getConcept(), bill, labOrderType);
-							order=Context.getOrderService().saveOrder(order);
 							item.setOrder(order);
 							
 						} else if (radiologyConceptIds.contains(con.getConcept().getConceptId())) {
 							radiologyEncounter = getEncounter(bill, radiologyEncounter, radiologyEncounterType);
-							radiologyEncounter = getEncounter(bill, radiologyEncounter, radiologyEncounterType);
 							Order order = addOrder(radiologyEncounter, con.getConcept(), bill, radiologyOrderType);
-							order=Context.getOrderService().saveOrder(order);
 							item.setOrder(order);
 						}
 					}
@@ -914,16 +910,12 @@ public class BillingServiceImpl extends BaseOpenmrsService implements BillingSer
 			} else {
 				if (labConceptIds.contains(concept.getConceptId())) {
 					labEncounter = getEncounter(bill, labEncounter, labEncounterType);
-					labEncounter=Context.getEncounterService().saveEncounter(labEncounter);
 					Order order = addOrder(labEncounter, concept, bill, labOrderType);
-					order=Context.getOrderService().saveOrder(order);
 					item.setOrder(order);
 					
 				} else if (radiologyConceptIds.contains(concept.getConceptId())) {
 					radiologyEncounter = getEncounter(bill, radiologyEncounter, radiologyEncounterType);
-					radiologyEncounter = getEncounter(bill, radiologyEncounter, radiologyEncounterType);
 					Order order = addOrder(radiologyEncounter, concept, bill, radiologyOrderType);
-					order=Context.getOrderService().saveOrder(order);
 					item.setOrder(order);
 				}
 			}
@@ -980,6 +972,7 @@ public class BillingServiceImpl extends BaseOpenmrsService implements BillingSer
 			enc.setProvider(bill.getCreator());
 			enc.setEncounterType(encounterType);
 			enc.setPatient(bill.getPatient());
+			Context.getEncounterService().saveEncounter(enc);
 			return enc;
 		} else {
 			return encounter;
