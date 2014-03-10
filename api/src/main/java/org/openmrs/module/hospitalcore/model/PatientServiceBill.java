@@ -26,6 +26,7 @@ import java.util.Date;
 import java.util.HashSet;
 import java.util.Set;
 
+import org.openmrs.Encounter;
 import org.openmrs.Patient;
 import org.openmrs.User;
 
@@ -70,6 +71,10 @@ public class PatientServiceBill implements Serializable {
 	private String comment;
 	
 	private Set<PatientServiceBillItem> billItems;
+	
+    private Encounter encounter;
+	
+	private int dischargeStatus;
 	
 	public Integer getPatientServiceBillId() {
 		return patientServiceBillId;
@@ -196,5 +201,21 @@ public class PatientServiceBill implements Serializable {
 
 	public void setWaiverAmount(BigDecimal waiverAmount) {
 		this.waiverAmount = waiverAmount;
+	}
+
+	public Encounter getEncounter() {
+		return encounter;
+	}
+
+	public void setEncounter(Encounter encounter) {
+		this.encounter = encounter;
+	}
+
+	public int getDischargeStatus() {
+		return dischargeStatus;
+	}
+
+	public void setDischargeStatus(int dischargeStatus) {
+		this.dischargeStatus = dischargeStatus;
 	}
 }

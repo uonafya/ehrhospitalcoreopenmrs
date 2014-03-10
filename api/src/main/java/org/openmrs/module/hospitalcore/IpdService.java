@@ -76,6 +76,12 @@ public interface IpdService extends OpenmrsService{
 	public List<IpdPatientAdmission> getAllIpdPatientAdmission() throws APIException;
 	
 	@Transactional(readOnly = true)
+	public List<IpdPatientAdmission> getAllIndoorPatient() throws APIException;
+	
+	@Transactional(readOnly = true)
+	public List<IpdPatientAdmissionLog> getAllIndoorPatientFromAdmissionLog() throws APIException;
+	
+	@Transactional(readOnly = true)
 	public List<IpdPatientAdmission> searchIpdPatientAdmission(String patientSearch, ArrayList<Integer> userIds, String fromDate, String toDate, ArrayList<Integer> wardIds, String status) throws APIException;
 	
 	@Transactional(readOnly = true)
@@ -96,6 +102,10 @@ public interface IpdService extends OpenmrsService{
 	
 	@Transactional(readOnly = true)
 	public IpdPatientAdmitted getAdmittedByPatientId(Integer patientId) throws APIException;
+	
+	@Transactional(readOnly = true)
+	public IpdPatientAdmitted getAdmittedByAdmissionLogId(IpdPatientAdmissionLog ipdPatientAdmissionLog) throws APIException;
+	
 	public void saveWardBedStrength(WardBedStrength wardBedStrength) throws APIException;
 	public WardBedStrength getWardBedStrengthByWardId(Integer wardId) throws APIException;
 

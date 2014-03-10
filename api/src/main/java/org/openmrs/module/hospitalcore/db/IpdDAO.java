@@ -51,6 +51,8 @@ public interface IpdDAO {
 	public List<IpdPatientAdmissionLog> listIpdPatientAdmissionLog(Integer patientId, Integer admissionWardId,String status,Integer min, Integer max)
 	throws DAOException;
 	public List<IpdPatientAdmission> getAllIpdPatientAdmission() throws DAOException;
+	public List<IpdPatientAdmission> getAllIndoorPatient() throws APIException;
+	public List<IpdPatientAdmissionLog> getAllIndoorPatientFromAdmissionLog() throws APIException;
 	
 	public List<IpdPatientAdmission> searchIpdPatientAdmission(String patientSearch, ArrayList<Integer> userIds, String fromDate, String toDate, ArrayList<Integer> wardIds, String status) throws APIException;
 	public List<IpdPatientAdmitted> searchIpdPatientAdmitted(String patientSearch, ArrayList<Integer> userIds, String fromDate, String toDate, ArrayList<Integer> wardIds, String status) throws APIException;
@@ -61,6 +63,8 @@ public interface IpdDAO {
 	public List<IpdPatientAdmittedLog> listAdmittedLogByPatientId(Integer patientId) throws DAOException;
 	
 	public IpdPatientAdmitted getAdmittedByPatientId(Integer patientId) throws DAOException;
+	
+	public IpdPatientAdmitted getAdmittedByAdmissionLogId(IpdPatientAdmissionLog ipdPatientAdmissionLog) throws DAOException;
 
 	public List<IpdPatientAdmitted> getAllIpdAdmittedPatientByWardId(Integer wardId)
 			throws DAOException;

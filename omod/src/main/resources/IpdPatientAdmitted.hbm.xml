@@ -34,6 +34,7 @@
 		<property name="comments" column="comments" />
 		<property name="fatherName" column="father_name" />
 		<property name="admissionOutCome" column="admission_outcome" />
-		
+		<property name="requestForDischargeStatus" column="request_discharge_status" />
+		<property name="billingStatus" column="billing_status" />
 	</class>
 </hibernate-mapping>

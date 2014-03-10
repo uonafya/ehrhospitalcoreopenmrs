@@ -416,5 +416,28 @@
 		</sql>
 	</diff>
 	
+	<diff>
+		<version>3.1</version>
+		<author>ghanshyam</author>
+		<date>10 march 2014</date>
+		<description>
+			Add column for knowing the status of Patient as Indoor or outdoor
+		</description>
+		<sql>
+                ALTER TABLE ipd_patient_admission
+                ADD COLUMN `accept_status` smallint(1) NOT NULL DEFAULT '0',
+                ADD COLUMN `ipd_encounter_id` int(11) DEFAULT NULL;
+                
+                ALTER TABLE ipd_patient_admission_log
+                ADD COLUMN `indoor_status` smallint(1) NOT NULL DEFAULT '0',
+                ADD COLUMN `request_discharge_status` smallint(1) NOT NULL DEFAULT '0',
+                ADD COLUMN `billing_status` smallint(1) NOT NULL DEFAULT '0';
+                
+                ALTER TABLE ipd_patient_admitted
+                ADD COLUMN `request_discharge_status` smallint(1) NOT NULL DEFAULT '0',
+                ADD COLUMN `billing_status` smallint(1) NOT NULL DEFAULT '0';
+		</sql>
+	</diff>
+	
 	
 </sqldiff>

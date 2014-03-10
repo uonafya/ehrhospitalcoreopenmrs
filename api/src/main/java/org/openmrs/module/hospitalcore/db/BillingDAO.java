@@ -23,6 +23,7 @@ package org.openmrs.module.hospitalcore.db;
 import java.util.Date;
 import java.util.List;
 import org.hibernate.SessionFactory;
+import org.openmrs.Encounter;
 import org.openmrs.Patient;
 import org.openmrs.api.db.DAOException;
 import org.openmrs.module.hospitalcore.model.Ambulance;
@@ -30,6 +31,7 @@ import org.openmrs.module.hospitalcore.model.AmbulanceBill;
 import org.openmrs.module.hospitalcore.model.BillableService;
 import org.openmrs.module.hospitalcore.model.Company;
 import org.openmrs.module.hospitalcore.model.Driver;
+import org.openmrs.module.hospitalcore.model.IndoorPatientServiceBill;
 import org.openmrs.module.hospitalcore.model.MiscellaneousService;
 import org.openmrs.module.hospitalcore.model.MiscellaneousServiceBill;
 import org.openmrs.module.hospitalcore.model.OpdTestOrder;
@@ -169,11 +171,25 @@ public interface BillingDAO {
 	 */
 	public PatientServiceBill getPatientServiceBillById(Integer patientServiceBillId) throws DAOException;
 	
+	public IndoorPatientServiceBill getIndoorPatientServiceBillById(Integer indoorPatientServiceBillId) throws DAOException;
+	
+	public PatientServiceBill getPatientServiceBillByEncounter(Encounter encounter) throws DAOException;
+	
+	public List<IndoorPatientServiceBill> getIndoorPatientServiceBillByEncounter(Encounter encounter) throws DAOException;
+	
 	public PatientServiceBill savePatientServiceBill(PatientServiceBill patientServiceBill) throws DAOException;
+	
+	public IndoorPatientServiceBill saveIndoorPatientServiceBill(IndoorPatientServiceBill indoorPatientServiceBill) throws DAOException;
+	
+	public void deleteIndoorPatientServiceBill(IndoorPatientServiceBill indoorPatientServiceBill) throws DAOException;
 	
 	public List<PatientServiceBill> listPatientServiceBillByPatient(int min, int max, Patient patient) throws DAOException;
 	
+	public List<IndoorPatientServiceBill> listIndoorPatientServiceBillByPatient(int min, int max, Patient patient) throws DAOException;
+	
 	public int countListPatientServiceBillByPatient(Patient patient) throws DAOException;
+	
+	public int countListIndoorPatientServiceBillByPatient(Patient patient) throws DAOException;
 	
 	public List<PatientServiceBill> getAllPatientServiceBill() throws DAOException;
 	

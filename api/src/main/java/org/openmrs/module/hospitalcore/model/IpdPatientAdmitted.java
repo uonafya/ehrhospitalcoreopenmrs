@@ -85,6 +85,8 @@ public class IpdPatientAdmitted implements Serializable{
 	private IpdPatientAdmissionLog  patientAdmissionLog;
 	private IpdPatientAdmittedLog patientAdmittedLogTransferFrom;//transfer_from_id : log   ( N/A )
 	private String admissionOutCome;
+	private int requestForDischargeStatus;// 0=not yet requested for discharge,1=requested for discharge;
+	private int billingStatus;// 0=billing not done,1=billing done;
 	public Integer getId() {
 		return id;
 	}
@@ -227,6 +229,18 @@ public class IpdPatientAdmitted implements Serializable{
 	}
 	public void setAdmissionOutCome(String admissionOutCome) {
 		this.admissionOutCome = admissionOutCome;
+	}
+	public int getRequestForDischargeStatus() {
+		return requestForDischargeStatus;
+	}
+	public void setRequestForDischargeStatus(int requestForDischargeStatus) {
+		this.requestForDischargeStatus = requestForDischargeStatus;
+	}
+	public int getBillingStatus() {
+		return billingStatus;
+	}
+	public void setBillingStatus(int billingStatus) {
+		this.billingStatus = billingStatus;
 	}
 	
 }

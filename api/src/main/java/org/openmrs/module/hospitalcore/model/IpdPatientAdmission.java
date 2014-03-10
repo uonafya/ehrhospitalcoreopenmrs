@@ -26,6 +26,7 @@ import java.io.Serializable;
 import java.util.Date;
 
 import org.openmrs.Concept;
+import org.openmrs.Encounter;
 import org.openmrs.Patient;
 import org.openmrs.User;
 import org.openmrs.module.hospitalcore.util.PatientUtils;
@@ -54,6 +55,9 @@ public class IpdPatientAdmission implements Serializable{
 	private String status ; //: String  : admitted  /  canceled
 	private User opdAmittedUser;
 	private OpdPatientQueueLog opdLog;
+	private int acceptStatus; //0=not accepted, 1=accepted
+	private Encounter ipdEncounter;
+	
 	public Date getAdmissionDate() {
 		return admissionDate;
 	}
@@ -127,6 +131,18 @@ public class IpdPatientAdmission implements Serializable{
 	public String getAge(){
 		return PatientUtils.estimateAge(patient);
 	}
+	public int getAcceptStatus() {
+		return acceptStatus;
+	}
+	public void setAcceptStatus(int acceptStatus) {
+		this.acceptStatus = acceptStatus;
+	}
+	public Encounter getIpdEncounter() {
+		return ipdEncounter;
+	}
+	public void setIpdEncounter(Encounter ipdEncounter) {
+		this.ipdEncounter = ipdEncounter;
+	}
 	@Override
 	public String toString() {
 		return "IpdPatientAdmission [id=" + id + ", admissionDate="
@@ -135,7 +151,8 @@ public class IpdPatientAdmission implements Serializable{
 				+ ", birthDate=" + birthDate + ", gender=" + gender
 				+ ", admissionWard=" + admissionWard + ", status=" + status
 				+ ", opdAmittedUser=" + opdAmittedUser + ", opdLog=" + opdLog
-				+ "]";
+				+ ", acceptStatus=" + acceptStatus
+				+ ", ipdEncounter=" + ipdEncounter + "]";
 	}
 	
 	

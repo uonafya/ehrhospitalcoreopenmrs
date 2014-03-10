@@ -57,6 +57,9 @@ public class IpdPatientAdmissionLog implements Serializable{
 	private OpdPatientQueueLog opdLog;
 	private User opdAmittedUser ;
 	private Obs opdObsGroup;
+	private int indoorStatus; //0=outdoor Patient, 1=indoor patient
+	private int requestForDischargeStatus;// 0=not yet requested for discharge,1=requested for discharge;
+	private int billingStatus;// 0=billing not done,1=billing done;
 	
 	private Encounter ipdEncounter;
 	public Date getAdmissionDate() {
@@ -144,6 +147,23 @@ public class IpdPatientAdmissionLog implements Serializable{
 	public String getAge(){
 		return PatientUtils.estimateAge(patient);
 	}
-	
+	public int getIndoorStatus() {
+		return indoorStatus;
+	}
+	public void setIndoorStatus(int indoorStatus) {
+		this.indoorStatus = indoorStatus;
+	}
+	public int getRequestForDischargeStatus() {
+		return requestForDischargeStatus;
+	}
+	public void setRequestForDischargeStatus(int requestForDischargeStatus) {
+		this.requestForDischargeStatus = requestForDischargeStatus;
+	}
+	public int getBillingStatus() {
+		return billingStatus;
+	}
+	public void setBillingStatus(int billingStatus) {
+		this.billingStatus = billingStatus;
+	}
 	
 }

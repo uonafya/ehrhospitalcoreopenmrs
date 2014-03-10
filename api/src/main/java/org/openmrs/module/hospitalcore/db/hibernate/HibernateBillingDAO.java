@@ -34,6 +34,7 @@ import org.hibernate.classic.Session;
 import org.hibernate.criterion.Order;
 import org.hibernate.criterion.Projections;
 import org.hibernate.criterion.Restrictions;
+import org.openmrs.Encounter;
 import org.openmrs.GlobalProperty;
 import org.openmrs.Patient;
 import org.openmrs.api.context.Context;
@@ -46,6 +47,7 @@ import org.openmrs.module.hospitalcore.model.AmbulanceBill;
 import org.openmrs.module.hospitalcore.model.BillableService;
 import org.openmrs.module.hospitalcore.model.Company;
 import org.openmrs.module.hospitalcore.model.Driver;
+import org.openmrs.module.hospitalcore.model.IndoorPatientServiceBill;
 import org.openmrs.module.hospitalcore.model.MiscellaneousService;
 import org.openmrs.module.hospitalcore.model.MiscellaneousServiceBill;
 import org.openmrs.module.hospitalcore.model.OpdTestOrder;
@@ -549,6 +551,16 @@ public class HibernateBillingDAO implements BillingDAO {
 		return rs != null ? rs.intValue() : 0;
 	}
 
+	public int countListIndoorPatientServiceBillByPatient(Patient patient)
+			throws DAOException {
+		Criteria criteria = sessionFactory.getCurrentSession().createCriteria(
+				IndoorPatientServiceBill.class);
+		criteria.add(Restrictions.eq("patient", patient));
+		Number rs = (Number) criteria.setProjection(Projections.rowCount())
+				.uniqueResult();
+		return rs != null ? rs.intValue() : 0;
+	}
+
 	/**
 	 * @see org.openmrs.module.billing.db.BillingDAO#getAllPatientServiceBill()
 	 */
@@ -572,6 +584,31 @@ public class HibernateBillingDAO implements BillingDAO {
 				patientServiceBillId));
 		return (PatientServiceBill) criteria.uniqueResult();
 	}
+	
+	public IndoorPatientServiceBill getIndoorPatientServiceBillById(Integer indoorPatientServiceBillId) throws DAOException {
+		Criteria criteria = sessionFactory.getCurrentSession().createCriteria(
+				IndoorPatientServiceBill.class);
+		criteria.add(Restrictions.eq("indoorPatientServiceBillId",
+				indoorPatientServiceBillId));
+		return (IndoorPatientServiceBill) criteria.uniqueResult();
+	}
+
+	
+	public PatientServiceBill getPatientServiceBillByEncounter(
+			Encounter encounter) throws DAOException {
+		Criteria criteria = sessionFactory.getCurrentSession().createCriteria(
+				PatientServiceBill.class);
+		criteria.add(Restrictions.eq("encounter", encounter));
+		return (PatientServiceBill) criteria.uniqueResult();
+	}
+	
+	public List<IndoorPatientServiceBill> getIndoorPatientServiceBillByEncounter(
+			Encounter encounter) throws DAOException {
+		Criteria criteria = sessionFactory.getCurrentSession().createCriteria(
+				IndoorPatientServiceBill.class);
+		criteria.add(Restrictions.eq("encounter", encounter));
+		return criteria.list();
+	}
 
 	/**
 	 * @see org.openmrs.module.billing.db.BillingDAO#listPatientServiceBillByDriver(int,
@@ -587,6 +624,16 @@ public class HibernateBillingDAO implements BillingDAO {
 				.setMaxResults(max);
 		return criteria.list();
 	}
+	
+	@SuppressWarnings("unchecked")
+	public List<IndoorPatientServiceBill> listIndoorPatientServiceBillByPatient(int min, int max, Patient patient) throws DAOException {
+		Criteria criteria = sessionFactory.getCurrentSession().createCriteria(
+				PatientServiceBill.class);
+		criteria.add(Restrictions.eq("patient", patient))
+				.addOrder(Order.desc("createdDate")).setFirstResult(min)
+				.setMaxResults(max);
+		return criteria.list();
+	}
 
 	/**
 	 * @see org.openmrs.module.billing.db.BillingDAO#savePatientServiceBill(org.openmrs.module.billing.model.PatientServiceBill)
@@ -595,6 +642,19 @@ public class HibernateBillingDAO implements BillingDAO {
 			PatientServiceBill patientServiceBill) throws DAOException {
 		return (PatientServiceBill) sessionFactory.getCurrentSession().merge(
 				patientServiceBill);
+	}
+
+	public IndoorPatientServiceBill saveIndoorPatientServiceBill(
+			IndoorPatientServiceBill indoorPatientServiceBill)
+			throws DAOException {
+		return (IndoorPatientServiceBill) sessionFactory.getCurrentSession()
+				.merge(indoorPatientServiceBill);
+	}
+	
+	public void deleteIndoorPatientServiceBill(
+			IndoorPatientServiceBill indoorPatientServiceBill)
+			throws DAOException {
+		sessionFactory.getCurrentSession().delete(indoorPatientServiceBill);
 	}
 
 	/**
@@ -761,16 +821,14 @@ public class HibernateBillingDAO implements BillingDAO {
 				GlobalProperty encounterTypeId = Context
 						.getAdministrationService().getGlobalPropertyObject(
 								"billing.encounterTypeId");
-				//ghanshyam 6-august-2013 code review bug
+				// ghanshyam 6-august-2013 code review bug
 				/*
-				if (encounterTypeId == null
-						|| !"6".equalsIgnoreCase(encounterTypeId
-								.getPropertyValue())) {
-					encounterTypeId.setPropertyValue("6");
-					Context.getAdministrationService().saveGlobalProperty(
-							encounterTypeId);
-				}
-				*/
+				 * if (encounterTypeId == null ||
+				 * !"6".equalsIgnoreCase(encounterTypeId .getPropertyValue())) {
+				 * encounterTypeId.setPropertyValue("6");
+				 * Context.getAdministrationService().saveGlobalProperty(
+				 * encounterTypeId); }
+				 */
 			} catch (Exception e) {
 				e.printStackTrace();
 			}
@@ -900,7 +958,9 @@ public class HibernateBillingDAO implements BillingDAO {
 		return (PatientServiceBill) criteria.uniqueResult();
 	}
 
-	// ghanshyam 3-june-2013 New Requirement #1632 Orders from dashboard must be appear in billing queue.User must be able to generate bills from this queue
+	// ghanshyam 3-june-2013 New Requirement #1632 Orders from dashboard must be
+	// appear in billing queue.User must be able to generate bills from this
+	// queue
 	public List<PatientSearch> searchListOfPatient(Date date, String searchKey,
 			int page) throws DAOException {
 		SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");

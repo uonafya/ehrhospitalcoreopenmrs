@@ -155,6 +155,8 @@
 		TriagePatientQueue.hbm.xml
 		TriagePatientQueueLog.hbm.xml
 		TriagePatientData.hbm.xml
+		IndoorPatientServiceBill.hbm.xml
+		IndoorPatientServiceBillItem.hbm.xml
     </mappingFiles>
 </module>
 

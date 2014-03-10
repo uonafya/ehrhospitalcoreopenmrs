@@ -38,5 +38,8 @@
 		<many-to-one name="receipt" column="receipt_id"
 			class="org.openmrs.module.hospitalcore.model.Receipt" lazy="false"
 			foreign-key="fk_patientservicebill_receipt" />
+		<many-to-one name="encounter" column="encounter" class="org.openmrs.Encounter"
+			foreign-key="fk_patientservicebill_encounter" />
+		<property name="dischargeStatus" column="discharge_status" />
 	</class>
 </hibernate-mapping>

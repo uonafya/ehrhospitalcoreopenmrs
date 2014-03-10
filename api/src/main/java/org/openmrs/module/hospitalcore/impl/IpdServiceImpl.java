@@ -18,7 +18,6 @@
  *
  **/
 
-
 package org.openmrs.module.hospitalcore.impl;
 
 import java.util.ArrayList;
@@ -43,28 +42,36 @@ import org.openmrs.module.hospitalcore.model.WardBedStrength;
 import org.openmrs.module.hospitalcore.model.IpdPatientVitalStatistics;
 import org.openmrs.module.hospitalcore.util.HospitalCoreConstants;
 
-public class IpdServiceImpl extends BaseOpenmrsService implements IpdService{
-	public IpdServiceImpl(){
-    }
-    
-    protected IpdDAO dao;
-	
+public class IpdServiceImpl extends BaseOpenmrsService implements IpdService {
+	public IpdServiceImpl() {
+	}
+
+	protected IpdDAO dao;
+
 	public void setDao(IpdDAO dao) {
 		this.dao = dao;
 	}
-	
+
 	public List<IpdPatientAdmission> getAllIpdPatientAdmission()
 			throws APIException {
 		return dao.getAllIpdPatientAdmission();
 	}
 
-	
+	public List<IpdPatientAdmission> getAllIndoorPatient() throws APIException {
+		return dao.getAllIndoorPatient();
+	}
+
+	public List<IpdPatientAdmissionLog> getAllIndoorPatientFromAdmissionLog()
+			throws APIException {
+		return dao.getAllIndoorPatientFromAdmissionLog();
+	}
 
 	public List<IpdPatientAdmissionLog> listIpdPatientAdmissionLog(
 			Integer patientId, Integer admissionWardId, String status,
 			Integer min, Integer max) throws APIException {
 		// TODO Auto-generated method stub
-		return dao.listIpdPatientAdmissionLog(patientId, admissionWardId, status, min, max);
+		return dao.listIpdPatientAdmissionLog(patientId, admissionWardId,
+				status, min, max);
 	}
 
 	public List<IpdPatientAdmitted> getAllIpdPatientAdmitted()
@@ -121,20 +128,22 @@ public class IpdServiceImpl extends BaseOpenmrsService implements IpdService{
 			String patientSearch, ArrayList<Integer> userIds, String fromDate,
 			String toDate, ArrayList<Integer> wardIds, String status)
 			throws APIException {
-		return dao.searchIpdPatientAdmission(patientSearch, userIds, fromDate, toDate, wardIds, status);
+		return dao.searchIpdPatientAdmission(patientSearch, userIds, fromDate,
+				toDate, wardIds, status);
 	}
 
 	public List<IpdPatientAdmitted> searchIpdPatientAdmitted(
 			String patientSearch, ArrayList<Integer> userIds, String fromDate,
 			String toDate, ArrayList<Integer> wardIds, String status)
 			throws APIException {
-		return dao.searchIpdPatientAdmitted(patientSearch, userIds, fromDate, toDate, wardIds, status);
+		return dao.searchIpdPatientAdmitted(patientSearch, userIds, fromDate,
+				toDate, wardIds, status);
 	}
 
 	public void removeIpdPatientAdmission(IpdPatientAdmission admission)
 			throws APIException {
 		dao.removeIpdPatientAdmission(admission);
-		
+
 	}
 
 	public void removeIpdPatientAdmitted(IpdPatientAdmitted admitted)
@@ -144,20 +153,21 @@ public class IpdServiceImpl extends BaseOpenmrsService implements IpdService{
 
 	public IpdPatientAdmitted transfer(Integer id, Integer wardId,
 			Integer doctorId, String bed) throws APIException {
-		
-		
+
 		IpdPatientAdmitted from = getIpdPatientAdmitted(id);
-		if( from == null )
-			throw new APIException("Can not found IpdPatientAdmitted with id :"+id);
-		
+		if (from == null)
+			throw new APIException("Can not found IpdPatientAdmitted with id :"
+					+ id);
+
 		Concept ward = Context.getConceptService().getConcept(wardId);
-		if( ward == null )
-			throw new APIException("Can not find IPD Ward with id : "+wardId);
-		
+		if (ward == null)
+			throw new APIException("Can not find IPD Ward with id : " + wardId);
+
 		User user = Context.getUserService().getUser(doctorId);
-		if( user == null )
-			throw new APIException("Can not find Doctor with user id :" + doctorId);
-		
+		if (user == null)
+			throw new APIException("Can not find Doctor with user id :"
+					+ doctorId);
+
 		IpdPatientAdmittedLog log = new IpdPatientAdmittedLog();
 		log.setAdmissionDate(new Date());
 		log.setAdmittedWard(from.getAdmittedWard());
@@ -170,7 +180,8 @@ public class IpdServiceImpl extends BaseOpenmrsService implements IpdService{
 		log.setIpdAdmittedUser(from.getIpdAdmittedUser());
 		log.setMonthlyIncome(from.getMonthlyIncome());
 		log.setPatient(from.getPatient());
-		log.setPatientAdmittedLogTransferFrom(from.getPatientAdmittedLogTransferFrom());
+		log.setPatientAdmittedLogTransferFrom(from
+				.getPatientAdmittedLogTransferFrom());
 		log.setPatientAddress(from.getPatientAddress());
 		log.setPatientIdentifier(from.getPatientIdentifier());
 		log.setPatientAdmissionLog(from.getPatientAdmissionLog());
@@ -178,11 +189,10 @@ public class IpdServiceImpl extends BaseOpenmrsService implements IpdService{
 		log.setUser(Context.getAuthenticatedUser());
 		log.setStatus(IpdPatientAdmitted.STATUS_TRANSFER);
 		log = saveIpdPatientAdmittedLog(log);
-		if( log.getId() != null ){
+		if (log.getId() != null) {
 			removeIpdPatientAdmitted(from);
 		}
-		
-		
+
 		IpdPatientAdmitted to = new IpdPatientAdmitted();
 		to.setAdmissionDate(new Date());
 		to.setAdmittedWard(ward);
@@ -204,33 +214,34 @@ public class IpdServiceImpl extends BaseOpenmrsService implements IpdService{
 		to.setPatientAdmissionLog(log.getPatientAdmissionLog());
 		to.setPatientAdmittedLogTransferFrom(log);
 		to = saveIpdPatientAdmitted(to);
-		
+
 		return to;
 	}
-	
-	//ghanshyam 11-july-2013 feedback # 1724 Introducing bed availability
+
+	// ghanshyam 11-july-2013 feedback # 1724 Introducing bed availability
 	public IpdPatientAdmitted transfer(Integer id, Integer wardId,
-			Integer doctorId, String bed,String comments) throws APIException {
-		
-		
+			Integer doctorId, String bed, String comments) throws APIException {
+
 		IpdPatientAdmitted from = getIpdPatientAdmitted(id);
-		if( from == null )
-			throw new APIException("Can not found IpdPatientAdmitted with id :"+id);
-		
+		if (from == null)
+			throw new APIException("Can not found IpdPatientAdmitted with id :"
+					+ id);
+
 		Concept ward = Context.getConceptService().getConcept(wardId);
-		if( ward == null )
-			throw new APIException("Can not find IPD Ward with id : "+wardId);
-		
+		if (ward == null)
+			throw new APIException("Can not find IPD Ward with id : " + wardId);
+
 		User user = Context.getUserService().getUser(doctorId);
-		if( user == null )
-			throw new APIException("Can not find Doctor with user id :" + doctorId);
-		
+		if (user == null)
+			throw new APIException("Can not find Doctor with user id :"
+					+ doctorId);
+
 		IpdPatientAdmittedLog log = new IpdPatientAdmittedLog();
 		log.setAdmissionDate(new Date());
 		log.setAdmittedWard(from.getAdmittedWard());
 		log.setBasicPay(from.getBasicPay());
 		log.setBed(from.getBed());
-		//ghanshyam 11-july-2013 feedback # 1724 Introducing bed availability
+		// ghanshyam 11-july-2013 feedback # 1724 Introducing bed availability
 		log.setComments(comments);
 		log.setBirthDate(from.getBirthDate());
 		log.setCaste(from.getCaste());
@@ -239,7 +250,8 @@ public class IpdServiceImpl extends BaseOpenmrsService implements IpdService{
 		log.setIpdAdmittedUser(from.getIpdAdmittedUser());
 		log.setMonthlyIncome(from.getMonthlyIncome());
 		log.setPatient(from.getPatient());
-		log.setPatientAdmittedLogTransferFrom(from.getPatientAdmittedLogTransferFrom());
+		log.setPatientAdmittedLogTransferFrom(from
+				.getPatientAdmittedLogTransferFrom());
 		log.setPatientAddress(from.getPatientAddress());
 		log.setPatientIdentifier(from.getPatientIdentifier());
 		log.setPatientAdmissionLog(from.getPatientAdmissionLog());
@@ -247,17 +259,16 @@ public class IpdServiceImpl extends BaseOpenmrsService implements IpdService{
 		log.setUser(Context.getAuthenticatedUser());
 		log.setStatus(IpdPatientAdmitted.STATUS_TRANSFER);
 		log = saveIpdPatientAdmittedLog(log);
-		if( log.getId() != null ){
+		if (log.getId() != null) {
 			removeIpdPatientAdmitted(from);
 		}
-		
-		
+
 		IpdPatientAdmitted to = new IpdPatientAdmitted();
 		to.setAdmissionDate(new Date());
 		to.setAdmittedWard(ward);
 		to.setBasicPay(from.getBasicPay());
 		to.setBed(bed);
-		//ghanshyam 11-july-2013 feedback # 1724 Introducing bed availability
+		// ghanshyam 11-july-2013 feedback # 1724 Introducing bed availability
 		to.setComments(comments);
 		to.setBirthDate(from.getBirthDate());
 		to.setCaste(from.getCaste());
@@ -275,15 +286,15 @@ public class IpdServiceImpl extends BaseOpenmrsService implements IpdService{
 		to.setPatientAdmissionLog(log.getPatientAdmissionLog());
 		to.setPatientAdmittedLogTransferFrom(log);
 		to = saveIpdPatientAdmitted(to);
-		
+
 		return to;
 	}
 
 	public IpdPatientAdmittedLog discharge(Integer id, Integer outComeConceptId)
 			throws APIException {
-		
-		
-		Concept outComeConcept = Context.getConceptService().getConcept(outComeConceptId);
+
+		Concept outComeConcept = Context.getConceptService().getConcept(
+				outComeConceptId);
 		IpdPatientAdmitted admitted = getIpdPatientAdmitted(id);
 		IpdPatientAdmittedLog log = new IpdPatientAdmittedLog();
 		log.setAdmissionDate(new Date());
@@ -302,58 +313,61 @@ public class IpdServiceImpl extends BaseOpenmrsService implements IpdService{
 		log.setPatientIdentifier(admitted.getPatientIdentifier());
 		log.setPatientAdmissionLog(admitted.getPatientAdmissionLog());
 		log.setPatientName(admitted.getPatientName());
-		log.setPatientAdmittedLogTransferFrom(admitted.getPatientAdmittedLogTransferFrom());
+		log.setPatientAdmittedLogTransferFrom(admitted
+				.getPatientAdmittedLogTransferFrom());
 		log.setStatus(IpdPatientAdmitted.STATUS_DISCHARGE);
 		log.setAdmissionOutCome(outComeConcept.getName().getName());
-			
+
 		log = saveIpdPatientAdmittedLog(log);
-		if( log.getId() != null ){
-			//CHUYEN set status of admissionLog = discharge
-			IpdPatientAdmissionLog admissionLog = admitted.getPatientAdmissionLog();
+		if (log.getId() != null) {
+			// CHUYEN set status of admissionLog = discharge
+			IpdPatientAdmissionLog admissionLog = admitted
+					.getPatientAdmissionLog();
 			admissionLog.setStatus(IpdPatientAdmitted.STATUS_DISCHARGE);
 			saveIpdPatientAdmissionLog(admissionLog);
 			removeIpdPatientAdmitted(admitted);
 
 			// save discharge info to encounter
-			Concept conVisitOutCome = Context.getConceptService().getConcept(HospitalCoreConstants.CONCEPT_ADMISSION_OUTCOME);
-			Location location = new Location( 1 );
-			
+			Concept conVisitOutCome = Context.getConceptService().getConcept(
+					HospitalCoreConstants.CONCEPT_ADMISSION_OUTCOME);
+			Location location = new Location(1);
+
 			Encounter ipdEncounter = admissionLog.getIpdEncounter();
-			
+
 			Obs dischargeObs = new Obs();
-			
+
 			dischargeObs.setConcept(conVisitOutCome);
 			dischargeObs.setValueCoded(outComeConcept);
-			dischargeObs.setCreator( Context.getAuthenticatedUser());
+			dischargeObs.setCreator(Context.getAuthenticatedUser());
 			dischargeObs.setObsDatetime(new Date());
 			dischargeObs.setLocation(location);
 			dischargeObs.setDateCreated(new Date());
 			dischargeObs.setPatient(ipdEncounter.getPatient());
 			dischargeObs.setEncounter(ipdEncounter);
-			dischargeObs = Context.getObsService().saveObs(dischargeObs, "update obs dischargeObs if need");
+			dischargeObs = Context.getObsService().saveObs(dischargeObs,
+					"update obs dischargeObs if need");
 			ipdEncounter.addObs(dischargeObs);
 			Context.getEncounterService().saveEncounter(ipdEncounter);
-			
+
 		}
-		
-		
+
 		return log;
 	}
 
-	
 	// Kesavulu loka 24/06/2013 # 1926 One text filed for otherInstructions.
-	public IpdPatientAdmittedLog discharge(Integer id, Integer outComeConceptId, String otherInstructions)
+	public IpdPatientAdmittedLog discharge(Integer id,
+			Integer outComeConceptId, String otherInstructions)
 			throws APIException {
-		
-		
-		Concept outComeConcept = Context.getConceptService().getConcept(outComeConceptId);
+
+		Concept outComeConcept = Context.getConceptService().getConcept(
+				outComeConceptId);
 		IpdPatientAdmitted admitted = getIpdPatientAdmitted(id);
 		IpdPatientAdmittedLog log = new IpdPatientAdmittedLog();
 		log.setAdmissionDate(new Date());
 		log.setAdmittedWard(admitted.getAdmittedWard());
 		log.setBasicPay(admitted.getBasicPay());
 		log.setBed(admitted.getBed());
-		//ghanshyam 11-july-2013 feedback # 1724 Introducing bed availability
+		// ghanshyam 11-july-2013 feedback # 1724 Introducing bed availability
 		log.setComments(admitted.getComments());
 		log.setBirthDate(admitted.getBirthDate());
 		log.setCaste(admitted.getCaste());
@@ -367,44 +381,47 @@ public class IpdServiceImpl extends BaseOpenmrsService implements IpdService{
 		log.setPatientIdentifier(admitted.getPatientIdentifier());
 		log.setPatientAdmissionLog(admitted.getPatientAdmissionLog());
 		log.setPatientName(admitted.getPatientName());
-		log.setPatientAdmittedLogTransferFrom(admitted.getPatientAdmittedLogTransferFrom());
+		log.setPatientAdmittedLogTransferFrom(admitted
+				.getPatientAdmittedLogTransferFrom());
 		log.setStatus(IpdPatientAdmitted.STATUS_DISCHARGE);
 		log.setAdmissionOutCome(outComeConcept.getName().getName());
-		log.setOtherInstructions(otherInstructions);		
+		log.setOtherInstructions(otherInstructions);
 		log = saveIpdPatientAdmittedLog(log);
-		if( log.getId() != null ){
-			//CHUYEN set status of admissionLog = discharge
-			IpdPatientAdmissionLog admissionLog = admitted.getPatientAdmissionLog();
+		if (log.getId() != null) {
+			// CHUYEN set status of admissionLog = discharge
+			IpdPatientAdmissionLog admissionLog = admitted
+					.getPatientAdmissionLog();
 			admissionLog.setStatus(IpdPatientAdmitted.STATUS_DISCHARGE);
 			saveIpdPatientAdmissionLog(admissionLog);
 			removeIpdPatientAdmitted(admitted);
 
 			// save discharge info to encounter
-			Concept conVisitOutCome = Context.getConceptService().getConcept(HospitalCoreConstants.CONCEPT_ADMISSION_OUTCOME);
-			Location location = new Location( 1 );
-			
+			Concept conVisitOutCome = Context.getConceptService().getConcept(
+					HospitalCoreConstants.CONCEPT_ADMISSION_OUTCOME);
+			Location location = new Location(1);
+
 			Encounter ipdEncounter = admissionLog.getIpdEncounter();
-			
+
 			Obs dischargeObs = new Obs();
-			
+
 			dischargeObs.setConcept(conVisitOutCome);
 			dischargeObs.setValueCoded(outComeConcept);
-			dischargeObs.setCreator( Context.getAuthenticatedUser());
+			dischargeObs.setCreator(Context.getAuthenticatedUser());
 			dischargeObs.setObsDatetime(new Date());
 			dischargeObs.setLocation(location);
 			dischargeObs.setDateCreated(new Date());
 			dischargeObs.setPatient(ipdEncounter.getPatient());
 			dischargeObs.setEncounter(ipdEncounter);
-			dischargeObs = Context.getObsService().saveObs(dischargeObs, "update obs dischargeObs if need");
+			dischargeObs = Context.getObsService().saveObs(dischargeObs,
+					"update obs dischargeObs if need");
 			ipdEncounter.addObs(dischargeObs);
 			Context.getEncounterService().saveEncounter(ipdEncounter);
-			
+
 		}
-		
-		
+
 		return log;
 	}
-	
+
 	public List<IpdPatientAdmittedLog> listAdmittedLogByPatientId(
 			Integer patientId) throws APIException {
 		return dao.listAdmittedLogByPatientId(patientId);
@@ -414,13 +431,19 @@ public class IpdServiceImpl extends BaseOpenmrsService implements IpdService{
 			throws APIException {
 		return dao.getAdmittedByPatientId(patientId);
 	}
-	
-	//ghanshyam 10-june-2013 New Requirement #1847 Capture Vital statistics for admitted patient in ipd
-	public IpdPatientVitalStatistics saveIpdPatientVitalStatistics(IpdPatientVitalStatistics vitalStatistics)
-	        throws APIException {
-        return dao.saveIpdPatientVitalStatistics(vitalStatistics);
-    }
-	
+
+	public IpdPatientAdmitted getAdmittedByAdmissionLogId(
+			IpdPatientAdmissionLog ipdPatientAdmissionLog) throws APIException {
+		return dao.getAdmittedByAdmissionLogId(ipdPatientAdmissionLog);
+	}
+
+	// ghanshyam 10-june-2013 New Requirement #1847 Capture Vital statistics for
+	// admitted patient in ipd
+	public IpdPatientVitalStatistics saveIpdPatientVitalStatistics(
+			IpdPatientVitalStatistics vitalStatistics) throws APIException {
+		return dao.saveIpdPatientVitalStatistics(vitalStatistics);
+	}
+
 	public List<IpdPatientVitalStatistics> getIpdPatientVitalStatistics(
 			Integer patientId, Integer patientAdmissionLogId)
 			throws APIException {
@@ -434,18 +457,15 @@ public class IpdServiceImpl extends BaseOpenmrsService implements IpdService{
 
 	public void saveWardBedStrength(WardBedStrength wardBedStrength)
 			throws APIException {
-		
-		 dao.saveWardBedStrength(wardBedStrength);
-		
+
+		dao.saveWardBedStrength(wardBedStrength);
+
 	}
 
 	public WardBedStrength getWardBedStrengthByWardId(Integer wardId)
 			throws APIException {
-		
+
 		return dao.getWardBedStrengthByWardId(wardId);
 	}
 
-
- 
-	
 }

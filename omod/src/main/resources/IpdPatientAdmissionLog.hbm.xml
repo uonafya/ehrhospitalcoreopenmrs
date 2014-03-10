@@ -24,5 +24,8 @@
 		<property name="status" column="status" />
 		<many-to-one name="opdObsGroup" column="opd_obs_group_id"  class="org.openmrs.Obs" />
 		<many-to-one name="ipdEncounter" column="ipd_encounter_id"  class="org.openmrs.Encounter" />
+		<property name="indoorStatus" column="indoor_status"/>
+		<property name="requestForDischargeStatus" column="request_discharge_status" />
+		<property name="billingStatus" column="billing_status" />
 	</class>
 </hibernate-mapping>

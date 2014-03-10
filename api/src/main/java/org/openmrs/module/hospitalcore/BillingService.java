@@ -26,6 +26,7 @@ import java.util.List;
 import java.util.Map;
 
 import org.openmrs.Concept;
+import org.openmrs.Encounter;
 import org.openmrs.Patient;
 import org.openmrs.annotation.Authorized;
 import org.openmrs.api.APIException;
@@ -35,6 +36,7 @@ import org.openmrs.module.hospitalcore.model.AmbulanceBill;
 import org.openmrs.module.hospitalcore.model.BillableService;
 import org.openmrs.module.hospitalcore.model.Company;
 import org.openmrs.module.hospitalcore.model.Driver;
+import org.openmrs.module.hospitalcore.model.IndoorPatientServiceBill;
 import org.openmrs.module.hospitalcore.model.MiscellaneousService;
 import org.openmrs.module.hospitalcore.model.MiscellaneousServiceBill;
 import org.openmrs.module.hospitalcore.model.OpdTestOrder;
@@ -243,18 +245,42 @@ public interface BillingService extends OpenmrsService {
 	@Authorized({ BillingConstants.PRIV_VIEW_BILL })
 	public PatientServiceBill getPatientServiceBillById(Integer patientServiceBillId) throws APIException;
 	
+	@Authorized({ BillingConstants.PRIV_VIEW_BILL })
+	public IndoorPatientServiceBill getIndoorPatientServiceBillById(Integer indoorPatientServiceBillId) throws APIException;
+	
+	@Authorized({ BillingConstants.PRIV_VIEW_BILL })
+	public PatientServiceBill getPatientServiceBillByEncounter(Encounter encounter) throws APIException;
+	
+	@Authorized({ BillingConstants.PRIV_VIEW_BILL })
+	public List<IndoorPatientServiceBill> getIndoorPatientServiceBillByEncounter(Encounter encounter) throws APIException;
+	
 	@Authorized({ BillingConstants.PRIV_ADD_BILL })
 	public PatientServiceBill savePatientServiceBill(PatientServiceBill patientServiceBill) throws APIException;
 	
 	@Authorized({ BillingConstants.PRIV_ADD_BILL })
+	public IndoorPatientServiceBill saveIndoorPatientServiceBill(IndoorPatientServiceBill indoorPatientServiceBill) throws APIException;
+	
+	public void deleteIndoorPatientServiceBill(IndoorPatientServiceBill indoorPatientServiceBill) throws APIException; 
+	
+	@Authorized({ BillingConstants.PRIV_ADD_BILL })
 	public void saveBillEncounterAndOrder(PatientServiceBill bill) throws APIException;
+	
+	@Authorized({ BillingConstants.PRIV_ADD_BILL })
+	public void saveBillEncounterAndOrderForIndoorPatient(IndoorPatientServiceBill bill) throws APIException;
 	
 	@Transactional(readOnly = true)
 	@Authorized({ BillingConstants.PRIV_VIEW_BILL })
 	public List<PatientServiceBill> listPatientServiceBillByPatient(int min, int max, Patient patient) throws APIException;
 	
+	@Transactional(readOnly = true)
+	@Authorized({ BillingConstants.PRIV_VIEW_BILL })
+	public List<IndoorPatientServiceBill> listIndoorPatientServiceBillByPatient(int min, int max, Patient patient) throws APIException;
+	
 	@Authorized({ BillingConstants.PRIV_VIEW_BILL })
 	public int countListPatientServiceBillByPatient(Patient patient) throws APIException;
+	
+	@Authorized({ BillingConstants.PRIV_VIEW_BILL })
+	public int countListIndoorPatientServiceBillByPatient(Patient patient) throws APIException;
 	
 	@Transactional(readOnly = true)
 	@Authorized({ BillingConstants.PRIV_VIEW_BILL })
