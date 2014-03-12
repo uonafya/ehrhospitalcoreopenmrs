@@ -48,6 +48,7 @@ import org.openmrs.module.hospitalcore.model.BillableService;
 import org.openmrs.module.hospitalcore.model.Company;
 import org.openmrs.module.hospitalcore.model.Driver;
 import org.openmrs.module.hospitalcore.model.IndoorPatientServiceBill;
+import org.openmrs.module.hospitalcore.model.IndoorPatientServiceBillItem;
 import org.openmrs.module.hospitalcore.model.MiscellaneousService;
 import org.openmrs.module.hospitalcore.model.MiscellaneousServiceBill;
 import org.openmrs.module.hospitalcore.model.OpdTestOrder;
@@ -1058,6 +1059,13 @@ public class HibernateBillingDAO implements BillingDAO {
 				billId));
 		criteria.add(Restrictions.eq("name", name));
 		return (PatientServiceBillItem) criteria.uniqueResult();
+	}
+	
+	public IndoorPatientServiceBillItem getIndoorPatientServiceBillItem(String name) throws DAOException {
+		Criteria criteria = sessionFactory.getCurrentSession().createCriteria(
+				IndoorPatientServiceBillItem.class);
+		criteria.add(Restrictions.eq("name", name));
+		return (IndoorPatientServiceBillItem) criteria.uniqueResult();
 	}
 
 }

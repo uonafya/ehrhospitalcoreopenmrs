@@ -25,14 +25,14 @@ import java.util.ArrayList;
 import java.util.List;
 
 import org.openmrs.Concept;
-import org.openmrs.api.APIException;
+import org.openmrs.Encounter;
 import org.openmrs.api.db.DAOException;
 import org.openmrs.module.hospitalcore.model.IpdPatientAdmission;
 import org.openmrs.module.hospitalcore.model.IpdPatientAdmissionLog;
 import org.openmrs.module.hospitalcore.model.IpdPatientAdmitted;
 import org.openmrs.module.hospitalcore.model.IpdPatientAdmittedLog;
-import org.openmrs.module.hospitalcore.model.WardBedStrength;
 import org.openmrs.module.hospitalcore.model.IpdPatientVitalStatistics;
+import org.openmrs.module.hospitalcore.model.WardBedStrength;
 
 public interface IpdDAO {
 	
@@ -51,11 +51,11 @@ public interface IpdDAO {
 	public List<IpdPatientAdmissionLog> listIpdPatientAdmissionLog(Integer patientId, Integer admissionWardId,String status,Integer min, Integer max)
 	throws DAOException;
 	public List<IpdPatientAdmission> getAllIpdPatientAdmission() throws DAOException;
-	public List<IpdPatientAdmission> getAllIndoorPatient() throws APIException;
-	public List<IpdPatientAdmissionLog> getAllIndoorPatientFromAdmissionLog() throws APIException;
+	public List<IpdPatientAdmission> getAllIndoorPatient() throws DAOException;
+	public List<IpdPatientAdmissionLog> getAllIndoorPatientFromAdmissionLog() throws DAOException;
 	
-	public List<IpdPatientAdmission> searchIpdPatientAdmission(String patientSearch, ArrayList<Integer> userIds, String fromDate, String toDate, ArrayList<Integer> wardIds, String status) throws APIException;
-	public List<IpdPatientAdmitted> searchIpdPatientAdmitted(String patientSearch, ArrayList<Integer> userIds, String fromDate, String toDate, ArrayList<Integer> wardIds, String status) throws APIException;
+	public List<IpdPatientAdmission> searchIpdPatientAdmission(String patientSearch, ArrayList<Integer> userIds, String fromDate, String toDate, ArrayList<Integer> wardIds, String status) throws DAOException;
+	public List<IpdPatientAdmitted> searchIpdPatientAdmitted(String patientSearch, ArrayList<Integer> userIds, String fromDate, String toDate, ArrayList<Integer> wardIds, String status) throws DAOException;
 	
 	public void removeIpdPatientAdmission(IpdPatientAdmission admission) throws DAOException;
 	public void removeIpdPatientAdmitted(IpdPatientAdmitted admitted) throws DAOException;
@@ -76,5 +76,6 @@ public interface IpdDAO {
 	public IpdPatientVitalStatistics saveIpdPatientVitalStatistics(IpdPatientVitalStatistics vitalStatistics) throws DAOException;
 	public List<IpdPatientVitalStatistics> getIpdPatientVitalStatistics(Integer patientId,Integer patientAdmissionLogId) throws DAOException;
 	public List<Concept> getDiet() throws DAOException;
+	public IpdPatientAdmission getIpdPatientAdmissionByEncounter(Encounter encounter) throws DAOException;
 
 }

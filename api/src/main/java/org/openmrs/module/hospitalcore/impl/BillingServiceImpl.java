@@ -1258,5 +1258,8 @@ public class BillingServiceImpl extends BaseOpenmrsService implements BillingSer
 	public PatientServiceBillItem getPatientServiceBillItem(Integer billId,String name) throws APIException {
 		return dao.getPatientServiceBillItem(billId,name);
 	}
+	public IndoorPatientServiceBillItem getIndoorPatientServiceBillItem(String name) throws APIException {
+		return dao.getIndoorPatientServiceBillItem(name);
+	}
 	
 }

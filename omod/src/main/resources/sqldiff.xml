@@ -426,6 +426,7 @@
 		<sql>
                 ALTER TABLE ipd_patient_admission
                 ADD COLUMN `accept_status` smallint(1) NOT NULL DEFAULT '0',
+                ADD COLUMN `initial_deposit_status` smallint(1) NOT NULL DEFAULT '0',
                 ADD COLUMN `ipd_encounter_id` int(11) DEFAULT NULL;
                 
                 ALTER TABLE ipd_patient_admission_log

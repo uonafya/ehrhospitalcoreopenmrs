@@ -37,6 +37,7 @@ import org.openmrs.module.hospitalcore.model.BillableService;
 import org.openmrs.module.hospitalcore.model.Company;
 import org.openmrs.module.hospitalcore.model.Driver;
 import org.openmrs.module.hospitalcore.model.IndoorPatientServiceBill;
+import org.openmrs.module.hospitalcore.model.IndoorPatientServiceBillItem;
 import org.openmrs.module.hospitalcore.model.MiscellaneousService;
 import org.openmrs.module.hospitalcore.model.MiscellaneousServiceBill;
 import org.openmrs.module.hospitalcore.model.OpdTestOrder;
@@ -366,4 +367,5 @@ public interface BillingService extends OpenmrsService {
 	public List<OpdTestOrder> listOfOrder(Integer patientId,Date date) throws APIException;
 	public OpdTestOrder getOpdTestOrder(Integer encounterId,Integer conceptId) throws APIException;
 	public PatientServiceBillItem getPatientServiceBillItem(Integer billId,String name) throws APIException;
+	public IndoorPatientServiceBillItem getIndoorPatientServiceBillItem(String name) throws APIException;
 }

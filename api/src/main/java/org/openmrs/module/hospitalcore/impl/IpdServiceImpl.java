@@ -468,4 +468,10 @@ public class IpdServiceImpl extends BaseOpenmrsService implements IpdService {
 		return dao.getWardBedStrengthByWardId(wardId);
 	}
 
+	public IpdPatientAdmission getIpdPatientAdmissionByEncounter(Encounter encounter)
+			throws APIException {
+
+		return dao.getIpdPatientAdmissionByEncounter(encounter);
+	}
+
 }

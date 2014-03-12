@@ -28,6 +28,7 @@
 		<property name="gender" column="gender" />
 		<property name="status" column="status" />
 		<property name="acceptStatus" column="accept_status"/>
+		<property name="initialDepositStatus" column="initial_deposit_status"/>
 		<many-to-one name="ipdEncounter" column="ipd_encounter_id"  class="org.openmrs.Encounter" />
 	</class>
 </hibernate-mapping>

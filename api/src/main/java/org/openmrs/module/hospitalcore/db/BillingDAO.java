@@ -32,6 +32,7 @@ import org.openmrs.module.hospitalcore.model.BillableService;
 import org.openmrs.module.hospitalcore.model.Company;
 import org.openmrs.module.hospitalcore.model.Driver;
 import org.openmrs.module.hospitalcore.model.IndoorPatientServiceBill;
+import org.openmrs.module.hospitalcore.model.IndoorPatientServiceBillItem;
 import org.openmrs.module.hospitalcore.model.MiscellaneousService;
 import org.openmrs.module.hospitalcore.model.MiscellaneousServiceBill;
 import org.openmrs.module.hospitalcore.model.OpdTestOrder;
@@ -255,4 +256,6 @@ public interface BillingDAO {
 	public OpdTestOrder getOpdTestOrder(Integer encounterId,Integer conceptId) throws DAOException;
 	
 	public PatientServiceBillItem getPatientServiceBillItem(Integer billId,String name) throws DAOException;
+	
+	public IndoorPatientServiceBillItem getIndoorPatientServiceBillItem(String name) throws DAOException;
 }

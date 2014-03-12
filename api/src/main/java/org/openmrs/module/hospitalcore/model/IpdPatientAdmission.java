@@ -56,6 +56,7 @@ public class IpdPatientAdmission implements Serializable{
 	private User opdAmittedUser;
 	private OpdPatientQueueLog opdLog;
 	private int acceptStatus; //0=not accepted, 1=accepted
+	private int initialDepositStatus; //0=initial deposit not done, 1=initial deposit done
 	private Encounter ipdEncounter;
 	
 	public Date getAdmissionDate() {
@@ -142,6 +143,12 @@ public class IpdPatientAdmission implements Serializable{
 	}
 	public void setIpdEncounter(Encounter ipdEncounter) {
 		this.ipdEncounter = ipdEncounter;
+	}
+	public int getInitialDepositStatus() {
+		return initialDepositStatus;
+	}
+	public void setInitialDepositStatus(int initialDepositStatus) {
+		this.initialDepositStatus = initialDepositStatus;
 	}
 	@Override
 	public String toString() {
