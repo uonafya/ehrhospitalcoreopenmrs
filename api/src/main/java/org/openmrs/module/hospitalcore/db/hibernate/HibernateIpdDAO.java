@@ -86,6 +86,7 @@ public class HibernateIpdDAO implements IpdDAO {
 				IpdPatientAdmissionLog.class);
 		criteria.add(Restrictions.eq("indoorStatus", 1));
 		criteria.add(Restrictions.eq("status", "admitted"));
+		criteria.add(Restrictions.eq("billingStatus", 0));
 		return criteria.list();
 	}
 
