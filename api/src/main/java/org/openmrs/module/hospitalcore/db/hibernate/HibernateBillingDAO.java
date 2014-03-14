@@ -1061,10 +1061,11 @@ public class HibernateBillingDAO implements BillingDAO {
 		return (PatientServiceBillItem) criteria.uniqueResult();
 	}
 	
-	public IndoorPatientServiceBillItem getIndoorPatientServiceBillItem(String name) throws DAOException {
+	public IndoorPatientServiceBillItem getIndoorPatientServiceBillItem(String name,List<IndoorPatientServiceBill> indoorPatientServiceBillList) throws DAOException {
 		Criteria criteria = sessionFactory.getCurrentSession().createCriteria(
 				IndoorPatientServiceBillItem.class);
 		criteria.add(Restrictions.eq("name", name));
+		criteria.add(Restrictions.in("indoorPatientServiceBill", indoorPatientServiceBillList));
 		return (IndoorPatientServiceBillItem) criteria.uniqueResult();
 	}
 

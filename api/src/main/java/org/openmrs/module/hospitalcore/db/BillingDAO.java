@@ -257,5 +257,5 @@ public interface BillingDAO {
 	
 	public PatientServiceBillItem getPatientServiceBillItem(Integer billId,String name) throws DAOException;
 	
-	public IndoorPatientServiceBillItem getIndoorPatientServiceBillItem(String name) throws DAOException;
+	public IndoorPatientServiceBillItem getIndoorPatientServiceBillItem(String name,List<IndoorPatientServiceBill> indoorPatientServiceBillList) throws DAOException;
 }
