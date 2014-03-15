@@ -44,6 +44,7 @@ import org.openmrs.Obs;
 import org.openmrs.Patient;
 import org.openmrs.PatientIdentifier;
 import org.openmrs.Person;
+import org.openmrs.PersonAddress;
 import org.openmrs.PersonAttribute;
 import org.openmrs.PersonAttributeType;
 import org.openmrs.PersonName;
@@ -358,5 +359,18 @@ public class HibernateHospitalCoreDAO implements HospitalCoreDAO {
 		Criteria criteria = sessionFactory.getCurrentSession().createCriteria(PatientSearch.class);
 		criteria.add(Restrictions.eq("patientId", patientID));
 		return (PatientSearch) criteria.uniqueResult();
+	}
+	
+	public List<Obs> getObsByEncounterAndConcept(Encounter encounter,Concept concept) {
+		Criteria criteria = sessionFactory.getCurrentSession().createCriteria(Obs.class);
+		criteria.add(Restrictions.eq("encounter", encounter));
+		criteria.add(Restrictions.eq("concept", concept));
+		return criteria.list();
+	}
+	
+	public PersonAddress getPersonAddress(Person person) {
+		Criteria criteria = sessionFactory.getCurrentSession().createCriteria(PersonAddress.class);
+		criteria.add(Restrictions.eq("person", person));
+		return (PersonAddress) criteria.uniqueResult();
 	}
 }

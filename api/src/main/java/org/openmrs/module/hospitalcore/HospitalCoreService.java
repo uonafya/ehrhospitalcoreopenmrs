@@ -34,6 +34,8 @@ import org.openmrs.Encounter;
 import org.openmrs.EncounterType;
 import org.openmrs.Obs;
 import org.openmrs.Patient;
+import org.openmrs.Person;
+import org.openmrs.PersonAddress;
 import org.openmrs.PersonAttribute;
 import org.openmrs.User;
 import org.openmrs.api.APIException;
@@ -210,4 +212,6 @@ public interface HospitalCoreService extends OpenmrsService {
 	//ghanshyam 3-june-2013 New Requirement #1632 Orders from dashboard must be appear in billing queue.User must be able to generate bills from this queue
 	public PatientSearch getPatientByPatientId(int patientId);
 	public PatientSearch getPatient(int patientID);
+	public List<Obs> getObsByEncounterAndConcept(Encounter encounter,Concept concept);
+	public PersonAddress getPersonAddress(Person person);
 }
