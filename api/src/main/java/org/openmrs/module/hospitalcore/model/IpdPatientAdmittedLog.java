@@ -72,6 +72,9 @@ public class IpdPatientAdmittedLog implements Serializable{
 	private String admissionOutCome;
 	// Kesavulu loka 24/06/2013 # 1926 One text filed for otherInstructions.
 	private String otherInstructions;
+	private String chief;
+	private String subChief;
+	private String religion;
 	public Integer getId() {
 		return id;
 	}
@@ -214,6 +217,23 @@ public class IpdPatientAdmittedLog implements Serializable{
 	public void setOtherInstructions(String otherInstructions) {
 		this.otherInstructions = otherInstructions;
 	}
-	
+	public String getChief() {
+		return chief;
+	}
+	public void setChief(String chief) {
+		this.chief = chief;
+	}
+	public String getSubChief() {
+		return subChief;
+	}
+	public void setSubChief(String subChief) {
+		this.subChief = subChief;
+	}
+	public String getReligion() {
+		return religion;
+	}
+	public void setReligion(String religion) {
+		this.religion = religion;
+	}
 	
 }

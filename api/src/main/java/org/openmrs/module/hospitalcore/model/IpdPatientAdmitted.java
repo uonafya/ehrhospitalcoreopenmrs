@@ -87,6 +87,9 @@ public class IpdPatientAdmitted implements Serializable{
 	private String admissionOutCome;
 	private int requestForDischargeStatus;// 0=not yet requested for discharge,1=requested for discharge;
 	private int billingStatus;// 0=billing not done,1=billing done;
+	private String chief;
+	private String subChief;
+	private String religion;
 	public Integer getId() {
 		return id;
 	}
@@ -241,6 +244,24 @@ public class IpdPatientAdmitted implements Serializable{
 	}
 	public void setBillingStatus(int billingStatus) {
 		this.billingStatus = billingStatus;
+	}
+	public String getChief() {
+		return chief;
+	}
+	public void setChief(String chief) {
+		this.chief = chief;
+	}
+	public String getSubChief() {
+		return subChief;
+	}
+	public void setSubChief(String subChief) {
+		this.subChief = subChief;
+	}
+	public String getReligion() {
+		return religion;
+	}
+	public void setReligion(String religion) {
+		this.religion = religion;
 	}
 	
 }

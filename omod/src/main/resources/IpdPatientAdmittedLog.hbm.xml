@@ -35,5 +35,8 @@
 		<property name="fatherName" column="father_name" />
 		<property name="admissionOutCome" column="admission_outcome" />
 		<property name="otherInstructions" column="other_instructions" />
+		<property name="chief" column="chief" />
+		<property name="subChief" column="sub_chief" />
+		<property name="religion" column="religion" />
 	</class>
 </hibernate-mapping>

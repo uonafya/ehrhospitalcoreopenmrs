@@ -36,5 +36,8 @@
 		<property name="admissionOutCome" column="admission_outcome" />
 		<property name="requestForDischargeStatus" column="request_discharge_status" />
 		<property name="billingStatus" column="billing_status" />
+		<property name="chief" column="chief" />
+		<property name="subChief" column="sub_chief" />
+		<property name="religion" column="religion" />
 	</class>
 </hibernate-mapping>

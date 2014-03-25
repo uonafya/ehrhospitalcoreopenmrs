@@ -439,6 +439,24 @@
                 ADD COLUMN `billing_status` smallint(1) NOT NULL DEFAULT '0';
 		</sql>
 	</diff>
-	
+	<diff>
+		<version>3.2</version>
+		<author>ghanshyam</author>
+		<date>25 march 2014</date>
+		<description>
+			Add column chief,sub_chief,religion in ipd_patient_admitted table and in ipd_patient_admitted_log table
+		</description>
+		<sql> 
+                ALTER TABLE ipd_patient_admitted
+                ADD COLUMN `chief` VARCHAR(50) default NULL,
+                ADD COLUMN `sub_chief` VARCHAR(50) default NULL,
+                ADD COLUMN `religion` VARCHAR(20) default NULL;
+                
+                ALTER TABLE ipd_patient_admitted_log
+                ADD COLUMN `chief` VARCHAR(50) default NULL,
+                ADD COLUMN `sub_chief` VARCHAR(50) default NULL,
+                ADD COLUMN `religion` VARCHAR(20) default NULL;
+		</sql>
+	</diff>
 	
 </sqldiff>
