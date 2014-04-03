@@ -39,7 +39,8 @@ public class InventoryStore implements  Serializable {
 	  private Boolean retired = false;
 	  private String code;
 	  private int isDrug;
-	  private InventoryStore parent;
+	 // private InventoryStore parent;
+	  private Set<InventoryStore> parentStores;
 	  private Set<InventoryStore> subStores;
 	public Integer getId() {
 		return id;
@@ -79,11 +80,12 @@ public class InventoryStore implements  Serializable {
 	public void setCode(String code) {
 		this.code = code;
 	}
-	public InventoryStore getParent() {
-		return parent;
+
+	public Set<InventoryStore> getParentStores() {
+		return parentStores;
 	}
-	public void setParent(InventoryStore parent) {
-		this.parent = parent;
+	public void setParentStores(Set<InventoryStore> parentStores) {
+		this.parentStores = parentStores;
 	}
 	public Set<InventoryStore> getSubStores() {
 		return subStores;
