@@ -28,6 +28,5 @@
 	      <key column="inventory_store_parent_id"/>
 	      <many-to-many column='inventory_store_child_id' class="org.openmrs.module.hospitalcore.model.InventoryStore"/>
 	    </set>
-     	       -->
 	</class>
 </hibernate-mapping>
