@@ -71,4 +71,5 @@ public interface PatientQueueDAO {
 	public Encounter getLastOPDEncounter(Patient patient) throws APIException;
 	public OpdPatientQueueLog getOpdPatientQueueLogByEncounter(Encounter encounter) throws APIException;
 	public Obs getObservationByPersonConceptAndEncounter(Person person,Concept concept,Encounter encounter) throws APIException;
+	public OpdPatientQueueLog getOpdPatientQueueLog(String patientIdentifier,Integer opdConceptId) throws DAOException;
 }

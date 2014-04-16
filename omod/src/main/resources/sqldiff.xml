@@ -469,6 +469,33 @@
 			CREATE TABLE IF NOT EXISTS inventory_store_relationship (inventory_store_child_id integer not null, inventory_store_parent_id integer not null, primary key (inventory_store_child_id, inventory_store_parent_id));
 			ALTER  TABLE inventory_store_relationship add index fk_inventorystore_parent (inventory_store_parent_id), add constraint fk_inventorystore_child foreign key (inventory_store_child_id) references inventory_store (id);
 		</sql>
-	</diff>		
+	</diff>	
+
+     <diff>
+		<version>3.4</version>
+		<author>ghanshyam</author>
+		<date>April 07 2014</date>
+		<description>
+			Add column for keeping schedule date for minor OT procedures
+		</description>
+		<sql>
+			ALTER TABLE opd_test_order
+			ADD COLUMN `schedule_date` datetime default NULL,
+			ADD COLUMN `indoor_status` smallint(1) NOT NULL DEFAULT '0';
+		</sql>
+	</diff>	
+	
+	<diff>
+		<version>3.5</version>
+		<author>ghanshyam</author>
+		<date>April 09 2014</date>
+		<description>
+			Add column visit_outcome for opd_patient_queue_log
+		</description>
+		<sql>
+			ALTER TABLE opd_patient_queue_log
+			ADD COLUMN `visit_outcome`  VARCHAR(15) default NULL;
+		</sql>
+	</diff>
 	
 </sqldiff>

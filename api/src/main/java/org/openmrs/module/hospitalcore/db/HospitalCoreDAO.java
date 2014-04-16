@@ -32,9 +32,11 @@ import org.openmrs.Patient;
 import org.openmrs.Person;
 import org.openmrs.PersonAddress;
 import org.openmrs.PersonAttribute;
+import org.openmrs.api.APIException;
 import org.openmrs.api.db.DAOException;
 import org.openmrs.module.hospitalcore.concept.ConceptModel;
 import org.openmrs.module.hospitalcore.model.CoreForm;
+import org.openmrs.module.hospitalcore.model.OpdTestOrder;
 import org.openmrs.module.hospitalcore.model.PatientSearch;
 
 public interface HospitalCoreDAO {
@@ -127,4 +129,5 @@ public interface HospitalCoreDAO {
 	public PatientSearch getPatient(int patientID);
 	public List<Obs> getObsByEncounterAndConcept(Encounter encounter,Concept concept);
 	public PersonAddress getPersonAddress(Person person);
+	public OpdTestOrder getOpdTestOrder(Integer opdOrderId);
 }

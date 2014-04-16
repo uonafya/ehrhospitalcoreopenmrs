@@ -55,6 +55,7 @@ import org.openmrs.module.hospitalcore.concept.ConceptModel;
 import org.openmrs.module.hospitalcore.concept.Mapping;
 import org.openmrs.module.hospitalcore.db.HospitalCoreDAO;
 import org.openmrs.module.hospitalcore.model.CoreForm;
+import org.openmrs.module.hospitalcore.model.OpdTestOrder;
 import org.openmrs.module.hospitalcore.model.PatientSearch;
 import org.openmrs.module.hospitalcore.util.DateUtils;
 
@@ -372,5 +373,11 @@ public class HibernateHospitalCoreDAO implements HospitalCoreDAO {
 		Criteria criteria = sessionFactory.getCurrentSession().createCriteria(PersonAddress.class);
 		criteria.add(Restrictions.eq("person", person));
 		return (PersonAddress) criteria.uniqueResult();
+	}
+	
+	public OpdTestOrder getOpdTestOrder(Integer opdOrderId) {
+		Criteria criteria = sessionFactory.getCurrentSession().createCriteria(OpdTestOrder.class);
+		criteria.add(Restrictions.eq("opdOrderId", opdOrderId));
+		return (OpdTestOrder) criteria.uniqueResult();
 	}
 }

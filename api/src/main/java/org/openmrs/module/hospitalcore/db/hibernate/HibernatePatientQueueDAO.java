@@ -310,7 +310,19 @@ public class HibernatePatientQueueDAO implements PatientQueueDAO {
 		criteria.add(Restrictions.eq("person", person));
 		criteria.add(Restrictions.eq("concept", concept));
 		criteria.add(Restrictions.eq("encounter", encounter));
+		criteria.addOrder(Order.desc("dateCreated"));
+		criteria.setMaxResults(1);
 		return (Obs) criteria.uniqueResult();
+	}
+	
+	public OpdPatientQueueLog getOpdPatientQueueLog(String patientIdentifier,Integer opdConceptId) throws DAOException {
+		Criteria criteria = sessionFactory.getCurrentSession().createCriteria(OpdPatientQueueLog.class, "queue")
+				.createAlias("queue.opdConcept", "opdConcept");
+		criteria.add(Restrictions.eq("queue.patientIdentifier", patientIdentifier));
+		criteria.add(Restrictions.eq("queue.visitOutCome", "admit"));
+		criteria.addOrder(Order.desc("queue.createdOn"));
+		criteria.setMaxResults(1);
+		return (OpdPatientQueueLog) criteria.uniqueResult();
 	}
 	
 }

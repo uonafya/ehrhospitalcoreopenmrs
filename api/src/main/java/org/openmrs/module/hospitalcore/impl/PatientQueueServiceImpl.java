@@ -197,4 +197,9 @@ public class PatientQueueServiceImpl  extends BaseOpenmrsService implements Pati
 		return dao.getObservationByPersonConceptAndEncounter(person,concept,encounter);
 	}
 	
+	public OpdPatientQueueLog getOpdPatientQueueLog(String patientIdentifier,Integer opdConceptId)throws APIException {
+		// TODO Auto-generated method stub
+		return dao.getOpdPatientQueueLog(patientIdentifier,opdConceptId);
+	}
+	
 }

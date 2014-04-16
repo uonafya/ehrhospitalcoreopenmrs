@@ -42,6 +42,8 @@ public class OpdTestOrder {
 	private int billingStatus; //0=not yet billed,1=billed
 	private int cancelStatus; //0=not yet canceled,1=canceled
 	private BillableService billableService;
+	private Date scheduleDate;
+	private int indoorStatus;
 
 	public Integer getOpdOrderId() {
 		return opdOrderId;
@@ -129,6 +131,22 @@ public class OpdTestOrder {
 
 	public void setBillableService(BillableService billableService) {
 		this.billableService = billableService;
+	}
+
+	public Date getScheduleDate() {
+		return scheduleDate;
+	}
+
+	public void setScheduleDate(Date scheduleDate) {
+		this.scheduleDate = scheduleDate;
+	}
+
+	public int getIndoorStatus() {
+		return indoorStatus;
+	}
+
+	public void setIndoorStatus(int indoorStatus) {
+		this.indoorStatus = indoorStatus;
 	}
 
 }

@@ -967,11 +967,12 @@ public class HibernateBillingDAO implements BillingDAO {
 		SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
 		String startDate = sdf.format(date) + " 00:00:00";
 		String endDate = sdf.format(date) + " 23:59:59";
-		String hql = "from PatientSearch ps where ps.patientId IN (SELECT o.patient FROM OpdTestOrder o where o.createdOn BETWEEN '"
+		String hql = "from PatientSearch ps where ps.patientId IN (SELECT o.patient FROM OpdTestOrder o where o.scheduleDate BETWEEN '"
 				+ startDate
 				+ "' AND '"
 				+ endDate
-				+ "' AND o.billingStatus=0 AND o.cancelStatus=0 AND o.billableService is NOT NULL GROUP BY o.patient) AND (ps.identifier LIKE '%"
+				//+ "' AND o.billingStatus=0 AND o.cancelStatus=0 AND o.billableService is NOT NULL GROUP BY o.patient) AND (ps.identifier LIKE '%"
+				+ "' AND o.billingStatus=0 AND o.cancelStatus=0 AND o.billableService is NOT NULL AND o.valueCoded NOT IN (SELECT c.answerConcept FROM ConceptAnswer c,ConceptName cn WHERE cn.name='MAJOR OPERATION' AND c.concept=cn.concept) GROUP BY o.patient) AND (ps.identifier LIKE '%"
 				+ searchKey + "%' OR ps.fullname LIKE '" + searchKey + "%')";
 		int firstResult = (page - 1) * BillingConstants.PAGESIZE;
 		Session session = sessionFactory.getCurrentSession();
@@ -981,7 +982,8 @@ public class HibernateBillingDAO implements BillingDAO {
 	}
 
 	public List<PatientSearch> listOfPatient() throws DAOException {
-		String hql = "from PatientSearch ps where ps.patientId IN (SELECT o.patient FROM OpdTestOrder o where o.billingStatus=0 AND o.cancelStatus=0 AND o.billableService is NOT NULL GROUP BY o.patient)";
+		//String hql = "from PatientSearch ps where ps.patientId IN (SELECT o.patient FROM OpdTestOrder o where o.billingStatus=0 AND o.cancelStatus=0 AND o.billableService is NOT NULL GROUP BY o.patient)";
+		String hql = "from PatientSearch ps where ps.patientId IN (SELECT o.patient FROM OpdTestOrder o where o.billingStatus=0 AND o.cancelStatus=0 AND o.billableService is NOT NULL AND o.valueCoded NOT IN (SELECT c.answerConcept FROM ConceptAnswer c,ConceptName cn WHERE cn.name='MAJOR OPERATION' AND c.concept=cn.concept) GROUP BY o.patient)";
 		/*
 		 * alternate query String hql =
 		 * "from PatientSearch ps where ps.patientId IN (SELECT o.patient FROM OpdTestOrder o where o.valueCoded IN (SELECT b.conceptId FROM BillableService b where b.conceptId=o.valueCoded) AND o.billingStatus=0 AND o.cancelStatus=0 AND o.billableService is NOT NULL GROUP BY o.patient)"
@@ -999,7 +1001,8 @@ public class HibernateBillingDAO implements BillingDAO {
 				+ patientId
 				+ "' AND o.encounter='"
 				+ encounterId
-				+ "' AND o.billingStatus=0 AND o.cancelStatus=0 AND o.billableService is NOT NULL)";
+				//+ "' AND o.billingStatus=0 AND o.cancelStatus=0 AND o.billableService is NOT NULL)";
+				+ "' AND o.billingStatus=0 AND o.cancelStatus=0 AND o.billableService is NOT NULL AND o.valueCoded NOT IN (SELECT c.answerConcept FROM ConceptAnswer c,ConceptName cn WHERE cn.name='MAJOR OPERATION' AND c.concept=cn.concept))";
 		Session session = sessionFactory.getCurrentSession();
 		Query q = session.createQuery(hql);
 		List<BillableService> list = q.list();
@@ -1029,11 +1032,11 @@ public class HibernateBillingDAO implements BillingDAO {
 		String endDate = sdf.format(date) + " 23:59:59";
 		String hql = "from OpdTestOrder o where o.patient='"
 				+ patientId
-				+ "' AND o.createdOn BETWEEN '"
+				+ "' AND o.scheduleDate BETWEEN '"
 				+ startDate
 				+ "' AND '"
 				+ endDate
-				+ "' AND o.billingStatus=0 AND o.cancelStatus=0 AND o.billableService is NOT NULL GROUP BY encounter";
+				+ "' AND o.billingStatus=0 AND o.cancelStatus=0 AND o.billableService is NOT NULL AND o.valueCoded NOT IN (SELECT c.answerConcept FROM ConceptAnswer c,ConceptName cn WHERE cn.name='MAJOR OPERATION' AND c.concept=cn.concept) GROUP BY encounter";
 		Session session = sessionFactory.getCurrentSession();
 		Query q = session.createQuery(hql);
 		List<OpdTestOrder> list = q.list();

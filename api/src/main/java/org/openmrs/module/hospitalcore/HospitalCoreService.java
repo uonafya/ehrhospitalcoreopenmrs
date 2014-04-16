@@ -42,6 +42,7 @@ import org.openmrs.api.APIException;
 import org.openmrs.api.ConceptService;
 import org.openmrs.api.OpenmrsService;
 import org.openmrs.module.hospitalcore.model.CoreForm;
+import org.openmrs.module.hospitalcore.model.OpdTestOrder;
 import org.openmrs.module.hospitalcore.model.PatientSearch;
 import org.springframework.transaction.annotation.Transactional;
 import org.xml.sax.SAXException;
@@ -214,4 +215,5 @@ public interface HospitalCoreService extends OpenmrsService {
 	public PatientSearch getPatient(int patientID);
 	public List<Obs> getObsByEncounterAndConcept(Encounter encounter,Concept concept);
 	public PersonAddress getPersonAddress(Person person);
+	public OpdTestOrder getOpdTestOrder(Integer opdOrderId);
 }
