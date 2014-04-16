@@ -34,6 +34,7 @@ public class InventoryStoreDrugIndent implements  Serializable {
 	 private Date createdOn;
 	 private Integer subStoreStatus;
 	 private Integer mainStoreStatus;
+	 private InventoryStore mainStore;
 	 private InventoryStoreDrugTransaction transaction;
 	public Integer getId() {
 		return id;
@@ -77,7 +78,16 @@ public class InventoryStoreDrugIndent implements  Serializable {
 	public void setMainStoreStatus(Integer mainStoreStatus) {
 		this.mainStoreStatus = mainStoreStatus;
 	}
-	public InventoryStoreDrugTransaction getTransaction() {
+	
+	public InventoryStore getMainStore()
+        {
+            return mainStore;
+        }
+        public void setMainStore( InventoryStore mainStore )
+        {
+            this.mainStore = mainStore;
+        }
+        public InventoryStoreDrugTransaction getTransaction() {
 		return transaction;
 	}
 	public void setTransaction(InventoryStoreDrugTransaction transaction) {

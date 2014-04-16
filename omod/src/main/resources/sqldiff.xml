@@ -497,5 +497,18 @@
 			ADD COLUMN `visit_outcome`  VARCHAR(15) default NULL;
 		</sql>
 	</diff>
-	
+	<diff>
+		<version>3.6</version>
+		<author>Thai Chuong</author>
+		<date>April 16 2014</date>
+		<description>
+			Add column mainstore_id to store the assigned mainstore when indent drug
+		</description>
+		<sql>
+			ALTER TABLE inventory_store_drug_indent
+			ADD COLUMN `mainstore_id`  int(11) default NULL;
+			ALTER  TABLE inventory_store_drug_indent add index fk_inventorystore_mainstore (mainstore_id), add constraint fk_inventorystore_mainstore foreign key (mainstore_id) references inventory_store (id);
+		</sql>
+	</diff>
+
 </sqldiff>
