@@ -494,7 +494,7 @@
 		</description>
 		<sql>
 			ALTER TABLE opd_patient_queue_log
-			ADD COLUMN `visit_outcome`  VARCHAR(15) default NULL;
+			ADD COLUMN `visit_outcome`  VARCHAR(21) default NULL;
 		</sql>
 	</diff>
 	<diff>
