@@ -145,10 +145,14 @@ public class PatientUtils {
 	public static String getPatientAttribute(Patient patient, String attributeNameType) {
 		String value = null;
 		PersonAttributeType pat = Context.getPersonService().getPersonAttributeTypeByName(attributeNameType);
-		PersonAttribute pa = patient.getAttribute(pat);
-		if (pa != null) {
-			value = pa.getValue();
-		}
+		//April 30th 2014: Thai Chuong temporary try/catch this to keep going on the requirement
+		//The pending issue: Could not get Patient Category attribute 
+		try{
+        		PersonAttribute pa = patient.getAttribute(pat);
+        		if (pa != null) {
+        			value = pa.getValue();
+        		}
+		}catch (Exception ex){}
 		return value;
 	}
 	
