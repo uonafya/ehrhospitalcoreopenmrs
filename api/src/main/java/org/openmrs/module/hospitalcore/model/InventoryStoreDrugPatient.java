@@ -37,6 +37,7 @@ public class InventoryStoreDrugPatient implements  Serializable {
 	 private String createdBy;
 	 private Patient patient;
 	 private String identifier;
+	 private String patientCategory;
 	public Integer getId() {
 		return id;
 	}
@@ -69,6 +70,9 @@ public class InventoryStoreDrugPatient implements  Serializable {
 	}
 	public String getPatientCategory(){
 		return PatientUtils.getPatientCategory(patient);
+	}
+	public void setPatientCategory(String patientCategory) {
+		this.patientCategory = patientCategory;
 	}
 	public String getCreatedBy() {
 		return createdBy;

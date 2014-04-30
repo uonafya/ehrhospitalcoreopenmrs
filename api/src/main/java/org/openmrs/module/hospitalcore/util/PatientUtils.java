@@ -44,9 +44,9 @@ public class PatientUtils {
 	
 	public final static String PATIENT_ATTRIBUTE_CATEGORY = "Patient Category";
 	
-	public final static String PATIENT_ATTRIBUTE_BPL_NUMBER = "BPL Number";
+//	public final static String PATIENT_ATTRIBUTE_BPL_NUMBER = "BPL Number";
 	
-	public final static String PATIENT_ATTRIBUTE_RSBY_NUMBER = "RSBY Number";
+//	public final static String PATIENT_ATTRIBUTE_RSBY_NUMBER = "RSBY Number";
 	
 	public final static String PATIENT_AGE_CATEGORY = MODULE_ID + "ageCategory";
 	
@@ -60,24 +60,28 @@ public class PatientUtils {
 	//ghanshyam 16-06-2012 Bug #44 OPD Dashboard/ Patient category,Temporary category is not being displayed
 	public static String getPatientCategory(Patient patient) {
 		String category = "";
-		
 		String patientCategory = getPatientAttribute(patient, PATIENT_ATTRIBUTE_CATEGORY);
-		/*
+		
 		if (!StringUtils.isBlank(patientCategory)) {
 			if (patientCategory.contains("General"))
 				category += "General";
-			String RSBYNo = getPatientAttribute(patient, PATIENT_ATTRIBUTE_RSBY_NUMBER);
-			String BPLNo = getPatientAttribute(patient, PATIENT_ATTRIBUTE_BPL_NUMBER);
-			if (!StringUtils.isBlank(RSBYNo)) {
-				category += "RSBY";
-			} else if (!StringUtils.isBlank(BPLNo)) {
-				category += "BPL";
-			}
-			if (patientCategory.contains("MLC")) {
-				category += ", MLC";
-			}
-		}*/
-		
+			
+			else if (patientCategory.contains("Child Less Than 5 yr"))
+				category += "Child Less Than 5 yr";
+			
+			else if (patientCategory.contains("NHIF"))
+				category += "NHIF";
+			
+			else if (patientCategory.contains("Waiver"))
+				category += "Waiver";
+			
+			else if (patientCategory.contains("CCC"))
+				category += "CCC";
+			
+			else if (patientCategory.contains("Expectant Mother"))
+				category += "Expectant Mother";
+			
+		}
 		return patientCategory;
 	}
 	
