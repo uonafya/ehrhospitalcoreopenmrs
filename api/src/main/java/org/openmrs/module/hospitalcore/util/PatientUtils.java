@@ -59,9 +59,9 @@ public class PatientUtils {
 	
 	//ghanshyam 16-06-2012 Bug #44 OPD Dashboard/ Patient category,Temporary category is not being displayed
 	public static String getPatientCategory(Patient patient) {
-		String category = "";
+		//String category = "";
 		String patientCategory = getPatientAttribute(patient, PATIENT_ATTRIBUTE_CATEGORY);
-		
+		/*
 		if (!StringUtils.isBlank(patientCategory)) {
 			if (patientCategory.contains("General"))
 				category += "General";
@@ -82,6 +82,7 @@ public class PatientUtils {
 				category += "Expectant Mother";
 			
 		}
+		*/
 		return patientCategory;
 	}
 	
@@ -151,12 +152,10 @@ public class PatientUtils {
 		PersonAttributeType pat = Context.getPersonService().getPersonAttributeTypeByName(attributeNameType);
 		//April 30th 2014: Thai Chuong temporary try/catch this to keep going on the requirement
 		//The pending issue: Could not get Patient Category attribute 
-		try{
         		PersonAttribute pa = patient.getAttribute(pat);
         		if (pa != null) {
         			value = pa.getValue();
         		}
-		}catch (Exception ex){}
 		return value;
 	}
 	
