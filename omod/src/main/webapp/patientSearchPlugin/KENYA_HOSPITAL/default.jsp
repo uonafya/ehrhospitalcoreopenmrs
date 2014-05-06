@@ -699,15 +699,12 @@ jQuery(document).ready(function() {
 				</td>
 			</tr>
 			<tr>
-				<td>Last day of visit</td>
+				<td>Last Visit</td>
 				<td><input id="advanceSearchCalendar" type="hidden" /> <input
 					id="lastDayOfVisit" name="lastDayOfVisit" style="width: 100px" />
 					<img id="advanceSearchCalendarButton"
 					src="${pageContext.request.contextPath}/moduleResources/hospitalcore/calendar.gif" />
-				</td>
-			</tr>
-			<tr>
-				<td>Last Visit</td>
+				</td><td><center>Or</center></td>
 				<td colspan="3">
 					<select id="lastVisit" style="width: 100px">
 						<option value="Any">Anytime</option>
@@ -716,9 +713,10 @@ jQuery(document).ready(function() {
 						<option value="366">Last year</option>
 					</select>
 				</td>	
+
 			</tr>
 			<tr>
-				<td>Phone number</td>
+				<td>Phone Number</td>
 				<td colspan="3">
 					<input id="phoneNumber" style="width: 100px"/>
 				</td>	
@@ -731,7 +729,7 @@ jQuery(document).ready(function() {
 			</tr>
 			<tr>
 			<!-- Sagar Bele date: 27-12-2012 : Added national id in advance search for Bangladesh requirement -->
-				<td>National Id</td>
+				<td>National ID</td>
 				<td colspan="3"><input id="patientNationalId"
 					style="width: 100px" />
 				</td>

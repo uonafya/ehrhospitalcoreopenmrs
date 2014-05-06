@@ -17,7 +17,10 @@
  *  along with Hospitalcore module.  If not, see <http://www.gnu.org/licenses/>.
  *
 --%> 
+<tr>
 <br/><br/>${size} patients found.
+</tr>
+<tr>
 <c:if test="${not empty prevPage}">
 <a href="#" onClick="ADVSEARCH.searchPatient(${prevPage}, 10)">
 	&laquo;&laquo; Previous
@@ -31,5 +34,5 @@ page ${currentPage + 1}
 		Next &raquo;&raquo;
 	</a>
 </c:if>
-
+</tr>
 
