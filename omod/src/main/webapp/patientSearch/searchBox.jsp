@@ -76,7 +76,7 @@
 				<td><span id="searchAgeError" style="color:red;"/></td>
 			</tr>
 			<tr>
-				<td>Date</td>
+				<td>Order Date</td>
 				<td>
 					<input type="text" id="dateOfVisit" onblur="ADVSEARCH.delay();"/>
 				</td>
