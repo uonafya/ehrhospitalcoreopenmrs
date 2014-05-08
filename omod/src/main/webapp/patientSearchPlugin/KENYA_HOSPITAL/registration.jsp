@@ -559,7 +559,7 @@
 	</div>
 	<table>
 		<tr>			
-			<td><input id="nameOrIdentifier" style="width:135px;"/></td>
+			<td><input id="nameOrIdentifier" size="15"/></td>
 			<td><a href="javascript:PATIENTSEARCH.toggleAdvanceSearch();">Advance search</a></td>
 		</tr>	
 	</table>
