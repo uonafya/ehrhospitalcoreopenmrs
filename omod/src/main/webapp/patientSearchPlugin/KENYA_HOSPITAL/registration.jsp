@@ -560,7 +560,10 @@
 	<table>
 		<tr>			
 			<td><input id="nameOrIdentifier" style='width: 152px;'/></td>
+			<!-- 
 			<td><a href="javascript:PATIENTSEARCH.toggleAdvanceSearch();">Advance search</a></td>
+			-->
+			<td><input type="button" value="Advance search" onclick="PATIENTSEARCH.toggleAdvanceSearch();" />
 		</tr>	
 	</table>
 	<div id="advanceSearch">
