@@ -31,6 +31,33 @@ public class TriagePatientData implements Serializable {
 	private TriagePatientQueueLog triageLogId;
 	private BigDecimal weight;
 	private BigDecimal height;
+	private BigDecimal mua;
+	private BigDecimal chest;
+	private BigDecimal abdominal;
+	public BigDecimal getMua() {
+		return mua;
+	}
+
+	public void setMua(BigDecimal mua) {
+		this.mua = mua;
+	}
+
+	public BigDecimal getChest() {
+		return chest;
+	}
+
+	public void setChest(BigDecimal chest) {
+		this.chest = chest;
+	}
+
+	public BigDecimal getAbdominal() {
+		return abdominal;
+	}
+
+	public void setAbdominal(BigDecimal abdominal) {
+		this.abdominal = abdominal;
+	}
+
 	private BigDecimal temperature;
 	private Integer systolic;
 	private Integer daistolic;
