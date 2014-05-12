@@ -511,4 +511,19 @@
 		</sql>
 	</diff>
 
+	<diff>
+		<version>3.7</version>
+		<author>Sagar Bele</author>
+		<date>May 9,2014</date>
+		<description>
+			Add columns to capture more patient information in traige
+		</description>
+		<sql>
+			ALTER TABLE triage_patient_data
+			ADD COLUMN `mua` DECIMAL(5,2),
+			ADD COLUMN `chest` DECIMAL(5,2),
+			ADD COLUMN `abdominal` DECIMAL(5,2);			
+		</sql>
+	</diff>
+
 </sqldiff>
