@@ -467,7 +467,6 @@
 		</description>
 		<sql>
 			CREATE TABLE IF NOT EXISTS inventory_store_relationship (inventory_store_child_id integer not null, inventory_store_parent_id integer not null, primary key (inventory_store_child_id, inventory_store_parent_id));
-			ALTER  TABLE inventory_store_relationship add index fk_inventorystore_parent (inventory_store_parent_id), add constraint fk_inventorystore_child foreign key (inventory_store_child_id) references inventory_store (id);
 		</sql>
 	</diff>	
 
@@ -505,9 +504,6 @@
 			Add column mainstore_id to store the assigned mainstore when indent drug
 		</description>
 		<sql>
-			ALTER TABLE inventory_store_drug_indent
-			ADD COLUMN `mainstore_id`  int(11) default NULL;
-			ALTER  TABLE inventory_store_drug_indent add index fk_inventorystore_mainstore (mainstore_id), add constraint fk_inventorystore_mainstore foreign key (mainstore_id) references inventory_store (id);
 		</sql>
 	</diff>
 
