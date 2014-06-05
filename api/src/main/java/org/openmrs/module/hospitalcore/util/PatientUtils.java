@@ -95,12 +95,12 @@ public class PatientUtils {
 	public static String getFullName(Patient patient) {
 		String fullName = "";
 		
-		if (!StringUtils.isBlank(patient.getFamilyName())) {
-			fullName += patient.getFamilyName() + " ";
-		}
-		
 		if (!StringUtils.isBlank(patient.getGivenName())) {
 			fullName += patient.getGivenName() + " ";
+		}
+		
+		if (!StringUtils.isBlank(patient.getFamilyName())) {
+			fullName += patient.getFamilyName() + " ";
 		}
 		
 		if (!StringUtils.isBlank(patient.getMiddleName())) {
