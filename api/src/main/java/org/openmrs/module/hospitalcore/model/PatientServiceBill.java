@@ -70,6 +70,16 @@ public class PatientServiceBill implements Serializable {
 	//ghanshyam 25-feb-2013 New Requirement #966[Billing]Add Paid Bill/Add Free Bill for Bangladesh module(added 'comment' property)
 	private String comment;
 	
+	private String paymentMode;
+	
+	public String getPaymentMode() {
+		return paymentMode;
+	}
+
+	public void setPaymentMode(String paymentMode) {
+		this.paymentMode = paymentMode;
+	}
+
 	private Set<PatientServiceBillItem> billItems;
 	
     private Encounter encounter;
