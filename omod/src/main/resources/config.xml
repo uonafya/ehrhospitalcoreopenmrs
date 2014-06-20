@@ -157,6 +157,10 @@
 		TriagePatientData.hbm.xml
 		IndoorPatientServiceBill.hbm.xml
 		IndoorPatientServiceBillItem.hbm.xml
+		PatientMedicalHistory.hbm.xml
+		PatientDrugHistory.hbm.xml
+		PatientFamilyHistory.hbm.xml
+		PatientPersonalHistory.hbm.xml
     </mappingFiles>
 </module>
 

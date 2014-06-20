@@ -522,4 +522,19 @@
 		</sql>
 	</diff>
 
+	<diff>
+		<version>3.8</version>
+		<author>Sagar Bele</author>
+		<date>June 5,2014</date>
+		<description>
+			Create table to store patient past medical and surgical history
+		</description>
+		<sql>
+			CREATE TABLE IF NOT EXISTS patient_medical_history (id INTEGER NOT NULL AUTO_INCREMENT, triage_log_id INTEGER, patient_id INTEGER, illness_existing VARCHAR(10), illness_problem VARCHAR(100), illness_long VARCHAR(100), illness_progress VARCHAR(100), illness_record VARCHAR(100), chronic_illness VARCHAR(10), chronic_illness_problem VARCHAR(100), chronic_illness_occure VARCHAR(100), chronic_illness_outcome VARCHAR(100), chronic_illness_record VARCHAR(100), previous_admission VARCHAR(10), previous_adm_when VARCHAR(100), previous_adm_problem VARCHAR(100), previous_adm_outcome VARCHAR(100), previous_adm_record VARCHAR(100), previous_investigation VARCHAR(10), previous_invest_when VARCHAR(100), previous_invest_problem VARCHAR(100), previous_invest_outcome VARCHAR(100), previous_invest_record VARCHAR(100), bcg VARCHAR(20), polio VARCHAR(20), dpt VARCHAR(20), measles VARCHAR(20), pneumococcal VARCHAR(20), yellow_fever VARCHAR(20), tetanus_male VARCHAR(20), tetanus_female VARCHAR(20), other_vaccinations VARCHAR(250), created_on DATETIME, PRIMARY KEY (id));
+			CREATE TABLE IF NOT EXISTS patient_drug_history (id INTEGER NOT NULL AUTO_INCREMENT, triage_log_id INTEGER, patient_id INTEGER, current_medication VARCHAR(10), medication_name VARCHAR(100), medication_period VARCHAR(100), medication_reason VARCHAR(100), medication_record VARCHAR(100), sensitive_medication VARCHAR(10), sensitive_medication_name VARCHAR(100), sensitive_medication_symptom VARCHAR(100),  invasive_contraception  VARCHAR(10), invasive_contraception_name  VARCHAR(100), created_on DATETIME, PRIMARY KEY (id));
+			CREATE TABLE IF NOT EXISTS patient_family_history (id INTEGER NOT NULL AUTO_INCREMENT, triage_log_id INTEGER, patient_id INTEGER, parent_status VARCHAR(10), parent_death_cause VARCHAR(100), parent_death_age VARCHAR(100), sibling_status VARCHAR(100), sibling_death_cause VARCHAR(100), sibling_death_age VARCHAR(100), family_illness_history VARCHAR(100), created_on DATETIME, PRIMARY KEY (id)); 
+			CREATE TABLE IF NOT EXISTS patient_personal_history (id INTEGER NOT NULL AUTO_INCREMENT, triage_log_id INTEGER, patient_id INTEGER, smoke VARCHAR(10), smoke_item VARCHAR(100), smoke_average VARCHAR(100), alcohol VARCHAR(10), alcohol_item VARCHAR(100), alcohol_average VARCHAR(100), drug VARCHAR(10), drug_item VARCHAR(100), drug_average VARCHAR(100), hiv_status VARCHAR(10), exposed_hiv VARCHAR(10), exposed_hiv_factor VARCHAR(100), family_help VARCHAR(10), other_help VARCHAR(100), income_source VARCHAR(10), created_on DATETIME, PRIMARY KEY (id)); 
+
+		</sql>
+	</diff>
 </sqldiff>
