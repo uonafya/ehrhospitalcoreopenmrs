@@ -37,6 +37,10 @@ import org.openmrs.module.hospitalcore.db.PatientQueueDAO;
 import org.openmrs.module.hospitalcore.model.OpdPatientQueue;
 import org.openmrs.module.hospitalcore.model.OpdPatientQueueLog;
 import org.openmrs.module.hospitalcore.model.TriagePatientData;
+import org.openmrs.module.hospitalcore.model.PatientMedicalHistory;
+import org.openmrs.module.hospitalcore.model.PatientDrugHistory;
+import org.openmrs.module.hospitalcore.model.PatientFamilyHistory;
+import org.openmrs.module.hospitalcore.model.PatientPersonalHistory;
 import org.openmrs.module.hospitalcore.model.TriagePatientQueue;
 import org.openmrs.module.hospitalcore.model.TriagePatientQueueLog;
 
@@ -82,6 +86,30 @@ public class PatientQueueServiceImpl  extends BaseOpenmrsService implements Pati
 			throws APIException {
 		// TODO Auto-generated method stub
 		return dao.getOpdPatientQueueById(id);
+	}
+
+	public PatientMedicalHistory getPatientHistoryByPatientId (Integer id)
+			throws APIException {
+		// TODO Auto-generated method stub
+		return dao.getPatientHistoryByPatientId(id);
+	}
+
+	public PatientDrugHistory getPatientDrugHistoryByPatientId (Integer id)
+			throws APIException {
+		// TODO Auto-generated method stub
+		return dao.getPatientDrugHistoryByPatientId(id);
+	}
+
+	public PatientFamilyHistory getPatientFamilyHistoryByPatientId (Integer id)
+			throws APIException {
+		// TODO Auto-generated method stub
+		return dao.getPatientFamilyHistoryByPatientId(id);
+	}
+	
+	public PatientPersonalHistory getPatientPersonalHistoryByPatientId (Integer id)
+			throws APIException {
+		// TODO Auto-generated method stub
+		return dao.getPatientPersonalHistoryByPatientId(id);
 	}
 
 	public void deleteOpdPatientQueue(OpdPatientQueue opdPatientQueue)
@@ -201,5 +229,29 @@ public class PatientQueueServiceImpl  extends BaseOpenmrsService implements Pati
 		// TODO Auto-generated method stub
 		return dao.getOpdPatientQueueLog(patientIdentifier,opdConceptId);
 	}
+
+	public PatientMedicalHistory savePatientMedicalHistory(
+			PatientMedicalHistory patientMedicalHistory) throws APIException {
+		// TODO Auto-generated method stub
+		return dao.savePatientMedicalHistory(patientMedicalHistory);
+	}
+	
+	public PatientDrugHistory savePatientDrugHistory(
+			PatientDrugHistory patientDrugHistory) throws APIException {
+		// TODO Auto-generated method stub
+		return dao.savePatientDrugHistory(patientDrugHistory);
+	}	
+
+	public PatientPersonalHistory savePatientPersonalHistory(
+			PatientPersonalHistory patientPersonalHistory) throws APIException {
+		// TODO Auto-generated method stub
+		return dao.savePatientPersonalHistory(patientPersonalHistory);
+	}	
+
+	public PatientFamilyHistory savePatientFamilyHistory(
+			PatientFamilyHistory patientFamilyHistory) throws APIException {
+		// TODO Auto-generated method stub
+		return dao.savePatientFamilyHistory(patientFamilyHistory);
+	}	
 	
 }

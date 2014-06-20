@@ -37,7 +37,10 @@ import org.openmrs.module.hospitalcore.model.OpdPatientQueueLog;
 import org.openmrs.module.hospitalcore.model.TriagePatientData;
 import org.openmrs.module.hospitalcore.model.TriagePatientQueue;
 import org.openmrs.module.hospitalcore.model.TriagePatientQueueLog;
-
+import org.openmrs.module.hospitalcore.model.PatientMedicalHistory;
+import org.openmrs.module.hospitalcore.model.PatientDrugHistory;
+import org.openmrs.module.hospitalcore.model.PatientPersonalHistory;
+import org.openmrs.module.hospitalcore.model.PatientFamilyHistory;
 /**
  * <p> Class: PatientQueueDAO </p>
  * <p> Package: org.openmrs.module.hospitalcore.db </p> 
@@ -51,6 +54,10 @@ public interface PatientQueueDAO {
 	//opd patient queue
 	public OpdPatientQueue saveOpdPatientQueue(OpdPatientQueue opdPatientQueue) throws DAOException;
 	public OpdPatientQueue updateOpdPatientQueue(Integer id, String status) throws DAOException;
+	public PatientMedicalHistory getPatientHistoryByPatientId(Integer id) throws DAOException;
+	public PatientDrugHistory getPatientDrugHistoryByPatientId(Integer id) throws DAOException;
+	public PatientFamilyHistory getPatientFamilyHistoryByPatientId(Integer id) throws DAOException;
+	public PatientPersonalHistory getPatientPersonalHistoryByPatientId(Integer id) throws DAOException;
 	public OpdPatientQueue getOpdPatientQueueById(Integer id) throws DAOException;
 	public void deleteOpdPatientQueue(OpdPatientQueue opdPatientQueue) throws DAOException;
 	public List<OpdPatientQueue> listOpdPatientQueue(String patientName ,  Integer referralConceptId,String status, int min, int max) throws DAOException;
@@ -67,6 +74,10 @@ public interface PatientQueueDAO {
 	public TriagePatientQueueLog saveTriagePatientQueueLog(TriagePatientQueueLog triagePatientQueueLog) throws APIException ;
 	public void deleteTriagePatientQueue(TriagePatientQueue triagePatientQueue) throws APIException;
 	public TriagePatientData saveTriagePatientData(TriagePatientData triagePatientData) throws APIException ;
+	public PatientMedicalHistory savePatientMedicalHistory(PatientMedicalHistory patientMedicalHistory) throws APIException ;
+	public PatientDrugHistory savePatientDrugHistory(PatientDrugHistory patientDrugHistory) throws APIException ;
+	public PatientPersonalHistory savePatientPersonalHistory(PatientPersonalHistory patientPersonalHistory) throws APIException ;
+	public PatientFamilyHistory savePatientFamilyHistory(PatientFamilyHistory patientFamilyHistory) throws APIException ;
 	public ConceptAnswer getConceptAnswer(Concept answerConcept) throws DAOException;
 	public Encounter getLastOPDEncounter(Patient patient) throws APIException;
 	public OpdPatientQueueLog getOpdPatientQueueLogByEncounter(Encounter encounter) throws APIException;

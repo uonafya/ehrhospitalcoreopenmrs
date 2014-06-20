@@ -43,6 +43,10 @@ import org.openmrs.module.hospitalcore.db.PatientQueueDAO;
 import org.openmrs.module.hospitalcore.model.OpdPatientQueue;
 import org.openmrs.module.hospitalcore.model.OpdPatientQueueLog;
 import org.openmrs.module.hospitalcore.model.TriagePatientData;
+import org.openmrs.module.hospitalcore.model.PatientMedicalHistory;
+import org.openmrs.module.hospitalcore.model.PatientDrugHistory;
+import org.openmrs.module.hospitalcore.model.PatientFamilyHistory;
+import org.openmrs.module.hospitalcore.model.PatientPersonalHistory;
 import org.openmrs.module.hospitalcore.model.TriagePatientQueue;
 import org.openmrs.module.hospitalcore.model.TriagePatientQueueLog;
 
@@ -79,6 +83,36 @@ public class HibernatePatientQueueDAO implements PatientQueueDAO {
 		OpdPatientQueue opdPatientQueue = (OpdPatientQueue) criteria.uniqueResult();
 		return opdPatientQueue;
 	}
+	
+	
+	public PatientMedicalHistory getPatientHistoryByPatientId(Integer id) throws DAOException {
+		Criteria criteria = sessionFactory.getCurrentSession().createCriteria(PatientMedicalHistory.class);
+		criteria.add(Restrictions.eq("patientId", id));
+		PatientMedicalHistory patientMedicalHistory = (PatientMedicalHistory) criteria.uniqueResult();
+		return patientMedicalHistory;
+	}
+	
+	public PatientDrugHistory getPatientDrugHistoryByPatientId(Integer id) throws DAOException {
+		Criteria criteria = sessionFactory.getCurrentSession().createCriteria(PatientDrugHistory.class);
+		criteria.add(Restrictions.eq("patientId", id));
+		PatientDrugHistory patientDrugHistory = (PatientDrugHistory) criteria.uniqueResult();
+		return patientDrugHistory;
+	}
+
+	public PatientFamilyHistory getPatientFamilyHistoryByPatientId(Integer id) throws DAOException {
+		Criteria criteria = sessionFactory.getCurrentSession().createCriteria(PatientFamilyHistory.class);
+		criteria.add(Restrictions.eq("patientId", id));
+		PatientFamilyHistory patientFamilyHistory = (PatientFamilyHistory) criteria.uniqueResult();
+		return patientFamilyHistory;
+	}
+
+	public PatientPersonalHistory getPatientPersonalHistoryByPatientId(Integer id) throws DAOException {
+		Criteria criteria = sessionFactory.getCurrentSession().createCriteria(PatientPersonalHistory.class);
+		criteria.add(Restrictions.eq("patientId", id));
+		PatientPersonalHistory patientPersonalHistory = (PatientPersonalHistory) criteria.uniqueResult();
+		return patientPersonalHistory;
+	}
+	
 	
 	public OpdPatientQueue getOpdPatientQueue(String patientIdentifier,Integer opdConceptId) throws DAOException {
 		Criteria criteria = sessionFactory.getCurrentSession().createCriteria(OpdPatientQueue.class, "queue")
@@ -281,6 +315,22 @@ public class HibernatePatientQueueDAO implements PatientQueueDAO {
 	
 	public TriagePatientData saveTriagePatientData(TriagePatientData triagePatientData) throws DAOException {
 		return (TriagePatientData) sessionFactory.getCurrentSession().merge(triagePatientData);
+	}
+
+	public PatientMedicalHistory savePatientMedicalHistory(PatientMedicalHistory patientMedicalHistory) throws DAOException {
+		return (PatientMedicalHistory) sessionFactory.getCurrentSession().merge(patientMedicalHistory);
+	}
+	
+	public PatientDrugHistory savePatientDrugHistory(PatientDrugHistory patientDrugHistory) throws DAOException {
+		return (PatientDrugHistory) sessionFactory.getCurrentSession().merge(patientDrugHistory);
+	}
+	
+	public PatientFamilyHistory savePatientFamilyHistory(PatientFamilyHistory patientFamilyHistory) throws DAOException {
+		return (PatientFamilyHistory) sessionFactory.getCurrentSession().merge(patientFamilyHistory);
+	}
+	
+	public PatientPersonalHistory savePatientPersonalHistory(PatientPersonalHistory patientPersonalHistory) throws DAOException {
+		return (PatientPersonalHistory) sessionFactory.getCurrentSession().merge(patientPersonalHistory);
 	}
 	
 	public ConceptAnswer getConceptAnswer(Concept answerConcept) throws DAOException {
