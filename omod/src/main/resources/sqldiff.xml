@@ -521,6 +521,20 @@
 			ADD COLUMN `abdominal` DECIMAL(5,2);			
 		</sql>
 	</diff>
+	
+	<diff>
+		<version>3.8</version>
+		<author>Ghanshyam</author>
+		<date>June 30 2014</date>
+		<description>
+			create table symptom,question,answer
+		</description>
+		<sql>
+			CREATE TABLE IF NOT EXISTS symptom (symptom_id integer not null auto_increment, encounter integer, symptom_concept integer, `created_date` datetime default null, `creator` int(11) default null,primary key (symptom_id));
+			CREATE TABLE IF NOT EXISTS question (question_id integer not null auto_increment, symptom_id integer, question_concept integer, primary key (question_id));
+			CREATE TABLE IF NOT EXISTS answer (answer_id integer not null auto_increment, question_id integer, answer_concept integer, free_text varchar(50), primary key (answer_id));
+		</sql>
+	</diff>	
 
 	<diff>
 		<version>3.8</version>

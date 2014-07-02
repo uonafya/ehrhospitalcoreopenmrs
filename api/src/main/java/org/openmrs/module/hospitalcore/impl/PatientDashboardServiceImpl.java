@@ -39,11 +39,15 @@ import org.openmrs.api.APIException;
 import org.openmrs.api.context.Context;
 import org.openmrs.module.hospitalcore.PatientDashboardService;
 import org.openmrs.module.hospitalcore.db.PatientDashboardDAO;
+import org.openmrs.module.hospitalcore.model.Answer;
 import org.openmrs.module.hospitalcore.model.Department;
 import org.openmrs.module.hospitalcore.model.DepartmentConcept;
 import org.openmrs.module.hospitalcore.model.InventoryDrug;
 import org.openmrs.module.hospitalcore.model.OpdDrugOrder;
 import org.openmrs.module.hospitalcore.model.OpdTestOrder;
+import org.openmrs.module.hospitalcore.model.PatientServiceBill;
+import org.openmrs.module.hospitalcore.model.Question;
+import org.openmrs.module.hospitalcore.model.Symptom;
 import org.openmrs.module.hospitalcore.util.PatientDashboardConstants;
 
 public class PatientDashboardServiceImpl implements PatientDashboardService {
@@ -56,6 +60,12 @@ public class PatientDashboardServiceImpl implements PatientDashboardService {
 	public void setDao(PatientDashboardDAO dao) {
 		this.dao = dao;
 	}
+	
+	public List<Concept> searchSymptom(String text) throws APIException {
+		ConceptClass cc =  Context.getConceptService().getConceptClassByName(PatientDashboardConstants.CONCEPT_CLASS_NAME_SYMPTOM);
+		return dao.searchConceptsByNameAndClass(text, cc);
+	}
+	
 	public List<Concept> searchDiagnosis(String text) throws APIException {
 		ConceptClass cc =  Context.getConceptService().getConceptClassByName(PatientDashboardConstants.CONCEPT_CLASS_NAME_DIAGNOSIS);
 		return dao.searchConceptsByNameAndClass(text, cc);
@@ -187,7 +197,15 @@ public class PatientDashboardServiceImpl implements PatientDashboardService {
 	public List<InventoryDrug> findDrug(String name) throws APIException {
 		return dao.findDrug(name);
 	}
-	
+	public Symptom saveSymptom(Symptom symptom) throws APIException {
+		return dao.saveSymptom(symptom);
+	}
+	public Question saveQuestion(Question question) throws APIException {
+		return dao.saveQuestion(question);
+	}
+	public Answer saveAnswer(Answer answer) throws APIException {
+		return dao.saveAnswer(answer);
+	}
 	
 	
 }

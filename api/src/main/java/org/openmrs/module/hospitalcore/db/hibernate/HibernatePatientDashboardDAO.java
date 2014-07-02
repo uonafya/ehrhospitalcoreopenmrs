@@ -49,11 +49,15 @@ import org.openmrs.Patient;
 import org.openmrs.api.context.Context;
 import org.openmrs.api.db.DAOException;
 import org.openmrs.module.hospitalcore.db.PatientDashboardDAO;
+import org.openmrs.module.hospitalcore.model.Answer;
 import org.openmrs.module.hospitalcore.model.Department;
 import org.openmrs.module.hospitalcore.model.DepartmentConcept;
 import org.openmrs.module.hospitalcore.model.InventoryDrug;
 import org.openmrs.module.hospitalcore.model.OpdDrugOrder;
 import org.openmrs.module.hospitalcore.model.OpdTestOrder;
+import org.openmrs.module.hospitalcore.model.PatientServiceBill;
+import org.openmrs.module.hospitalcore.model.Question;
+import org.openmrs.module.hospitalcore.model.Symptom;
 
 public class HibernatePatientDashboardDAO implements PatientDashboardDAO {
 	SimpleDateFormat formatter = new SimpleDateFormat("dd/MM/yyyy HH:mm:ss");
@@ -353,6 +357,19 @@ public class HibernatePatientDashboardDAO implements PatientDashboardDAO {
 		List<InventoryDrug> l = criteria.list();
 
 		return l;
+	}
+	
+	public Symptom saveSymptom(Symptom symptom)throws DAOException {
+		return (Symptom) sessionFactory.getCurrentSession().merge(
+				symptom);
+	}
+	public Question saveQuestion(Question question)throws DAOException {
+		return (Question) sessionFactory.getCurrentSession().merge(
+				question);
+	}
+	public Answer saveAnswer(Answer answer)throws DAOException {
+		return (Answer) sessionFactory.getCurrentSession().merge(
+				answer);
 	}
 
 }

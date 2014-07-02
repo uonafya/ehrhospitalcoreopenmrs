@@ -161,6 +161,9 @@
 		PatientDrugHistory.hbm.xml
 		PatientFamilyHistory.hbm.xml
 		PatientPersonalHistory.hbm.xml
+		Symptom.hbm.xml
+		Question.hbm.xml
+		Answer.hbm.xml
     </mappingFiles>
 </module>
 

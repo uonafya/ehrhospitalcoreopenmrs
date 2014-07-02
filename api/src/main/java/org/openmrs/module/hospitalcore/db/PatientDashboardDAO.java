@@ -31,12 +31,16 @@ import org.openmrs.EncounterType;
 import org.openmrs.Location;
 import org.openmrs.Order;
 import org.openmrs.Patient;
+import org.openmrs.api.APIException;
 import org.openmrs.api.db.DAOException;
+import org.openmrs.module.hospitalcore.model.Answer;
 import org.openmrs.module.hospitalcore.model.Department;
 import org.openmrs.module.hospitalcore.model.DepartmentConcept;
 import org.openmrs.module.hospitalcore.model.InventoryDrug;
 import org.openmrs.module.hospitalcore.model.OpdDrugOrder;
 import org.openmrs.module.hospitalcore.model.OpdTestOrder;
+import org.openmrs.module.hospitalcore.model.Question;
+import org.openmrs.module.hospitalcore.model.Symptom;
 
 public interface PatientDashboardDAO {
 	public List<Order> getOrders(List<Concept> concepts, Patient patient, Location location, Date orderStartDate) throws DAOException;
@@ -63,4 +67,7 @@ public interface PatientDashboardDAO {
 	//ghanshyam 12-june-2013 New Requirement #1635 User should be able to send pharmacy orders to issue drugs to a patient from dashboard
 	public OpdDrugOrder saveOrUpdateOpdDrugOrder(OpdDrugOrder opdDrugOrder) throws DAOException;
 	public List<InventoryDrug> findDrug(String name) throws DAOException;
+	public Symptom saveSymptom(Symptom symptom) throws APIException;
+	public Question saveQuestion(Question question) throws APIException;
+	public Answer saveAnswer(Answer answer) throws APIException;
 }

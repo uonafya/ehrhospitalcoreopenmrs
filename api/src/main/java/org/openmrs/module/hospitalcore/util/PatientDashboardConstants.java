@@ -24,6 +24,7 @@ package org.openmrs.module.hospitalcore.util;
 public class PatientDashboardConstants {
 	//ghanshyam 27/06/2012 tag MS_SHOULD_BE_FINAL code MODULE_ID,CONCEPT_CLASS_NAME_DIAGNOSIS,CONCEPT_CLASS_NAME_PROCEDURE
 	public static final String MODULE_ID = "patientdashboard";
+	public static final String CONCEPT_CLASS_NAME_SYMPTOM = "Symptom";
 	public static final String CONCEPT_CLASS_NAME_DIAGNOSIS = "Diagnosis";
 	public static final String CONCEPT_CLASS_NAME_PROCEDURE = "Procedure";
 	//ghanshyam 1-june-2013 New Requirement #1633 User must be able to send investigation orders from dashboard to billing

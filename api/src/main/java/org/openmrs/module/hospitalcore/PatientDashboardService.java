@@ -32,15 +32,21 @@ import org.openmrs.Location;
 import org.openmrs.Order;
 import org.openmrs.Patient;
 import org.openmrs.api.APIException;
+import org.openmrs.module.hospitalcore.model.Answer;
 import org.openmrs.module.hospitalcore.model.Department;
 import org.openmrs.module.hospitalcore.model.DepartmentConcept;
 import org.openmrs.module.hospitalcore.model.InventoryDrug;
 import org.openmrs.module.hospitalcore.model.OpdDrugOrder;
 import org.openmrs.module.hospitalcore.model.OpdTestOrder;
+import org.openmrs.module.hospitalcore.model.PatientServiceBill;
+import org.openmrs.module.hospitalcore.model.Question;
+import org.openmrs.module.hospitalcore.model.Symptom;
 import org.springframework.transaction.annotation.Transactional;
 
 @Transactional
 public interface PatientDashboardService {
+	
+	public List<Concept> searchSymptom(String text) throws APIException;
 	
 	public List<Concept> searchDiagnosis(String text) throws APIException;
 	
@@ -75,5 +81,8 @@ public interface PatientDashboardService {
 	public List<Concept> searchDrug(String text) throws APIException;
 	public OpdDrugOrder saveOrUpdateOpdDrugOrder(OpdDrugOrder opdDrugOrder) throws APIException;
 	public List<InventoryDrug> findDrug(String name) throws APIException;
+	public Symptom saveSymptom(Symptom symptom) throws APIException;
+	public Question saveQuestion(Question question) throws APIException;
+	public Answer saveAnswer(Answer answer) throws APIException;
 	
 }
