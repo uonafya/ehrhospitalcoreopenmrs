@@ -521,20 +521,6 @@
 			ADD COLUMN `abdominal` DECIMAL(5,2);			
 		</sql>
 	</diff>
-	
-	<diff>
-		<version>3.8</version>
-		<author>Ghanshyam</author>
-		<date>June 30 2014</date>
-		<description>
-			create table symptom,question,answer
-		</description>
-		<sql>
-			CREATE TABLE IF NOT EXISTS symptom (symptom_id integer not null auto_increment, encounter integer, symptom_concept integer, `created_date` datetime default null, `creator` int(11) default null,primary key (symptom_id));
-			CREATE TABLE IF NOT EXISTS question (question_id integer not null auto_increment, symptom_id integer, question_concept integer, primary key (question_id));
-			CREATE TABLE IF NOT EXISTS answer (answer_id integer not null auto_increment, question_id integer, answer_concept integer, free_text varchar(50), primary key (answer_id));
-		</sql>
-	</diff>	
 
 	<diff>
 		<version>3.8</version>
@@ -548,7 +534,20 @@
 			CREATE TABLE IF NOT EXISTS patient_drug_history (id INTEGER NOT NULL AUTO_INCREMENT, triage_log_id INTEGER, patient_id INTEGER, current_medication VARCHAR(10), medication_name VARCHAR(100), medication_period VARCHAR(100), medication_reason VARCHAR(100), medication_record VARCHAR(100), sensitive_medication VARCHAR(10), sensitive_medication_name VARCHAR(100), sensitive_medication_symptom VARCHAR(100),  invasive_contraception  VARCHAR(10), invasive_contraception_name  VARCHAR(100), created_on DATETIME, PRIMARY KEY (id));
 			CREATE TABLE IF NOT EXISTS patient_family_history (id INTEGER NOT NULL AUTO_INCREMENT, triage_log_id INTEGER, patient_id INTEGER, parent_status VARCHAR(10), parent_death_cause VARCHAR(100), parent_death_age VARCHAR(100), sibling_status VARCHAR(100), sibling_death_cause VARCHAR(100), sibling_death_age VARCHAR(100), family_illness_history VARCHAR(100), created_on DATETIME, PRIMARY KEY (id)); 
 			CREATE TABLE IF NOT EXISTS patient_personal_history (id INTEGER NOT NULL AUTO_INCREMENT, triage_log_id INTEGER, patient_id INTEGER, smoke VARCHAR(10), smoke_item VARCHAR(100), smoke_average VARCHAR(100), alcohol VARCHAR(10), alcohol_item VARCHAR(100), alcohol_average VARCHAR(100), drug VARCHAR(10), drug_item VARCHAR(100), drug_average VARCHAR(100), hiv_status VARCHAR(10), exposed_hiv VARCHAR(10), exposed_hiv_factor VARCHAR(100), family_help VARCHAR(10), other_help VARCHAR(100), income_source VARCHAR(10), created_on DATETIME, PRIMARY KEY (id)); 
-
 		</sql>
 	</diff>
+	
+	<diff>
+		<version>3.9</version>
+		<author>Ghanshyam</author>
+		<date>July 2 2014</date>
+		<description>
+			create table symptom,question,answer
+		</description>
+		<sql>
+			CREATE TABLE IF NOT EXISTS symptom (symptom_id integer not null auto_increment, encounter integer, symptom_concept integer, `created_date` datetime default null, `creator` int(11) default null,primary key (symptom_id));
+			CREATE TABLE IF NOT EXISTS question (question_id integer not null auto_increment, symptom_id integer, question_concept integer, primary key (question_id));
+			CREATE TABLE IF NOT EXISTS answer (answer_id integer not null auto_increment, question_id integer, answer_concept integer, free_text varchar(50), primary key (answer_id));
+		</sql>
+	</diff>	
 </sqldiff>
