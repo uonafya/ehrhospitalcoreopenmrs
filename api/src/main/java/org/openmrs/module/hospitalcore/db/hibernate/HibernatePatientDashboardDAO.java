@@ -54,6 +54,7 @@ import org.openmrs.module.hospitalcore.model.Department;
 import org.openmrs.module.hospitalcore.model.DepartmentConcept;
 import org.openmrs.module.hospitalcore.model.InventoryDrug;
 import org.openmrs.module.hospitalcore.model.OpdDrugOrder;
+import org.openmrs.module.hospitalcore.model.OpdPatientQueueLog;
 import org.openmrs.module.hospitalcore.model.OpdTestOrder;
 import org.openmrs.module.hospitalcore.model.PatientServiceBill;
 import org.openmrs.module.hospitalcore.model.Question;
@@ -370,6 +371,13 @@ public class HibernatePatientDashboardDAO implements PatientDashboardDAO {
 	public Answer saveAnswer(Answer answer)throws DAOException {
 		return (Answer) sessionFactory.getCurrentSession().merge(
 				answer);
+	}
+	public OpdPatientQueueLog getOpdPatientQueueLog(Encounter encounter) throws DAOException {
+		Criteria criteria = sessionFactory.getCurrentSession().createCriteria(
+				OpdPatientQueueLog.class);
+			criteria.add(Restrictions.like("encounter",encounter));
+
+		return (OpdPatientQueueLog) criteria.uniqueResult();
 	}
 
 }

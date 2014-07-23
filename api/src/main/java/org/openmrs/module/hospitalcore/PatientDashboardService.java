@@ -37,6 +37,7 @@ import org.openmrs.module.hospitalcore.model.Department;
 import org.openmrs.module.hospitalcore.model.DepartmentConcept;
 import org.openmrs.module.hospitalcore.model.InventoryDrug;
 import org.openmrs.module.hospitalcore.model.OpdDrugOrder;
+import org.openmrs.module.hospitalcore.model.OpdPatientQueueLog;
 import org.openmrs.module.hospitalcore.model.OpdTestOrder;
 import org.openmrs.module.hospitalcore.model.PatientServiceBill;
 import org.openmrs.module.hospitalcore.model.Question;
@@ -84,5 +85,6 @@ public interface PatientDashboardService {
 	public Symptom saveSymptom(Symptom symptom) throws APIException;
 	public Question saveQuestion(Question question) throws APIException;
 	public Answer saveAnswer(Answer answer) throws APIException;
+	public OpdPatientQueueLog getOpdPatientQueueLog(Encounter encounter) throws APIException;
 	
 }
