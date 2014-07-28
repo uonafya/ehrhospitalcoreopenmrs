@@ -38,7 +38,7 @@
 						${patient.patientIdentifier.identifier}
 					</a>
 				</td>
-				<td>${patient.givenName} ${patient.middleName} ${patient.familyName}</td>
+				<td>${patient.givenName} ${patient.familyName} ${fn:replace(patient.middleName,',',' ')}</td>
 				<td>
 					<c:choose>
                 		<c:when test="${patient.gender eq 'M'}">
