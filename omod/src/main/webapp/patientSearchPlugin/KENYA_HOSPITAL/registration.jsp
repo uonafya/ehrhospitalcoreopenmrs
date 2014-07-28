@@ -473,13 +473,13 @@
 		
 		/** GENERATE THE NAVIGATION BAR */
 		generateNavigation: function(){
-			navbar = this.totalRow + " patients found.";
+			navbar = "Patients found:"+this.totalRow+". ";
 			
 			if(this.currentRow > 0) {
 				navbar += "&nbsp;&nbsp;<a href='javascript:PATIENTSEARCH.prevPage();'>&laquo;&laquo; Prev</a>&nbsp;&nbsp;";
 			}
 			
-			navbar += "page " + (this.currentRow/this.rowPerPage + 1);
+			navbar += "  Page " + (this.currentRow/this.rowPerPage + 1);
 			
 			if(this.currentRow + this.rowPerPage < this.totalRow) {
 				navbar += "&nbsp;&nbsp;<a href='javascript:PATIENTSEARCH.nextPage();'>Next &raquo;&raquo;</a>&nbsp;&nbsp;";

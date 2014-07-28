@@ -18,7 +18,7 @@
  *
 --%> 
 <tr>
-<br/><br/>${size} patients found.
+<br/><br/> Patients found:${size} .
 </tr>
 <tr>
 <c:if test="${not empty prevPage}">
