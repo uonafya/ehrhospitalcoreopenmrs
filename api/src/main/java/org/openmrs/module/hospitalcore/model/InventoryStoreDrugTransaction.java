@@ -48,6 +48,13 @@ public class InventoryStoreDrugTransaction implements  Serializable {
 	 private Set<InventoryStoreDrugIndent> indents;
 	 private Date createdOn;
 	 private String createdBy;
+	 private String paymentMode;
+	public String getPaymentMode() {
+		return paymentMode;
+	}
+	public void setPaymentMode(String paymentMode) {
+		this.paymentMode = paymentMode;
+	}
 	public Integer getId() {
 		return id;
 	}
