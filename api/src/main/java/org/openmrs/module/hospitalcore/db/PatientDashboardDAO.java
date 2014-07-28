@@ -71,4 +71,7 @@ public interface PatientDashboardDAO {
 	public Question saveQuestion(Question question) throws DAOException;
 	public Answer saveAnswer(Answer answer) throws DAOException;
 	public OpdPatientQueueLog getOpdPatientQueueLog(Encounter encounter) throws DAOException;
+	public List<Symptom> getSymptom(Encounter encounter) throws DAOException;
+	public List<Question> getQuestion(Symptom symptom) throws DAOException;
+	public Answer getAnswer(Question question) throws DAOException;
 }

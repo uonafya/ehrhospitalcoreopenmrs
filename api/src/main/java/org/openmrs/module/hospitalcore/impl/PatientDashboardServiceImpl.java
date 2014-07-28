@@ -210,6 +210,14 @@ public class PatientDashboardServiceImpl implements PatientDashboardService {
 	public OpdPatientQueueLog getOpdPatientQueueLog(Encounter encounter) {
 		return dao.getOpdPatientQueueLog(encounter);
 	}
-	
+	public List<Symptom> getSymptom(Encounter encounter) {
+		return dao.getSymptom(encounter);
+	}
+	public List<Question> getQuestion(Symptom symptom) {
+		return dao.getQuestion(symptom);
+	}
+	public Answer getAnswer(Question question) {
+		return dao.getAnswer(question);
+	}
 	
 }

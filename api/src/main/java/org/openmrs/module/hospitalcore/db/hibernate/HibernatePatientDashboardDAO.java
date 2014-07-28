@@ -379,5 +379,26 @@ public class HibernatePatientDashboardDAO implements PatientDashboardDAO {
 
 		return (OpdPatientQueueLog) criteria.uniqueResult();
 	}
+	public List<Symptom> getSymptom(Encounter encounter) throws DAOException {
+		Criteria criteria = sessionFactory.getCurrentSession().createCriteria(
+				Symptom.class);
+			criteria.add(Restrictions.like("encounter",encounter));
+
+		return criteria.list();
+	}
+	public List<Question> getQuestion(Symptom symptom) throws DAOException {
+		Criteria criteria = sessionFactory.getCurrentSession().createCriteria(
+				Question.class);
+			criteria.add(Restrictions.like("symptom",symptom));
+
+		return criteria.list();
+	}
+	public Answer getAnswer(Question question) throws DAOException {
+		Criteria criteria = sessionFactory.getCurrentSession().createCriteria(
+				Answer.class);
+			criteria.add(Restrictions.like("question",question));
+
+		return (Answer) criteria.uniqueResult();
+	}
 
 }

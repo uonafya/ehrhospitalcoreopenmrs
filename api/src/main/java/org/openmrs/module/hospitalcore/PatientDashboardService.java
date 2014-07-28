@@ -86,5 +86,8 @@ public interface PatientDashboardService {
 	public Question saveQuestion(Question question) throws APIException;
 	public Answer saveAnswer(Answer answer) throws APIException;
 	public OpdPatientQueueLog getOpdPatientQueueLog(Encounter encounter) throws APIException;
+	public List<Symptom> getSymptom(Encounter encounter) throws APIException;
+	public List<Question> getQuestion(Symptom symptom) throws APIException;
+	public Answer getAnswer(Question question) throws APIException;
 	
 }
