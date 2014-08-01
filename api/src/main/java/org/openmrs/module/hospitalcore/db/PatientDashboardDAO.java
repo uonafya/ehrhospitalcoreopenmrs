@@ -74,4 +74,5 @@ public interface PatientDashboardDAO {
 	public List<Symptom> getSymptom(Encounter encounter) throws DAOException;
 	public List<Question> getQuestion(Symptom symptom) throws DAOException;
 	public Answer getAnswer(Question question) throws DAOException;
+	public List<OpdDrugOrder> getOpdDrugOrder(Encounter encounter) throws DAOException;
 }

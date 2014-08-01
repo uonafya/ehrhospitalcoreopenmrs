@@ -89,5 +89,6 @@ public interface PatientDashboardService {
 	public List<Symptom> getSymptom(Encounter encounter) throws APIException;
 	public List<Question> getQuestion(Symptom symptom) throws APIException;
 	public Answer getAnswer(Question question) throws APIException;
+	public List<OpdDrugOrder> getOpdDrugOrder(Encounter encounter) throws APIException;
 	
 }

@@ -400,5 +400,12 @@ public class HibernatePatientDashboardDAO implements PatientDashboardDAO {
 
 		return (Answer) criteria.uniqueResult();
 	}
+	public List<OpdDrugOrder> getOpdDrugOrder(Encounter encounter) throws DAOException {
+		Criteria criteria = sessionFactory.getCurrentSession().createCriteria(
+				OpdDrugOrder.class);
+			criteria.add(Restrictions.like("encounter",encounter));
+
+		return criteria.list();
+	}
 
 }

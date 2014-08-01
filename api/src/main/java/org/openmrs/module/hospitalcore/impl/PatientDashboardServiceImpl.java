@@ -219,5 +219,8 @@ public class PatientDashboardServiceImpl implements PatientDashboardService {
 	public Answer getAnswer(Question question) {
 		return dao.getAnswer(question);
 	}
+	public List<OpdDrugOrder> getOpdDrugOrder(Encounter encounter) {
+		return dao.getOpdDrugOrder(encounter);
+	}
 	
 }
