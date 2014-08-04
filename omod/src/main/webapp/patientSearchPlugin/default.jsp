@@ -570,7 +570,7 @@ jQuery(document).ready(function() {
 		
 		/** GENERATE THE NAVIGATION BAR */
 		generateNavigation: function(){
-			navbar = "Patients found:"+this.totalRow+". ";
+			navbar = "Patients found:"+this.totalRow+". <br>";
 			
 			if(this.currentRow > 0) {
 				navbar += "&nbsp;&nbsp;<a href='javascript:PATIENTSEARCH.prevPage();'>&laquo;&laquo; Prev</a>&nbsp;&nbsp;";
