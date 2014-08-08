@@ -693,7 +693,7 @@ jQuery(document).ready(function() {
 				</td>
 			</tr>
 			<tr>
-				<td>Last day of visit</td>
+				<td>Date of Previous Visit</td>
 				<td><input id="advanceSearchCalendar" type="hidden" /> <input
 					id="lastDayOfVisit" name="lastDayOfVisit" style="width: 100px" />
 					<img id="advanceSearchCalendarButton"
@@ -701,7 +701,7 @@ jQuery(document).ready(function() {
 				</td>
 			</tr>
 			<tr>
-				<td>Last Visit</td>
+				<td>Previous Visit</td>
 				<td colspan="3">
 					<select id="lastVisit" style="width: 100px">
 						<option value="Any">Anytime</option>
