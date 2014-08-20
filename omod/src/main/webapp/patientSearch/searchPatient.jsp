@@ -37,7 +37,7 @@
 					<input type="text" id="phrase" onkeyup="ADVSEARCH.startSearch(event);" onblur="ADVSEARCH.delay();"/>
 				</td>
 				<td>
-					<a href="#" onClick="jQuery('#advanceSearchBox').toggle(500);">Advance search</a>
+					<a href="#" onClick="jQuery('#advanceSearchBox').toggle(500);">Advance Search</a>
 				</td>
 				<td>
 					<img id="ajaxLoader" style="display:none;" src='${pageContext.request.contextPath}/moduleResources/hospitalcore/ajax-loader.gif'/>

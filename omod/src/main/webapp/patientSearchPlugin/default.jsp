@@ -658,7 +658,7 @@ jQuery(document).ready(function() {
 		<tr>	
 			<td>Name/Identifier</td>
 			<td><input id="nameOrIdentifier" style="width:300px;"/></td>
-			<td><a href="javascript:PATIENTSEARCH.toggleAdvanceSearch();">Advance search</a></td>
+			<td><a href="javascript:PATIENTSEARCH.toggleAdvanceSearch();">Advance Search</a></td>
 			<td id="searchLoader"></td>
 		</tr>	
 	</table>
@@ -712,7 +712,7 @@ jQuery(document).ready(function() {
 				</td>	
 			</tr>
 			<tr>
-				<td>Phone number</td>
+				<td>Phone Number</td>
 				<td colspan="3">
 					<input id="phoneNumber" style="width: 100px"/>
 				</td>	
