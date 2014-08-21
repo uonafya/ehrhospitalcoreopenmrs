@@ -49,6 +49,7 @@ public class TriagePatientQueueLog implements  Serializable {
 	 private User user;
 	 private Date createdOn;
 	 private Encounter encounter;
+	 private String category;
 	 
 	 
 	@Override
@@ -59,7 +60,7 @@ public class TriagePatientQueueLog implements  Serializable {
 				+ ", referralConcept=" + referralConcept + ", opdConcept="
 				+ triageConcept + ", triageConceptName=" + triageConceptName
 				+ ", status=" + status + ", user=" + user + ", createdOn="
-				+ createdOn + "]";
+				+ createdOn + " ,category=" + category + "]";
 	}
 	public Integer getId() {
 		return id;
@@ -145,8 +146,11 @@ public class TriagePatientQueueLog implements  Serializable {
 	public void setEncounter(Encounter encounter) {
 		this.encounter = encounter;
 	}
-	 
-	 
-	 
+	public String getCategory() {
+		return category;
+	}
+	public void setCategory(String category) {
+		this.category = category;
+	}	 
 	  
 }

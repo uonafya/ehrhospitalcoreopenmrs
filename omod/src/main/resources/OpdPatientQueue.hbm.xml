@@ -24,5 +24,6 @@
 		<property name="status" column="status" />
 		<property name="patientIdentifier" column="patient_identifier" />
 		<many-to-one name="triageDataId" column="triage_data_id"  class="org.openmrs.module.hospitalcore.model.TriagePatientData" />
+		<property name="category" column="category" />
 	</class>
 </hibernate-mapping>

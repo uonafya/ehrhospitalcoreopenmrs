@@ -660,7 +660,7 @@ jQuery(document).ready(function() {
 	</div>
 	<table cellspacing="10">
 		<tr>	
-			<td>Name/Identifier</td>
+			<td>Patient Name/ID</td>
 			<td><input id="nameOrIdentifier" style="width:300px;"/></td>
 			<td><a href="javascript:PATIENTSEARCH.toggleAdvanceSearch();">Advance Search</a></td>
 			<td id="searchLoader"></td>

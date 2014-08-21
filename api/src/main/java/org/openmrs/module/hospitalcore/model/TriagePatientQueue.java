@@ -48,6 +48,7 @@ public class TriagePatientQueue implements  Serializable {
 	 private String status;
 	 private User user;
 	 private Date createdOn;
+	 private String category;
 	
 	 
 	 
@@ -59,7 +60,7 @@ public class TriagePatientQueue implements  Serializable {
 				+ ", referralConcept=" + referralConcept + ", opdConcept="
 				+ triageConcept + ", triageConceptName=" + triageConceptName
 				+ ", status=" + status + ", user=" + user + ", createdOn="
-				+ createdOn + "]";
+				+ createdOn + " ,category=" + category + "]";
 	}
 	public Integer getId() {
 		return id;
@@ -145,6 +146,11 @@ public class TriagePatientQueue implements  Serializable {
 	public void setBirthDate(Date birthDate) {
 		this.birthDate = birthDate;
 	}
-	 
+	public String getCategory() {
+		return category;
+	}
+	public void setCategory(String category) {
+		this.category = category;
+	} 
 	  
 }

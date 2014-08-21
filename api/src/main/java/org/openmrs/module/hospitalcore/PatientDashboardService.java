@@ -39,7 +39,6 @@ import org.openmrs.module.hospitalcore.model.InventoryDrug;
 import org.openmrs.module.hospitalcore.model.OpdDrugOrder;
 import org.openmrs.module.hospitalcore.model.OpdPatientQueueLog;
 import org.openmrs.module.hospitalcore.model.OpdTestOrder;
-import org.openmrs.module.hospitalcore.model.PatientServiceBill;
 import org.openmrs.module.hospitalcore.model.Question;
 import org.openmrs.module.hospitalcore.model.Symptom;
 import org.springframework.transaction.annotation.Transactional;

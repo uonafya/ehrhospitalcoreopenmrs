@@ -23,5 +23,6 @@
 		<property name="sex" column="sex" />
 		<property name="status" column="status" />
 		<property name="patientIdentifier" column="patient_identifier" />
+		<property name="category" column="category" />
 	</class>
 </hibernate-mapping>

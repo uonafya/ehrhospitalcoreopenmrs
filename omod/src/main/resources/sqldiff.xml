@@ -550,4 +550,20 @@
 			CREATE TABLE IF NOT EXISTS answer (answer_id integer not null auto_increment, question_id integer, answer_concept integer, free_text varchar(50), primary key (answer_id));
 		</sql>
 	</diff>	
+	
+	<diff>
+		<version>4.0</version>
+		<author>Ghanshyam</author>
+		<date>August 20 2014</date>
+		<description>
+			Add columns to capture more patient information in traige
+		</description>
+		<sql>
+			ALTER TABLE triage_patient_queue ADD COLUMN `category` VARCHAR(21) default NULL;
+			ALTER TABLE triage_patient_queue_log ADD COLUMN `category` VARCHAR(21) default NULL;
+			
+			ALTER TABLE opd_patient_queue ADD COLUMN `category` VARCHAR(21) default NULL;
+			ALTER TABLE opd_patient_queue_log ADD COLUMN `category` VARCHAR(21) default NULL;
+		</sql>
+	</diff>
 </sqldiff>

@@ -49,6 +49,7 @@ public class OpdPatientQueue implements  Serializable {
 	 private User user;
 	 private Date createdOn;
 	 private TriagePatientData triageDataId;
+	 private String category;
 	
 	 
 	 
@@ -60,7 +61,8 @@ public class OpdPatientQueue implements  Serializable {
 				+ ", referralConcept=" + referralConcept + ", opdConcept="
 				+ opdConcept + ", opdConceptName=" + opdConceptName
 				+ ", status=" + status + ", user=" + user + ", createdOn="
-				+ createdOn + ",triageDataId=" + triageDataId + "]";
+				+ createdOn + ",triageDataId=" + triageDataId + " ,category="
+				+ category + "]";
 	}
 	public Integer getId() {
 		return id;
@@ -152,6 +154,11 @@ public class OpdPatientQueue implements  Serializable {
 	public void setTriageDataId(TriagePatientData triageDataId) {
 		this.triageDataId = triageDataId;
 	}
-	 
+	public String getCategory() {
+		return category;
+	}
+	public void setCategory(String category) {
+		this.category = category;
+	} 
 	  
 }
