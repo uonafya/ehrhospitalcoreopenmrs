@@ -49,6 +49,14 @@ public class InventoryStoreDrugTransaction implements  Serializable {
 	 private Date createdOn;
 	 private String createdBy;
 	 private String paymentMode;
+	 private String patientCategory;
+	 
+	public String getPatientCategory() {
+		return patientCategory;
+	}
+	public void setPatientCategory(String patientCategory) {
+		this.patientCategory = patientCategory;
+	}
 	public String getPaymentMode() {
 		return paymentMode;
 	}
