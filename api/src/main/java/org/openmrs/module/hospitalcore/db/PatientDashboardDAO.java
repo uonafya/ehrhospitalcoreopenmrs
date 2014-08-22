@@ -41,6 +41,7 @@ import org.openmrs.module.hospitalcore.model.OpdPatientQueueLog;
 import org.openmrs.module.hospitalcore.model.OpdTestOrder;
 import org.openmrs.module.hospitalcore.model.Question;
 import org.openmrs.module.hospitalcore.model.Symptom;
+import org.openmrs.module.hospitalcore.model.TriagePatientData;
 
 public interface PatientDashboardDAO {
 	public List<Order> getOrders(List<Concept> concepts, Patient patient, Location location, Date orderStartDate) throws DAOException;
@@ -75,4 +76,5 @@ public interface PatientDashboardDAO {
 	public List<Question> getQuestion(Symptom symptom) throws DAOException;
 	public Answer getAnswer(Question question) throws DAOException;
 	public List<OpdDrugOrder> getOpdDrugOrder(Encounter encounter) throws DAOException;
+	public TriagePatientData getTriagePatientData(Integer triageDataId) throws DAOException;
 }

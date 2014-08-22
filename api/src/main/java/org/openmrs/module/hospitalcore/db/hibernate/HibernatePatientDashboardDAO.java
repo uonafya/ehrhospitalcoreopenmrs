@@ -59,6 +59,7 @@ import org.openmrs.module.hospitalcore.model.OpdTestOrder;
 import org.openmrs.module.hospitalcore.model.PatientServiceBill;
 import org.openmrs.module.hospitalcore.model.Question;
 import org.openmrs.module.hospitalcore.model.Symptom;
+import org.openmrs.module.hospitalcore.model.TriagePatientData;
 
 public class HibernatePatientDashboardDAO implements PatientDashboardDAO {
 	SimpleDateFormat formatter = new SimpleDateFormat("dd/MM/yyyy HH:mm:ss");
@@ -406,6 +407,13 @@ public class HibernatePatientDashboardDAO implements PatientDashboardDAO {
 			criteria.add(Restrictions.like("encounter",encounter));
 
 		return criteria.list();
+	}
+	public TriagePatientData getTriagePatientData(Integer triageDataId) throws DAOException {
+		Criteria criteria = sessionFactory.getCurrentSession().createCriteria(
+				TriagePatientData.class);
+			criteria.add(Restrictions.like("id",triageDataId));
+
+		return (TriagePatientData) criteria.uniqueResult();
 	}
 
 }

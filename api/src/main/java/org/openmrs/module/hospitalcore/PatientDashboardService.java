@@ -41,6 +41,7 @@ import org.openmrs.module.hospitalcore.model.OpdPatientQueueLog;
 import org.openmrs.module.hospitalcore.model.OpdTestOrder;
 import org.openmrs.module.hospitalcore.model.Question;
 import org.openmrs.module.hospitalcore.model.Symptom;
+import org.openmrs.module.hospitalcore.model.TriagePatientData;
 import org.springframework.transaction.annotation.Transactional;
 
 @Transactional
@@ -89,5 +90,6 @@ public interface PatientDashboardService {
 	public List<Question> getQuestion(Symptom symptom) throws APIException;
 	public Answer getAnswer(Question question) throws APIException;
 	public List<OpdDrugOrder> getOpdDrugOrder(Encounter encounter) throws APIException;
+	public TriagePatientData getTriagePatientData(Integer triageDataId) throws APIException;
 	
 }

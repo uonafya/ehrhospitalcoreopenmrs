@@ -49,6 +49,7 @@ import org.openmrs.module.hospitalcore.model.OpdTestOrder;
 import org.openmrs.module.hospitalcore.model.PatientServiceBill;
 import org.openmrs.module.hospitalcore.model.Question;
 import org.openmrs.module.hospitalcore.model.Symptom;
+import org.openmrs.module.hospitalcore.model.TriagePatientData;
 import org.openmrs.module.hospitalcore.util.PatientDashboardConstants;
 
 public class PatientDashboardServiceImpl implements PatientDashboardService {
@@ -222,5 +223,7 @@ public class PatientDashboardServiceImpl implements PatientDashboardService {
 	public List<OpdDrugOrder> getOpdDrugOrder(Encounter encounter) {
 		return dao.getOpdDrugOrder(encounter);
 	}
-	
+	public TriagePatientData getTriagePatientData(Integer triageDataId) {
+		return dao.getTriagePatientData(triageDataId);
+	}
 }
