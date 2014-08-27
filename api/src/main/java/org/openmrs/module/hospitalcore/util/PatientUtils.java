@@ -48,6 +48,10 @@ public class PatientUtils {
 	
 //	public final static String PATIENT_ATTRIBUTE_RSBY_NUMBER = "RSBY Number";
 	
+	public final static String PATIENT_ATTRIBUTE_EXEMPTION_CATEGORY = "Exemption Number";
+	
+	public final static String PATIENT_ATTRIBUTE_WAIVER_CATEGORY = "Waiver Number";
+	
 	public final static String PATIENT_AGE_CATEGORY = MODULE_ID + "ageCategory";
 	
 	/**
