@@ -566,4 +566,20 @@
 			ALTER TABLE opd_patient_queue_log ADD COLUMN `category` VARCHAR(21) default NULL;
 		</sql>
 	</diff>
+	
+	<diff>
+		<version>4.1</version>
+		<author>Ghanshyam</author>
+		<date>September 01 2014</date>
+		<description>
+			Add column visit_status
+		</description>
+		<sql>
+			ALTER TABLE triage_patient_queue ADD COLUMN `visit_status` VARCHAR(21) default NULL;
+			ALTER TABLE triage_patient_queue_log ADD COLUMN `visit_status` VARCHAR(21) default NULL;
+			
+			ALTER TABLE opd_patient_queue ADD COLUMN `visit_status` VARCHAR(21) default NULL;
+			ALTER TABLE opd_patient_queue_log ADD COLUMN `visit_status` VARCHAR(21) default NULL;
+		</sql>
+	</diff>
 </sqldiff>

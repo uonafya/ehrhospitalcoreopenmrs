@@ -43,6 +43,7 @@ import org.openmrs.module.hospitalcore.model.IpdPatientAdmission;
 import org.openmrs.module.hospitalcore.model.IpdPatientAdmissionLog;
 import org.openmrs.module.hospitalcore.model.IpdPatientAdmitted;
 import org.openmrs.module.hospitalcore.model.IpdPatientAdmittedLog;
+import org.openmrs.module.hospitalcore.model.OpdPatientQueueLog;
 import org.openmrs.module.hospitalcore.model.WardBedStrength;
 import org.openmrs.module.hospitalcore.model.IpdPatientVitalStatistics;
 
@@ -144,6 +145,22 @@ public class HibernateIpdDAO implements IpdDAO {
 		Criteria criteria = sessionFactory.getCurrentSession().createCriteria(
 				IpdPatientAdmissionLog.class);
 		criteria.add(Restrictions.eq("id", id));
+		return (IpdPatientAdmissionLog) criteria.uniqueResult();
+	}
+
+	public IpdPatientAdmissionLog getIpdPatientAdmissionLog(
+			OpdPatientQueueLog opdLog) throws DAOException {
+		Criteria criteria = sessionFactory.getCurrentSession().createCriteria(
+				IpdPatientAdmissionLog.class);
+		criteria.add(Restrictions.eq("opdLog", opdLog));
+		return (IpdPatientAdmissionLog) criteria.uniqueResult();
+	}
+	
+	public IpdPatientAdmissionLog getIpdPatientAdmissionLog(
+			Encounter encounter) throws DAOException {
+		Criteria criteria = sessionFactory.getCurrentSession().createCriteria(
+				IpdPatientAdmissionLog.class);
+		criteria.add(Restrictions.eq("ipdEncounter", encounter));
 		return (IpdPatientAdmissionLog) criteria.uniqueResult();
 	}
 

@@ -38,6 +38,7 @@ import org.openmrs.module.hospitalcore.model.IpdPatientAdmission;
 import org.openmrs.module.hospitalcore.model.IpdPatientAdmissionLog;
 import org.openmrs.module.hospitalcore.model.IpdPatientAdmitted;
 import org.openmrs.module.hospitalcore.model.IpdPatientAdmittedLog;
+import org.openmrs.module.hospitalcore.model.OpdPatientQueueLog;
 import org.openmrs.module.hospitalcore.model.WardBedStrength;
 import org.openmrs.module.hospitalcore.model.IpdPatientVitalStatistics;
 import org.openmrs.module.hospitalcore.util.HospitalCoreConstants;
@@ -92,6 +93,16 @@ public class IpdServiceImpl extends BaseOpenmrsService implements IpdService {
 	public IpdPatientAdmissionLog getIpdPatientAdmissionLog(Integer id)
 			throws APIException {
 		return dao.getIpdPatientAdmissionLog(id);
+	}
+
+	public IpdPatientAdmissionLog getIpdPatientAdmissionLog(
+			OpdPatientQueueLog opdLog) throws APIException {
+		return dao.getIpdPatientAdmissionLog(opdLog);
+	}
+	
+	public IpdPatientAdmissionLog getIpdPatientAdmissionLog(
+			Encounter encounter) throws APIException {
+		return dao.getIpdPatientAdmissionLog(encounter);
 	}
 
 	public IpdPatientAdmitted getIpdPatientAdmitted(Integer id)
@@ -471,8 +482,8 @@ public class IpdServiceImpl extends BaseOpenmrsService implements IpdService {
 		return dao.getWardBedStrengthByWardId(wardId);
 	}
 
-	public IpdPatientAdmission getIpdPatientAdmissionByEncounter(Encounter encounter)
-			throws APIException {
+	public IpdPatientAdmission getIpdPatientAdmissionByEncounter(
+			Encounter encounter) throws APIException {
 
 		return dao.getIpdPatientAdmissionByEncounter(encounter);
 	}

@@ -50,7 +50,7 @@ public class TriagePatientQueueLog implements  Serializable {
 	 private Date createdOn;
 	 private Encounter encounter;
 	 private String category;
-	 
+	 private String visitStatus;
 	 
 	@Override
 	public String toString() {
@@ -60,7 +60,7 @@ public class TriagePatientQueueLog implements  Serializable {
 				+ ", referralConcept=" + referralConcept + ", opdConcept="
 				+ triageConcept + ", triageConceptName=" + triageConceptName
 				+ ", status=" + status + ", user=" + user + ", createdOn="
-				+ createdOn + " ,category=" + category + "]";
+				+ createdOn + " ,category=" + ",visitStatus=" + visitStatus + "]";
 	}
 	public Integer getId() {
 		return id;
@@ -151,6 +151,12 @@ public class TriagePatientQueueLog implements  Serializable {
 	}
 	public void setCategory(String category) {
 		this.category = category;
-	}	 
+	}
+	public String getVisitStatus() {
+		return visitStatus;
+	}
+	public void setVisitStatus(String visitStatus) {
+		this.visitStatus = visitStatus;
+	}
 	  
 }

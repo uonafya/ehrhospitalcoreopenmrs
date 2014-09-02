@@ -50,9 +50,8 @@ public class OpdPatientQueue implements  Serializable {
 	 private Date createdOn;
 	 private TriagePatientData triageDataId;
 	 private String category;
+	 private String visitStatus;
 	
-	 
-	 
 	@Override
 	public String toString() {
 		return "OpdPatientQueue [id=" + id + ", patient=" + patient
@@ -62,7 +61,7 @@ public class OpdPatientQueue implements  Serializable {
 				+ opdConcept + ", opdConceptName=" + opdConceptName
 				+ ", status=" + status + ", user=" + user + ", createdOn="
 				+ createdOn + ",triageDataId=" + triageDataId + " ,category="
-				+ category + "]";
+				+ category + ",visitStatus=" + visitStatus + "]";
 	}
 	public Integer getId() {
 		return id;
@@ -159,6 +158,12 @@ public class OpdPatientQueue implements  Serializable {
 	}
 	public void setCategory(String category) {
 		this.category = category;
-	} 
+	}
+	public String getVisitStatus() {
+		return visitStatus;
+	}
+	public void setVisitStatus(String visitStatus) {
+		this.visitStatus = visitStatus;
+	}
 	  
 }

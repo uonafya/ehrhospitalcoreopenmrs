@@ -60,8 +60,8 @@ public class IpdPatientAdmissionLog implements Serializable{
 	private int indoorStatus; //0=outdoor Patient, 1=indoor patient
 	private int requestForDischargeStatus;// 0=not yet requested for discharge,1=requested for discharge;
 	private int billingStatus;// 0=billing not done,1=billing done;
-	
 	private Encounter ipdEncounter;
+	
 	public Date getAdmissionDate() {
 		return admissionDate;
 	}

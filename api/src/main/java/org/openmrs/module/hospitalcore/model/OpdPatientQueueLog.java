@@ -52,6 +52,7 @@ public class OpdPatientQueueLog implements  Serializable {
 	 private Encounter encounter;
 	 private String visitOutCome;
 	 private String category;
+	 private String visitStatus;
 	 
 	 
 	@Override
@@ -63,7 +64,7 @@ public class OpdPatientQueueLog implements  Serializable {
 				+ opdConcept + ", opdConceptName=" + opdConceptName
 				+ ", status=" + status + ", user=" + user + ", createdOn="
 				+ createdOn + ",encounter=" + encounter + ",visitOutCome="
-				+ visitOutCome + " ,category=" + category + "]";
+				+ visitOutCome + " ,category=" + category + ",visitStatus=" + visitStatus + "]";
 	}
 	public Integer getId() {
 		return id;
@@ -166,6 +167,12 @@ public class OpdPatientQueueLog implements  Serializable {
 	}
 	public void setCategory(String category) {
 		this.category = category;
+	}
+	public String getVisitStatus() {
+		return visitStatus;
+	}
+	public void setVisitStatus(String visitStatus) {
+		this.visitStatus = visitStatus;
 	}
 	  
 }

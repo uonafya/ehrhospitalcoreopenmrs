@@ -32,6 +32,7 @@ import org.openmrs.module.hospitalcore.model.IpdPatientAdmission;
 import org.openmrs.module.hospitalcore.model.IpdPatientAdmissionLog;
 import org.openmrs.module.hospitalcore.model.IpdPatientAdmitted;
 import org.openmrs.module.hospitalcore.model.IpdPatientAdmittedLog;
+import org.openmrs.module.hospitalcore.model.OpdPatientQueueLog;
 import org.openmrs.module.hospitalcore.model.WardBedStrength;
 import org.openmrs.module.hospitalcore.model.IpdPatientVitalStatistics;
 import org.springframework.transaction.annotation.Transactional;
@@ -59,6 +60,12 @@ public interface IpdService extends OpenmrsService{
 	
 	@Transactional(readOnly = true)
 	public IpdPatientAdmissionLog getIpdPatientAdmissionLog(Integer id) throws APIException;
+	
+	@Transactional(readOnly = true)
+	public IpdPatientAdmissionLog getIpdPatientAdmissionLog(OpdPatientQueueLog opdLog) throws APIException;
+	
+	@Transactional(readOnly = true)
+	public IpdPatientAdmissionLog getIpdPatientAdmissionLog(Encounter encounter) throws APIException;
 	
 	@Transactional(readOnly = true)
 	public IpdPatientAdmission getIpdPatientAdmission(Integer id) throws APIException;
