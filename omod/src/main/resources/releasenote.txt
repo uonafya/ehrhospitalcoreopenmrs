@@ -1,3 +1,6 @@
+1.5.0
+- #module upgradation
+
 1.4.10.13
 - #2259              Error on selecting Bill ID to search for a bill 
 - #1966              Patient does not disappear from queue even after billing is complete
