@@ -36,6 +36,7 @@ import org.hibernate.criterion.Restrictions;
 import org.openmrs.Concept;
 import org.openmrs.ConceptAnswer;
 import org.openmrs.Patient;
+import org.openmrs.api.context.Context;
 import org.openmrs.api.db.DAOException;
 import org.openmrs.module.hospitalcore.db.RadiologyCommonDAO;
 import org.openmrs.module.hospitalcore.model.RadiologyTest;
@@ -78,6 +79,7 @@ public class HibernateRadiologyCommonDAO implements RadiologyCommonDAO {
 		Criteria criteria = sessionFactory.getCurrentSession().createCriteria(
 				ConceptAnswer.class);
 		criteria.add(Restrictions.eq("answerConcept", concept));
+		criteria.add(Restrictions.ne("concept", Context.getConceptService().getConcept("SPECIAL RADIOLOGY TESTS")));
 		return (ConceptAnswer) criteria.uniqueResult();
 	}
 
