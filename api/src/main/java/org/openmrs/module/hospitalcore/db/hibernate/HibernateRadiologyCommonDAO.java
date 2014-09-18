@@ -80,6 +80,7 @@ public class HibernateRadiologyCommonDAO implements RadiologyCommonDAO {
 				ConceptAnswer.class);
 		criteria.add(Restrictions.eq("answerConcept", concept));
 		criteria.add(Restrictions.ne("concept", Context.getConceptService().getConcept("SPECIAL RADIOLOGY TESTS")));
+		criteria.add(Restrictions.ne("concept", Context.getConceptService().getConcept("ROUTINE RADIOLOGY TESTS")));
 		return (ConceptAnswer) criteria.uniqueResult();
 	}
 
