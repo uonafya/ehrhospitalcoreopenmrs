@@ -330,9 +330,24 @@ public class RadiologyServiceImpl extends BaseOpenmrsService implements
 		if (investigation != null) {
 			TestTree tree = new TestTree(investigation);
 			Set<ConceptNode> nodes = tree.getRootNode().getChildNodes();
+			/*
 			for (RadiologyTest test : patientFilteredOrders) {
 				ConceptNode node = new ConceptNode(test.getConcept());
 				if (nodes.contains(node)) {
+			*/ 
+			List<ConceptNode> leafNodeList = new ArrayList<ConceptNode>();
+			for(ConceptNode nod:nodes){
+				Set<ConceptNode> leafNode =nod.getChildNodes();
+				if(nod.getChildNodes().size()!=0){
+				leafNodeList.addAll(leafNode);
+				}
+				else{
+				leafNodeList.add(nod);
+				}
+			}
+			for (RadiologyTest test : patientFilteredOrders) {
+				ConceptNode node = new ConceptNode(test.getConcept());
+				if (leafNodeList.contains(node)) {
 					investigationFilteredOrders.add(test);
 				}
 			}
