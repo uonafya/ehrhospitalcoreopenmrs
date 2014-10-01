@@ -76,7 +76,7 @@ public class HibernateIpdDAO implements IpdDAO {
 	public List<IpdPatientAdmission> getAllIndoorPatient() throws DAOException {
 		Criteria criteria = sessionFactory.getCurrentSession().createCriteria(
 				IpdPatientAdmission.class);
-		criteria.add(Restrictions.eq("acceptStatus", 1));
+		//criteria.add(Restrictions.eq("acceptStatus", 1));
 		return criteria.list();
 	}
 
