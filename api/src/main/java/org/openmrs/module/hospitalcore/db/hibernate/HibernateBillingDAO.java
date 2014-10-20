@@ -962,6 +962,7 @@ public class HibernateBillingDAO implements BillingDAO {
 	// ghanshyam 3-june-2013 New Requirement #1632 Orders from dashboard must be
 	// appear in billing queue.User must be able to generate bills from this
 	// queue
+	/*
 	public List<PatientSearch> searchListOfPatient(Date date, String searchKey,
 			int page) throws DAOException {
 		SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
@@ -973,6 +974,25 @@ public class HibernateBillingDAO implements BillingDAO {
 				+ endDate
 				//+ "' AND o.billingStatus=0 AND o.cancelStatus=0 AND o.billableService is NOT NULL GROUP BY o.patient) AND (ps.identifier LIKE '%"
 				+ "' AND o.billingStatus=0 AND o.cancelStatus=0 AND o.billableService is NOT NULL AND o.valueCoded NOT IN (SELECT c.answerConcept FROM ConceptAnswer c,ConceptName cn WHERE cn.name='MAJOR OPERATION' AND c.concept=cn.concept) GROUP BY o.patient) AND (ps.identifier LIKE '%"
+				+ searchKey + "%' OR ps.fullname LIKE '" + searchKey + "%')";
+		int firstResult = (page - 1) * BillingConstants.PAGESIZE;
+		Session session = sessionFactory.getCurrentSession();
+		Query q = session.createQuery(hql);
+		List<PatientSearch> list = q.list();
+		return list;
+	}
+	*/
+	public List<PatientSearch> searchListOfPatient(Date date, String searchKey,
+			int page) throws DAOException {
+		SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
+		String startDate = sdf.format(date) + " 00:00:00";
+		String endDate = sdf.format(date) + " 23:59:59";
+		String hql = "SELECT DISTINCT ps from PatientSearch ps,OpdTestOrder o INNER JOIN o.patient p where p.patientId=ps.patientId AND o.scheduleDate BETWEEN '"
+				+ startDate
+				+ "' AND '"
+				+ endDate
+				//+ "' AND o.billingStatus=0 AND o.cancelStatus=0 AND o.billableService is NOT NULL GROUP BY o.patient) AND (ps.identifier LIKE '%"
+				+ "' AND o.billingStatus=0 AND o.cancelStatus=0 AND o.billableService is NOT NULL AND o.valueCoded NOT IN (SELECT c.answerConcept FROM ConceptAnswer c,ConceptName cn WHERE cn.name='MAJOR OPERATION' AND c.concept=cn.concept) AND (ps.identifier LIKE '%"
 				+ searchKey + "%' OR ps.fullname LIKE '" + searchKey + "%')";
 		int firstResult = (page - 1) * BillingConstants.PAGESIZE;
 		Session session = sessionFactory.getCurrentSession();
