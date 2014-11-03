@@ -254,4 +254,28 @@ public class PatientQueueServiceImpl  extends BaseOpenmrsService implements Pati
 		return dao.savePatientFamilyHistory(patientFamilyHistory);
 	}	
 	
+	
+	public void updatePatientHistoryByPatientId (PatientMedicalHistory patientMedicalHistory)
+		throws APIException {
+		// TODO Auto-generated method stub
+		dao.updatePatientHistoryByPatientId(patientMedicalHistory);
+	}
+	
+	public void updatePatientDrugHistoryByPatientId (PatientDrugHistory patientDrugHistory)
+	throws APIException {
+	// TODO Auto-generated method stub
+	dao.updatePatientDrugHistoryByPatientId(patientDrugHistory);
+	}
+	
+	public void updatePatientFamilyHistoryByPatientId (PatientFamilyHistory patientFamilyHistory)
+	throws APIException {
+	// TODO Auto-generated method stub
+	dao.updatePatientFamilyHistoryByPatientId(patientFamilyHistory);
+	}
+
+	public void updatePatientPersonalHistoryByPatientId (PatientPersonalHistory patientPersonalHistory)
+	throws APIException {
+	// TODO Auto-generated method stub
+	dao.updatePatientPersonalHistoryByPatientId(patientPersonalHistory);
+	}
 }

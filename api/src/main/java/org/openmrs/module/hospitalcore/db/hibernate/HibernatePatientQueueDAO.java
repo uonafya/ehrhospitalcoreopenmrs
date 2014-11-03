@@ -375,4 +375,23 @@ public class HibernatePatientQueueDAO implements PatientQueueDAO {
 		return (OpdPatientQueueLog) criteria.uniqueResult();
 	}
 	
+	
+	public void updatePatientHistoryByPatientId(PatientMedicalHistory patientMedicalHistory) throws DAOException {
+		 sessionFactory.getCurrentSession().merge(patientMedicalHistory);
+	}
+	
+	public void updatePatientDrugHistoryByPatientId(PatientDrugHistory patientDrugHistory) throws DAOException {
+		 sessionFactory.getCurrentSession().merge(patientDrugHistory);
+	}
+
+	public void updatePatientFamilyHistoryByPatientId (PatientFamilyHistory patientFamilyHistory)  throws DAOException {
+		 sessionFactory.getCurrentSession().merge(patientFamilyHistory);
+	}
+	
+	public void updatePatientPersonalHistoryByPatientId (PatientPersonalHistory patientPersonalHistory) throws DAOException {
+		 sessionFactory.getCurrentSession().merge(patientPersonalHistory);
+	}
+
+	
+	
 }
