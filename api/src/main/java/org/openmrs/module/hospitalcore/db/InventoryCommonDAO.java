@@ -25,8 +25,11 @@ package org.openmrs.module.hospitalcore.db;
 
 import java.util.List;
 
+import org.openmrs.Concept;
 import org.openmrs.Patient;
 import org.openmrs.api.db.DAOException;
+import org.openmrs.module.hospitalcore.model.InventoryDrug;
+import org.openmrs.module.hospitalcore.model.InventoryDrugFormulation;
 import org.openmrs.module.hospitalcore.model.InventoryStoreDrugPatient;
 import org.openmrs.module.hospitalcore.model.InventoryStoreDrugPatientDetail;
 
@@ -40,4 +43,10 @@ public interface InventoryCommonDAO {
 	public List<InventoryStoreDrugPatient> getDeatilOfInventoryStoreDrugPatient(Patient patient,String date) throws DAOException;
 	
 	public List<InventoryStoreDrugPatientDetail> getDrugDetailOfPatient(InventoryStoreDrugPatient isdpd) throws DAOException;
+	
+    public InventoryDrug getDrugByName(String name) throws DAOException;
+	
+	public List<Concept> getDrugFrequency() throws DAOException;
+	
+	public InventoryDrugFormulation getDrugFormulationById(Integer id) throws DAOException;
 }

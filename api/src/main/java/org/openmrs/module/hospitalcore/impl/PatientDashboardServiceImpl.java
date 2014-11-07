@@ -41,6 +41,9 @@ import org.openmrs.module.hospitalcore.PatientDashboardService;
 import org.openmrs.module.hospitalcore.db.PatientDashboardDAO;
 import org.openmrs.module.hospitalcore.model.Department;
 import org.openmrs.module.hospitalcore.model.DepartmentConcept;
+import org.openmrs.module.hospitalcore.model.InventoryDrug;
+import org.openmrs.module.hospitalcore.model.OpdDrugOrder;
+import org.openmrs.module.hospitalcore.model.OpdTestOrder;
 import org.openmrs.module.hospitalcore.util.PatientDashboardConstants;
 
 public class PatientDashboardServiceImpl implements PatientDashboardService {
@@ -163,7 +166,17 @@ public class PatientDashboardServiceImpl implements PatientDashboardService {
 			Integer typeConcept) throws APIException {
 		return dao.listByDepartmentByWard(wardId, typeConcept);
 	}
-	
-	
+	public List<Concept> searchInvestigation(String text) throws APIException {
+		return dao.searchInvestigation(text);
+	}
+	public List<InventoryDrug> findDrug(String name) throws APIException {
+		return dao.findDrug(name);
+	}
+	public OpdDrugOrder saveOrUpdateOpdDrugOrder(OpdDrugOrder opdDrugOrder) throws APIException {
+		return dao.saveOrUpdateOpdDrugOrder(opdDrugOrder);
+	}
+	public OpdTestOrder saveOrUpdateOpdOrder(OpdTestOrder opdTestOrder) throws APIException {
+		return dao.saveOrUpdateOpdOrder(opdTestOrder);
+	}
 	
 }

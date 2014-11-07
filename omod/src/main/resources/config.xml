@@ -147,6 +147,20 @@
         RadiologyDepartment.hbm.xml
         CoreForm.hbm.xml
         PatientSearch.hbm.xml
+        InventoryDrug.hbm.xml
+		InventoryDrugCategory.hbm.xml
+        InventoryDrugFormulation.hbm.xml
+        InventoryDrugUnit.hbm.xml
+        InventoryStore.hbm.xml
+        InventoryStoreDrugIndent.hbm.xml
+        InventoryStoreDrugPatient.hbm.xml
+        InventoryStoreDrugPatientDetail.hbm.xml
+        InventoryStoreDrugTransaction.hbm.xml
+        InventoryStoreDrugTransactionDetail.hbm.xml
+        OpdTestOrder.hbm.xml
+        OpdDrugOrder.hbm.xml
+        IndoorPatientServiceBill.hbm.xml
+		IndoorPatientServiceBillItem.hbm.xml
     </mappingFiles>
 </module>
 

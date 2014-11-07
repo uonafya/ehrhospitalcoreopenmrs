@@ -56,6 +56,8 @@ import org.openmrs.module.hospitalcore.model.AmbulanceBill;
 import org.openmrs.module.hospitalcore.model.BillableService;
 import org.openmrs.module.hospitalcore.model.Company;
 import org.openmrs.module.hospitalcore.model.Driver;
+import org.openmrs.module.hospitalcore.model.IndoorPatientServiceBill;
+import org.openmrs.module.hospitalcore.model.IndoorPatientServiceBillItem;
 import org.openmrs.module.hospitalcore.model.Lab;
 import org.openmrs.module.hospitalcore.model.MiscellaneousService;
 import org.openmrs.module.hospitalcore.model.MiscellaneousServiceBill;
@@ -1094,5 +1096,122 @@ public class BillingServiceImpl extends BaseOpenmrsService implements BillingSer
 	 */
 	public PatientServiceBill getPatientServiceBillByReceiptId(Integer patientServiceBillReceiptId) throws APIException {
 		return dao.getPatientServiceBillByReceiptId(patientServiceBillReceiptId);
+	}
+	
+	public IndoorPatientServiceBill saveIndoorPatientServiceBill(IndoorPatientServiceBill indoorPatientServiceBill) throws APIException {
+		return dao.saveIndoorPatientServiceBill(indoorPatientServiceBill);
+	}
+	
+	public void deleteIndoorPatientServiceBill(IndoorPatientServiceBill indoorPatientServiceBill) throws APIException {
+		dao.deleteIndoorPatientServiceBill(indoorPatientServiceBill);
+	}
+	
+	public IndoorPatientServiceBill getIndoorPatientServiceBillById(Integer indoorPatientServiceBillId) throws APIException {
+		return dao.getIndoorPatientServiceBillById(indoorPatientServiceBillId);
+	}
+	
+	public void saveBillEncounterAndOrderForIndoorPatient(IndoorPatientServiceBill bill) throws APIException {
+		Set<Integer> labConceptIds = getLabConceptIds();
+		Set<Integer> radiologyConceptIds = getRadiologyConceptIds();
+		
+		String labEncounterTypeText = GlobalPropertyUtil.getString(BillingConstants.GLOBAL_PROPRETY_LAB_ENCOUNTER_TYPE,
+		    "LABENCOUNTER");
+		EncounterType labEncounterType = Context.getEncounterService().getEncounterType(labEncounterTypeText);
+		
+		String radiologyEncounterTypeText = GlobalPropertyUtil.getString(
+		    BillingConstants.GLOBAL_PROPRETY_RADIOLOGY_ENCOUNTER_TYPE, "RADIOLOGYENCOUNTER");
+		EncounterType radiologyEncounterType = Context.getEncounterService().getEncounterType(radiologyEncounterTypeText);
+		
+		Integer labOrderTypeId = GlobalPropertyUtil.getInteger(BillingConstants.GLOBAL_PROPRETY_LAB_ORDER_TYPE, 2);
+		OrderType labOrderType = Context.getOrderService().getOrderType(labOrderTypeId);
+		
+		Integer radiologyOrderTypeId = GlobalPropertyUtil.getInteger(BillingConstants.GLOBAL_PROPRETY_RADIOLOGY_ORDER_TYPE,
+		    8);
+		OrderType radiologyOrderType = Context.getOrderService().getOrderType(radiologyOrderTypeId);
+		
+		Encounter labEncounter = null;
+		Encounter radiologyEncounter = null;
+		
+		// Get medical examination class
+		Integer medicalExaminationClassId = GlobalPropertyUtil.getInteger(
+		    HospitalCoreConstants.PROPERTY_MEDICAL_EXAMINATION, 9);
+		ConceptClass medicalExaminationClass = Context.getConceptService().getConceptClass(medicalExaminationClassId);
+		
+		for (IndoorPatientServiceBillItem item : bill.getBillItems()) {
+			Concept concept = Context.getConceptService().getConcept(item.getService().getConceptId());
+			
+			// If item is a medical examination set
+			if (concept.getConceptClass().equals(medicalExaminationClass)) {
+				Collection<ConceptSet> conceptSets = concept.getConceptSets();
+				if (conceptSets != null && conceptSets.size() > 0) {
+					for (ConceptSet con : conceptSets) {
+						if (labConceptIds.contains(con.getConcept().getConceptId())) {
+							labEncounter = getEncounter(bill, labEncounter, labEncounterType);
+							Order order = addOrder(labEncounter, con.getConcept(), bill, labOrderType);
+							item.setOrder(order);
+							
+						} else if (radiologyConceptIds.contains(con.getConcept().getConceptId())) {
+							radiologyEncounter = getEncounter(bill, radiologyEncounter, radiologyEncounterType);
+							Order order = addOrder(radiologyEncounter, con.getConcept(), bill, radiologyOrderType);
+							item.setOrder(order);
+						}
+					}
+				}
+			} else {
+				if (labConceptIds.contains(concept.getConceptId())) {
+					labEncounter = getEncounter(bill, labEncounter, labEncounterType);
+					Order order = addOrder(labEncounter, concept, bill, labOrderType);
+					item.setOrder(order);
+					
+				} else if (radiologyConceptIds.contains(concept.getConceptId())) {
+					radiologyEncounter = getEncounter(bill, radiologyEncounter, radiologyEncounterType);
+					Order order = addOrder(radiologyEncounter, concept, bill, radiologyOrderType);
+					item.setOrder(order);
+				}
+			}
+		}
+		
+		/*
+		if (labEncounter != null) {
+			Context.getEncounterService().saveEncounter(labEncounter);
+		}
+		if (radiologyEncounter != null) {
+			Context.getEncounterService().saveEncounter(radiologyEncounter);
+		}
+		*/
+		saveIndoorPatientServiceBill(bill);
+	}
+	
+	private Encounter getEncounter(IndoorPatientServiceBill bill, Encounter encounter, EncounterType encounterType) {
+		if (encounter == null) {
+			Encounter enc = new Encounter();
+			enc.setCreator(bill.getCreator());
+			Location location = Context.getLocationService().getLocation(1);
+			enc.setLocation(location);
+			enc.setDateCreated(new Date());
+			enc.setEncounterDatetime(new Date());
+			enc.setProvider(bill.getCreator());
+			enc.setEncounterType(encounterType);
+			enc.setPatient(bill.getPatient());
+			Context.getEncounterService().saveEncounter(enc);
+			return enc;
+		} else {
+			return encounter;
+		}
+	}
+	
+	private Order addOrder(Encounter encounter, Concept concept, IndoorPatientServiceBill bill, OrderType orderType) {
+		Order order = new Order();
+		order.setConcept(concept);
+		order.setCreator(bill.getCreator());
+		order.setDateCreated(new Date());
+		order.setOrderer(Context.getAuthenticatedUser());
+		order.setPatient(bill.getPatient());
+		order.setStartDate(new Date());
+		order.setAccessionNumber("0");
+		order.setOrderType(orderType);
+		order.setEncounter(encounter);
+		encounter.addOrder(order);
+		return order;
 	}
 }

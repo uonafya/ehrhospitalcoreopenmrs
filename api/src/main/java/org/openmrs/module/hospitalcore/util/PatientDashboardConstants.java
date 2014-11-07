@@ -32,6 +32,8 @@ public class PatientDashboardConstants {
 	public static String PROPERTY_HOSPITAL = MODULE_ID + ".externalHospitalConcept";
 	public static String PROPERTY_PROVISIONAL_DIAGNOSIS = MODULE_ID + ".provisionalDiagnosisConcept";
 	public static String PROPERTY_POST_FOR_PROCEDURE = MODULE_ID + ".postForProcedureConcept";
+	public static String PROPERTY_FOR_INVESTIGATION = MODULE_ID + ".investigationConcept";
+	public static String PROPERTY_FOR_DRUG = MODULE_ID + ".drugConcept";
 	public static String PROPERTY_INTERNAL_REFERRAL = MODULE_ID + ".internalReferralConcept";
 	public static String PROPERTY_EXTERNAL_REFERRAL = MODULE_ID +  ".externalReferralConcept";
 	public static String PROPERTY_VISIT_OUTCOME = MODULE_ID + ".visitOutcomeConcept";

@@ -34,6 +34,9 @@ import org.openmrs.Patient;
 import org.openmrs.api.db.DAOException;
 import org.openmrs.module.hospitalcore.model.Department;
 import org.openmrs.module.hospitalcore.model.DepartmentConcept;
+import org.openmrs.module.hospitalcore.model.InventoryDrug;
+import org.openmrs.module.hospitalcore.model.OpdDrugOrder;
+import org.openmrs.module.hospitalcore.model.OpdTestOrder;
 
 public interface PatientDashboardDAO {
 	public List<Order> getOrders(List<Concept> concepts, Patient patient, Location location, Date orderStartDate) throws DAOException;
@@ -54,4 +57,8 @@ public interface PatientDashboardDAO {
 	public void removeDepartmentConcept(DepartmentConcept departmentConcept) throws DAOException;
 	public List<DepartmentConcept> listByDepartment(Integer departmentId, Integer typeConcept) throws DAOException;
 	public List<Concept> listByDepartmentByWard(Integer wardId, Integer typeConcept) throws DAOException;
+	public List<Concept> searchInvestigation(String text) throws DAOException;
+	public List<InventoryDrug> findDrug(String name) throws DAOException;
+	public OpdDrugOrder saveOrUpdateOpdDrugOrder(OpdDrugOrder opdDrugOrder) throws DAOException;
+	public OpdTestOrder saveOrUpdateOpdOrder(OpdTestOrder opdTestOrder) throws DAOException;
 }

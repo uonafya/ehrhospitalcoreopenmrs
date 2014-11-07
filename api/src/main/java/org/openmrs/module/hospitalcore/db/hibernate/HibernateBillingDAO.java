@@ -44,6 +44,7 @@ import org.openmrs.module.hospitalcore.model.AmbulanceBill;
 import org.openmrs.module.hospitalcore.model.BillableService;
 import org.openmrs.module.hospitalcore.model.Company;
 import org.openmrs.module.hospitalcore.model.Driver;
+import org.openmrs.module.hospitalcore.model.IndoorPatientServiceBill;
 import org.openmrs.module.hospitalcore.model.MiscellaneousService;
 import org.openmrs.module.hospitalcore.model.MiscellaneousServiceBill;
 import org.openmrs.module.hospitalcore.model.PatientServiceBill;
@@ -781,6 +782,27 @@ public class HibernateBillingDAO implements BillingDAO {
 		
 		criteria.add(Restrictions.eq("receipt", receipt));
 		return (PatientServiceBill) criteria.uniqueResult();
+	}
+	
+	public IndoorPatientServiceBill saveIndoorPatientServiceBill(
+			IndoorPatientServiceBill indoorPatientServiceBill)
+			throws DAOException {
+		return (IndoorPatientServiceBill) sessionFactory.getCurrentSession()
+				.merge(indoorPatientServiceBill);
+	}
+	
+	public void deleteIndoorPatientServiceBill(
+			IndoorPatientServiceBill indoorPatientServiceBill)
+			throws DAOException {
+		sessionFactory.getCurrentSession().delete(indoorPatientServiceBill);
+	}
+	
+	public IndoorPatientServiceBill getIndoorPatientServiceBillById(Integer indoorPatientServiceBillId) throws DAOException {
+		Criteria criteria = sessionFactory.getCurrentSession().createCriteria(
+				IndoorPatientServiceBill.class);
+		criteria.add(Restrictions.eq("indoorPatientServiceBillId",
+				indoorPatientServiceBillId));
+		return (IndoorPatientServiceBill) criteria.uniqueResult();
 	}
 	
 }

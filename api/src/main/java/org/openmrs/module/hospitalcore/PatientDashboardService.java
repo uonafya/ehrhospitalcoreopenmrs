@@ -34,6 +34,9 @@ import org.openmrs.Patient;
 import org.openmrs.api.APIException;
 import org.openmrs.module.hospitalcore.model.Department;
 import org.openmrs.module.hospitalcore.model.DepartmentConcept;
+import org.openmrs.module.hospitalcore.model.InventoryDrug;
+import org.openmrs.module.hospitalcore.model.OpdDrugOrder;
+import org.openmrs.module.hospitalcore.model.OpdTestOrder;
 import org.springframework.transaction.annotation.Transactional;
 
 @Transactional
@@ -65,6 +68,9 @@ public interface PatientDashboardService {
 	public void removeDepartmentConcept(DepartmentConcept departmentConcept) throws APIException;
 	public List<DepartmentConcept> listByDepartment(Integer departmentId, Integer typeConcept) throws APIException;
 	public List<Concept> listByDepartmentByWard(Integer wardId, Integer typeConcept) throws APIException;
-	
+	public List<Concept> searchInvestigation(String text) throws APIException;
+	public List<InventoryDrug> findDrug(String name) throws APIException;
+	public OpdDrugOrder saveOrUpdateOpdDrugOrder(OpdDrugOrder opdDrugOrder) throws APIException;
+	public OpdTestOrder saveOrUpdateOpdOrder(OpdTestOrder opdTestOrder) throws APIException;
 	
 }
