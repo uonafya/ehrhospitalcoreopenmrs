@@ -36,6 +36,7 @@ import org.openmrs.module.hospitalcore.model.Department;
 import org.openmrs.module.hospitalcore.model.DepartmentConcept;
 import org.openmrs.module.hospitalcore.model.InventoryDrug;
 import org.openmrs.module.hospitalcore.model.OpdDrugOrder;
+import org.openmrs.module.hospitalcore.model.OpdPatientQueueLog;
 import org.openmrs.module.hospitalcore.model.OpdTestOrder;
 
 public interface PatientDashboardDAO {
@@ -61,4 +62,6 @@ public interface PatientDashboardDAO {
 	public List<InventoryDrug> findDrug(String name) throws DAOException;
 	public OpdDrugOrder saveOrUpdateOpdDrugOrder(OpdDrugOrder opdDrugOrder) throws DAOException;
 	public OpdTestOrder saveOrUpdateOpdOrder(OpdTestOrder opdTestOrder) throws DAOException;
+	public OpdPatientQueueLog getOpdPatientQueueLog(Encounter encounter) throws DAOException;
+	public List<OpdDrugOrder> getOpdDrugOrder(Encounter encounter) throws DAOException;
 }

@@ -43,6 +43,7 @@ import org.openmrs.module.hospitalcore.model.Department;
 import org.openmrs.module.hospitalcore.model.DepartmentConcept;
 import org.openmrs.module.hospitalcore.model.InventoryDrug;
 import org.openmrs.module.hospitalcore.model.OpdDrugOrder;
+import org.openmrs.module.hospitalcore.model.OpdPatientQueueLog;
 import org.openmrs.module.hospitalcore.model.OpdTestOrder;
 import org.openmrs.module.hospitalcore.util.PatientDashboardConstants;
 
@@ -177,6 +178,12 @@ public class PatientDashboardServiceImpl implements PatientDashboardService {
 	}
 	public OpdTestOrder saveOrUpdateOpdOrder(OpdTestOrder opdTestOrder) throws APIException {
 		return dao.saveOrUpdateOpdOrder(opdTestOrder);
+	}
+	public OpdPatientQueueLog getOpdPatientQueueLog(Encounter encounter) {
+		return dao.getOpdPatientQueueLog(encounter);
+	}
+	public List<OpdDrugOrder> getOpdDrugOrder(Encounter encounter) {
+		return dao.getOpdDrugOrder(encounter);
 	}
 	
 }
