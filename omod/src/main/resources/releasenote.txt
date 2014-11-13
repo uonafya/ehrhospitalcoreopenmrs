@@ -1,3 +1,7 @@
+1.5.1
+- #4811 printout and changes in dashboard
+released by ghanshyam on 13-Nov-2014
+
 1.5.0
 released by ghanshyam on 11-Nov-2013
 - #1625 Advance search-Witout selecting gender if age is selected say undefined
