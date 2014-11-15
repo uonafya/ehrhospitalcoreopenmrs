@@ -22,6 +22,7 @@
 package org.openmrs.module.hospitalcore.db;
 
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 import org.openmrs.Concept;
@@ -55,7 +56,7 @@ public interface IpdDAO {
 	throws DAOException;
 	public List<IpdPatientAdmission> getAllIpdPatientAdmission() throws DAOException;
 	public List<IpdPatientAdmission> getAllIndoorPatient() throws DAOException;
-	public List<IpdPatientAdmissionLog> getAllIndoorPatientFromAdmissionLog() throws DAOException;
+	public List<IpdPatientAdmissionLog> getAllIndoorPatientFromAdmissionLog(Date date, String searchKey,int page) throws DAOException;
 	
 	public List<IpdPatientAdmission> searchIpdPatientAdmission(String patientSearch, ArrayList<Integer> userIds, String fromDate, String toDate, ArrayList<Integer> wardIds, String status) throws DAOException;
 	public List<IpdPatientAdmitted> searchIpdPatientAdmitted(String patientSearch, ArrayList<Integer> userIds, String fromDate, String toDate, ArrayList<Integer> wardIds, String status) throws DAOException;

@@ -62,9 +62,9 @@ public class IpdServiceImpl extends BaseOpenmrsService implements IpdService {
 		return dao.getAllIndoorPatient();
 	}
 
-	public List<IpdPatientAdmissionLog> getAllIndoorPatientFromAdmissionLog()
+	public List<IpdPatientAdmissionLog> getAllIndoorPatientFromAdmissionLog(Date date, String searchKey,int page)
 			throws APIException {
-		return dao.getAllIndoorPatientFromAdmissionLog();
+		return dao.getAllIndoorPatientFromAdmissionLog(date,searchKey,page);
 	}
 
 	public List<IpdPatientAdmissionLog> listIpdPatientAdmissionLog(

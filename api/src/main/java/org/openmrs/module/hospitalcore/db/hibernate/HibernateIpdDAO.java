@@ -22,6 +22,7 @@ package org.openmrs.module.hospitalcore.db.hibernate;
 
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 import org.apache.commons.collections.CollectionUtils;
@@ -29,7 +30,9 @@ import org.apache.commons.lang.StringUtils;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.hibernate.Criteria;
+import org.hibernate.Query;
 import org.hibernate.SessionFactory;
+import org.hibernate.classic.Session;
 import org.hibernate.criterion.Order;
 import org.hibernate.criterion.Restrictions;
 import org.openmrs.Concept;
@@ -38,12 +41,14 @@ import org.openmrs.Encounter;
 import org.openmrs.api.APIException;
 import org.openmrs.api.context.Context;
 import org.openmrs.api.db.DAOException;
+import org.openmrs.module.hospitalcore.BillingConstants;
 import org.openmrs.module.hospitalcore.db.IpdDAO;
 import org.openmrs.module.hospitalcore.model.IpdPatientAdmission;
 import org.openmrs.module.hospitalcore.model.IpdPatientAdmissionLog;
 import org.openmrs.module.hospitalcore.model.IpdPatientAdmitted;
 import org.openmrs.module.hospitalcore.model.IpdPatientAdmittedLog;
 import org.openmrs.module.hospitalcore.model.OpdPatientQueueLog;
+import org.openmrs.module.hospitalcore.model.PatientSearch;
 import org.openmrs.module.hospitalcore.model.WardBedStrength;
 import org.openmrs.module.hospitalcore.model.IpdPatientVitalStatistics;
 
@@ -81,14 +86,24 @@ public class HibernateIpdDAO implements IpdDAO {
 	}
 
 	@SuppressWarnings("unchecked")
-	public List<IpdPatientAdmissionLog> getAllIndoorPatientFromAdmissionLog()
+	public List<IpdPatientAdmissionLog> getAllIndoorPatientFromAdmissionLog(Date date, String searchKey,int page)
 			throws DAOException {
-		Criteria criteria = sessionFactory.getCurrentSession().createCriteria(
-				IpdPatientAdmissionLog.class);
-		criteria.add(Restrictions.eq("indoorStatus", 1));
-		criteria.add(Restrictions.eq("status", "admitted"));
-		criteria.add(Restrictions.eq("billingStatus", 0));
-		return criteria.list();
+		SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
+		String startDate = sdf.format(date) + " 00:00:00";
+		String endDate = sdf.format(date) + " 23:59:59";
+
+		String hql = "select ipal from IpdPatientAdmissionLog ipal " +
+				"where ipal.indoorStatus=1 and ipal.status like 'admitted' " +
+				"and ipal.billingStatus=0 and ipal.admissionDate between '"+ startDate+ "' AND '"+ endDate + "'	" +
+				"and (ipal.patientIdentifier LIKE '%" + searchKey + "%' OR ipal.patientName LIKE '" + searchKey + "%')"	;
+		
+		
+		int firstResult = (page - 1) * BillingConstants.PAGESIZE;
+		Session session = sessionFactory.getCurrentSession();
+		Query q = session.createQuery(hql);
+		List<IpdPatientAdmissionLog> list = q.list();
+		return list;
+		
 	}
 
 	@SuppressWarnings("unchecked")
