@@ -60,6 +60,7 @@ import org.openmrs.Patient;
 import org.openmrs.Person;
 import org.openmrs.PersonAddress;
 import org.openmrs.PersonAttribute;
+import org.openmrs.PersonAttributeType;
 import org.openmrs.User;
 import org.openmrs.api.APIException;
 import org.openmrs.api.ConceptService;
@@ -763,5 +764,9 @@ public class HospitalCoreServiceImpl extends BaseOpenmrsService implements
 	
 	public OpdTestOrder getOpdTestOrder(Integer opdOrderId){
 		return dao.getOpdTestOrder(opdOrderId);
+	}
+	
+	public PersonAttributeType getPersonAttributeTypeByName(String attributeName){
+		return dao.getPersonAttributeTypeByName(attributeName);
 	}
 }

@@ -382,4 +382,10 @@ public class HibernateHospitalCoreDAO implements HospitalCoreDAO {
 		criteria.add(Restrictions.eq("opdOrderId", opdOrderId));
 		return (OpdTestOrder) criteria.uniqueResult();
 	}
+	
+	public PersonAttributeType getPersonAttributeTypeByName(String attributeName) {
+		Criteria criteria = sessionFactory.getCurrentSession().createCriteria(PersonAttributeType.class);
+		criteria.add(Restrictions.eq("name", attributeName));
+		return (PersonAttributeType) criteria.uniqueResult();
+	}
 }
