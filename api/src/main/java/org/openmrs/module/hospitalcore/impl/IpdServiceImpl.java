@@ -135,22 +135,6 @@ public class IpdServiceImpl extends BaseOpenmrsService implements IpdService {
 		return dao.saveIpdPatientAdmittedLog(admitted);
 	}
 
-	public List<IpdPatientAdmission> searchIpdPatientAdmission(
-			String patientSearch, ArrayList<Integer> userIds, String fromDate,
-			String toDate, ArrayList<Integer> wardIds, String status)
-			throws APIException {
-		return dao.searchIpdPatientAdmission(patientSearch, userIds, fromDate,
-				toDate, wardIds, status);
-	}
-
-	public List<IpdPatientAdmitted> searchIpdPatientAdmitted(
-			String patientSearch, ArrayList<Integer> userIds, String fromDate,
-			String toDate, ArrayList<Integer> wardIds, String status)
-			throws APIException {
-		return dao.searchIpdPatientAdmitted(patientSearch, userIds, fromDate,
-				toDate, wardIds, status);
-	}
-
 	public void removeIpdPatientAdmission(IpdPatientAdmission admission)
 			throws APIException {
 		dao.removeIpdPatientAdmission(admission);
@@ -488,4 +472,21 @@ public class IpdServiceImpl extends BaseOpenmrsService implements IpdService {
 		return dao.getIpdPatientAdmissionByEncounter(encounter);
 	}
 
+	
+	public List<IpdPatientAdmission> searchIpdPatientAdmission(
+			String patientSearch, ArrayList<Integer> userIds, String fromDate,
+			String toDate, String wardId, String status)
+			throws APIException {
+		return dao.searchIpdPatientAdmission(patientSearch, userIds, fromDate,
+				toDate, wardId, status);
+	}
+	
+	public List<IpdPatientAdmitted> searchIpdPatientAdmitted(
+			String patientSearch, ArrayList<Integer> userIds, String fromDate,
+			String toDate, String wardId, String status)
+			throws APIException {
+		return dao.searchIpdPatientAdmitted(patientSearch, userIds, fromDate,
+				toDate, wardId, status);
+	}
+	
 }

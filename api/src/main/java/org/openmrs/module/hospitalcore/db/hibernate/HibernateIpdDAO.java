@@ -221,7 +221,7 @@ public class HibernateIpdDAO implements IpdDAO {
 
 	public List<IpdPatientAdmission> searchIpdPatientAdmission(
 			String patientSearch, ArrayList<Integer> userIds, String fromDate,
-			String toDate, ArrayList<Integer> wardIds, String status)
+			String toDate, String wardId, String status)
 			throws APIException {
 		Criteria criteria = sessionFactory.getCurrentSession().createCriteria(
 				IpdPatientAdmission.class, "patientAdmission");
@@ -291,10 +291,10 @@ public class HibernateIpdDAO implements IpdDAO {
 			criteria.add(Restrictions.in("user.id", userIds));
 		}
 
-		if (CollectionUtils.isNotEmpty(wardIds)) {
+		
 			criteria.createAlias("patientAdmission.admissionWard", "ward");
-			criteria.add(Restrictions.in("ward.conceptId", wardIds));
-		}
+			criteria.add(Restrictions.eq("ward.conceptId", Integer.parseInt(wardId)));
+		
 
 		if (StringUtils.isNotBlank(status)) {
 			criteria.add(Restrictions.eq("patientAdmission.status", status));
@@ -306,7 +306,7 @@ public class HibernateIpdDAO implements IpdDAO {
 
 	public List<IpdPatientAdmitted> searchIpdPatientAdmitted(
 			String patientSearch, ArrayList<Integer> userIds, String fromDate,
-			String toDate, ArrayList<Integer> wardIds, String status)
+			String toDate, String wardId, String status)
 			throws APIException {
 		Criteria criteria = sessionFactory.getCurrentSession().createCriteria(
 				IpdPatientAdmitted.class, "patientAdmitted");
@@ -377,10 +377,9 @@ public class HibernateIpdDAO implements IpdDAO {
 			criteria.add(Restrictions.in("user.id", userIds));
 		}
 
-		if (CollectionUtils.isNotEmpty(wardIds)) {
 			criteria.createAlias("patientAdmitted.admittedWard", "ward");
-			criteria.add(Restrictions.in("ward.conceptId", wardIds));
-		}
+			criteria.add(Restrictions.eq("ward.conceptId", Integer.parseInt(wardId)));
+		
 
 		if (StringUtils.isNotBlank(status)) {
 			criteria.add(Restrictions.eq("patientAdmitted.status", status));

@@ -90,12 +90,6 @@ public interface IpdService extends OpenmrsService{
 	@Transactional(readOnly = true)
 	public List<IpdPatientAdmissionLog> getAllIndoorPatientFromAdmissionLog(Date date, String searchKey,int page) throws APIException;
 	
-	@Transactional(readOnly = true)
-	public List<IpdPatientAdmission> searchIpdPatientAdmission(String patientSearch, ArrayList<Integer> userIds, String fromDate, String toDate, ArrayList<Integer> wardIds, String status) throws APIException;
-	
-	@Transactional(readOnly = true)
-	public List<IpdPatientAdmitted> searchIpdPatientAdmitted(String patientSearch, ArrayList<Integer> userIds, String fromDate, String toDate, ArrayList<Integer> wardIds, String status) throws APIException;
-	
 	public IpdPatientAdmitted transfer(Integer id, Integer wardId, Integer doctorId, String bed) throws APIException;
 	
 	//ghanshyam 11-july-2013 feedback # 1724 Introducing bed availability
@@ -124,5 +118,10 @@ public interface IpdService extends OpenmrsService{
 	public List<IpdPatientVitalStatistics> getIpdPatientVitalStatistics(Integer patientId,Integer patientAdmissionLogId) throws APIException;
 	public IpdPatientAdmission getIpdPatientAdmissionByEncounter(Encounter encounter) throws APIException;
 
+	@Transactional(readOnly = true)
+	public List<IpdPatientAdmission> searchIpdPatientAdmission(String patientSearch, ArrayList<Integer> userIds, String fromDate, String toDate, String wardId, String status) throws APIException;
+	@Transactional(readOnly = true)
+	public List<IpdPatientAdmitted> searchIpdPatientAdmitted(String patientSearch, ArrayList<Integer> userIds, String fromDate, String toDate, String wardId, String status) throws APIException;
+	
 
 }

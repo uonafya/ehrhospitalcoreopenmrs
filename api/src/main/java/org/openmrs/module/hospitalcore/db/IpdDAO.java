@@ -58,9 +58,6 @@ public interface IpdDAO {
 	public List<IpdPatientAdmission> getAllIndoorPatient() throws DAOException;
 	public List<IpdPatientAdmissionLog> getAllIndoorPatientFromAdmissionLog(Date date, String searchKey,int page) throws DAOException;
 	
-	public List<IpdPatientAdmission> searchIpdPatientAdmission(String patientSearch, ArrayList<Integer> userIds, String fromDate, String toDate, ArrayList<Integer> wardIds, String status) throws DAOException;
-	public List<IpdPatientAdmitted> searchIpdPatientAdmitted(String patientSearch, ArrayList<Integer> userIds, String fromDate, String toDate, ArrayList<Integer> wardIds, String status) throws DAOException;
-	
 	public void removeIpdPatientAdmission(IpdPatientAdmission admission) throws DAOException;
 	public void removeIpdPatientAdmitted(IpdPatientAdmitted admitted) throws DAOException;
 	
@@ -82,4 +79,5 @@ public interface IpdDAO {
 	public List<Concept> getDiet() throws DAOException;
 	public IpdPatientAdmission getIpdPatientAdmissionByEncounter(Encounter encounter) throws DAOException;
 
-}
+	public List<IpdPatientAdmission> searchIpdPatientAdmission(String patientSearch, ArrayList<Integer> userIds, String fromDate, String toDate,String wardId, String status) throws DAOException;
+	public List<IpdPatientAdmitted> searchIpdPatientAdmitted(String patientSearch, ArrayList<Integer> userIds, String fromDate, String toDate,String wardId, String status) throws DAOException;}
