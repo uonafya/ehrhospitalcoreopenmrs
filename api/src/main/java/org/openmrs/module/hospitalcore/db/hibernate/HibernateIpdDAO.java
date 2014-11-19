@@ -86,9 +86,9 @@ public class HibernateIpdDAO implements IpdDAO {
 	}
 
 	@SuppressWarnings("unchecked")
-	public List<IpdPatientAdmissionLog> getAllIndoorPatientFromAdmissionLog(Date date, String searchKey,int page)
+	public List<IpdPatientAdmissionLog> getAllIndoorPatientFromAdmissionLog(String searchKey,int page)
 			throws DAOException {
-		SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
+/*		SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
 		String startDate = sdf.format(date) + " 00:00:00";
 		String endDate = sdf.format(date) + " 23:59:59";
 
@@ -96,7 +96,10 @@ public class HibernateIpdDAO implements IpdDAO {
 				"where ipal.indoorStatus=1 and ipal.status like 'admitted' " +
 				"and ipal.billingStatus=0 and ipal.admissionDate between '"+ startDate+ "' AND '"+ endDate + "'	" +
 				"and (ipal.patientIdentifier LIKE '%" + searchKey + "%' OR ipal.patientName LIKE '" + searchKey + "%')"	;
-		
+*/		
+		String hql = "select ipal from IpdPatientAdmissionLog ipal " +
+		"where ipal.indoorStatus=1 and ipal.status like 'admitted' " +		
+		"and (ipal.patientIdentifier LIKE '%" + searchKey + "%' OR ipal.patientName LIKE '" + searchKey + "%')"	;
 		
 		int firstResult = (page - 1) * BillingConstants.PAGESIZE;
 		Session session = sessionFactory.getCurrentSession();

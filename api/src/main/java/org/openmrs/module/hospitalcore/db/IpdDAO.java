@@ -56,7 +56,7 @@ public interface IpdDAO {
 	throws DAOException;
 	public List<IpdPatientAdmission> getAllIpdPatientAdmission() throws DAOException;
 	public List<IpdPatientAdmission> getAllIndoorPatient() throws DAOException;
-	public List<IpdPatientAdmissionLog> getAllIndoorPatientFromAdmissionLog(Date date, String searchKey,int page) throws DAOException;
+	public List<IpdPatientAdmissionLog> getAllIndoorPatientFromAdmissionLog(String searchKey,int page) throws DAOException;
 	
 	public void removeIpdPatientAdmission(IpdPatientAdmission admission) throws DAOException;
 	public void removeIpdPatientAdmitted(IpdPatientAdmitted admitted) throws DAOException;

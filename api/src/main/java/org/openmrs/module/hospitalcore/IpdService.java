@@ -88,7 +88,7 @@ public interface IpdService extends OpenmrsService{
 	public List<IpdPatientAdmission> getAllIndoorPatient() throws APIException;
 	
 	@Transactional(readOnly = true)
-	public List<IpdPatientAdmissionLog> getAllIndoorPatientFromAdmissionLog(Date date, String searchKey,int page) throws APIException;
+	public List<IpdPatientAdmissionLog> getAllIndoorPatientFromAdmissionLog(String searchKey,int page) throws APIException;
 	
 	public IpdPatientAdmitted transfer(Integer id, Integer wardId, Integer doctorId, String bed) throws APIException;
 	
