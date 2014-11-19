@@ -591,7 +591,7 @@
 			Add column referral_opd_name
 		</description>
 		<sql>
-			ALTER TABLE opd_test_order ADD COLUMN `referral_opd_name` VARCHAR(21) default NULL;
+			ALTER TABLE opd_test_order ADD COLUMN `referral_opd_name` VARCHAR(100) default NULL;
 		</sql>
 	</diff>
 </sqldiff>
