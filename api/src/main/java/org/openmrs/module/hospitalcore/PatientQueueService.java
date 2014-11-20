@@ -34,11 +34,11 @@ import org.openmrs.api.APIException;
 import org.openmrs.api.OpenmrsService;
 import org.openmrs.module.hospitalcore.model.OpdPatientQueue;
 import org.openmrs.module.hospitalcore.model.OpdPatientQueueLog;
-import org.openmrs.module.hospitalcore.model.TriagePatientData;
-import org.openmrs.module.hospitalcore.model.PatientMedicalHistory;
 import org.openmrs.module.hospitalcore.model.PatientDrugHistory;
-import org.openmrs.module.hospitalcore.model.PatientPersonalHistory;
 import org.openmrs.module.hospitalcore.model.PatientFamilyHistory;
+import org.openmrs.module.hospitalcore.model.PatientMedicalHistory;
+import org.openmrs.module.hospitalcore.model.PatientPersonalHistory;
+import org.openmrs.module.hospitalcore.model.TriagePatientData;
 import org.openmrs.module.hospitalcore.model.TriagePatientQueue;
 import org.openmrs.module.hospitalcore.model.TriagePatientQueueLog;
 import org.springframework.transaction.annotation.Transactional;
@@ -92,4 +92,8 @@ public interface PatientQueueService extends OpenmrsService {
 	public void updatePatientDrugHistoryByPatientId (PatientDrugHistory patientDrugHistory) throws APIException;
 	public void updatePatientFamilyHistoryByPatientId (PatientFamilyHistory patientFamilyHistory) throws APIException;
 	public void updatePatientPersonalHistoryByPatientId (PatientPersonalHistory patientPersonalHistory) throws APIException;
+	
+	
+	public List<Obs> getAllDiagnosis(Integer personId) throws APIException;
+	public List<Obs> getAllSymptom(Integer personId) throws APIException;
 }

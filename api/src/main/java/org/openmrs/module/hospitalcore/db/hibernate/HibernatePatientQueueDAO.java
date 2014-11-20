@@ -24,6 +24,7 @@ package org.openmrs.module.hospitalcore.db.hibernate;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.List;
+import java.util.concurrent.TimeUnit;
 
 import org.apache.commons.collections.CollectionUtils;
 import org.apache.commons.lang.StringUtils;
@@ -38,21 +39,23 @@ import org.openmrs.Encounter;
 import org.openmrs.Obs;
 import org.openmrs.Patient;
 import org.openmrs.Person;
+import org.openmrs.api.context.Context;
 import org.openmrs.api.db.DAOException;
 import org.openmrs.module.hospitalcore.db.PatientQueueDAO;
 import org.openmrs.module.hospitalcore.model.OpdPatientQueue;
 import org.openmrs.module.hospitalcore.model.OpdPatientQueueLog;
-import org.openmrs.module.hospitalcore.model.TriagePatientData;
-import org.openmrs.module.hospitalcore.model.PatientMedicalHistory;
 import org.openmrs.module.hospitalcore.model.PatientDrugHistory;
 import org.openmrs.module.hospitalcore.model.PatientFamilyHistory;
+import org.openmrs.module.hospitalcore.model.PatientMedicalHistory;
 import org.openmrs.module.hospitalcore.model.PatientPersonalHistory;
+import org.openmrs.module.hospitalcore.model.TriagePatientData;
 import org.openmrs.module.hospitalcore.model.TriagePatientQueue;
 import org.openmrs.module.hospitalcore.model.TriagePatientQueueLog;
 
 public class HibernatePatientQueueDAO implements PatientQueueDAO {
 	SimpleDateFormat formatter = new SimpleDateFormat("dd/MM/yyyy HH:mm:ss");
 	SimpleDateFormat formatterExt = new SimpleDateFormat("dd/MM/yyyy");
+	SimpleDateFormat formatter1 = new SimpleDateFormat("dd-MM-yyyy HH:mm:ss");
 	/**
 	 * Hibernate session factory
 	 */
@@ -392,6 +395,73 @@ public class HibernatePatientQueueDAO implements PatientQueueDAO {
 		 sessionFactory.getCurrentSession().merge(patientPersonalHistory);
 	}
 
+	
+
+	
+	public List<Obs> getAllDiagnosis(Integer personId) 
+	throws DAOException {
+		 Criteria criteria = sessionFactory.getCurrentSession().createCriteria(Obs.class,"obs");
+		 String toDdate = formatter1.format(new Date());
+		
+		 Date date1 = new Date(); 
+		
+		 Date oldDate = new Date(date1.getTime() - TimeUnit.HOURS.toMillis(24));
+		 String fromDate = formatter1.format(oldDate);
+		
+		 
+		try {
+			criteria.add(Restrictions.lt(
+					"obs.obsDatetime", formatter1.parse(toDdate)));
+			criteria.add(Restrictions.gt(
+					"obs.obsDatetime", formatter1.parse(fromDate)));
+			
+		} catch (Exception e) {
+			// TODO: handle exception
+			System.out.println("Error convert date: "+ e.toString());
+			e.printStackTrace();
+		}
+		
+		criteria.add(Restrictions.eq(
+				"obs.personId",personId));
+		criteria.add(Restrictions.eq(
+				"obs.concept", Context.getConceptService().getConcept("PROVISIONAL DIAGNOSIS")));
+
+		return criteria.list();
+	}
+	
+	public List<Obs> getAllSymptom(Integer personId) 
+	throws DAOException {
+
+		 Criteria criteria = sessionFactory.getCurrentSession().createCriteria(Obs.class,"obs");
+		 String toDdate = formatter1.format(new Date());
+		
+		 Date date1 = new Date(); 
+		
+		 Date oldDate = new Date(date1.getTime() - TimeUnit.HOURS.toMillis(24));
+		 String fromDate = formatter1.format(oldDate);
+
+		 
+		try {
+			criteria.add(Restrictions.lt(
+					"obs.obsDatetime", formatter1.parse(toDdate)));
+			criteria.add(Restrictions.gt(
+					"obs.obsDatetime", formatter1.parse(fromDate)));
+			
+		} catch (Exception e) {
+			// TODO: handle exception
+			System.out.println("Error convert date: "+ e.toString());
+			e.printStackTrace();
+		}
+		
+		criteria.add(Restrictions.eq(
+				"obs.personId",personId));
+		criteria.add(Restrictions.eq(
+				"obs.concept",Context.getConceptService().getConcept("SYMPTOM")));
+
+		return criteria.list();
+	}
+	
+	
 	
 	
 }

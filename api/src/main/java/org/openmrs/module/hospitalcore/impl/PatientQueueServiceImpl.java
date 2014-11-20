@@ -36,11 +36,11 @@ import org.openmrs.module.hospitalcore.PatientQueueService;
 import org.openmrs.module.hospitalcore.db.PatientQueueDAO;
 import org.openmrs.module.hospitalcore.model.OpdPatientQueue;
 import org.openmrs.module.hospitalcore.model.OpdPatientQueueLog;
-import org.openmrs.module.hospitalcore.model.TriagePatientData;
-import org.openmrs.module.hospitalcore.model.PatientMedicalHistory;
 import org.openmrs.module.hospitalcore.model.PatientDrugHistory;
 import org.openmrs.module.hospitalcore.model.PatientFamilyHistory;
+import org.openmrs.module.hospitalcore.model.PatientMedicalHistory;
 import org.openmrs.module.hospitalcore.model.PatientPersonalHistory;
+import org.openmrs.module.hospitalcore.model.TriagePatientData;
 import org.openmrs.module.hospitalcore.model.TriagePatientQueue;
 import org.openmrs.module.hospitalcore.model.TriagePatientQueueLog;
 
@@ -277,5 +277,16 @@ public class PatientQueueServiceImpl  extends BaseOpenmrsService implements Pati
 	throws APIException {
 	// TODO Auto-generated method stub
 	dao.updatePatientPersonalHistoryByPatientId(patientPersonalHistory);
+	}
+	
+	
+	public List<Obs> getAllDiagnosis(Integer personId)
+	throws APIException{
+		return dao.getAllDiagnosis(personId);
+	}
+	
+	public List<Obs> getAllSymptom(Integer personId)
+	throws APIException{
+		return dao.getAllSymptom(personId);
 	}
 }
