@@ -116,6 +116,9 @@ jQuery(document).ready(function() {
 			});	
 			jQuery("#patientNationalId", this.form).blur(function(){
 				PATIENTSEARCH.search(true);
+			});		
+			jQuery("#fileNumber", this.form).blur(function(){
+				PATIENTSEARCH.search(true);
 			});											
 		},
 		
@@ -303,6 +306,7 @@ jQuery(document).ready(function() {
 				this.buildLastVisitQuery();
 				this.buildPhoneNumberQuery();
 				this.buildPatientNationalIdQuery();
+				this.buildPatientFileNumberQuery();
 			}
 			
 			// Return the built query
@@ -386,6 +390,7 @@ jQuery(document).ready(function() {
 				this.buildLastVisitQuery();
 				this.buildPhoneNumberQuery();
 				this.buildPatientNationalIdQuery();
+				this.buildPatientFileNumberQuery();
 			}
 			
 			// Return the built query
@@ -512,6 +517,18 @@ jQuery(document).ready(function() {
 				this.fromClause += " INNER JOIN person_attribute_type patPhoneNumber ON paPhoneNumber.person_attribute_type_id = patPhoneNumber.person_attribute_type_id ";
 				this.whereClause += " AND (patPhoneNumber.name LIKE '%" + phoneNumberAttributeTypeName + "%' AND paPhoneNumber.value LIKE '%" + value + "%')";
 			}
+		},
+		
+		/** BUILD QUERY FOR File Number */
+		buildPatientFileNumberQuery: function(){
+		    value = jQuery.trim(jQuery("#fileNumber", this.form).val());
+			patientFileNumberAttributeTypeName = "File Number";
+			if(value!=undefined && value.length>0){
+			    this.fromClause += " INNER JOIN person_attribute paFileNumber ON ps.patient_id= paFileNumber.person_id";
+				this.fromClause += " INNER JOIN person_attribute_type patFileNumber ON paFileNumber.person_attribute_type_id = patFileNumber.person_attribute_type_id ";
+				this.whereClause += " AND (patFileNumber.name LIKE '%" + patientFileNumberAttributeTypeName + "%' AND paFileNumber.value LIKE '%" + value + "%')";
+			}
+		
 		},
 
 		/** BUILD QUERY FOR National Id */
@@ -724,11 +741,16 @@ jQuery(document).ready(function() {
 				</td>	
 			</tr>
 			<tr>
-			<!-- Sagar Bele date: 27-12-2012 : Added national id in advance search for Bangladesh requirement -->
 				<td>National Id</td>
 				<td colspan="3"><input id="patientNationalId"
 					style="width: 100px" />
 				</td>
+			</tr>
+			<tr>
+				<td>File Number</td>
+				<td colspan="3">
+					<input id="fileNumber" style="width: 100px"/>
+				</td>	
 			</tr>			
 		</table>
 	</div>	

@@ -126,7 +126,10 @@
 			});						
 			jQuery("#phoneNumber", this.form).blur(function(){
 				PATIENTSEARCH.search(true);
-			});			
+			});	
+			jQuery("#fileNumber", this.form).blur(function(){
+				PATIENTSEARCH.search(true);
+			});				
 		},
 		
 		/** VALIDATE NAME OR IDENTIFIER With Special Character*/
@@ -263,6 +266,7 @@
 				this.buildLastDayOfVisitQuery();
 				this.buildLastVisitQuery();
 				this.buildPhoneNumberQuery();
+				this.buildPatientFileNumberQuery();
 			}
 			
 			// Return the built query
@@ -310,6 +314,7 @@
 				this.buildLastDayOfVisitQuery();
 				this.buildLastVisitQuery();
 				this.buildPhoneNumberQuery();
+				this.buildPatientFileNumberQuery();
 			}
 			
 			// Return the built query
@@ -446,6 +451,18 @@
 				this.fromClause += " INNER JOIN person_attribute_type patPhoneNumber ON paPhoneNumber.person_attribute_type_id = patPhoneNumber.person_attribute_type_id ";
 				this.whereClause += " AND (patPhoneNumber.name LIKE '%" + phoneNumberAttributeTypeName + "%' AND paPhoneNumber.value LIKE '%" + value + "%')";
 			}
+		},
+		
+		/** BUILD QUERY FOR File Number */
+		buildPatientFileNumberQuery: function(){
+		    value = jQuery.trim(jQuery("#fileNumber", this.form).val());
+			patientFileNumberAttributeTypeName = "File Number";
+			if(value!=undefined && value.length>0){
+			    this.fromClause += " INNER JOIN person_attribute paFileNumber ON ps.patient_id= paFileNumber.person_id";
+				this.fromClause += " INNER JOIN person_attribute_type patFileNumber ON paFileNumber.person_attribute_type_id = patFileNumber.person_attribute_type_id ";
+				this.whereClause += " AND (patFileNumber.name LIKE '%" + patientFileNumberAttributeTypeName + "%' AND paFileNumber.value LIKE '%" + value + "%')";
+			}
+		
 		},
 		
 		/** BUILD QUERY FOR LAST DAY OF VISIT */
@@ -643,6 +660,12 @@
 				<td>National ID</td>
 				<td colspan="3">
 					<input id="nationalId" style="width: 100px"/>
+				</td>	
+			</tr>
+			<tr>
+				<td>File Number</td>
+				<td colspan="3">
+					<input id="fileNumber" style="width: 100px"/>
 				</td>	
 			</tr>
 		</table>
