@@ -32,7 +32,7 @@ public class ActionValue {
 	
 
 	public static final int[] DRUG_ATTRIBUTE = { 1, 2,3 };
-	public static final String[] DRUG_ATTRIBUTE_NAMES = {"Vital", "Essential","Desired" };
+	public static final String[] DRUG_ATTRIBUTE_NAMES = {"A", "B","C" };
 	
 	public static final int[] IS_DRUG = { 1, 2 };
 	public static final String[] IS_DRUG_NAMES = {"Yes", "No" };

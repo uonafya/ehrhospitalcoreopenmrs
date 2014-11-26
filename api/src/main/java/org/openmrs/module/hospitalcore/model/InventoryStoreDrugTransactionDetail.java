@@ -60,8 +60,29 @@ public class InventoryStoreDrugTransactionDetail implements  Serializable , Comp
 	 private String receiptFrom;	 
 	 private long openingBalance;
 	 private long closingBalance;
+	 private String attribute;
+	 private Integer reorderPoint;
+	 public String getAttribute() {
+		return attribute;
+	}
+
+	public void setAttribute(String attribute) {
+		this.attribute = attribute;
+	}
+
+
 	 
-	 private InventoryStoreDrugTransactionDetail parent;
+	 public Integer getReorderPoint() {
+		return reorderPoint;
+	}
+
+	public void setReorderPoint(Integer reorderPoint) {
+		this.reorderPoint = reorderPoint;
+	}
+
+
+
+	private InventoryStoreDrugTransactionDetail parent;
 	 private Set<InventoryStoreDrugTransactionDetail> subDetails;
 	 
 	 private Date receiptDate;
