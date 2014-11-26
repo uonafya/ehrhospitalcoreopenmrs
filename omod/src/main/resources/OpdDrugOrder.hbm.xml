@@ -26,5 +26,8 @@
 			not-null="true" />
 	    <property name="cancelStatus" column="cancel_status" length="1"
 			not-null="true" />
+	    <property name="referralOpdName" column="referral_opd_name" length="100"
+			not-null="true" />
+
 	</class>
 </hibernate-mapping>

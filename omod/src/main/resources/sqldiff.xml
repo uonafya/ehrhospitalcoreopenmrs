@@ -594,4 +594,30 @@
 			ALTER TABLE opd_test_order ADD COLUMN `referral_opd_name` VARCHAR(100) default NULL;
 		</sql>
 	</diff>
+	<diff>
+		<version>4.3</version>
+		<author>Sagar</author>
+		<date>November 20 2014</date>
+		<description>
+			Add column referral_opd_name and Shifting inventory_store_drug_transaction_detail table to hospital core
+		</description>
+		<sql>
+			ALTER TABLE opd_drug_order ADD COLUMN `referral_opd_name` VARCHAR(100) default NULL;
+			CREATE TABLE IF NOT EXISTS inventory_store_drug_transaction_detail (id integer not null auto_increment, transaction_id integer, drug_id integer, formulation_id integer, quantity integer, current_quantity integer, issue_quantity integer, unit_price decimal(19,2), VAT decimal(19,2), total_price decimal(19,2), batch_no varchar(255), company_name varchar(255), date_manufacture datetime, date_expiry datetime, receipt_date datetime, created_on datetime, opening_balance bigint, closing_balance bigint, parent_id integer, primary key (id));
+			ALTER TABLE inventory_store_drug_transaction_detail MODIFY VAT decimal(19,2);
+			ALTER TABLE inventory_store_drug_transaction_detail MODIFY receipt_from varchar(255);
+		</sql>
+	</diff>
+	<diff>
+		<version>4.4</version>
+		<author>Sagar Bele</author>
+		<date>November 24 2014</date>
+		<description>
+			Shifting inventory_store_drug_transaction_detail table to hospital core
+		</description>
+		<sql>
+			ALTER TABLE inventory_store_drug_transaction_detail ADD reorder_point integer;
+			ALTER TABLE inventory_store_drug_transaction_detail ADD attribute varchar(10);	
+		</sql>
+	</diff>	
 </sqldiff>

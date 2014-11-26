@@ -35,6 +35,8 @@
 		<property name="receiptFrom" column="receipt_from" />		
 		<property name="openingBalance" column="opening_balance"  />
 		<property name="closingBalance" column="closing_balance"  />
+	    <property name="reorderPoint" column="reorder_point"  />
+	    <property name="attribute" column="attribute"  />
 		
 		<many-to-one name="parent" class="org.openmrs.module.hospitalcore.model.InventoryStoreDrugTransactionDetail"
 	        column="parent_id"  lazy="false" />	 
