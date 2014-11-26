@@ -926,7 +926,7 @@ public class HibernateBillingDAO implements BillingDAO {
 			i++;
 			// update old bill
 			String category = PatientUtils.getPatientAttribute(item
-					.getPatientServiceBill().getPatient(), "Patient Category");
+					.getPatientServiceBill().getPatient(), "Payment Category");
 			System.out.println(category);
 			System.out.println(item.getPatientServiceBillItemId());
 			if (i % 50 == 0) {

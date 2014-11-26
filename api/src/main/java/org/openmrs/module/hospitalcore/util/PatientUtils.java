@@ -42,7 +42,7 @@ public class PatientUtils {
 	
 	public static final String MODULE_ID = "hospitalcore.";
 	
-	public final static String PATIENT_ATTRIBUTE_CATEGORY = "Patient Category";
+	public final static String PATIENT_ATTRIBUTE_CATEGORY = "Payment Category";
 	
 //	public final static String PATIENT_ATTRIBUTE_BPL_NUMBER = "BPL Number";
 	
@@ -155,7 +155,7 @@ public class PatientUtils {
 		String value = null;
 		PersonAttributeType pat = Context.getPersonService().getPersonAttributeTypeByName(attributeNameType);
 		//April 30th 2014: Thai Chuong temporary try/catch this to keep going on the requirement
-		//The pending issue: Could not get Patient Category attribute 
+		//The pending issue: Could not get Payment Category attribute 
         		PersonAttribute pa = patient.getAttribute(pat);
         		if (pa != null) {
         			value = pa.getValue();
