@@ -96,4 +96,5 @@ public interface PatientQueueService extends OpenmrsService {
 	
 	public List<Obs> getAllDiagnosis(Integer personId) throws APIException;
 	public List<Obs> getAllSymptom(Integer personId) throws APIException;
+	public TriagePatientData updateTriagePatientData(TriagePatientData triagePatientData) throws APIException ;
 }

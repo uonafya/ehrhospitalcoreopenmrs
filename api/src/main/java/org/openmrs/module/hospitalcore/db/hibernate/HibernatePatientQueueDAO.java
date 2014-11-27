@@ -318,6 +318,7 @@ public class HibernatePatientQueueDAO implements PatientQueueDAO {
 	
 	public TriagePatientData saveTriagePatientData(TriagePatientData triagePatientData) throws DAOException {
 		return (TriagePatientData) sessionFactory.getCurrentSession().merge(triagePatientData);
+		
 	}
 
 	public PatientMedicalHistory savePatientMedicalHistory(PatientMedicalHistory patientMedicalHistory) throws DAOException {
@@ -462,6 +463,9 @@ public class HibernatePatientQueueDAO implements PatientQueueDAO {
 	}
 	
 	
-	
+	public TriagePatientData updateTriagePatientData(TriagePatientData triagePatientData)  throws DAOException {
+		return (TriagePatientData)  sessionFactory.getCurrentSession().merge(triagePatientData);
+		
+	}	
 	
 }

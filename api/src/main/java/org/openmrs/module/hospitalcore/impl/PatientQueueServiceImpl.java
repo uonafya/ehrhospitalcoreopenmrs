@@ -289,4 +289,9 @@ public class PatientQueueServiceImpl  extends BaseOpenmrsService implements Pati
 	throws APIException{
 		return dao.getAllSymptom(personId);
 	}
+	
+	public TriagePatientData updateTriagePatientData(TriagePatientData triagePatientData)throws APIException {
+	       // TODO Auto-generated method stub
+	       return dao.updateTriagePatientData(triagePatientData);
+	    }
 }
