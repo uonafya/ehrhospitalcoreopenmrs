@@ -620,4 +620,15 @@
 			ALTER TABLE inventory_store_drug_transaction_detail ADD attribute varchar(10);	
 		</sql>
 	</diff>	
+	<diff>
+		<version>4.5</version>
+		<author>Amit Sharma</author>
+		<date>November 28 2014</date>
+		<description>
+			increasing length of visit status column in opd_patient_queue ;
+		</description>
+		<sql>
+			ALTER TABLE opd_patient_queue MODIFY COLUMN visit_status VARCHAR(255);
+		</sql>
+	</diff>
 </sqldiff>
