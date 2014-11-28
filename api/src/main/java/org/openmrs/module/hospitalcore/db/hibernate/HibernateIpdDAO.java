@@ -84,9 +84,9 @@ public class HibernateIpdDAO implements IpdDAO {
 		//criteria.add(Restrictions.eq("acceptStatus", 1));
 		return criteria.list();
 	}
-
+        // 24/11/2014 to Work with size selctor for IPDQueue
 	@SuppressWarnings("unchecked")
-	public List<IpdPatientAdmissionLog> getAllIndoorPatientFromAdmissionLog(String searchKey,int page)
+	public List<IpdPatientAdmissionLog> getAllIndoorPatientFromAdmissionLog(String searchKey,int page,int pgSize)
 			throws DAOException {
 /*		SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
 		String startDate = sdf.format(date) + " 00:00:00";
@@ -101,11 +101,26 @@ public class HibernateIpdDAO implements IpdDAO {
 		"where ipal.indoorStatus=1 and ipal.status like 'admitted' " +		
 		"and (ipal.patientIdentifier LIKE '%" + searchKey + "%' OR ipal.patientName LIKE '" + searchKey + "%')"	;
 		
-		int firstResult = (page - 1) * BillingConstants.PAGESIZE;
+		int firstResult = (page - 1) *pgSize;
+		Session session = sessionFactory.getCurrentSession();
+		Query q = session.createQuery(hql).setFirstResult(firstResult).setMaxResults(pgSize);
+		List<IpdPatientAdmissionLog> list = q.list();
+		return list;
+		
+	}
+        
+        // 24/11/2014 to Work with size selctor for IPDQueue
+	@SuppressWarnings("unchecked")
+	public int countGetAllIndoorPatientFromAdmissionLog(String searchKey,int page)
+			throws DAOException {
+		String hql = "select ipal from IpdPatientAdmissionLog ipal " +
+		"where ipal.indoorStatus=1 and ipal.status like 'admitted' " +		
+		"and (ipal.patientIdentifier LIKE '%" + searchKey + "%' OR ipal.patientName LIKE '" + searchKey + "%')"	;
+		
 		Session session = sessionFactory.getCurrentSession();
 		Query q = session.createQuery(hql);
 		List<IpdPatientAdmissionLog> list = q.list();
-		return list;
+		return list.size();
 		
 	}
 

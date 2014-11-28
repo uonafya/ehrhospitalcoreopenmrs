@@ -61,12 +61,21 @@ public class IpdServiceImpl extends BaseOpenmrsService implements IpdService {
 	public List<IpdPatientAdmission> getAllIndoorPatient() throws APIException {
 		return dao.getAllIndoorPatient();
 	}
-
-	public List<IpdPatientAdmissionLog> getAllIndoorPatientFromAdmissionLog( String searchKey,int page)
+        
+        // 24/11/2014 to Work with size selctor for IPDQueue
+	public List<IpdPatientAdmissionLog> getAllIndoorPatientFromAdmissionLog( String searchKey,int page, int pgSize)
 			throws APIException {
-		return dao.getAllIndoorPatientFromAdmissionLog(searchKey,page);
+		return dao.getAllIndoorPatientFromAdmissionLog(searchKey,page,pgSize);
 	}
+        
+        // 24/11/2014 to Work with size selctor for IPDQueue
+	public int countGetAllIndoorPatientFromAdmissionLog( String searchKey,int page)
+			throws APIException {
+		return dao.countGetAllIndoorPatientFromAdmissionLog(searchKey, page);
+	}
+        
 
+        
 	public List<IpdPatientAdmissionLog> listIpdPatientAdmissionLog(
 			Integer patientId, Integer admissionWardId, String status,
 			Integer min, Integer max) throws APIException {

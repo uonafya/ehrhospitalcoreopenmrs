@@ -245,6 +245,11 @@ public interface BillingDAO {
 	//ghanshyam 3-june-2013 New Requirement #1632 Orders from dashboard must be appear in billing queue.User must be able to generate bills from this queue
 	public List<PatientSearch> searchListOfPatient(Date date, String searchKey,int page) throws DAOException;
 	
+        // 21/11/2014 to Work with size selctor for OPDQueue
+        public List<PatientSearch> searchListOfPatient(Date date, String searchKey,int page,int pgSize) throws DAOException;
+        
+        public int countSearchListOfPatient(Date date, String searchKey,int page) throws DAOException;
+        
 	public List<PatientSearch> listOfPatient() throws DAOException;
 
 	public List<BillableService> listOfServiceOrder(Integer patientId, Integer encounterId) throws DAOException;

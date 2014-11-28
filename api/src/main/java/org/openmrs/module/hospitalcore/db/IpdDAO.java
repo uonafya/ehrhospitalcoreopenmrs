@@ -56,8 +56,12 @@ public interface IpdDAO {
 	throws DAOException;
 	public List<IpdPatientAdmission> getAllIpdPatientAdmission() throws DAOException;
 	public List<IpdPatientAdmission> getAllIndoorPatient() throws DAOException;
-	public List<IpdPatientAdmissionLog> getAllIndoorPatientFromAdmissionLog(String searchKey,int page) throws DAOException;
+        
+        // 24/11/2014 to Work with size selctor for IPDQueue
+	public List<IpdPatientAdmissionLog> getAllIndoorPatientFromAdmissionLog(String searchKey,int page,int pgSize) throws DAOException;
 	
+        public int countGetAllIndoorPatientFromAdmissionLog(String searchKey,int page) throws DAOException;
+        
 	public void removeIpdPatientAdmission(IpdPatientAdmission admission) throws DAOException;
 	public void removeIpdPatientAdmitted(IpdPatientAdmitted admitted) throws DAOException;
 	

@@ -545,9 +545,10 @@ public class BillingServiceImpl extends BaseOpenmrsService implements BillingSer
 		String content = "";
 		String tabsLi = "";
 		String header = "";
-		
+
 		if (answers != null && answers.size() > 0 && !conceptClass.getName().equalsIgnoreCase("Test")
 		        && !conceptClass.getName().equalsIgnoreCase("labset")) {
+                    
 			// show children
 			List<ConceptAnswer> children = new ArrayList(answers);
 			Collections.sort(children, new ConceptAnswerComparator());
@@ -608,6 +609,7 @@ public class BillingServiceImpl extends BaseOpenmrsService implements BillingSer
 							content += "<div id='fragment-" + tmpC.getConceptId() + "'>";
 							content += tmp;
 							content += "</div>";
+                                                        
 						}
 					}
 					count++;
@@ -615,6 +617,7 @@ public class BillingServiceImpl extends BaseOpenmrsService implements BillingSer
 				if (!"".equals(content))
 					header += content;
 				header += " </div>";
+                                
 			}
 		} else if (conceptSets != null && conceptSets.size() > 0 && !conceptClass.getName().equalsIgnoreCase("Test")
 		        && !conceptClass.getName().equalsIgnoreCase("labset")) {
@@ -1240,6 +1243,14 @@ public class BillingServiceImpl extends BaseOpenmrsService implements BillingSer
 	public List<PatientSearch> searchListOfPatient(Date date, String searchKey,int page) throws APIException {
 		return dao.searchListOfPatient(date,searchKey,page);
 	}
+        //By Janaka 21/11/2014 to Work with size selctor for OPDQueue
+        public List<PatientSearch> searchListOfPatient(Date date, String searchKey,int page, int pgSize) throws APIException {
+		return dao.searchListOfPatient(date,searchKey,page,pgSize);
+	}
+         public int countSearchListOfPatient(Date date, String searchKey,int page) throws APIException {
+		return dao.countSearchListOfPatient(date,searchKey,page);
+	}
+        
 	public List<PatientSearch> listOfPatient() throws APIException {
 		return dao.listOfPatient();
 	}

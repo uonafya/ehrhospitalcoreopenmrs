@@ -87,9 +87,13 @@ public interface IpdService extends OpenmrsService{
 	@Transactional(readOnly = true)
 	public List<IpdPatientAdmission> getAllIndoorPatient() throws APIException;
 	
+        // 24/11/2014 to Work with size selctor for IPDQueue
 	@Transactional(readOnly = true)
-	public List<IpdPatientAdmissionLog> getAllIndoorPatientFromAdmissionLog(String searchKey,int page) throws APIException;
+	public List<IpdPatientAdmissionLog> getAllIndoorPatientFromAdmissionLog(String searchKey,int page,int pgSize) throws APIException;
 	
+        @Transactional(readOnly = true)
+	public int countGetAllIndoorPatientFromAdmissionLog(String searchKey,int page) throws APIException;
+        
 	public IpdPatientAdmitted transfer(Integer id, Integer wardId, Integer doctorId, String bed) throws APIException;
 	
 	//ghanshyam 11-july-2013 feedback # 1724 Introducing bed availability

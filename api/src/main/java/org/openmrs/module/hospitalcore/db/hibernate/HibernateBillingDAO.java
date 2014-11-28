@@ -1000,6 +1000,44 @@ public class HibernateBillingDAO implements BillingDAO {
 		List<PatientSearch> list = q.list();
 		return list;
 	}
+        // 21/11/2014 to Work with size selctor for OPDQueue
+        public List<PatientSearch> searchListOfPatient(Date date, String searchKey,
+			int page,int pgSize) throws DAOException {
+		SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
+		String startDate = sdf.format(date) + " 00:00:00";
+		String endDate = sdf.format(date) + " 23:59:59";
+		String hql = "SELECT DISTINCT ps from PatientSearch ps,OpdTestOrder o INNER JOIN o.patient p where p.patientId=ps.patientId AND o.scheduleDate BETWEEN '"
+				+ startDate
+				+ "' AND '"
+				+ endDate
+				//+ "' AND o.billingStatus=0 AND o.cancelStatus=0 AND o.billableService is NOT NULL GROUP BY o.patient) AND (ps.identifier LIKE '%"
+				+ "' AND o.billingStatus=0 AND o.cancelStatus=0 AND o.billableService is NOT NULL AND o.valueCoded NOT IN (SELECT c.answerConcept FROM ConceptAnswer c,ConceptName cn WHERE cn.name='MAJOR OPERATION' AND c.concept=cn.concept) AND (ps.identifier LIKE '%"
+				+ searchKey + "%' OR ps.fullname LIKE '" + searchKey + "%')";
+		int firstResult = (page - 1) *pgSize;
+		Session session = sessionFactory.getCurrentSession();
+		Query q = session.createQuery(hql).setFirstResult(firstResult).setMaxResults(pgSize);
+		List<PatientSearch> list = q.list();
+		return list;
+	}
+        
+        public int countSearchListOfPatient(Date date, String searchKey,
+			int page) throws DAOException {
+		SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
+		String startDate = sdf.format(date) + " 00:00:00";
+		String endDate = sdf.format(date) + " 23:59:59";
+		String hql = "SELECT DISTINCT ps from PatientSearch ps,OpdTestOrder o INNER JOIN o.patient p where p.patientId=ps.patientId AND o.scheduleDate BETWEEN '"
+				+ startDate
+				+ "' AND '"
+				+ endDate
+				//+ "' AND o.billingStatus=0 AND o.cancelStatus=0 AND o.billableService is NOT NULL GROUP BY o.patient) AND (ps.identifier LIKE '%"
+				+ "' AND o.billingStatus=0 AND o.cancelStatus=0 AND o.billableService is NOT NULL AND o.valueCoded NOT IN (SELECT c.answerConcept FROM ConceptAnswer c,ConceptName cn WHERE cn.name='MAJOR OPERATION' AND c.concept=cn.concept) AND (ps.identifier LIKE '%"
+				+ searchKey + "%' OR ps.fullname LIKE '" + searchKey + "%')";
+
+		Session session = sessionFactory.getCurrentSession();
+                Query q = session.createQuery(hql);
+		List<PatientSearch> list = q.list();
+		return list.size();
+	}
 
 	public List<PatientSearch> listOfPatient() throws DAOException {
 		//String hql = "from PatientSearch ps where ps.patientId IN (SELECT o.patient FROM OpdTestOrder o where o.billingStatus=0 AND o.cancelStatus=0 AND o.billableService is NOT NULL GROUP BY o.patient)";

@@ -361,6 +361,10 @@ public interface BillingService extends OpenmrsService {
 	public void updateOldBills();
 	//ghanshyam 3-june-2013 New Requirement #1632 Orders from dashboard must be appear in billing queue.User must be able to generate bills from this queue
 	public List<PatientSearch> searchListOfPatient(Date date, String searchKey,int page) throws APIException;
+        // 21/11/2014 to work with size selctor for OPDQueue
+        public List<PatientSearch> searchListOfPatient(Date date, String searchKey,int page,int pgSize) throws APIException;
+        public int countSearchListOfPatient(Date date, String searchKey,int page) throws APIException;
+        
 	public List<PatientSearch> listOfPatient() throws APIException;
 	public List<BillableService> listOfServiceOrder(Integer patientId, Integer encounterId) throws APIException;
 	public BillableService getServiceByConceptName(String conceptName) throws APIException;
