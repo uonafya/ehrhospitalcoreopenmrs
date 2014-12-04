@@ -90,6 +90,15 @@ public class IpdPatientAdmitted implements Serializable{
 	private String chief;
 	private String subChief;
 	private String religion;
+	private Integer absconded;
+	
+
+	public Integer getAbsconded() {
+		return absconded;
+	}
+	public void setAbsconded(Integer absconded) {
+		this.absconded = absconded;
+	}
 	public Integer getId() {
 		return id;
 	}

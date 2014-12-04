@@ -61,7 +61,16 @@ public class IpdPatientAdmissionLog implements Serializable{
 	private int requestForDischargeStatus;// 0=not yet requested for discharge,1=requested for discharge;
 	private int billingStatus;// 0=billing not done,1=billing done;
 	private Encounter ipdEncounter;
+	private Integer absconded;
 	
+
+	
+	public Integer getAbsconded() {
+		return absconded;
+	}
+	public void setAbsconded(Integer absconded) {
+		this.absconded = absconded;
+	}
 	public Date getAdmissionDate() {
 		return admissionDate;
 	}
