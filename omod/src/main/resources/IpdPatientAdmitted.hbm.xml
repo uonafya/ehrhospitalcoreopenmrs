@@ -39,5 +39,6 @@
 		<property name="chief" column="chief" />
 		<property name="subChief" column="sub_chief" />
 		<property name="religion" column="religion" />
+		<property name="absconded" column="absconded" />
 	</class>
 </hibernate-mapping>

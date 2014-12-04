@@ -631,4 +631,16 @@
 			ALTER TABLE opd_patient_queue MODIFY COLUMN visit_status VARCHAR(255);
 		</sql>
 	</diff>
+	<diff>
+		<version>4.5.1</version>
+		<author>Sagar Bele</author>
+		<date>December 3 2014</date>
+		<description>
+			Add column absconded to ipd_patient_admitted and add column absconded to ipd_patient_admission_log 
+		</description>
+		<sql>
+			ALTER TABLE ipd_patient_admitted ADD COLUMN `absconded` VARCHAR(5) default NULL;
+			ALTER TABLE ipd_patient_admission_log ADD COLUMN `absconded` VARCHAR(5) default NULL;
+		</sql>
+	</diff>
 </sqldiff>

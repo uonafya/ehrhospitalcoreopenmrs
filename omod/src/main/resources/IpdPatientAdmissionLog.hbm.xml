@@ -27,5 +27,6 @@
 		<property name="indoorStatus" column="indoor_status"/>
 		<property name="requestForDischargeStatus" column="request_discharge_status" />
 		<property name="billingStatus" column="billing_status" />
+		<property name="absconded" column="absconded" />
 	</class>
 </hibernate-mapping>
