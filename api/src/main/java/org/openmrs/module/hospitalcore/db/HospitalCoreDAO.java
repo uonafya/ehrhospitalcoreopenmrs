@@ -131,4 +131,5 @@ public interface HospitalCoreDAO {
 	public PersonAddress getPersonAddress(Person person);
 	public OpdTestOrder getOpdTestOrder(Integer opdOrderId);
 	public PersonAttributeType getPersonAttributeTypeByName(String attributeName) throws DAOException;
+	public Obs getObs(Person person,Encounter encounter) throws DAOException;
 }

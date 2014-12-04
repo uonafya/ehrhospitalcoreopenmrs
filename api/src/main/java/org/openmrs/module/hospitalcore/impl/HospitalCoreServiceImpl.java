@@ -769,4 +769,8 @@ public class HospitalCoreServiceImpl extends BaseOpenmrsService implements
 	public PersonAttributeType getPersonAttributeTypeByName(String attributeName){
 		return dao.getPersonAttributeTypeByName(attributeName);
 	}
+	
+	public Obs getObs(Person person,Encounter encounter){
+		return dao.getObs(person,encounter);
+	}
 }
