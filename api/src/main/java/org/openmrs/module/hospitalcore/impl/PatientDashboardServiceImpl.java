@@ -226,4 +226,9 @@ public class PatientDashboardServiceImpl implements PatientDashboardService {
 	public TriagePatientData getTriagePatientData(Integer triageDataId) {
 		return dao.getTriagePatientData(triageDataId);
 	}
+	
+	public TriagePatientData getTriagePatientDataFromEncounter(Integer encounterOpd) {
+		return dao.getTriagePatientDataFromEncounter(encounterOpd);
+	}
 }
+

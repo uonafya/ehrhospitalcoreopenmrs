@@ -26,5 +26,6 @@
 		<property name="rhesusFactor" column="rhesus_factor" />
 		<property name="pitct" column="pitct" />
 		<property name="createdOn" column="created_on" />
+		<property name="encounterOpd" column="encounter_opd" />
 	</class>
 </hibernate-mapping>

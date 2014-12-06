@@ -77,4 +77,6 @@ public interface PatientDashboardDAO {
 	public Answer getAnswer(Question question) throws DAOException;
 	public List<OpdDrugOrder> getOpdDrugOrder(Encounter encounter) throws DAOException;
 	public TriagePatientData getTriagePatientData(Integer triageDataId) throws DAOException;
+	
+	public TriagePatientData getTriagePatientDataFromEncounter(Integer encounterOpd) throws DAOException;
 }

@@ -415,5 +415,13 @@ public class HibernatePatientDashboardDAO implements PatientDashboardDAO {
 
 		return (TriagePatientData) criteria.uniqueResult();
 	}
+	
+	public TriagePatientData getTriagePatientDataFromEncounter(Integer encounterOpd) throws DAOException {
+		
+		Criteria criteria = sessionFactory.getCurrentSession().createCriteria(
+				TriagePatientData.class);
+			criteria.add(Restrictions.like("encounterOpd",encounterOpd));
+		return (TriagePatientData) criteria.uniqueResult();
+	}
 
 }

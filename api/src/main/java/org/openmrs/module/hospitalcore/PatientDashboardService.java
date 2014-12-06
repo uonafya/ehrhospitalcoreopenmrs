@@ -92,4 +92,6 @@ public interface PatientDashboardService {
 	public List<OpdDrugOrder> getOpdDrugOrder(Encounter encounter) throws APIException;
 	public TriagePatientData getTriagePatientData(Integer triageDataId) throws APIException;
 	
+	public TriagePatientData getTriagePatientDataFromEncounter(Integer encounterOpd) throws APIException;
+	
 }

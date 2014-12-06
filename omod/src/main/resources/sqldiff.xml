@@ -643,4 +643,17 @@
 			ALTER TABLE ipd_patient_admission_log ADD COLUMN `absconded` VARCHAR(5) default NULL;
 		</sql>
 	</diff>
+	
+	<diff>
+		<version>4.6</version>
+		<author>Amit Sharma</author>
+		<date>Dec 12,2014</date>
+		<description>
+			Add columns to capture more patient information in traige
+		</description>
+		<sql>
+			ALTER TABLE triage_patient_data
+			ADD COLUMN `encounter_opd` integer;			
+		</sql>
+	</diff>
 </sqldiff>

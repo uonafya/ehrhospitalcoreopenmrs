@@ -68,6 +68,16 @@ public class TriagePatientData implements Serializable {
 	private String rhesusFactor;
 	private String pitct;
 	private Date createdOn;
+	private Integer encounterOpd;
+	
+	
+	public Integer getEncounterOpd() {
+		return encounterOpd;
+	}
+
+	public void setEncounterOpd(Integer encounterOpd) {
+		this.encounterOpd = encounterOpd;
+	}
 
 	public Integer getId() {
 		return id;
