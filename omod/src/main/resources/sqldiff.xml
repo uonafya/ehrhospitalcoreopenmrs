@@ -656,4 +656,16 @@
 			ADD COLUMN `encounter_opd` integer;			
 		</sql>
 	</diff>
+	<diff>
+		<version>4.7</version>
+		<author>Sagar Bele</author>
+		<date>Dec 7 2014</date>
+		<description>
+			Add column admitted_days,patient_category,rebate_amount,category_number for 'billing_patient_service_bill'
+			table
+		</description>
+		<sql>
+			ALTER TABLE billing_patient_service_bill ADD COLUMN `admitted_days` integer,ADD COLUMN `patient_category` varchar(100),ADD COLUMN `rebate_amount` decimal(19,2),ADD COLUMN `category_number` varchar(100);
+		</sql>
+	</diff>
 </sqldiff>

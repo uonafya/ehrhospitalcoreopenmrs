@@ -42,5 +42,10 @@
 		<many-to-one name="encounter" column="encounter" class="org.openmrs.Encounter"
 			foreign-key="fk_patientservicebill_encounter" />
 		<property name="dischargeStatus" column="discharge_status" />
+		<property name="admittedDays" column="admitted_days" />
+		<property name="patientCategory" column="patient_category" />
+		<property name="rebateAmount" column="rebate_amount" />
+		<property name="categoryNumber" column="category_number" />
+		
 	</class>
 </hibernate-mapping>
