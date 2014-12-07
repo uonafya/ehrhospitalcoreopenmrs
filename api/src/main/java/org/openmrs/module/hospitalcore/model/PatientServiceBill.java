@@ -54,6 +54,47 @@ public class PatientServiceBill implements Serializable {
 	
 	private Boolean voided = false;
 	
+	private BigDecimal rebateAmount;
+	
+	private String categoryNumber;
+	
+	private String patientCategory;
+	
+	private Integer admittedDays;
+
+	
+	public BigDecimal getRebateAmount() {
+		return rebateAmount;
+	}
+
+	public void setRebateAmount(BigDecimal rebateAmount) {
+		this.rebateAmount = rebateAmount;
+	}
+
+	public String getCategoryNumber() {
+		return categoryNumber;
+	}
+
+	public void setCategoryNumber(String categoryNumber) {
+		this.categoryNumber = categoryNumber;
+	}
+
+	public String getPatientCategory() {
+		return patientCategory;
+	}
+
+	public void setPatientCategory(String patientCategory) {
+		this.patientCategory = patientCategory;
+	}
+
+	public Integer getAdmittedDays() {
+		return admittedDays;
+	}
+
+	public void setAdmittedDays(Integer admittedDays) {
+		this.admittedDays = admittedDays;
+	}
+
 	private Date voidedDate;
 	
 	private Date createdDate;
@@ -63,6 +104,9 @@ public class PatientServiceBill implements Serializable {
 	private Receipt receipt;
 	
 	private BigDecimal waiverAmount;
+	
+
+	
 	
 	//ghanshyam 3-june-2013 New Requirement #1632 Orders from dashboard must be appear in billing queue.User must be able to generate bills from this queue
 	private Integer freeBill;//0=paidBill,1=freeBill,2=mixedBill
