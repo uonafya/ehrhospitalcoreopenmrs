@@ -246,7 +246,7 @@ public interface BillingService extends OpenmrsService {
 	@Authorized({ BillingConstants.PRIV_VIEW_BILL })
 	public PatientServiceBill getPatientServiceBillById(Integer patientServiceBillId) throws APIException;
 	
-	@Authorized({ BillingConstants.PRIV_VIEW_BILL })
+	//@Authorized({ BillingConstants.PRIV_VIEW_BILL })
 	public IndoorPatientServiceBill getIndoorPatientServiceBillById(Integer indoorPatientServiceBillId) throws APIException;
 	
 	@Authorized({ BillingConstants.PRIV_VIEW_BILL })
@@ -258,7 +258,7 @@ public interface BillingService extends OpenmrsService {
 	@Authorized({ BillingConstants.PRIV_ADD_BILL })
 	public PatientServiceBill savePatientServiceBill(PatientServiceBill patientServiceBill) throws APIException;
 	
-	@Authorized({ BillingConstants.PRIV_ADD_BILL })
+	//@Authorized({ BillingConstants.PRIV_ADD_BILL })
 	public IndoorPatientServiceBill saveIndoorPatientServiceBill(IndoorPatientServiceBill indoorPatientServiceBill) throws APIException;
 	
 	public void deleteIndoorPatientServiceBill(IndoorPatientServiceBill indoorPatientServiceBill) throws APIException; 
@@ -266,7 +266,7 @@ public interface BillingService extends OpenmrsService {
 	@Authorized({ BillingConstants.PRIV_ADD_BILL })
 	public void saveBillEncounterAndOrder(PatientServiceBill bill) throws APIException;
 	
-	@Authorized({ BillingConstants.PRIV_ADD_BILL })
+	//@Authorized({ BillingConstants.PRIV_ADD_BILL })
 	public void saveBillEncounterAndOrderForIndoorPatient(IndoorPatientServiceBill bill) throws APIException;
 	
 	@Transactional(readOnly = true)
