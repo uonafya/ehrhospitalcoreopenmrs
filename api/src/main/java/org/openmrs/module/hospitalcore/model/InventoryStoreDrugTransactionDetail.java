@@ -51,6 +51,7 @@ public class InventoryStoreDrugTransactionDetail implements  Serializable , Comp
 	 private BigDecimal unitPrice;
 	 private BigDecimal totalPrice;
 	 private BigDecimal VAT;
+	 private BigDecimal costToPatient;
 	 
 	 private String batchNo;
 	 private String companyName ;
@@ -119,6 +120,14 @@ public class InventoryStoreDrugTransactionDetail implements  Serializable , Comp
 	}
 	
 	
+	public BigDecimal getCostToPatient() {
+		return costToPatient;
+	}
+
+	public void setCostToPatient(BigDecimal costToPatient) {
+		this.costToPatient = costToPatient;
+	}
+
 	public BigDecimal getVAT() {
 		return VAT;
 	}
