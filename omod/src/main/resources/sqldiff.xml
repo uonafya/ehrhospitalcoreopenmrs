@@ -668,4 +668,15 @@
 			ALTER TABLE billing_patient_service_bill ADD COLUMN `admitted_days` integer,ADD COLUMN `patient_category` varchar(100),ADD COLUMN `rebate_amount` decimal(19,2),ADD COLUMN `category_number` varchar(100);
 		</sql>
 	</diff>
+	<diff>
+		<version>4.9</version>
+		<author>ghanshyam</author>
+		<date>23 Dec 2014</date>
+		<description>
+			Add column admitted for 'patient_search' table
+		</description>
+		<sql>
+			ALTER TABLE patient_search ADD admitted smallint(6) DEFAULT 0;
+		</sql>
+	</diff>
 </sqldiff>

@@ -245,7 +245,7 @@
 			this.limitClause = " LIMIT " + this.currentRow + ", " + this.rowPerPage;
 			*/
 			
-			this.selectClause = "SELECT ps.patient_id, ps.identifier, ps.given_name, ps.middle_name, ps.family_name, ps.gender, ps.birthdate, ps.age, ps.person_name_id, ps.dead ";
+			this.selectClause = "SELECT ps.patient_id, ps.identifier, ps.given_name, ps.middle_name, ps.family_name, ps.gender, ps.birthdate, ps.age, ps.person_name_id, ps.dead,ps.admitted ";
 			this.fromClause   = " FROM patient_search ps";
 			this.fromClause  += " INNER JOIN person pe ON pe.person_id = ps.patient_id";
 			this.whereClause  = " WHERE";

@@ -236,15 +236,26 @@ public class HibernateHospitalCoreDAO implements HospitalCoreDAO {
 					patient.setGender((String) obss[5]);
 					patient.setBirthdate((Date) obss[6]);
 					if(obss.length > 9){
-					if(obss[9]!=null){
-						if(obss[9].toString().equals("1")){
-							patient.setDead(true);
+						if(obss[9]!=null){
+							if(obss[9].toString().equals("1")){
+								patient.setDead(true);
+							}
+							else if(obss[9].toString().equals("0")){
+								patient.setDead(false);
+							}
 						}
-						else if(obss[9].toString().equals("0")){
-							patient.setDead(false);
 						}
-					}
-					}
+					//validation on patient is admitted or not
+					if(obss.length > 10){
+						if(obss[10]!=null){
+							if(obss[10].toString().equals("1")){
+								patient.setVoided(true);
+							}
+							else if(obss[10].toString().equals("0")){
+								patient.setVoided(false);
+							}
+						}
+						}
 					patients.add(patient);
 				}
 			}

@@ -38,6 +38,7 @@ public class PatientSearch implements Serializable {
 	private Integer age;
 	private Integer personNameId;
 	private Boolean dead = false;
+	private Boolean admitted = false;
 
 	public Integer getPatientId() {
 		return patientId;
@@ -125,5 +126,13 @@ public class PatientSearch implements Serializable {
 
 	public void setDead(Boolean dead) {
 		this.dead = dead;
+	}
+
+	public Boolean getAdmitted() {
+		return admitted;
+	}
+
+	public void setAdmitted(Boolean admitted) {
+		this.admitted = admitted;
 	}
 }
