@@ -63,6 +63,8 @@ public class InventoryStoreDrugTransactionDetail implements  Serializable , Comp
 	 private long closingBalance;
 	 private String attribute;
 	 private Integer reorderPoint;
+	 private String patientType;
+	 
 	 public String getAttribute() {
 		return attribute;
 	}
@@ -250,5 +252,15 @@ public class InventoryStoreDrugTransactionDetail implements  Serializable , Comp
 	 
 	    return (this.drug).compareTo(i.drug);
 	}
+
+	public String getPatientType() {
+		return patientType;
+	}
+
+	public void setPatientType(String patientType) {
+		this.patientType = patientType;
+	}
+	 
+	
 	 
 }

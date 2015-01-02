@@ -20,5 +20,6 @@
 		<property name="name" column="name"/>
 		<property name="createdDate" column="created_date"  />
 		<property name="actualAmount" column="actual_amount"  />			
+		<property name="orderType" column="order_type"  />
 	</class>
 </hibernate-mapping>

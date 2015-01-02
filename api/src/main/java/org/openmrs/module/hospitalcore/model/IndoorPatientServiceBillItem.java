@@ -57,6 +57,8 @@ public class IndoorPatientServiceBillItem implements Serializable {
 	
 	private Order order ;
 	
+	private String orderType;
+	
 	public Integer getIndoorPatientServiceBillItemId() {
 		return indoorPatientServiceBillItemId;
 	}
@@ -138,4 +140,14 @@ public class IndoorPatientServiceBillItem implements Serializable {
 	public void setActualAmount(BigDecimal actualAmount) {
 		this.actualAmount = actualAmount;
 	}
+
+	public String getOrderType() {
+		return orderType;
+	}
+
+	public void setOrderType(String orderType) {
+		this.orderType = orderType;
+	}
+	
+	
 }

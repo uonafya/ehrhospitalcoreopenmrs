@@ -29,10 +29,12 @@ import org.openmrs.Encounter;
 import org.openmrs.EncounterType;
 import org.openmrs.Obs;
 import org.openmrs.Patient;
+
 import org.openmrs.Person;
 import org.openmrs.PersonAddress;
 import org.openmrs.PersonAttribute;
 import org.openmrs.PersonAttributeType;
+import org.openmrs.api.APIException;
 import org.openmrs.api.db.DAOException;
 import org.openmrs.module.hospitalcore.concept.ConceptModel;
 import org.openmrs.module.hospitalcore.model.CoreForm;
@@ -132,4 +134,6 @@ public interface HospitalCoreDAO {
 	public OpdTestOrder getOpdTestOrder(Integer opdOrderId);
 	public PersonAttributeType getPersonAttributeTypeByName(String attributeName) throws DAOException;
 	public Obs getObs(Person person,Encounter encounter) throws DAOException;
+	
+	public String getPatientType(Patient patientId) throws DAOException;
 }

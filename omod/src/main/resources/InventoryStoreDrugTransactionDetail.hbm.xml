@@ -38,6 +38,7 @@
 		<property name="closingBalance" column="closing_balance"  />
 	    <property name="reorderPoint" column="reorder_point"  />
 	    <property name="attribute" column="attribute"  />
+	    <property name="patientType" column="patient_type"  />
 		
 		<many-to-one name="parent" class="org.openmrs.module.hospitalcore.model.InventoryStoreDrugTransactionDetail"
 	        column="parent_id"  lazy="false" />	 

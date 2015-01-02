@@ -55,6 +55,7 @@ import org.openmrs.module.hospitalcore.concept.ConceptModel;
 import org.openmrs.module.hospitalcore.concept.Mapping;
 import org.openmrs.module.hospitalcore.db.HospitalCoreDAO;
 import org.openmrs.module.hospitalcore.model.CoreForm;
+import org.openmrs.module.hospitalcore.model.IpdPatientAdmitted;
 import org.openmrs.module.hospitalcore.model.OpdTestOrder;
 import org.openmrs.module.hospitalcore.model.PatientSearch;
 import org.openmrs.module.hospitalcore.util.DateUtils;
@@ -406,5 +407,19 @@ public class HibernateHospitalCoreDAO implements HospitalCoreDAO {
 		criteria.add(Restrictions.eq("encounter", encounter));
 		criteria.add(Restrictions.eq("concept", Context.getConceptService().getConcept("REGISTRATION FEE")));
 		return (Obs) criteria.uniqueResult();
+	}
+	
+	public String getPatientType(Patient patientId) {
+		Criteria criteria = sessionFactory.getCurrentSession().createCriteria(IpdPatientAdmitted.class);
+		criteria.add(Restrictions.eq("patient", patientId));
+		criteria.list();
+		if(criteria.list().size()>0)
+		{
+			return "ipdPatient";
+		}
+		else
+		{
+			return "opdPatient"; 
+		}
 	}
 }

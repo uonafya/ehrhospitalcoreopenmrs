@@ -57,6 +57,7 @@ import org.openmrs.GlobalProperty;
 import org.openmrs.Location;
 import org.openmrs.Obs;
 import org.openmrs.Patient;
+
 import org.openmrs.Person;
 import org.openmrs.PersonAddress;
 import org.openmrs.PersonAttribute;
@@ -773,4 +774,9 @@ public class HospitalCoreServiceImpl extends BaseOpenmrsService implements
 	public Obs getObs(Person person,Encounter encounter){
 		return dao.getObs(person,encounter);
 	}
+	
+	public String getPatientType(Patient patientId){
+		return dao.getPatientType(patientId);
+	}
+
 }
