@@ -222,7 +222,7 @@
 		
 			// Get value from form			
 			nameOrIdentifier = jQuery.trim(jQuery("#nameOrIdentifier", this.form).val());	
-			nameOrIdentifier = nameOrIdentifier.replace(/\s/g, "");			
+		//	nameOrIdentifier = nameOrIdentifier.replace(/\s/g, "");			
 		
 			// Build essential query
 			//ghanshyam 16-april-2013 inventory search query optimization in Bangladesh module(commented old query below and written new query after this commented query)
@@ -273,7 +273,7 @@
 		
 			// Get value from form			
 			nameOrIdentifier = jQuery.trim(jQuery("#nameOrIdentifier", this.form).val());			
-			nameOrIdentifier = nameOrIdentifier.replace(/\s/g, "");
+		//	nameOrIdentifier = nameOrIdentifier.replace(/\s/g, "");
 		
 			// Build essential query
 			//ghanshyam 16-april-2013 inventory search query optimization in Bangladesh module(commented old query below and written new query after this commented query)
