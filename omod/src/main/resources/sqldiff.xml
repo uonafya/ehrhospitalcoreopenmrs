@@ -679,4 +679,19 @@
 			ALTER TABLE patient_search ADD admitted smallint(6) DEFAULT 0;
 		</sql>
 	</diff>
+        <diff>
+		<version>5.0</version>
+		<author>Sagar</author>
+		<date>31 Dec 2014</date>
+		<description>
+			Add column voided_by for `billing_patient_service_bill_item` table and Add column voided,voided_date,voided_by for `indoor_patient_service_bill_item` table
+			
+		</description>
+		<sql>
+			ALTER TABLE billing_patient_service_bill_item ADD COLUMN voided_by varchar(255) DEFAULT Null;
+			ALTER TABLE indoor_patient_service_bill_item ADD COLUMN voided bit(1) DEFAULT Null;
+            ALTER TABLE indoor_patient_service_bill_item ADD COLUMN voided_date datetime DEFAULT Null;
+            ALTER TABLE indoor_patient_service_bill_item ADD COLUMN voided_by varchar(255) DEFAULT Null;
+		</sql>
+	</diff>
 </sqldiff>

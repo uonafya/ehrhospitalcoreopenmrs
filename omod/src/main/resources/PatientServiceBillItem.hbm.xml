@@ -21,6 +21,7 @@
 		<property name="createdDate" column="created_date"  />
 		<property name="voided" column="voided"  />
 		<property name="voidedDate" column="voided_date"  />
+        <property name="voidedby" column="voided_by"  />
 		<property name="actualAmount" column="actual_amount"  />			
 	</class>
 </hibernate-mapping>
