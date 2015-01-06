@@ -56,9 +56,14 @@ public class IndoorPatientServiceBillItem implements Serializable {
 	private Date createdDate;
 	
 	private Order order ;
+        
+        private Boolean voided = false;
+        
+        private Date voidedDate;
+        
+        private String voidedby;
 	
 	private String orderType;
-	
 	public Integer getIndoorPatientServiceBillItemId() {
 		return indoorPatientServiceBillItemId;
 	}
@@ -140,7 +145,6 @@ public class IndoorPatientServiceBillItem implements Serializable {
 	public void setActualAmount(BigDecimal actualAmount) {
 		this.actualAmount = actualAmount;
 	}
-
 	public String getOrderType() {
 		return orderType;
 	}
@@ -148,6 +152,28 @@ public class IndoorPatientServiceBillItem implements Serializable {
 	public void setOrderType(String orderType) {
 		this.orderType = orderType;
 	}
+        
+        public Boolean getVoided() {
+		return voided;
+	}
 	
+	public void setVoided(Boolean voided) {
+		this.voided = voided;
+	}
 	
+	public Date getVoidedDate() {
+		return voidedDate;
+	}
+	
+	public void setVoidedDate(Date voidedDate) {
+		this.voidedDate = voidedDate;
+	}
+        
+        public String getVoidedby() {
+		return voidedby;
+	}
+	
+	public void setVoidedby(String voidedby) {
+		this.voidedby = voidedby;
+	}
 }

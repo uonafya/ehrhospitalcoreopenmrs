@@ -1243,7 +1243,7 @@ public class BillingServiceImpl extends BaseOpenmrsService implements BillingSer
 	public List<PatientSearch> searchListOfPatient(Date date, String searchKey,int page) throws APIException {
 		return dao.searchListOfPatient(date,searchKey,page);
 	}
-        //By Janaka 21/11/2014 to Work with size selctor for OPDQueue
+        //21/11/2014 to Work with size selctor for OPDQueue
         public List<PatientSearch> searchListOfPatient(Date date, String searchKey,int page, int pgSize) throws APIException {
 		return dao.searchListOfPatient(date,searchKey,page,pgSize);
 	}
@@ -1271,6 +1271,11 @@ public class BillingServiceImpl extends BaseOpenmrsService implements BillingSer
 	}
 	public IndoorPatientServiceBillItem getIndoorPatientServiceBillItem(String name,List<IndoorPatientServiceBill> indoorPatientServiceBillList) throws APIException {
 		return dao.getIndoorPatientServiceBillItem(name,indoorPatientServiceBillList);
+	}
+        
+        // 3/1/2015 BillItems voiding
+        public void updateVoidBillItems(Boolean voided,String voidedBy, Date voidedDate,Integer itemID) {
+		dao.updateVoidBillItems(voided,voidedBy,voidedDate,itemID);
 	}
 	
 }

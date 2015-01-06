@@ -912,6 +912,7 @@ public class HibernateBillingDAO implements BillingDAO {
 		}
 	}
 
+
 	public void updateOldBills() {
 
 		Session session = sessionFactory.getCurrentSession();
@@ -927,8 +928,8 @@ public class HibernateBillingDAO implements BillingDAO {
 			// update old bill
 			String category = PatientUtils.getPatientAttribute(item
 					.getPatientServiceBill().getPatient(), "Payment Category");
-			System.out.println(category);
-			System.out.println(item.getPatientServiceBillItemId());
+			//System.out.println(category);
+			//System.out.println(item.getPatientServiceBillItemId());
 			if (i % 50 == 0) {
 				session.flush();
 				session.clear();
@@ -1129,5 +1130,20 @@ public class HibernateBillingDAO implements BillingDAO {
 		criteria.add(Restrictions.in("indoorPatientServiceBill", indoorPatientServiceBillList));
 		return (IndoorPatientServiceBillItem) criteria.uniqueResult();
 	}
+        // 3/1/2015 BillItems voiding
+        public void updateVoidBillItems(Boolean voided,String voidedBy, Date voidedDate,Integer itemID){
+            Session session = sessionFactory.getCurrentSession();
+            String hql = "UPDATE IndoorPatientServiceBillItem"
+                    + " set voided = :voided,"
+                    + " voidedby = :voidedby,"
+                    + " voidedDate = :voidedDate"
+                    + " WHERE indoorPatientServiceBillItemId = :itemID";
+            Query query = session.createQuery(hql);
+            query.setParameter("voided", voided);
+            query.setParameter("voidedby", voidedBy);
+            query.setParameter("voidedDate", voidedDate);
+            query.setParameter("itemID", itemID);
+            query.executeUpdate();
+        }
 
 }

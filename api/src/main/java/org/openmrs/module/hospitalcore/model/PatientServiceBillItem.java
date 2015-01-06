@@ -60,6 +60,8 @@ public class PatientServiceBillItem implements Serializable {
 	private Order order ;
 	
 	private Date voidedDate;
+        
+        private String voidedby;
 	
 	public BillableService getService() {
 		return service;
@@ -156,4 +158,14 @@ public class PatientServiceBillItem implements Serializable {
 	public void setActualAmount(BigDecimal actualAmount) {
 		this.actualAmount = actualAmount;
 	}
+        
+        public String getVoidedby() {
+		return voidedby;
+	}
+	
+	public void setVoidedby(String voidedby) {
+		this.voidedby = voidedby;
+	}
+        
+        
 }

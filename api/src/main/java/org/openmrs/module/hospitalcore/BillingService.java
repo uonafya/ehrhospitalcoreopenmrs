@@ -372,4 +372,7 @@ public interface BillingService extends OpenmrsService {
 	public OpdTestOrder getOpdTestOrder(Integer encounterId,Integer conceptId) throws APIException;
 	public PatientServiceBillItem getPatientServiceBillItem(Integer billId,String name) throws APIException;
 	public IndoorPatientServiceBillItem getIndoorPatientServiceBillItem(String name,List<IndoorPatientServiceBill> indoorPatientServiceBillList) throws APIException;
+        
+        // 3/1/2015 BillItems voiding
+        public void updateVoidBillItems(Boolean voided,String voidedBy, Date voidedDate,Integer itemID);
 }

@@ -263,4 +263,7 @@ public interface BillingDAO {
 	public PatientServiceBillItem getPatientServiceBillItem(Integer billId,String name) throws DAOException;
 	
 	public IndoorPatientServiceBillItem getIndoorPatientServiceBillItem(String name,List<IndoorPatientServiceBill> indoorPatientServiceBillList) throws DAOException;
+        
+        // 3/1/2015 BillItems voiding
+        public void updateVoidBillItems(Boolean voided,String voidedBy, Date voidedDate,Integer itemID);
 }
