@@ -28,6 +28,7 @@ import java.util.Set;
 
 import org.apache.commons.lang.StringUtils;
 import org.apache.commons.lang.time.DateUtils;
+import org.openmrs.Encounter;
 
 /**
  * <p> Class: InventoryStoreDrugTransaction </p>
@@ -64,6 +65,7 @@ public class InventoryStoreDrugTransactionDetail implements  Serializable , Comp
 	 private String attribute;
 	 private Integer reorderPoint;
 	 private String patientType;
+	 private Encounter encounter;
 	 
 	 public String getAttribute() {
 		return attribute;
@@ -259,6 +261,14 @@ public class InventoryStoreDrugTransactionDetail implements  Serializable , Comp
 
 	public void setPatientType(String patientType) {
 		this.patientType = patientType;
+	}
+
+	public Encounter getEncounter() {
+		return encounter;
+	}
+
+	public void setEncounter(Encounter encounter) {
+		this.encounter = encounter;
 	}
 	 
 	
