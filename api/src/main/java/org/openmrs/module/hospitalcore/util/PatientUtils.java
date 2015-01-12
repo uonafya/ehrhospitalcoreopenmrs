@@ -300,4 +300,22 @@ public class PatientUtils {
 		}
 		return age;
 	}
+	
+      public static String estimateAgeInYear(Date date) {
+		
+		// new date
+		Calendar cal = Calendar.getInstance();
+		
+		// set to old date
+		Calendar cal2 = Calendar.getInstance();
+		cal2.setTime(date);
+	
+		int yearNew = cal.get(Calendar.YEAR);
+		int yearOld = cal2.get(Calendar.YEAR);
+		
+		int yearDiff = yearNew - yearOld;
+		
+		String ageYear = String.valueOf(yearDiff);
+		return ageYear;
+	}
 }
