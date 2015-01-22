@@ -694,4 +694,16 @@
             ALTER TABLE indoor_patient_service_bill_item ADD COLUMN voided_by varchar(255) DEFAULT Null;
 		</sql>
 	</diff>
+	<diff>
+		<version>5.1</version>
+		<author>Sagar Bele</author>
+		<date>Jan 22, 2015</date>
+		<description>
+			Add column absconded_date to ipd_patient_admitted and add column absconded to ipd_patient_admitted_log
+		</description>
+		<sql>
+			ALTER TABLE ipd_patient_admitted ADD COLUMN `absconded_date` datetime default NULL;
+			ALTER TABLE ipd_patient_admitted_log ADD COLUMN `absconded_date` datetime default NULL;
+		</sql>
+	</diff>
 </sqldiff>
