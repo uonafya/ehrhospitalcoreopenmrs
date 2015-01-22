@@ -91,7 +91,15 @@ public class IpdPatientAdmitted implements Serializable{
 	private String subChief;
 	private String religion;
 	private Integer absconded;
-	
+	private Date abscondedDate;
+
+	public Date getAbscondedDate() {
+		return abscondedDate;
+	}
+
+	public void setAbscondedDate(Date abscondedDate) {
+		this.abscondedDate = abscondedDate;
+	}
 
 	public Integer getAbsconded() {
 		return absconded;

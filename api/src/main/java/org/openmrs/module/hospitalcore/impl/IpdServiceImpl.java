@@ -393,6 +393,7 @@ public class IpdServiceImpl extends BaseOpenmrsService implements IpdService {
 		log.setChief(admitted.getChief());
 		log.setSubChief(admitted.getSubChief());
 		log.setReligion(admitted.getReligion());
+		log.setAbscondedDate(admitted.getAbscondedDate());	
 		log = saveIpdPatientAdmittedLog(log);
 		if (log.getId() != null) {
 			// CHUYEN set status of admissionLog = discharge

@@ -75,6 +75,17 @@ public class IpdPatientAdmittedLog implements Serializable{
 	private String chief;
 	private String subChief;
 	private String religion;
+
+	private Date abscondedDate;
+
+	public Date getAbscondedDate() {
+		return abscondedDate;
+	}
+
+	public void setAbscondedDate(Date abscondedDate) {
+		this.abscondedDate = abscondedDate;
+	}
+
 	public Integer getId() {
 		return id;
 	}
