@@ -43,13 +43,7 @@ public class OpdDrugOrder {
 	private Date createdOn;
 	private int orderStatus; //0=drug order from opd not yet processed,1=drug order from opd processed 
 	private int cancelStatus; //0=not yet canceled,1=canceled
-	private String referralOpdName;
-	public String getReferralOpdName() {
-		return referralOpdName;
-	}
-	public void setReferralOpdName(String referralOpdName) {
-		this.referralOpdName = referralOpdName;
-	}
+	private String referralWardName;
 	public Integer getOpdDrugOrderId() {
 		return opdDrugOrderId;
 	}
@@ -122,5 +116,11 @@ public class OpdDrugOrder {
 	}
 	public void setCancelStatus(int cancelStatus) {
 		this.cancelStatus = cancelStatus;
+	}
+	public String getReferralWardName() {
+		return referralWardName;
+	}
+	public void setReferralWardName(String referralWardName) {
+		this.referralWardName = referralWardName;
 	}
 }

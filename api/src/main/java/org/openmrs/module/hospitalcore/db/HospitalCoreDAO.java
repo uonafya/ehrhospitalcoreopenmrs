@@ -134,6 +134,6 @@ public interface HospitalCoreDAO {
 	public OpdTestOrder getOpdTestOrder(Integer opdOrderId);
 	public PersonAttributeType getPersonAttributeTypeByName(String attributeName) throws DAOException;
 	public Obs getObs(Person person,Encounter encounter) throws DAOException;
-	
 	public String getPatientType(Patient patientId) throws DAOException;
+	public List<Obs> getObsInstanceForDiagnosis(Encounter encounter,Concept concept) throws DAOException;
 }

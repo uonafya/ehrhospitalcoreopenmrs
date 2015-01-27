@@ -220,6 +220,6 @@ public interface HospitalCoreService extends OpenmrsService {
 	public OpdTestOrder getOpdTestOrder(Integer opdOrderId);
 	public PersonAttributeType getPersonAttributeTypeByName(String attributeName) throws APIException;
 	public Obs getObs(Person person,Encounter encounter) throws APIException;
-	
 	public String getPatientType(Patient patientId) throws APIException;
+	public List<Obs> getObsInstanceForDiagnosis(Encounter encounter,Concept concept) throws APIException;
 }

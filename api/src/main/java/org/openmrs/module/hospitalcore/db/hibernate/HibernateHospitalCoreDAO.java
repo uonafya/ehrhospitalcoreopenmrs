@@ -422,4 +422,12 @@ public class HibernateHospitalCoreDAO implements HospitalCoreDAO {
 			return "opdPatient"; 
 		}
 	}
+	
+	public List<Obs> getObsInstanceForDiagnosis(Encounter encounter,Concept concept) {
+		Criteria criteria = sessionFactory.getCurrentSession().createCriteria
+				(Obs.class);
+		criteria.add(Restrictions.eq("encounter", encounter));
+		criteria.add(Restrictions.eq("concept", concept));
+		return criteria.list();
+	}
 }

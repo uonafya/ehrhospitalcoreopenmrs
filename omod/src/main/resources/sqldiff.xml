@@ -706,4 +706,19 @@
 			ALTER TABLE ipd_patient_admitted_log ADD COLUMN `absconded_date` datetime default NULL;
 		</sql>
 	</diff>
+	<diff>
+		<version>5.2</version>
+		<author>Ghanshyam</author>
+		<date>January 27 2015</date>
+		<description>
+			rename column referral_opd_name to referral_ward_name
+		</description>
+		<sql>
+			<!--
+			ALTER TABLE opd_test_order RENAME test_order;
+			-->
+			ALTER TABLE opd_test_order CHANGE referral_opd_name referral_ward_name varchar(100) DEFAULT Null;
+			ALTER TABLE opd_drug_order CHANGE referral_opd_name referral_ward_name varchar(100) DEFAULT Null;
+		</sql>
+	</diff>
 </sqldiff>

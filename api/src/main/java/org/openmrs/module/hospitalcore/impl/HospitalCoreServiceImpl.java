@@ -778,5 +778,9 @@ public class HospitalCoreServiceImpl extends BaseOpenmrsService implements
 	public String getPatientType(Patient patientId){
 		return dao.getPatientType(patientId);
 	}
+	
+	public List<Obs> getObsInstanceForDiagnosis(Encounter encounter,Concept concept){
+		return dao.getObsInstanceForDiagnosis(encounter,concept);
+	}
 
 }
