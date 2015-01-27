@@ -688,10 +688,10 @@
 			
 		</description>
 		<sql>
-			ALTER TABLE billing_patient_service_bill_item ADD COLUMN voided_by varchar(255) DEFAULT Null;
+			<!-- ALTER TABLE billing_patient_service_bill_item ADD COLUMN voided_by varchar(255) DEFAULT Null;
 			ALTER TABLE indoor_patient_service_bill_item ADD COLUMN voided bit(1) DEFAULT Null;
             ALTER TABLE indoor_patient_service_bill_item ADD COLUMN voided_date datetime DEFAULT Null;
-            ALTER TABLE indoor_patient_service_bill_item ADD COLUMN voided_by varchar(255) DEFAULT Null;
+            ALTER TABLE indoor_patient_service_bill_item ADD COLUMN voided_by varchar(255) DEFAULT Null; -->
 		</sql>
 	</diff>
 	<diff>
