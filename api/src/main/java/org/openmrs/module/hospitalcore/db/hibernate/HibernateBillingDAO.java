@@ -1013,7 +1013,7 @@ public class HibernateBillingDAO implements BillingDAO {
 				+ endDate
 				//+ "' AND o.billingStatus=0 AND o.cancelStatus=0 AND o.billableService is NOT NULL GROUP BY o.patient) AND (ps.identifier LIKE '%"
 				+ "' AND o.billingStatus=0 AND o.cancelStatus=0 AND o.billableService is NOT NULL AND o.valueCoded NOT IN (SELECT c.answerConcept FROM ConceptAnswer c,ConceptName cn WHERE cn.name='MAJOR OPERATION' AND c.concept=cn.concept) AND (ps.identifier LIKE '%"
-				+ searchKey + "%' OR ps.fullname LIKE '" + searchKey + "%')";
+				+ searchKey + "%' OR ps.fullname LIKE '%" + searchKey + "%')";
 		int firstResult = (page - 1) *pgSize;
 		Session session = sessionFactory.getCurrentSession();
 		Query q = session.createQuery(hql).setFirstResult(firstResult).setMaxResults(pgSize);
