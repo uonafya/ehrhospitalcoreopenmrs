@@ -28,6 +28,7 @@ import java.util.Set;
 
 import org.apache.commons.lang.StringUtils;
 import org.apache.commons.lang.time.DateUtils;
+import org.openmrs.Concept;
 import org.openmrs.Encounter;
 
 /**
@@ -67,6 +68,10 @@ public class InventoryStoreDrugTransactionDetail implements  Serializable , Comp
 	 private String patientType;
 	 private Encounter encounter;
 	 
+	 private Concept frequency;
+	 private Integer noOfDays;
+	 private String comments;
+		
 	 public String getAttribute() {
 		return attribute;
 	}
@@ -270,6 +275,31 @@ public class InventoryStoreDrugTransactionDetail implements  Serializable , Comp
 	public void setEncounter(Encounter encounter) {
 		this.encounter = encounter;
 	}
+
+	public Concept getFrequency() {
+		return frequency;
+	}
+
+	public void setFrequency(Concept frequency) {
+		this.frequency = frequency;
+	}
+
+	public Integer getNoOfDays() {
+		return noOfDays;
+	}
+
+	public void setNoOfDays(Integer noOfDays) {
+		this.noOfDays = noOfDays;
+	}
+
+	public String getComments() {
+		return comments;
+	}
+
+	public void setComments(String comments) {
+		this.comments = comments;
+	}
+
 	 
 	
 	 
