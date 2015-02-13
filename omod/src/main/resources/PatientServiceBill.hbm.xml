@@ -46,6 +46,6 @@
 		<property name="patientCategory" column="patient_category" />
 		<property name="rebateAmount" column="rebate_amount" />
 		<property name="categoryNumber" column="category_number" />
-		
+		<property name="patientSubCategory" column="patient_subcategory" />
 	</class>
 </hibernate-mapping>

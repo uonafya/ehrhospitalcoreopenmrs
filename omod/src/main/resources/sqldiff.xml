@@ -721,4 +721,15 @@
 			ALTER TABLE opd_drug_order CHANGE referral_opd_name referral_ward_name varchar(100) DEFAULT Null;
 		</sql>
 	</diff>
+	<diff>
+		<version>5.3</version>
+		<author>Sagar</author>
+		<date>Feb 13 2015</date>
+		<description>
+			
+		</description>
+		<sql>
+			ALTER TABLE billing_patient_service_bill ADD COLUMN patient_subcategory varchar(100);
+		</sql>
+	</diff>
 </sqldiff>
