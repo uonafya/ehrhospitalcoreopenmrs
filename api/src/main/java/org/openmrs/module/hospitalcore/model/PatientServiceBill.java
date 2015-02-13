@@ -62,7 +62,16 @@ public class PatientServiceBill implements Serializable {
 	
 	private Integer admittedDays;
 
+	private String patientSubCategory;
 	
+	public String getPatientSubCategory() {
+		return patientSubCategory;
+	}
+
+	public void setPatientSubCategory(String patientSubCategory) {
+		this.patientSubCategory = patientSubCategory;
+	}
+
 	public BigDecimal getRebateAmount() {
 		return rebateAmount;
 	}
