@@ -21,35 +21,11 @@
 package org.openmrs.module.hospitalcore.model;
 
 import java.io.Serializable;
-import java.math.BigDecimal;
 import java.util.Date;
 
 public class PatientFamilyHistory implements Serializable {
 
-	public String getParentStatus() {
-		return parentStatus;
-	}
-
-	public void setParentStatus(String parentStatus) {
-		this.parentStatus = parentStatus;
-	}
-
-	public String getParentDeathCause() {
-		return parentDeathCause;
-	}
-
-	public void setParentDeathCause(String parentDeathCause) {
-		this.parentDeathCause = parentDeathCause;
-	}
-
-	public String getParentDeathAge() {
-		return parentDeathAge;
-	}
-
-	public void setParentDeathAge(String parentDeathAge) {
-		this.parentDeathAge = parentDeathAge;
-	}
-
+	
 	public String getSiblingStatus() {
 		return siblingStatus;
 	}
@@ -86,9 +62,12 @@ public class PatientFamilyHistory implements Serializable {
 	private Integer id;
 	private TriagePatientQueueLog triageLogId;
 	private Integer patientId;
-	private String parentStatus;
-	private String parentDeathCause;
-	private String parentDeathAge;
+	private String fatherStatus;
+	private String fatherDeathCause;
+	private String fatherDeathAge;
+	private String motherStatus;
+	private String motherDeathCause;
+	private String motherDeathAge;
 	private String siblingStatus;
 	private String siblingDeathCause;
 	private String siblingDeathAge;
@@ -133,4 +112,53 @@ public class PatientFamilyHistory implements Serializable {
 		this.createdOn = createdOn;
 	}
 
+	public String getFatherStatus() {
+		return fatherStatus;
+	}
+
+	public void setFatherStatus(String fatherStatus) {
+		this.fatherStatus = fatherStatus;
+	}
+
+	public String getFatherDeathCause() {
+		return fatherDeathCause;
+	}
+
+	public void setFatherDeathCause(String fatherDeathCause) {
+		this.fatherDeathCause = fatherDeathCause;
+	}
+
+	public String getFatherDeathAge() {
+		return fatherDeathAge;
+	}
+
+	public void setFatherDeathAge(String fatherDeathAge) {
+		this.fatherDeathAge = fatherDeathAge;
+	}
+
+	public String getMotherStatus() {
+		return motherStatus;
+	}
+
+	public void setMotherStatus(String motherStatus) {
+		this.motherStatus = motherStatus;
+	}
+
+	public String getMotherDeathCause() {
+		return motherDeathCause;
+	}
+
+	public void setMotherDeathCause(String motherDeathCause) {
+		this.motherDeathCause = motherDeathCause;
+	}
+
+	public String getMotherDeathAge() {
+		return motherDeathAge;
+	}
+
+	public void setMotherDeathAge(String motherDeathAge) {
+		this.motherDeathAge = motherDeathAge;
+	}
+
+	
 }

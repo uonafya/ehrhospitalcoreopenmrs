@@ -732,4 +732,20 @@
 			ALTER TABLE billing_patient_service_bill ADD COLUMN patient_subcategory varchar(100);
 		</sql>
 	</diff>
+	<diff>
+		<version>5.4</version>
+		<author>Amit</author>
+		<date>Feb 13 2015</date>
+		<description>
+			Changing parent to father and added new columns related to mother in patient_family_history table.
+		</description>
+		<sql>
+			ALTER TABLE patient_family_history CHANGE COLUMN parent_status father_status varchar(100);
+			ALTER TABLE patient_family_history CHANGE COLUMN parent_death_cause father_death_cause varchar(100);
+			ALTER TABLE patient_family_history CHANGE COLUMN parent_death_age father_death_age varchar(100);
+			ALTER TABLE patient_family_history ADD COLUMN (mother_status varchar(100)  DEFAULT NULL ,
+			mother_death_cause varchar(100)  DEFAULT NULL,
+			mother_death_age varchar(100)  DEFAULT NULL);
+		</sql>
+	</diff>
 </sqldiff>

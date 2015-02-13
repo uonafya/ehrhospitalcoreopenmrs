@@ -13,9 +13,12 @@
 		<many-to-one name="triageLogId" column="triage_log_id"  class="org.openmrs.module.hospitalcore.model.TriagePatientQueueLog"/>
 		
 		<property name="patientId" column="patient_id" />
-		<property name="parentStatus" column="parent_status" />
-		<property name="parentDeathCause" column="parent_death_cause" />
-		<property name="parentDeathAge" column="parent_death_age" />
+		<property name="fatherStatus" column="father_status" />
+		<property name="fatherDeathCause" column="father_death_cause" />
+		<property name="fatherDeathAge" column="father_death_age" />
+		<property name="motherStatus" column="mother_status" />
+		<property name="motherDeathCause" column="mother_death_cause" />
+		<property name="motherDeathAge" column="mother_death_age" />
 		<property name="siblingStatus" column="sibling_status" />
 		<property name="siblingDeathCause" column="sibling_death_cause" />
 		<property name="siblingDeathAge" column="sibling_death_age" />
