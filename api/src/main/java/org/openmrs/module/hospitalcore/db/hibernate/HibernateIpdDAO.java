@@ -22,7 +22,6 @@ package org.openmrs.module.hospitalcore.db.hibernate;
 
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
-import java.util.Date;
 import java.util.List;
 
 import org.apache.commons.collections.CollectionUtils;
@@ -38,19 +37,18 @@ import org.hibernate.criterion.Restrictions;
 import org.openmrs.Concept;
 import org.openmrs.ConceptClass;
 import org.openmrs.Encounter;
+import org.openmrs.Patient;
 import org.openmrs.api.APIException;
 import org.openmrs.api.context.Context;
 import org.openmrs.api.db.DAOException;
-import org.openmrs.module.hospitalcore.BillingConstants;
 import org.openmrs.module.hospitalcore.db.IpdDAO;
 import org.openmrs.module.hospitalcore.model.IpdPatientAdmission;
 import org.openmrs.module.hospitalcore.model.IpdPatientAdmissionLog;
 import org.openmrs.module.hospitalcore.model.IpdPatientAdmitted;
 import org.openmrs.module.hospitalcore.model.IpdPatientAdmittedLog;
-import org.openmrs.module.hospitalcore.model.OpdPatientQueueLog;
-import org.openmrs.module.hospitalcore.model.PatientSearch;
-import org.openmrs.module.hospitalcore.model.WardBedStrength;
 import org.openmrs.module.hospitalcore.model.IpdPatientVitalStatistics;
+import org.openmrs.module.hospitalcore.model.OpdPatientQueueLog;
+import org.openmrs.module.hospitalcore.model.WardBedStrength;
 
 public class HibernateIpdDAO implements IpdDAO {
 	SimpleDateFormat formatter = new SimpleDateFormat("dd/MM/yyyy HH:mm:ss");
@@ -81,47 +79,54 @@ public class HibernateIpdDAO implements IpdDAO {
 	public List<IpdPatientAdmission> getAllIndoorPatient() throws DAOException {
 		Criteria criteria = sessionFactory.getCurrentSession().createCriteria(
 				IpdPatientAdmission.class);
-		//criteria.add(Restrictions.eq("acceptStatus", 1));
+		// criteria.add(Restrictions.eq("acceptStatus", 1));
 		return criteria.list();
 	}
-        // 24/11/2014 to Work with size selctor for IPDQueue
-	@SuppressWarnings("unchecked")
-	public List<IpdPatientAdmissionLog> getAllIndoorPatientFromAdmissionLog(String searchKey,int page,int pgSize)
-			throws DAOException {
-/*		SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
-		String startDate = sdf.format(date) + " 00:00:00";
-		String endDate = sdf.format(date) + " 23:59:59";
 
-		String hql = "select ipal from IpdPatientAdmissionLog ipal " +
-				"where ipal.indoorStatus=1 and ipal.status like 'admitted' " +
-				"and ipal.billingStatus=0 and ipal.admissionDate between '"+ startDate+ "' AND '"+ endDate + "'	" +
-				"and (ipal.patientIdentifier LIKE '%" + searchKey + "%' OR ipal.patientName LIKE '" + searchKey + "%')"	;
-*/		
-		String hql = "select ipal from IpdPatientAdmissionLog ipal " +
-		"where ipal.indoorStatus=1 and ipal.status like 'admitted' " +		
-		"and (ipal.patientIdentifier LIKE '%" + searchKey + "%' OR ipal.patientName LIKE '" + searchKey + "%')"	;
-		
-		int firstResult = (page - 1) *pgSize;
+	// 24/11/2014 to Work with size selctor for IPDQueue
+	@SuppressWarnings("unchecked")
+	public List<IpdPatientAdmissionLog> getAllIndoorPatientFromAdmissionLog(
+			String searchKey, int page, int pgSize) throws DAOException {
+		/*
+		 * SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd"); String
+		 * startDate = sdf.format(date) + " 00:00:00"; String endDate =
+		 * sdf.format(date) + " 23:59:59";
+		 * 
+		 * String hql = "select ipal from IpdPatientAdmissionLog ipal " +
+		 * "where ipal.indoorStatus=1 and ipal.status like 'admitted' " +
+		 * "and ipal.billingStatus=0 and ipal.admissionDate between '"+
+		 * startDate+ "' AND '"+ endDate + "'	" +
+		 * "and (ipal.patientIdentifier LIKE '%" + searchKey +
+		 * "%' OR ipal.patientName LIKE '" + searchKey + "%')" ;
+		 */
+		String hql = "select ipal from IpdPatientAdmissionLog ipal "
+				+ "where ipal.indoorStatus=1 and ipal.status like 'admitted' "
+				+ "and (ipal.patientIdentifier LIKE '%" + searchKey
+				+ "%' OR ipal.patientName LIKE '" + searchKey + "%')";
+
+		int firstResult = (page - 1) * pgSize;
 		Session session = sessionFactory.getCurrentSession();
-		Query q = session.createQuery(hql).setFirstResult(firstResult).setMaxResults(pgSize);
+		Query q = session.createQuery(hql).setFirstResult(firstResult)
+				.setMaxResults(pgSize);
 		List<IpdPatientAdmissionLog> list = q.list();
 		return list;
-		
+
 	}
-        
-        // 24/11/2014 to Work with size selctor for IPDQueue
+
+	// 24/11/2014 to Work with size selctor for IPDQueue
 	@SuppressWarnings("unchecked")
-	public int countGetAllIndoorPatientFromAdmissionLog(String searchKey,int page)
-			throws DAOException {
-		String hql = "select ipal from IpdPatientAdmissionLog ipal " +
-		"where ipal.indoorStatus=1 and ipal.status like 'admitted' " +		
-		"and (ipal.patientIdentifier LIKE '%" + searchKey + "%' OR ipal.patientName LIKE '" + searchKey + "%')"	;
-		
+	public int countGetAllIndoorPatientFromAdmissionLog(String searchKey,
+			int page) throws DAOException {
+		String hql = "select ipal from IpdPatientAdmissionLog ipal "
+				+ "where ipal.indoorStatus=1 and ipal.status like 'admitted' "
+				+ "and (ipal.patientIdentifier LIKE '%" + searchKey
+				+ "%' OR ipal.patientName LIKE '" + searchKey + "%')";
+
 		Session session = sessionFactory.getCurrentSession();
 		Query q = session.createQuery(hql);
 		List<IpdPatientAdmissionLog> list = q.list();
 		return list.size();
-		
+
 	}
 
 	@SuppressWarnings("unchecked")
@@ -188,9 +193,9 @@ public class HibernateIpdDAO implements IpdDAO {
 		criteria.add(Restrictions.eq("opdLog", opdLog));
 		return (IpdPatientAdmissionLog) criteria.uniqueResult();
 	}
-	
-	public IpdPatientAdmissionLog getIpdPatientAdmissionLog(
-			Encounter encounter) throws DAOException {
+
+	public IpdPatientAdmissionLog getIpdPatientAdmissionLog(Encounter encounter)
+			throws DAOException {
 		Criteria criteria = sessionFactory.getCurrentSession().createCriteria(
 				IpdPatientAdmissionLog.class);
 		criteria.add(Restrictions.eq("ipdEncounter", encounter));
@@ -239,8 +244,7 @@ public class HibernateIpdDAO implements IpdDAO {
 
 	public List<IpdPatientAdmission> searchIpdPatientAdmission(
 			String patientSearch, ArrayList<Integer> userIds, String fromDate,
-			String toDate, String wardId, String status)
-			throws APIException {
+			String toDate, String wardId, String status) throws APIException {
 		Criteria criteria = sessionFactory.getCurrentSession().createCriteria(
 				IpdPatientAdmission.class, "patientAdmission");
 		if (StringUtils.isNotBlank(fromDate) && StringUtils.isBlank(toDate)) {
@@ -309,10 +313,8 @@ public class HibernateIpdDAO implements IpdDAO {
 			criteria.add(Restrictions.in("user.id", userIds));
 		}
 
-		
-			criteria.createAlias("patientAdmission.admissionWard", "ward");
-			criteria.add(Restrictions.eq("ward.conceptId", Integer.parseInt(wardId)));
-		
+		criteria.createAlias("patientAdmission.admissionWard", "ward");
+		criteria.add(Restrictions.eq("ward.conceptId", Integer.parseInt(wardId)));
 
 		if (StringUtils.isNotBlank(status)) {
 			criteria.add(Restrictions.eq("patientAdmission.status", status));
@@ -324,8 +326,7 @@ public class HibernateIpdDAO implements IpdDAO {
 
 	public List<IpdPatientAdmitted> searchIpdPatientAdmitted(
 			String patientSearch, ArrayList<Integer> userIds, String fromDate,
-			String toDate, String wardId, String status)
-			throws APIException {
+			String toDate, String wardId, String status) throws APIException {
 		Criteria criteria = sessionFactory.getCurrentSession().createCriteria(
 				IpdPatientAdmitted.class, "patientAdmitted");
 
@@ -395,9 +396,8 @@ public class HibernateIpdDAO implements IpdDAO {
 			criteria.add(Restrictions.in("user.id", userIds));
 		}
 
-			criteria.createAlias("patientAdmitted.admittedWard", "ward");
-			criteria.add(Restrictions.eq("ward.conceptId", Integer.parseInt(wardId)));
-		
+		criteria.createAlias("patientAdmitted.admittedWard", "ward");
+		criteria.add(Restrictions.eq("ward.conceptId", Integer.parseInt(wardId)));
 
 		if (StringUtils.isNotBlank(status)) {
 			criteria.add(Restrictions.eq("patientAdmitted.status", status));
@@ -506,6 +506,14 @@ public class HibernateIpdDAO implements IpdDAO {
 		criteria.add(Restrictions.eq("ipdEncounter", encounter));
 		return (IpdPatientAdmission) criteria.uniqueResult();
 
+	}
+
+	public IpdPatientAdmission getIpdPatientAdmissionByPatientId(Patient patientId)
+			throws DAOException {
+		Criteria criteria = sessionFactory.getCurrentSession().createCriteria(
+				IpdPatientAdmission.class);
+		criteria.add(Restrictions.eq("patient", patientId));
+		return (IpdPatientAdmission) criteria.uniqueResult();
 	}
 
 }

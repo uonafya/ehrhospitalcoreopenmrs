@@ -28,6 +28,7 @@ import org.openmrs.Concept;
 import org.openmrs.Encounter;
 import org.openmrs.Location;
 import org.openmrs.Obs;
+import org.openmrs.Patient;
 import org.openmrs.User;
 import org.openmrs.api.APIException;
 import org.openmrs.api.context.Context;
@@ -38,9 +39,9 @@ import org.openmrs.module.hospitalcore.model.IpdPatientAdmission;
 import org.openmrs.module.hospitalcore.model.IpdPatientAdmissionLog;
 import org.openmrs.module.hospitalcore.model.IpdPatientAdmitted;
 import org.openmrs.module.hospitalcore.model.IpdPatientAdmittedLog;
+import org.openmrs.module.hospitalcore.model.IpdPatientVitalStatistics;
 import org.openmrs.module.hospitalcore.model.OpdPatientQueueLog;
 import org.openmrs.module.hospitalcore.model.WardBedStrength;
-import org.openmrs.module.hospitalcore.model.IpdPatientVitalStatistics;
 import org.openmrs.module.hospitalcore.util.HospitalCoreConstants;
 
 public class IpdServiceImpl extends BaseOpenmrsService implements IpdService {
@@ -497,6 +498,11 @@ public class IpdServiceImpl extends BaseOpenmrsService implements IpdService {
 			throws APIException {
 		return dao.searchIpdPatientAdmitted(patientSearch, userIds, fromDate,
 				toDate, wardId, status);
+	}
+	
+	public IpdPatientAdmission getIpdPatientAdmissionByPatientId(Patient patientId) throws APIException {
+
+		return dao.getIpdPatientAdmissionByPatientId(patientId);
 	}
 	
 }

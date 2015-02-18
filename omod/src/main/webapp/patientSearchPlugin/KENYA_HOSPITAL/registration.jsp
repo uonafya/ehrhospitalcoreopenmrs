@@ -296,7 +296,7 @@
 			this.whereClause+= "AND ps.dead=0";
 			*/
 			
-			this.selectClause = "SELECT COUNT(*)";
+			this.selectClause = "SELECT COUNT(DISTINCT ps.patient_id)";
 			this.fromClause   = " FROM patient_search ps";
 			this.fromClause  += " INNER JOIN person pe ON pe.person_id = ps.patient_id";
 			this.whereClause  = " WHERE";

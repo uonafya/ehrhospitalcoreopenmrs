@@ -22,20 +22,20 @@
 package org.openmrs.module.hospitalcore;
 
 import java.util.ArrayList;
-import java.util.Date;
 import java.util.List;
 
 import org.openmrs.Concept;
 import org.openmrs.Encounter;
+import org.openmrs.Patient;
 import org.openmrs.api.APIException;
 import org.openmrs.api.OpenmrsService;
 import org.openmrs.module.hospitalcore.model.IpdPatientAdmission;
 import org.openmrs.module.hospitalcore.model.IpdPatientAdmissionLog;
 import org.openmrs.module.hospitalcore.model.IpdPatientAdmitted;
 import org.openmrs.module.hospitalcore.model.IpdPatientAdmittedLog;
+import org.openmrs.module.hospitalcore.model.IpdPatientVitalStatistics;
 import org.openmrs.module.hospitalcore.model.OpdPatientQueueLog;
 import org.openmrs.module.hospitalcore.model.WardBedStrength;
-import org.openmrs.module.hospitalcore.model.IpdPatientVitalStatistics;
 import org.springframework.transaction.annotation.Transactional;
 
 @Transactional(readOnly=false)
@@ -126,6 +126,9 @@ public interface IpdService extends OpenmrsService{
 	public List<IpdPatientAdmission> searchIpdPatientAdmission(String patientSearch, ArrayList<Integer> userIds, String fromDate, String toDate, String wardId, String status) throws APIException;
 	@Transactional(readOnly = true)
 	public List<IpdPatientAdmitted> searchIpdPatientAdmitted(String patientSearch, ArrayList<Integer> userIds, String fromDate, String toDate, String wardId, String status) throws APIException;
+	
+	@Transactional(readOnly = true)
+	public IpdPatientAdmission getIpdPatientAdmissionByPatientId(Patient patientId) throws APIException;
 	
 
 }
