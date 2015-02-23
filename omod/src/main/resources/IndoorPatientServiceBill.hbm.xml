@@ -17,6 +17,7 @@
 		<property name="amount" column="amount" />
 		<property name="createdDate" column="created_date" />
 		<property name="actualAmount" column="actual_amount" />
+		<property name="selectedCategory" column="selected_category"  />
 		<many-to-one name="patient" column="patient_id" class="org.openmrs.Patient"
 			lazy="false" foreign-key="fk_indoorpatientservicebill_patient" />
 		<set name="billItems" table="indoor_patient_serivce_bill_item"

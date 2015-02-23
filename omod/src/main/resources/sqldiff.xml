@@ -748,4 +748,17 @@
 			mother_death_age varchar(100)  DEFAULT NULL);
 		</sql>
 	</diff>
+        
+        <diff>
+		<version>5.5</version>
+		<author>Sagar</author>
+		<date>February 20 2015</date>
+		<description>
+			Add column selected_category for `indoor_patient_service_bill`
+		</description>
+		<sql>
+			
+			ALTER TABLE indoor_patient_service_bill ADD COLUMN `selected_category` integer default 0;
+		</sql>
+	</diff>
 </sqldiff>
