@@ -266,4 +266,9 @@ public interface BillingDAO {
         
         // 3/1/2015 BillItems voiding
         public void updateVoidBillItems(Boolean voided,String voidedBy, Date voidedDate,Integer itemID);
+		
+		 // 13/2/2015 PatientCategory storing
+        public void updatePatientCategory(Integer selectedCategory,Encounter encounter,Patient patient);
+        
+        public List<IndoorPatientServiceBill> getSelectedCategory(Encounter encounter,Patient patient) throws DAOException;
 }

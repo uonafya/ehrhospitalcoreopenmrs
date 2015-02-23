@@ -1145,5 +1145,27 @@ public class HibernateBillingDAO implements BillingDAO {
             query.setParameter("itemID", itemID);
             query.executeUpdate();
         }
+		
+		// 13/2/2015 PatientCategory storing
+        public void updatePatientCategory(Integer selectedCategory,Encounter encounter,Patient patient){
+            Session session = sessionFactory.getCurrentSession();
+            String hql = "UPDATE IndoorPatientServiceBill"
+                    + " set selectedCategory = :selectedCategory"
+                    + " WHERE encounter = :encounter"
+                    + " AND patient= :patient";
+            Query query = session.createQuery(hql);
+            query.setParameter("selectedCategory", selectedCategory);            
+            query.setParameter("encounter", encounter);
+            query.setParameter("patient", patient);
+            query.executeUpdate();            
+        }
+               
+        public List<IndoorPatientServiceBill> getSelectedCategory(Encounter encounter,Patient patient) throws DAOException {
+		Criteria criteria = sessionFactory.getCurrentSession().createCriteria(IndoorPatientServiceBill.class);		
+                criteria.add(Restrictions.eq("encounter", encounter));
+                criteria.add(Restrictions.eq("patient", patient));
+                criteria.add(Restrictions.isNotNull("selectedCategory"));
+		return criteria.list();
+	}
 
 }

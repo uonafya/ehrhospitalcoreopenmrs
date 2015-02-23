@@ -56,6 +56,8 @@ public class IndoorPatientServiceBill implements Serializable {
 	
     private Encounter encounter;
 	
+	private Integer selectedCategory;
+	
     public Integer getIndoorPatientServiceBillId() {
 		return indoorPatientServiceBillId;
 	}
@@ -123,4 +125,18 @@ public class IndoorPatientServiceBill implements Serializable {
 	public void setEncounter(Encounter encounter) {
 		this.encounter = encounter;
 	}
+	
+	/**
+     * @return the selectedCategory
+     */
+    public Integer getSelectedCategory() {
+        return selectedCategory;
+    }
+
+    /**
+     * @param selectedCategory the selectedCategory to set
+     */
+    public void setSelectedCategory(Integer selectedCategory) {
+        this.selectedCategory = selectedCategory;
+    }
 }

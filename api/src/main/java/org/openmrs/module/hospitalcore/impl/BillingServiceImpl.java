@@ -1277,5 +1277,14 @@ public class BillingServiceImpl extends BaseOpenmrsService implements BillingSer
         public void updateVoidBillItems(Boolean voided,String voidedBy, Date voidedDate,Integer itemID) {
 		dao.updateVoidBillItems(voided,voidedBy,voidedDate,itemID);
 	}
+        
+        // 13/2/2015 PatientCategory storing
+        public void updatePatientCategory(Integer selectedCategory,Encounter encounter,Patient patient){
+		dao.updatePatientCategory(selectedCategory,encounter,patient);
+	}
+        
+        public List<IndoorPatientServiceBill> getSelectedCategory(Encounter encounter,Patient patient)throws APIException{
+		return dao.getSelectedCategory(encounter,patient);
+	}
 	
 }
