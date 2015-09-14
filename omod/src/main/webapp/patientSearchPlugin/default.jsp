@@ -85,10 +85,10 @@ jQuery(document).ready(function() {
 			this.form = jQuery("#patientSearchForm");
 			jQuery("#advanceSearch", this.form).hide();	
 			jQuery("#ageRange", this.form).val(5);
-			jQuery("#nameOrIdentifier", this.form).keyup(function(event){				
+			jQuery("#nameOrgivenNameOrmiddleNameOrfamilyNameOrIdentifier", this.form).keyup(function(event){				
 				if(event.keyCode == 13){	
-					nameInCapital = StringUtils.capitalize(jQuery("#nameOrIdentifier", PATIENTSEARCH.form).val());
-					jQuery("#nameOrIdentifier", PATIENTSEARCH.form).val(nameInCapital);
+					nameInCapital = StringUtils.capitalize(jQuery("#nameOrgivenNameOrmiddleNameOrfamilyNameOrIdentifier", PATIENTSEARCH.form).val());
+					jQuery("#nameOrgivenNameOrmiddleNameOrfamilyNameOrIdentifier", PATIENTSEARCH.form).val(nameInCapital);
 					PATIENTSEARCH.search(true);
 				}
 			});
@@ -104,6 +104,7 @@ jQuery(document).ready(function() {
 			jQuery("#relativeName", this.form).blur(function(){
 				PATIENTSEARCH.search(true);
 			});
+			
 			jQuery("#age", this.form).blur(function(){
 				PATIENTSEARCH.search(true);
 			});
@@ -273,7 +274,7 @@ jQuery(document).ready(function() {
 		buildQuery: function(){
 		
 			// Get value from form			
-			nameOrIdentifier = jQuery.trim(jQuery("#nameOrIdentifier", this.form).val());	
+			nameOrIdentifier = jQuery.trim(jQuery("#nameOrgivenNameOrmiddleNameOrfamilyNameOrIdentifier", this.form).val());	
 			nameOrIdentifier = nameOrIdentifier.replace(/\s/g, "");			
 		
 			// Build essential query
@@ -296,7 +297,7 @@ jQuery(document).ready(function() {
 			this.fromClause   = " FROM patient_search ps";
 			this.fromClause  += " INNER JOIN person pe ON pe.person_id = ps.patient_id";
 			this.whereClause  = " WHERE";
-			this.whereClause += " (ps.identifier LIKE '%" + nameOrIdentifier + "%' OR ps.fullname LIKE '" + nameOrIdentifier + "%')";			
+			this.whereClause +=  " (ps.identifier LIKE '%" + nameOrIdentifier +"%' OR ps.fullname LIKE '" + nameOrIdentifier +  "%' OR ps.given_name LIKE '" + nameOrIdentifier + "%'OR ps.middle_name LIKE '" + nameOrIdentifier + "%'OR ps.family_name LIKE '" + nameOrIdentifier + "%')";				
 			this.whereClause += " AND pe.dead=0";
 			this.groupClause = " GROUP BY ps.patient_id";
 			this.orderClause = " ORDER BY ps.patient_id ASC";
@@ -305,6 +306,7 @@ jQuery(document).ready(function() {
 			//	Build extended queries
 			if(this.advanceSearch){
 				this.buildGenderQuery();
+				this.buildMiddleNameQuery();
 				this.buildAgeQuery();
 				this.buildRelativeNameQuery();
 				this.buildLastDayOfVisitQuery();
@@ -365,7 +367,7 @@ jQuery(document).ready(function() {
 		buildCountQuery: function(){
 		
 			// Get value from form			
-			nameOrIdentifier = jQuery.trim(jQuery("#nameOrIdentifier", this.form).val());			
+			nameOrIdentifier = jQuery.trim(jQuery("#nameOrgivenNameOrmiddleNameOrfamilyNameOrIdentifier", this.form).val());			
 			nameOrIdentifier = nameOrIdentifier.replace(/\s/g, "");
 		
 			// Build essential query
@@ -385,12 +387,13 @@ jQuery(document).ready(function() {
 			this.fromClause   = " FROM patient_search ps";
 			this.fromClause  += " INNER JOIN person pe ON pe.person_id = ps.patient_id";
 			this.whereClause  = " WHERE";
-			this.whereClause += " (ps.identifier LIKE '%" + nameOrIdentifier + "%' OR ps.fullname LIKE '" + nameOrIdentifier + "%')";	
+			this.whereClause +=  " (ps.identifier LIKE '%" + nameOrIdentifier +"%' OR ps.fullname LIKE '" + nameOrIdentifier +  "%' OR ps.given_name LIKE '" + nameOrIdentifier + "%'OR ps.middle_name LIKE '" + nameOrIdentifier + "%'OR ps.family_name LIKE '" + nameOrIdentifier + "%')";	
 			this.whereClause += " AND pe.dead=0";
 			
 			//	Build extended queries
 			if(this.advanceSearch){
 				this.buildGenderQuery();
+				
 				this.buildAgeQuery();
 				this.buildRelativeNameQuery();
 				this.buildLastDayOfVisitQuery();
@@ -616,7 +619,7 @@ jQuery(document).ready(function() {
 		/** VALIDATE NAME OR IDENTIFIER */
 		validateNameOrIdentifier: function(){
 			
-			value = jQuery("#nameOrIdentifier", this.form).val();
+			value = jQuery("#nameOrgivenNameOrmiddleNameOrfamilyNameOrIdentifier", this.form).val();
 			value = value.toUpperCase();
 			if(value.length>=3){
 				pattern = "ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789 -";
@@ -675,7 +678,7 @@ jQuery(document).ready(function() {
 	<table cellspacing="10">
 		<tr>	
 			<td>Name/Identifier</td>
-			<td><input id="nameOrIdentifier" style="width:300px;"/></td>
+			<td><input id="nameOrgivenNameOrmiddleNameOrfamilyNameOrIdentifier" style="width:300px;"/></td>
 			<td><a href="javascript:PATIENTSEARCH.toggleAdvanceSearch();">Advance search</a></td>
 			<td id="searchLoader"></td>
 		</tr>	
