@@ -70,12 +70,11 @@ public class PatientSearchController {
 		String relativeName = request.getParameter("relativeName");
 		String date = request.getParameter("date");
 		Integer dateRange = getInt(request.getParameter("dateRange"));
-
+		
 		HospitalCoreService hcs = (HospitalCoreService) Context
 				.getService(HospitalCoreService.class);
 		List<Patient> patients = hcs.searchPatient(phrase, gender, age,
 				ageRange, date, dateRange, relativeName);
-
 		// List<Patient> patients = Context.getPatientService()
 		// .getPatients(phrase);
 		// try {
