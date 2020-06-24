@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <beans xmlns="http://www.springframework.org/schema/beans"
-	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:context="http://www.springframework.org/schema/context"
-	 xmlns:p="http://www.springframework.org/schema/p"  
-	xsi:schemaLocation="http://www.springframework.org/schema/beans 
+	   xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:context="http://www.springframework.org/schema/context"
+	   xmlns:p="http://www.springframework.org/schema/p"
+	   xsi:schemaLocation="http://www.springframework.org/schema/beans
            http://www.springframework.org/schema/beans/spring-beans-2.5.xsd
            http://www.springframework.org/schema/context
            http://www.springframework.org/schema/context/spring-context-2.5.xsd">
@@ -22,7 +22,7 @@
 			<list>
 				<value>org.openmrs.module.hospitalcore.BillingService</value>
 				<bean
-					class="org.springframework.transaction.interceptor.TransactionProxyFactoryBean">
+						class="org.springframework.transaction.interceptor.TransactionProxyFactoryBean">
 					<property name="transactionManager">
 						<ref bean="transactionManager" />
 					</property>
@@ -30,7 +30,7 @@
 						<bean class="org.openmrs.module.hospitalcore.impl.BillingServiceImpl">
 							<property name="dao">
 								<bean
-									class="org.openmrs.module.hospitalcore.db.hibernate.HibernateBillingDAO">
+										class="org.openmrs.module.hospitalcore.db.hibernate.HibernateBillingDAO">
 									<property name="sessionFactory">
 										<ref bean="sessionFactory" />
 									</property>
@@ -45,7 +45,7 @@
 					</property>
 					<property name="transactionAttributeSource">
 						<bean
-							class="org.springframework.transaction.annotation.AnnotationTransactionAttributeSource" />
+								class="org.springframework.transaction.annotation.AnnotationTransactionAttributeSource" />
 					</property>
 				</bean>
 			</list>
@@ -56,7 +56,7 @@
 			<list>
 				<value>org.openmrs.module.hospitalcore.LabService</value>
 				<bean
-					class="org.springframework.transaction.interceptor.TransactionProxyFactoryBean">
+						class="org.springframework.transaction.interceptor.TransactionProxyFactoryBean">
 					<property name="transactionManager">
 						<ref bean="transactionManager" />
 					</property>
@@ -64,7 +64,7 @@
 						<bean class="org.openmrs.module.hospitalcore.impl.LabServiceImpl">
 							<property name="dao">
 								<bean
-									class="org.openmrs.module.hospitalcore.db.hibernate.HibernateLabDAO">
+										class="org.openmrs.module.hospitalcore.db.hibernate.HibernateLabDAO">
 									<property name="sessionFactory">
 										<ref bean="sessionFactory" />
 									</property>
@@ -79,7 +79,7 @@
 					</property>
 					<property name="transactionAttributeSource">
 						<bean
-							class="org.springframework.transaction.annotation.AnnotationTransactionAttributeSource" />
+								class="org.springframework.transaction.annotation.AnnotationTransactionAttributeSource" />
 					</property>
 				</bean>
 			</list>
@@ -90,7 +90,7 @@
 			<list>
 				<value>org.openmrs.module.hospitalcore.PatientQueueService</value>
 				<bean
-					class="org.springframework.transaction.interceptor.TransactionProxyFactoryBean">
+						class="org.springframework.transaction.interceptor.TransactionProxyFactoryBean">
 					<property name="transactionManager">
 						<ref bean="transactionManager" />
 					</property>
@@ -98,7 +98,7 @@
 						<bean class="org.openmrs.module.hospitalcore.impl.PatientQueueServiceImpl">
 							<property name="dao">
 								<bean
-									class="org.openmrs.module.hospitalcore.db.hibernate.HibernatePatientQueueDAO">
+										class="org.openmrs.module.hospitalcore.db.hibernate.HibernatePatientQueueDAO">
 									<property name="sessionFactory">
 										<ref bean="sessionFactory" />
 									</property>
@@ -113,7 +113,7 @@
 					</property>
 					<property name="transactionAttributeSource">
 						<bean
-							class="org.springframework.transaction.annotation.AnnotationTransactionAttributeSource" />
+								class="org.springframework.transaction.annotation.AnnotationTransactionAttributeSource" />
 					</property>
 				</bean>
 			</list>
@@ -124,7 +124,7 @@
 			<list>
 				<value>org.openmrs.module.hospitalcore.IpdService</value>
 				<bean
-					class="org.springframework.transaction.interceptor.TransactionProxyFactoryBean">
+						class="org.springframework.transaction.interceptor.TransactionProxyFactoryBean">
 					<property name="transactionManager">
 						<ref bean="transactionManager" />
 					</property>
@@ -132,7 +132,7 @@
 						<bean class="org.openmrs.module.hospitalcore.impl.IpdServiceImpl">
 							<property name="dao">
 								<bean
-									class="org.openmrs.module.hospitalcore.db.hibernate.HibernateIpdDAO">
+										class="org.openmrs.module.hospitalcore.db.hibernate.HibernateIpdDAO">
 									<property name="sessionFactory">
 										<ref bean="sessionFactory" />
 									</property>
@@ -147,7 +147,7 @@
 					</property>
 					<property name="transactionAttributeSource">
 						<bean
-							class="org.springframework.transaction.annotation.AnnotationTransactionAttributeSource" />
+								class="org.springframework.transaction.annotation.AnnotationTransactionAttributeSource" />
 					</property>
 				</bean>
 			</list>
@@ -158,7 +158,7 @@
 			<list>
 				<value>org.openmrs.module.hospitalcore.HospitalCoreService</value>
 				<bean
-					class="org.springframework.transaction.interceptor.TransactionProxyFactoryBean">
+						class="org.springframework.transaction.interceptor.TransactionProxyFactoryBean">
 					<property name="transactionManager">
 						<ref bean="transactionManager" />
 					</property>
@@ -166,7 +166,7 @@
 						<bean class="org.openmrs.module.hospitalcore.impl.HospitalCoreServiceImpl">
 							<property name="dao">
 								<bean
-									class="org.openmrs.module.hospitalcore.db.hibernate.HibernateHospitalCoreDAO">
+										class="org.openmrs.module.hospitalcore.db.hibernate.HibernateHospitalCoreDAO">
 									<property name="sessionFactory">
 										<ref bean="sessionFactory" />
 									</property>
@@ -181,7 +181,7 @@
 					</property>
 					<property name="transactionAttributeSource">
 						<bean
-							class="org.springframework.transaction.annotation.AnnotationTransactionAttributeSource" />
+								class="org.springframework.transaction.annotation.AnnotationTransactionAttributeSource" />
 					</property>
 				</bean>
 			</list>
@@ -192,7 +192,7 @@
 			<list>
 				<value>org.openmrs.module.hospitalcore.PatientDashboardService</value>
 				<bean
-					class="org.springframework.transaction.interceptor.TransactionProxyFactoryBean">
+						class="org.springframework.transaction.interceptor.TransactionProxyFactoryBean">
 					<property name="transactionManager">
 						<ref bean="transactionManager" />
 					</property>
@@ -200,7 +200,7 @@
 						<bean class="org.openmrs.module.hospitalcore.impl.PatientDashboardServiceImpl">
 							<property name="dao">
 								<bean
-									class="org.openmrs.module.hospitalcore.db.hibernate.HibernatePatientDashboardDAO">
+										class="org.openmrs.module.hospitalcore.db.hibernate.HibernatePatientDashboardDAO">
 									<property name="sessionFactory">
 										<ref bean="sessionFactory" />
 									</property>
@@ -215,19 +215,19 @@
 					</property>
 					<property name="transactionAttributeSource">
 						<bean
-							class="org.springframework.transaction.annotation.AnnotationTransactionAttributeSource" />
+								class="org.springframework.transaction.annotation.AnnotationTransactionAttributeSource" />
 					</property>
 				</bean>
 			</list>
 		</property>
 	</bean>
-	
+
 	<bean parent="serviceContext">
 		<property name="moduleService">
 			<list>
 				<value>org.openmrs.module.hospitalcore.RadiologyCoreService</value>
 				<bean
-					class="org.springframework.transaction.interceptor.TransactionProxyFactoryBean">
+						class="org.springframework.transaction.interceptor.TransactionProxyFactoryBean">
 					<property name="transactionManager">
 						<ref bean="transactionManager" />
 					</property>
@@ -235,7 +235,7 @@
 						<bean class="org.openmrs.module.hospitalcore.impl.RadiologyCoreServiceImpl">
 							<property name="dao">
 								<bean
-									class="org.openmrs.module.hospitalcore.db.hibernate.HibernateRadiologyCoreDAO">
+										class="org.openmrs.module.hospitalcore.db.hibernate.HibernateRadiologyCoreDAO">
 									<property name="sessionFactory">
 										<ref bean="sessionFactory" />
 									</property>
@@ -250,19 +250,19 @@
 					</property>
 					<property name="transactionAttributeSource">
 						<bean
-							class="org.springframework.transaction.annotation.AnnotationTransactionAttributeSource" />
+								class="org.springframework.transaction.annotation.AnnotationTransactionAttributeSource" />
 					</property>
 				</bean>
 			</list>
 		</property>
 	</bean>
-	
+
 	<bean parent="serviceContext">
 		<property name="moduleService">
 			<list>
 				<value>org.openmrs.module.hospitalcore.LaboratoryCoreService</value>
 				<bean
-					class="org.springframework.transaction.interceptor.TransactionProxyFactoryBean">
+						class="org.springframework.transaction.interceptor.TransactionProxyFactoryBean">
 					<property name="transactionManager">
 						<ref bean="transactionManager" />
 					</property>
@@ -270,7 +270,7 @@
 						<bean class="org.openmrs.module.hospitalcore.impl.LaboratoryCoreServiceImpl">
 							<property name="dao">
 								<bean
-									class="org.openmrs.module.hospitalcore.db.hibernate.HibernateLaboratoryCoreDAO">
+										class="org.openmrs.module.hospitalcore.db.hibernate.HibernateLaboratoryCoreDAO">
 									<property name="sessionFactory">
 										<ref bean="sessionFactory" />
 									</property>
@@ -285,28 +285,27 @@
 					</property>
 					<property name="transactionAttributeSource">
 						<bean
-							class="org.springframework.transaction.annotation.AnnotationTransactionAttributeSource" />
+								class="org.springframework.transaction.annotation.AnnotationTransactionAttributeSource" />
 					</property>
 				</bean>
 			</list>
 		</property>
 	</bean>
-	
-	<!--  ghanshyam date:10-april-2013 this required for patientdashboard module(i.e radiology record in opd) for issue #1302 -->
+
 	<bean parent="serviceContext">
 		<property name="moduleService">
 			<list>
-				<value>org.openmrs.module.hospitalcore.RadiologyService</value>
+				<value>org.openmrs.module.hospitalcore.DmsCommonService</value>
 				<bean
-					class="org.springframework.transaction.interceptor.TransactionProxyFactoryBean">
+						class="org.springframework.transaction.interceptor.TransactionProxyFactoryBean">
 					<property name="transactionManager">
 						<ref bean="transactionManager" />
 					</property>
 					<property name="target">
-						<bean class="org.openmrs.module.hospitalcore.impl.RadiologyServiceImpl">
+						<bean class="org.openmrs.module.hospitalcore.impl.DmsCommonServiceImpl">
 							<property name="dao">
 								<bean
-									class="org.openmrs.module.hospitalcore.db.hibernate.HibernateRadiologyDAO">
+										class="org.openmrs.module.hospitalcore.db.hibernate.HibernateDmsCommonDAO">
 									<property name="sessionFactory">
 										<ref bean="sessionFactory" />
 									</property>
@@ -321,55 +320,19 @@
 					</property>
 					<property name="transactionAttributeSource">
 						<bean
-							class="org.springframework.transaction.annotation.AnnotationTransactionAttributeSource" />
+								class="org.springframework.transaction.annotation.AnnotationTransactionAttributeSource" />
 					</property>
 				</bean>
 			</list>
 		</property>
 	</bean>
-	
-	<bean parent="serviceContext">
-		<property name="moduleService">
-			<list>
-				<value>org.openmrs.module.hospitalcore.RadiologyCommonService</value>
-				<bean
-					class="org.springframework.transaction.interceptor.TransactionProxyFactoryBean">
-					<property name="transactionManager">
-						<ref bean="transactionManager" />
-					</property>
-					<property name="target">
-						<bean class="org.openmrs.module.hospitalcore.impl.RadiologyCommonServiceImpl">
-							<property name="dao">
-								<bean
-									class="org.openmrs.module.hospitalcore.db.hibernate.HibernateRadiologyCommonDAO">
-									<property name="sessionFactory">
-										<ref bean="sessionFactory" />
-									</property>
-								</bean>
-							</property>
-						</bean>
-					</property>
-					<property name="preInterceptors">
-						<list>
-							<ref bean="authorizationInterceptor" />
-						</list>
-					</property>
-					<property name="transactionAttributeSource">
-						<bean
-							class="org.springframework.transaction.annotation.AnnotationTransactionAttributeSource" />
-					</property>
-				</bean>
-			</list>
-		</property>
-	</bean>
-	
-	<!--  ghanshyam date:18-april-2013 this required for patientdashboard module(i.e pharmacy record in opd) for issue #1391 -->
+
 	<bean parent="serviceContext">
 		<property name="moduleService">
 			<list>
 				<value>org.openmrs.module.hospitalcore.InventoryCommonService</value>
 				<bean
-					class="org.springframework.transaction.interceptor.TransactionProxyFactoryBean">
+						class="org.springframework.transaction.interceptor.TransactionProxyFactoryBean">
 					<property name="transactionManager">
 						<ref bean="transactionManager" />
 					</property>
@@ -377,7 +340,7 @@
 						<bean class="org.openmrs.module.hospitalcore.impl.InventoryCommonServiceImpl">
 							<property name="dao">
 								<bean
-									class="org.openmrs.module.hospitalcore.db.hibernate.HibernateInventoryCommonDAO">
+										class="org.openmrs.module.hospitalcore.db.hibernate.HibernateInventoryCommonDAO">
 									<property name="sessionFactory">
 										<ref bean="sessionFactory" />
 									</property>
@@ -392,12 +355,82 @@
 					</property>
 					<property name="transactionAttributeSource">
 						<bean
-							class="org.springframework.transaction.annotation.AnnotationTransactionAttributeSource" />
+								class="org.springframework.transaction.annotation.AnnotationTransactionAttributeSource" />
 					</property>
 				</bean>
 			</list>
 		</property>
 	</bean>
-	
+
+	<bean parent="serviceContext">
+		<property name="moduleService">
+			<list>
+				<value>org.openmrs.module.hospitalcore.RadiologyService</value>
+				<bean
+						class="org.springframework.transaction.interceptor.TransactionProxyFactoryBean">
+					<property name="transactionManager">
+						<ref bean="transactionManager" />
+					</property>
+					<property name="target">
+						<bean class="org.openmrs.module.hospitalcore.impl.RadiologyServiceImpl">
+							<property name="dao">
+								<bean
+										class="org.openmrs.module.hospitalcore.db.hibernate.HibernateRadiologyDAO">
+									<property name="sessionFactory">
+										<ref bean="sessionFactory" />
+									</property>
+								</bean>
+							</property>
+						</bean>
+					</property>
+					<property name="preInterceptors">
+						<list>
+							<ref bean="authorizationInterceptor" />
+						</list>
+					</property>
+					<property name="transactionAttributeSource">
+						<bean
+								class="org.springframework.transaction.annotation.AnnotationTransactionAttributeSource" />
+					</property>
+				</bean>
+			</list>
+		</property>
+	</bean>
+
+	<bean parent="serviceContext">
+		<property name="moduleService">
+			<list>
+				<value>org.openmrs.module.hospitalcore.RadiologyCommonService</value>
+				<bean
+						class="org.springframework.transaction.interceptor.TransactionProxyFactoryBean">
+					<property name="transactionManager">
+						<ref bean="transactionManager" />
+					</property>
+					<property name="target">
+						<bean class="org.openmrs.module.hospitalcore.impl.RadiologyCommonServiceImpl">
+							<property name="dao">
+								<bean
+										class="org.openmrs.module.hospitalcore.db.hibernate.HibernateRadiologyCommonDAO">
+									<property name="sessionFactory">
+										<ref bean="sessionFactory" />
+									</property>
+								</bean>
+							</property>
+						</bean>
+					</property>
+					<property name="preInterceptors">
+						<list>
+							<ref bean="authorizationInterceptor" />
+						</list>
+					</property>
+					<property name="transactionAttributeSource">
+						<bean
+								class="org.springframework.transaction.annotation.AnnotationTransactionAttributeSource" />
+					</property>
+				</bean>
+			</list>
+		</property>
+	</bean>
+
 </beans>
 
