@@ -1,0 +1,99 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<databaseChangeLog xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+                   xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:ext="http://www.liquibase.org/xml/ns/dbchangelog-ext"
+                   xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-2.0.xsd
+    http://www.liquibase.org/xml/ns/dbchangelog-ext http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-ext.xsd">
+
+    <changeSet author="ningosi" id="add-Oxygen-Column-01">
+        <comment>Adding oxygen saturation column</comment>
+        <addColumn tableName="triage_patient_data">
+            <column name="oxygen_saturation" type="int">
+                <constraints nullable="true"/>
+            </column>
+        </addColumn>
+    </changeSet>
+
+    <changeSet id="modify-Oxygen-datatype-01" author="ningosi">
+        <comment>
+            Changing oxygen saturation from integer to double
+        </comment>
+        <ext:modifyColumn tableName="triage_patient_data">
+            <column name="oxygen_saturation" type="double"/>
+        </ext:modifyColumn>
+    </changeSet>
+
+    <changeSet author="ningosi" id="add-dosage-01">
+        <comment>Adding dosage column</comment>
+        <addColumn tableName="opd_drug_order">
+            <column name="dosage" type="varchar(100)">
+                <constraints nullable="true"/>
+            </column>
+        </addColumn>
+    </changeSet>
+
+    <changeSet author="ningosi" id="add-dosageunit-01">
+        <comment>Adding dosage unit column</comment>
+        <addColumn tableName="opd_drug_order">
+            <column name="dosage_unit" type="int(11)">
+                <constraints nullable="true"/>
+            </column>
+        </addColumn>
+    </changeSet>
+
+
+    <changeSet author="ningosi" id="add-drug-comment-01">
+        <comment>Adding comment column</comment>
+        <addColumn tableName="inventory_store_drug_patient">
+            <column name="comment" type="varchar(225)">
+                <constraints nullable="true"/>
+            </column>
+        </addColumn>
+    </changeSet>
+
+    <changeSet author="ningosi" id="add-drug-waiver-amount-01">
+        <comment>Adding waiver-amount column</comment>
+        <addColumn tableName="inventory_store_drug_patient">
+            <column name="waiver_amount" type="decimal(19,2)">
+                <constraints nullable="true"/>
+            </column>
+        </addColumn>
+    </changeSet>
+
+    <changeSet author="ningosi" id="add-payment-mode-01">
+        <comment>Adding payment-mode column</comment>
+        <addColumn tableName="indoor_patient_service_bill">
+            <column name="payment_mode" type="varchar(50)">
+                <constraints nullable="true"/>
+            </column>
+        </addColumn>
+    </changeSet>
+
+    <changeSet author="ningosi" id="add-prescriber-01">
+        <comment>Adding OPD Prescriber</comment>
+        <addColumn tableName="inventory_store_drug_patient">
+            <column name="prescriber" type="int(11)">
+                <constraints nullable="true"/>
+            </column>
+        </addColumn>
+
+        <addDefaultValue
+                columnDataType="int"
+                columnName="prescriber"
+                defaultValue="0"
+                tableName="inventory_store_drug_patient"/>
+    </changeSet>
+    <changeSet author="ningosi" id="patient-id-01">
+        <comment>Getting Patient Data</comment>
+        <addColumn tableName="triage_patient_data">
+            <column name="patient_id" type="int">
+                <constraints nullable="true"/>
+            </column>
+        </addColumn>
+
+        <addDefaultValue
+                columnDataType="int"
+                columnName="patient_id"
+                defaultValue="0"
+                tableName="triage_patient_data"/>
+    </changeSet>
+</databaseChangeLog>
