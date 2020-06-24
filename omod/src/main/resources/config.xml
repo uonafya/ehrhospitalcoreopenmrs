@@ -8,9 +8,9 @@
 	<name>@MODULE_NAME@</name>
 	<version>@MODULE_VERSION@</version>
 	<package>@MODULE_PACKAGE@</package>
-	<author>Viet Nguyen, Chuyen Nguyen</author>
+	<author>HealthIT</author>
 	<description>
-			Hospital core module, contains common api for hospital management system project in Shimla, India
+			Hospital core module, contains common api for hospital management system project in kenya for the EHR work
 	</description>
 
 	<activator>@MODULE_PACKAGE@.HospitalCoreActivator</activator>
@@ -145,10 +145,13 @@
         Department.hbm.xml
         DepartmentConcept.hbm.xml
         RadiologyDepartment.hbm.xml
+        RadiologyTest.hbm.xml
+        RadiologyForm.hbm.xml
         CoreForm.hbm.xml
         PatientSearch.hbm.xml
+        DmsOpdUnit.hbm.xml
         InventoryDrug.hbm.xml
-		InventoryDrugCategory.hbm.xml
+        InventoryDrugCategory.hbm.xml
         InventoryDrugFormulation.hbm.xml
         InventoryDrugUnit.hbm.xml
         InventoryStore.hbm.xml
@@ -157,10 +160,27 @@
         InventoryStoreDrugPatientDetail.hbm.xml
         InventoryStoreDrugTransaction.hbm.xml
         InventoryStoreDrugTransactionDetail.hbm.xml
+        <!--User must be able to send investigation orders from dashboard to billing -->
         OpdTestOrder.hbm.xml
+        <!--Capture Vital statistics for admitted patient in ipd -->
+        IpdPatientVitalStatistics.hbm.xml
+        <!--User should be able to send pharmacy orders to issue drugs to a patient from dashboard -->
         OpdDrugOrder.hbm.xml
+        WardBedStrength.hbm.xml
+        TriagePatientQueue.hbm.xml
+        TriagePatientQueueLog.hbm.xml
+        TriagePatientData.hbm.xml
         IndoorPatientServiceBill.hbm.xml
-		IndoorPatientServiceBillItem.hbm.xml
+        IndoorPatientServiceBillItem.hbm.xml
+        PatientMedicalHistory.hbm.xml
+        PatientDrugHistory.hbm.xml
+        PatientFamilyHistory.hbm.xml
+        PatientPersonalHistory.hbm.xml
+        Symptom.hbm.xml
+        Examination.hbm.xml
+        Question.hbm.xml
+        Answer.hbm.xml
+        InventoryStoreRoleRelation.hbm.xml
     </mappingFiles>
 </module>
 

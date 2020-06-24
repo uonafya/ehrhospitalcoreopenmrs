@@ -5,17 +5,18 @@
 	
 	<groupId>org.openmrs.module</groupId>
 	<artifactId>hospitalcore</artifactId>
-	<version>1.5.2-SNAPSHOT</version>
+	<version>1.0.0-SNAPSHOT</version>
 	<packaging>pom</packaging>
 	<name>Hospital core module</name>
-	<description>Hospital core module</description>
+	<description>Hospital core module for Hospital wide system - EHR</description>
 
-	<url>http://openmrs.org</url>
+	<url>https://healthit.uonbi.ac.ke/</url>
 
 	<scm>
-		<connection>scm:git:git://github.com/vietnguyen/his-hospitalcore.git/</connection>
-		<developerConnection>scm:git:git://github.com/vietnguyen/his-hospitalcore.git/</developerConnection>
-		<url>scm:git:git://github.com/vietnguyen/his-hospitalcore.git/</url>
+		<connection>scm:git:https://github.com/uonafya/hospitalcoreopenmrs.git</connection>
+		<developerConnection>scm:git:https://github.com/uonafya/hospitalcoreopenmrs.git</developerConnection>
+		<url>https://github.com/uonafya/hospitalcoreopenmrs.git</url>
+		<tag>HEAD</tag>
 	</scm>
 	
 	<distributionManagement>
@@ -40,7 +41,7 @@
 	</modules>
 
 	<properties>
-		<openMRSVersion>1.8.0</openMRSVersion>
+		<openMRSVersion>1.9.9</openMRSVersion>
 	</properties>
 
 	<dependencyManagement>
