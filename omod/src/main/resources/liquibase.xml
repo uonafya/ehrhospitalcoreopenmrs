@@ -4,6 +4,69 @@
                    xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-2.0.xsd
     http://www.liquibase.org/xml/ns/dbchangelog-ext http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-ext.xsd">
 
+    <changeSet id="hospital-core:2020-06-24-18:46" author="ningosi">
+        <preConditions onFail="MARK_RAN" onError="WARN">
+            <dbms type="mysql"/>
+        </preConditions>
+        <comment>Add opd patient queue tables</comment>
+        <sql>
+            CREATE TABLE IF NOT EXISTS opd_patient_queue (id integer not null auto_increment, user integer, patient_id integer, referral_concept_id integer, opd_concept_id integer, age integer, created_on datetime, opd_concept_name varchar(255), patient_name varchar(255), referral_concept_name varchar(255), sex varchar(255), status varchar(255), primary key (id));
+            CREATE TABLE IF NOT EXISTS opd_patient_queue_log (id integer not null auto_increment, user integer, patient_id integer, referral_concept_id integer, opd_concept_id integer, age integer, created_on datetime, opd_concept_name varchar(255), patient_name varchar(255), referral_concept_name varchar(255), sex varchar(255), status varchar(255), primary key (id));
+        </sql>
+    </changeSet>
+
+    <changeSet id="hospital-core:2020-06-24-18:52" author="ningosi">
+        <preConditions onFail="MARK_RAN" onError="WARN">
+            <dbms type="mysql"/>
+        </preConditions>
+        <comment>Add column patient indentifier for opd_patient_queue table</comment>
+        <sql>
+            ALTER TABLE opd_patient_queue
+            ADD COLUMN `patient_identifier`  varchar(50)  default NULL;
+
+            ALTER TABLE opd_patient_queue_log
+            ADD COLUMN `patient_identifier`  varchar(50)  default NULL;
+        </sql>
+    </changeSet>
+    <changeSet id="hospital-core:2020-06-24-18:52" author="ningosi">
+        <preConditions onFail="MARK_RAN" onError="WARN">
+            <dbms type="mysql"/>
+        </preConditions>
+        <comment>Add column birth_date for opd_patient_queue table</comment>
+        <sql>
+            ALTER TABLE opd_patient_queue
+            ADD COLUMN `birth_date`  datetime  default NULL,
+            DROP COLUMN `age`;
+
+            ALTER TABLE opd_patient_queue_log
+            ADD COLUMN `birth_date`  datetime  default NULL,
+            DROP COLUMN `age`;
+        </sql>
+    </changeSet>
+    <changeSet id="hospital-core:2020-06-24-19:06" author="ningosi">
+        <preConditions onFail="MARK_RAN" onError="WARN">
+            <dbms type="mysql"/>
+        </preConditions>
+        <comment>Add ipd patient queue tables</comment>
+        <sql>
+            CREATE TABLE IF NOT EXISTS ipd_patient_admission (id integer not null auto_increment, patient_id integer, admission_ward_id integer, opd_log_id integer, opd_admitted_user_id integer, admission_date datetime, patient_name varchar(255), patient_identifier varchar(255), birth_date datetime, gender varchar(255), status varchar(255), primary key (id));
+            CREATE TABLE IF NOT EXISTS ipd_patient_admission_log (id integer not null auto_increment, patient_id integer, admission_ward_id integer, opd_log_id integer, opd_admitted_user_id integer, admission_date datetime, patient_name varchar(255), birth_date datetime, patient_identifier varchar(255), gender varchar(255), status varchar(255), primary key (id));
+            CREATE TABLE IF NOT EXISTS ipd_patient_admitted (id integer not null auto_increment, patient_id integer, admitted_ward_id integer, patient_admission_log_id integer, patient_amitted_log_id_transfer_from integer, user_id integer, ipd_admitted_user_id integer, admission_date datetime, patient_name varchar(255), birth_date datetime, gender varchar(255), monthly_income decimal(19,2), patient_identifier varchar(255), basic_pay varchar(255), caste varchar(255), status varchar(255), patient_address varchar(255), bed varchar(255), father_name varchar(255), admission_outcome varchar(255), primary key (id));
+            CREATE TABLE IF NOT EXISTS ipd_patient_admitted_log (id integer not null auto_increment, patient_id integer, admitted_ward_id integer, patient_admission_log_id integer, patient_amitted_log_id_transfer_from integer, user_id integer, ipd_admitted_user_id integer, admission_date datetime, patient_name varchar(255), birth_date datetime, gender varchar(255), monthly_income decimal(19,2), patient_identifier varchar(255), basic_pay varchar(255), caste varchar(255), status varchar(255), patient_address varchar(255), bed varchar(255), father_name varchar(255), admission_outcome varchar(255), primary key (id));
+        </sql>
+    </changeSet>
+
+    <changeSet id="hospital-core:2020-06-24-19:10" author="ningosi">
+        <preConditions onFail="MARK_RAN" onError="WARN">
+            <dbms type="mysql"/>
+        </preConditions>
+        <comment>Add Obs group and ipd encounter columns to ipd_patient_admission_log table</comment>
+        <sql>
+            ALTER TABLE ipd_patient_admission_log ADD opd_obs_group_id integer;
+            ALTER TABLE ipd_patient_admission_log ADD ipd_encounter_id integer;
+        </sql>
+    </changeSet>
+
     <changeSet author="ningosi" id="add-Oxygen-Column-01">
         <comment>Adding oxygen saturation column</comment>
         <addColumn tableName="triage_patient_data">
