@@ -637,6 +637,69 @@
             ALTER TABLE indoor_patient_service_bill ADD COLUMN `selected_category` integer default 0;
         </sql>
     </changeSet>
+    <changeSet id="hospital-core:2020-06-25-13:33" author="ningosi">
+    <preConditions onFail="MARK_RAN" onError="WARN">
+        <dbms type="mysql"/>
+    </preConditions>
+        <comment>create table examination,question,answer</comment>
+        <sql>
+            CREATE TABLE IF NOT EXISTS examination (exam_id integer not null auto_increment, encounter integer, exam_concept integer, `created_date` datetime default null, `creator` int(11) default null,primary key (exam_id));
+        </sql>
+    </changeSet>
+    <changeSet id="hospital-core:2020-06-25-13:38" author="ningosi">
+    <preConditions onFail="MARK_RAN" onError="WARN">
+        <dbms type="mysql"/>
+    </preConditions>
+        <comment>Add columns to question</comment>
+        <sql>
+            ALTER TABLE question ADD COLUMN `exam_id` integer;
+        </sql>
+    </changeSet>
+
+    <changeSet id="hospital-core:2020-06-25-13:40" author="ningosi">
+    <preConditions onFail="MARK_RAN" onError="WARN">
+        <dbms type="mysql"/>
+    </preConditions>
+        <comment>Add column flag  in inventory_store_drug_transaction_detail table</comment>
+        <sql>
+            ALTER TABLE inventory_store_drug_transaction_detail ADD flag integer;
+        </sql>
+    </changeSet>
+    <changeSet id="hospital-core:2020-06-25-13:43" author="ningosi">
+    <preConditions onFail="MARK_RAN" onError="WARN">
+        <dbms type="mysql"/>
+    </preConditions>
+        <comment>Add column BMI  in triage_patient_data table </comment>
+        <sql>
+            ALTER TABLE triage_patient_data ADD BMI  DECIMAL(5,2);
+        </sql>
+    </changeSet>
+
+    <changeSet id="hospital-core:2020-06-25-13:44" author="ningosi">
+    <preConditions onFail="MARK_RAN" onError="WARN">
+        <dbms type="mysql"/>
+    </preConditions>
+        <comment>Add new table for role relationship</comment>
+        <sql>
+            CREATE TABLE IF NOT EXISTS inventory_store_role_relation (id integer not null auto_increment,inventory_store_id integer not null, inventory_store_role varchar(50) not null, primary key (id));
+        </sql>
+    </changeSet>
+
+    <changeSet id="hospital-core:2020-06-25-14:00" author="ningosi">
+    <preConditions onFail="MARK_RAN" onError="WARN">
+        <dbms type="mysql"/>
+    </preConditions>
+        <comment>Add column issue_count  in inventory_store_drug_patient_detail table</comment>
+        <sql>
+            ALTER TABLE inventory_store_drug_patient_detail ADD COLUMN `issue_count` INT(11) DEFAULT 0 AFTER transaction_detail_id;
+        </sql>
+    </changeSet>
+
+    <changeSet id="hospital-core:2020-06-25-13:50" author="ningosi">
+    <preConditions onFail="MARK_RAN" onError="WARN">
+        <dbms type="mysql"/>
+    </preConditions>
+    </changeSet>
 
     <changeSet author="ningosi" id="add-Oxygen-Column-01">
         <comment>Adding oxygen saturation column</comment>
