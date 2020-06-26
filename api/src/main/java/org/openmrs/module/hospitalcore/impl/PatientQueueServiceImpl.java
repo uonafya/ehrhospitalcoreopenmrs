@@ -1,112 +1,90 @@
-/**
- *  Copyright 2010 Society for Health Information Systems Programmes, India (HISP India)
- *
- *  This file is part of Hospital-core module.
- *
- *  Hospital-core module is free software: you can redistribute it and/or modify
- *  it under the terms of the GNU General Public License as published by
- *  the Free Software Foundation, either version 3 of the License, or
- *  (at your option) any later version.
-
- *  Hospital-core module is distributed in the hope that it will be useful,
- *  but WITHOUT ANY WARRANTY; without even the implied warranty of
- *  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
- *  GNU General Public License for more details.
- *
- *  You should have received a copy of the GNU General Public License
- *  along with Hospital-core module.  If not, see <http://www.gnu.org/licenses/>.
- *
- **/
-
-
-
 package org.openmrs.module.hospitalcore.impl;
 
 import java.util.List;
-
+import org.openmrs.Concept;
+import org.openmrs.ConceptAnswer;
+import org.openmrs.Encounter;
+import org.openmrs.Obs;
+import org.openmrs.Patient;
+import org.openmrs.Person;
 import org.openmrs.api.APIException;
 import org.openmrs.api.impl.BaseOpenmrsService;
 import org.openmrs.module.hospitalcore.PatientQueueService;
 import org.openmrs.module.hospitalcore.db.PatientQueueDAO;
 import org.openmrs.module.hospitalcore.model.OpdPatientQueue;
 import org.openmrs.module.hospitalcore.model.OpdPatientQueueLog;
+import org.openmrs.module.hospitalcore.model.PatientDrugHistory;
+import org.openmrs.module.hospitalcore.model.PatientFamilyHistory;
+import org.openmrs.module.hospitalcore.model.PatientMedicalHistory;
+import org.openmrs.module.hospitalcore.model.PatientPersonalHistory;
+import org.openmrs.module.hospitalcore.model.TriagePatientData;
+import org.openmrs.module.hospitalcore.model.TriagePatientQueue;
+import org.openmrs.module.hospitalcore.model.TriagePatientQueueLog;
 
-/**
- * <p> Class: PatientQueueServiceImpl </p>
- * <p> Package: org.openmrs.module.hospitalcore.impl </p> 
- * <p> Author: Nguyen manh chuyen </p>
- * <p> Update by: Nguyen manh chuyen </p>
- * <p> Version: $1.0 </p>
- * <p> Create date: Feb 16, 2011 12:36:59 PM </p>
- * <p> Update date: Feb 16, 2011 12:36:59 PM </p>
- **/
-public class PatientQueueServiceImpl  extends BaseOpenmrsService implements PatientQueueService{
-	
-	public PatientQueueServiceImpl() {
-	}
-
+public class PatientQueueServiceImpl extends BaseOpenmrsService implements PatientQueueService {
 	protected PatientQueueDAO dao;
-	
-	
 
 	public PatientQueueDAO getDao() {
-		return dao;
+		return this.dao;
 	}
 
 	public void setDao(PatientQueueDAO dao) {
 		this.dao = dao;
 	}
 
-	public OpdPatientQueue saveOpdPatientQueue(OpdPatientQueue opdPatientQueue)
-			throws APIException {
-		// TODO Auto-generated method stub
-		return dao.saveOpdPatientQueue(opdPatientQueue);
+	public OpdPatientQueue saveOpdPatientQueue(OpdPatientQueue opdPatientQueue) throws APIException {
+		return this.dao.saveOpdPatientQueue(opdPatientQueue);
 	}
 
-	public OpdPatientQueue updateOpdPatientQueue(Integer id, String status)
-			throws APIException {
-		// TODO Auto-generated method stub
-		return dao.updateOpdPatientQueue(id, status);
+	public OpdPatientQueue updateOpdPatientQueue(Integer id, String status) throws APIException {
+		return this.dao.updateOpdPatientQueue(id, status);
 	}
 
-	public OpdPatientQueue getOpdPatientQueueById(Integer id)
-			throws APIException {
-		// TODO Auto-generated method stub
-		return dao.getOpdPatientQueueById(id);
+	public OpdPatientQueue getOpdPatientQueueById(Integer id) throws APIException {
+		return this.dao.getOpdPatientQueueById(id);
 	}
 
-	public void deleteOpdPatientQueue(OpdPatientQueue opdPatientQueue)
-			throws APIException {
-		// TODO Auto-generated method stub
-		dao.deleteOpdPatientQueue(opdPatientQueue);
+	public PatientMedicalHistory getPatientHistoryByPatientId(Integer id) throws APIException {
+		return this.dao.getPatientHistoryByPatientId(id);
 	}
 
-	public List<OpdPatientQueue> listOpdPatientQueue(String patientName,
-			Integer referralConceptId, String status, int min, int max)
-			throws APIException {
-		// TODO Auto-generated method stub
-		return dao.listOpdPatientQueue(patientName, referralConceptId, status, min, max);
+	public PatientDrugHistory getPatientDrugHistoryByPatientId(Integer id) throws APIException {
+		return this.dao.getPatientDrugHistoryByPatientId(id);
 	}
 
-	public Integer countOpdPatientQueue(String patientName, String searchType,
-			Integer referralConceptId, String status) throws APIException {
-		// TODO Auto-generated method stub
-		return dao.countOpdPatientQueue(patientName, searchType,referralConceptId, status);
+	public PatientFamilyHistory getPatientFamilyHistoryByPatientId(Integer id) throws APIException {
+		return this.dao.getPatientFamilyHistoryByPatientId(id);
 	}
 
-	public OpdPatientQueueLog saveOpdPatientQueueLog(
-			OpdPatientQueueLog opdPatientQueueLog) throws APIException {
-		// TODO Auto-generated method stub
-		return dao.saveOpdPatientQueueLog(opdPatientQueueLog);
+	public PatientPersonalHistory getPatientPersonalHistoryByPatientId(Integer id) throws APIException {
+		return this.dao.getPatientPersonalHistoryByPatientId(id);
 	}
 
-	public OpdPatientQueueLog getOpdPatientQueueLogById(Integer id)
-			throws APIException {
-		// TODO Auto-generated method stub
-		return dao.getOpdPatientQueueLogById(id);
+	public void deleteOpdPatientQueue(OpdPatientQueue opdPatientQueue) throws APIException {
+		this.dao.deleteOpdPatientQueue(opdPatientQueue);
 	}
 
-	public OpdPatientQueueLog copyTo(OpdPatientQueue opdPatientQueue){
+	public List<OpdPatientQueue> listOpdPatientQueue(String patientName, Integer referralConceptId, String status, int min, int max) throws APIException {
+		return this.dao.listOpdPatientQueue(patientName, referralConceptId, status, min, max);
+	}
+
+	public List<TriagePatientQueue> listTriagePatientQueue(String patientName, Integer referralConceptId, String status, int min, int max) throws APIException {
+		return this.dao.listTriagePatientQueue(patientName, referralConceptId, status, min, max);
+	}
+
+	public Integer countOpdPatientQueue(String patientName, String searchType, Integer referralConceptId, String status) throws APIException {
+		return this.dao.countOpdPatientQueue(patientName, searchType, referralConceptId, status);
+	}
+
+	public OpdPatientQueueLog saveOpdPatientQueueLog(OpdPatientQueueLog opdPatientQueueLog) throws APIException {
+		return this.dao.saveOpdPatientQueueLog(opdPatientQueueLog);
+	}
+
+	public OpdPatientQueueLog getOpdPatientQueueLogById(Integer id) throws APIException {
+		return this.dao.getOpdPatientQueueLogById(id);
+	}
+
+	public OpdPatientQueueLog copyTo(OpdPatientQueue opdPatientQueue) {
 		OpdPatientQueueLog opdPatientQueueLog = new OpdPatientQueueLog();
 		opdPatientQueueLog.setBirthDate(opdPatientQueue.getBirthDate());
 		opdPatientQueueLog.setCreatedOn(opdPatientQueue.getCreatedOn());
@@ -122,15 +100,120 @@ public class PatientQueueServiceImpl  extends BaseOpenmrsService implements Pati
 		opdPatientQueueLog.setUser(opdPatientQueue.getUser());
 		return opdPatientQueueLog;
 	}
-	
-	
 
-	public OpdPatientQueue getOpdPatientQueue(String patientIdentifier,Integer opdConceptId)throws APIException {
-		// TODO Auto-generated method stub
-		return dao.getOpdPatientQueue(patientIdentifier,opdConceptId);
+	public OpdPatientQueue getOpdPatientQueue(String patientIdentifier, Integer opdConceptId) throws APIException {
+		return this.dao.getOpdPatientQueue(patientIdentifier, opdConceptId);
+	}
+
+	public TriagePatientQueue getTriagePatientQueue(String patientIdentifier, Integer triageConceptId) throws APIException {
+		return this.dao.getTriagePatientQueue(patientIdentifier, triageConceptId);
+	}
+
+	public TriagePatientQueue getTriagePatientQueueById(Integer id) throws APIException {
+		return this.dao.getTriagePatientQueueById(id);
+	}
+
+	public TriagePatientQueue saveTriagePatientQueue(TriagePatientQueue triagePatientQueue) throws APIException {
+		return this.dao.saveTriagePatientQueue(triagePatientQueue);
+	}
+
+	public TriagePatientQueueLog saveTriagePatientQueueLog(TriagePatientQueueLog triagePatientQueueLog) throws APIException {
+		return this.dao.saveTriagePatientQueueLog(triagePatientQueueLog);
+	}
+
+	public void deleteTriagePatientQueue(TriagePatientQueue triagePatientQueue) throws APIException {
+		this.dao.deleteTriagePatientQueue(triagePatientQueue);
+	}
+
+	public TriagePatientData saveTriagePatientData(TriagePatientData triagePatientData) throws APIException {
+		return this.dao.saveTriagePatientData(triagePatientData);
 	}
 
 	public List<OpdPatientQueue> getAllPatientInQueue() throws APIException {
-		return dao.getAllPatientInQueue();
+		return this.dao.getAllPatientInQueue();
+	}
+
+	public ConceptAnswer getConceptAnswer(Concept answerConcept) throws APIException {
+		return this.dao.getConceptAnswer(answerConcept);
+	}
+
+	public Encounter getLastOPDEncounter(Patient patient) {
+		return this.dao.getLastOPDEncounter(patient);
+	}
+
+	public OpdPatientQueueLog getOpdPatientQueueLogByEncounter(Encounter encounter) {
+		return this.dao.getOpdPatientQueueLogByEncounter(encounter);
+	}
+
+	public Obs getObservationByPersonConceptAndEncounter(Person person, Concept concept, Encounter encounter) {
+		return this.dao.getObservationByPersonConceptAndEncounter(person, concept, encounter);
+	}
+
+	public OpdPatientQueueLog getOpdPatientQueueLog(String patientIdentifier, Integer opdConceptId) throws APIException {
+		return this.dao.getOpdPatientQueueLog(patientIdentifier, opdConceptId);
+	}
+
+	public PatientMedicalHistory savePatientMedicalHistory(PatientMedicalHistory patientMedicalHistory) throws APIException {
+		return this.dao.savePatientMedicalHistory(patientMedicalHistory);
+	}
+
+	public PatientDrugHistory savePatientDrugHistory(PatientDrugHistory patientDrugHistory) throws APIException {
+		return this.dao.savePatientDrugHistory(patientDrugHistory);
+	}
+
+	public PatientPersonalHistory savePatientPersonalHistory(PatientPersonalHistory patientPersonalHistory) throws APIException {
+		return this.dao.savePatientPersonalHistory(patientPersonalHistory);
+	}
+
+	public PatientFamilyHistory savePatientFamilyHistory(PatientFamilyHistory patientFamilyHistory) throws APIException {
+		return this.dao.savePatientFamilyHistory(patientFamilyHistory);
+	}
+
+	public void updatePatientHistoryByPatientId(PatientMedicalHistory patientMedicalHistory) throws APIException {
+		this.dao.updatePatientHistoryByPatientId(patientMedicalHistory);
+	}
+
+	public void updatePatientDrugHistoryByPatientId(PatientDrugHistory patientDrugHistory) throws APIException {
+		this.dao.updatePatientDrugHistoryByPatientId(patientDrugHistory);
+	}
+
+	public void updatePatientFamilyHistoryByPatientId(PatientFamilyHistory patientFamilyHistory) throws APIException {
+		this.dao.updatePatientFamilyHistoryByPatientId(patientFamilyHistory);
+	}
+
+	public void updatePatientPersonalHistoryByPatientId(PatientPersonalHistory patientPersonalHistory) throws APIException {
+		this.dao.updatePatientPersonalHistoryByPatientId(patientPersonalHistory);
+	}
+
+	public List<Obs> getAllDiagnosis(Integer personId) throws APIException {
+		return this.dao.getAllDiagnosis(personId);
+	}
+
+	public List<Obs> getAllSymptom(Integer personId) throws APIException {
+		return this.dao.getAllSymptom(personId);
+	}
+
+	public TriagePatientData updateTriagePatientData(TriagePatientData triagePatientData) throws APIException {
+		return this.dao.updateTriagePatientData(triagePatientData);
+	}
+
+	public List<Obs> getAllExamination(Integer personId) throws APIException {
+		return this.dao.getAllExamination(personId);
+	}
+
+	public List<Obs> getAllUnderlinedCondition(Integer personId) throws APIException {
+		return this.dao.getAllUnderlinedCondition(personId);
+	}
+
+	public List<Obs> getAllSigns(Integer personId) throws APIException {
+		return this.dao.getAllSigns(personId);
+	}
+
+	public List<Obs> getAllDifferentialDiagnosis(Integer personId) throws APIException {
+		return this.dao.getAllDifferentialDiagnosis(personId);
+	}
+
+	public List<Obs> getAllWorkingDiagnosis(Integer personId) throws APIException {
+		return this.dao.getAllWorkingDiagnosis(personId);
 	}
 }
