@@ -1,30 +1,8 @@
-/**
- *  Copyright 2010 Society for Health Information Systems Programmes, India (HISP India)
- *
- *  This file is part of Hospital-core module.
- *
- *  Hospital-core module is free software: you can redistribute it and/or modify
- *  it under the terms of the GNU General Public License as published by
- *  the Free Software Foundation, either version 3 of the License, or
- *  (at your option) any later version.
-
- *  Hospital-core module is distributed in the hope that it will be useful,
- *  but WITHOUT ANY WARRANTY; without even the implied warranty of
- *  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
- *  GNU General Public License for more details.
- *
- *  You should have received a copy of the GNU General Public License
- *  along with Hospital-core module.  If not, see <http://www.gnu.org/licenses/>.
- *
- **/
-
-
 package org.openmrs.module.hospitalcore;
 
 import java.util.Date;
 import java.util.List;
 import java.util.Set;
-
 import org.openmrs.Concept;
 import org.openmrs.Encounter;
 import org.openmrs.EncounterType;
@@ -32,48 +10,102 @@ import org.openmrs.Location;
 import org.openmrs.Order;
 import org.openmrs.Patient;
 import org.openmrs.api.APIException;
+import org.openmrs.module.hospitalcore.model.Answer;
 import org.openmrs.module.hospitalcore.model.Department;
 import org.openmrs.module.hospitalcore.model.DepartmentConcept;
+import org.openmrs.module.hospitalcore.model.Examination;
 import org.openmrs.module.hospitalcore.model.InventoryDrug;
 import org.openmrs.module.hospitalcore.model.OpdDrugOrder;
 import org.openmrs.module.hospitalcore.model.OpdPatientQueueLog;
 import org.openmrs.module.hospitalcore.model.OpdTestOrder;
+import org.openmrs.module.hospitalcore.model.Question;
+import org.openmrs.module.hospitalcore.model.Symptom;
+import org.openmrs.module.hospitalcore.model.TriagePatientData;
 import org.springframework.transaction.annotation.Transactional;
 
 @Transactional
 public interface PatientDashboardService {
-	
-	public List<Concept> searchDiagnosis(String text) throws APIException;
-	
-	public List<Concept> searchProcedure(String text) throws APIException;
-	
-	public List<Order> getOrders(List<Concept> concepts,Patient patient, Location location, Date orderStartDate) throws APIException;
-	
-	public List<Concept> getAnswers(Concept labSet)  throws APIException;
-	
-	public List<Encounter> getEncounter(Patient p , Location loc, EncounterType encType, String date) throws APIException;
-	
-	public Set<Concept> listDiagnosisByOpd(Integer opdConcept) throws APIException;
-	
-	//Department
-	public Department createDepartment(Department department) throws APIException;
-	public void removeDepartment(Department department) throws APIException;
-	public Department getDepartmentById(Integer id) throws APIException;
-	public Department getDepartmentByWard(Integer wardId) throws APIException;
-	public List<Department> listDepartment(Boolean retired) throws APIException;
-	public Department getDepartmentByName(String name) throws APIException;
-	//DepartmentConcept
-	public DepartmentConcept createDepartmentConcept(DepartmentConcept departmentConcept) throws APIException;
-	public DepartmentConcept getByDepartmentAndConcept(Integer departmentId, Integer conceptId) throws APIException;
-	public DepartmentConcept getById(Integer id) throws APIException;
-	public void removeDepartmentConcept(DepartmentConcept departmentConcept) throws APIException;
-	public List<DepartmentConcept> listByDepartment(Integer departmentId, Integer typeConcept) throws APIException;
-	public List<Concept> listByDepartmentByWard(Integer wardId, Integer typeConcept) throws APIException;
-	public List<Concept> searchInvestigation(String text) throws APIException;
-	public List<InventoryDrug> findDrug(String name) throws APIException;
-	public OpdDrugOrder saveOrUpdateOpdDrugOrder(OpdDrugOrder opdDrugOrder) throws APIException;
-	public OpdTestOrder saveOrUpdateOpdOrder(OpdTestOrder opdTestOrder) throws APIException;
-	public OpdPatientQueueLog getOpdPatientQueueLog(Encounter encounter) throws APIException;
-	public List<OpdDrugOrder> getOpdDrugOrder(Encounter encounter) throws APIException;
-	
+	List<Concept> searchSymptom(String paramString) throws APIException;
+
+	List<Concept> searchExamination(String paramString) throws APIException;
+
+	List<Concept> searchDiagnosis(String paramString) throws APIException;
+
+	List<Concept> searchProcedure(String paramString) throws APIException;
+
+	List<Order> getOrders(List<Concept> paramList, Patient paramPatient, Location paramLocation, Date paramDate) throws APIException;
+
+	List<Concept> getAnswers(Concept paramConcept) throws APIException;
+
+	List<Encounter> getEncounter(Patient paramPatient, Location paramLocation, EncounterType paramEncounterType, String paramString) throws APIException;
+
+	Set<Concept> listDiagnosisByOpd(Integer paramInteger) throws APIException;
+
+	Department createDepartment(Department paramDepartment) throws APIException;
+
+	void removeDepartment(Department paramDepartment) throws APIException;
+
+	Department getDepartmentById(Integer paramInteger) throws APIException;
+
+	Department getDepartmentByWard(Integer paramInteger) throws APIException;
+
+	List<Department> listDepartment(Boolean paramBoolean) throws APIException;
+
+	Department getDepartmentByName(String paramString) throws APIException;
+
+	DepartmentConcept createDepartmentConcept(DepartmentConcept paramDepartmentConcept) throws APIException;
+
+	DepartmentConcept getByDepartmentAndConcept(Integer paramInteger1, Integer paramInteger2) throws APIException;
+
+	DepartmentConcept getById(Integer paramInteger) throws APIException;
+
+	void removeDepartmentConcept(DepartmentConcept paramDepartmentConcept) throws APIException;
+
+	List<DepartmentConcept> listByDepartment(Integer paramInteger1, Integer paramInteger2) throws APIException;
+
+	List<Concept> listByDepartmentByWard(Integer paramInteger1, Integer paramInteger2) throws APIException;
+
+	List<Concept> searchInvestigation(String paramString) throws APIException;
+
+	OpdTestOrder saveOrUpdateOpdOrder(OpdTestOrder paramOpdTestOrder) throws APIException;
+
+	List<Concept> searchDrug(String paramString) throws APIException;
+
+	OpdDrugOrder saveOrUpdateOpdDrugOrder(OpdDrugOrder paramOpdDrugOrder) throws APIException;
+
+	List<InventoryDrug> findDrug(String paramString) throws APIException;
+
+	Symptom saveSymptom(Symptom paramSymptom) throws APIException;
+
+	Question saveQuestion(Question paramQuestion) throws APIException;
+
+	Answer saveAnswer(Answer paramAnswer) throws APIException;
+
+	OpdPatientQueueLog getOpdPatientQueueLog(Encounter paramEncounter) throws APIException;
+
+	List<Symptom> getSymptom(Encounter paramEncounter) throws APIException;
+
+	List<Question> getQuestion(Symptom paramSymptom) throws APIException;
+
+	Answer getAnswer(Question paramQuestion) throws APIException;
+
+	List<OpdDrugOrder> getOpdDrugOrder(Encounter paramEncounter) throws APIException;
+
+	TriagePatientData getTriagePatientData(Integer paramInteger) throws APIException;
+
+	TriagePatientData getTriagePatientDataFromEncounter(Integer paramInteger) throws APIException;
+
+	Examination saveExamination(Examination paramExamination) throws APIException;
+
+	List<Examination> getExamination(Encounter paramEncounter) throws APIException;
+
+	List<Question> getQuestion(Examination paramExamination) throws APIException;
+
+	List<Concept> searchUnderLinedCondition(String paramString) throws APIException;
+
+	List<Concept> searchSigns(String paramString) throws APIException;
+
+	List<Concept> searchDifferentialDiagnosis(String paramString) throws APIException;
+
+	List<Concept> searchWorkingDiagnosis(String paramString) throws APIException;
 }
