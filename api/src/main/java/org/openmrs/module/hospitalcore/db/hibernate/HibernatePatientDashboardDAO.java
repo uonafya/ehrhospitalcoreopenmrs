@@ -17,7 +17,6 @@ import org.hibernate.criterion.Criterion;
 import org.hibernate.criterion.Expression;
 import org.hibernate.criterion.LogicalExpression;
 import org.hibernate.criterion.MatchMode;
-import org.hibernate.criterion.Order;
 import org.hibernate.criterion.Restrictions;
 import org.hibernate.criterion.SimpleExpression;
 import org.openmrs.Concept;
@@ -129,7 +128,7 @@ public class HibernatePatientDashboardDAO implements PatientDashboardDAO {
 		}
 		crit.add((Criterion)Expression.eq("voided", Boolean.valueOf(false)));
 		crit.add((Criterion)Expression.eq("encounterType", encType));
-		crit.addOrder(Order.desc("encounterDatetime"));
+		crit.addOrder(org.hibernate.criterion.Order.desc("encounterDatetime"));
 		return crit.list();
 	}
 

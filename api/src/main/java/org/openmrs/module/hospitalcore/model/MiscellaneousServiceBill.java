@@ -1,24 +1,3 @@
-/**
- *  Copyright 2010 Society for Health Information Systems Programmes, India (HISP India)
- *
- *  This file is part of Hospital-core module.
- *
- *  Hospital-core module is free software: you can redistribute it and/or modify
- *  it under the terms of the GNU General Public License as published by
- *  the Free Software Foundation, either version 3 of the License, or
- *  (at your option) any later version.
-
- *  Hospital-core module is distributed in the hope that it will be useful,
- *  but WITHOUT ANY WARRANTY; without even the implied warranty of
- *  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
- *  GNU General Public License for more details.
- *
- *  You should have received a copy of the GNU General Public License
- *  along with Hospital-core module.  If not, see <http://www.gnu.org/licenses/>.
- *
- **/
-
-
 package org.openmrs.module.hospitalcore.model;
 
 import java.io.Serializable;
@@ -26,29 +5,34 @@ import java.math.BigDecimal;
 import java.util.Date;
 
 public class MiscellaneousServiceBill implements Serializable {
-
-	/**
-	 * 
-	 */
 	private static final long serialVersionUID = 1L;
 
 	private Integer id;
+
 	private String liableName;
+
 	private String description;
+
 	private BigDecimal amount;
+
 	private Date createdDate;
+
 	private Integer creator;
-	private Boolean voided = false;
+
+	private Boolean voided = Boolean.valueOf(false);
+
 	private Date voidedDate;
-	private Boolean printed = false;
+
+	private Boolean printed = Boolean.valueOf(false);
+
 	private MiscellaneousService service;
-	
+
 	private Integer quantity;
-	
+
 	private Receipt receipt;
 
 	public Integer getId() {
-		return id;
+		return this.id;
 	}
 
 	public void setId(Integer id) {
@@ -56,7 +40,7 @@ public class MiscellaneousServiceBill implements Serializable {
 	}
 
 	public String getLiableName() {
-		return liableName;
+		return this.liableName;
 	}
 
 	public void setLiableName(String liableName) {
@@ -64,7 +48,7 @@ public class MiscellaneousServiceBill implements Serializable {
 	}
 
 	public String getDescription() {
-		return description;
+		return this.description;
 	}
 
 	public void setDescription(String description) {
@@ -72,7 +56,7 @@ public class MiscellaneousServiceBill implements Serializable {
 	}
 
 	public BigDecimal getAmount() {
-		return amount;
+		return this.amount;
 	}
 
 	public void setAmount(BigDecimal amount) {
@@ -80,7 +64,7 @@ public class MiscellaneousServiceBill implements Serializable {
 	}
 
 	public Date getCreatedDate() {
-		return createdDate;
+		return this.createdDate;
 	}
 
 	public void setCreatedDate(Date createdDate) {
@@ -88,7 +72,7 @@ public class MiscellaneousServiceBill implements Serializable {
 	}
 
 	public Integer getCreator() {
-		return creator;
+		return this.creator;
 	}
 
 	public void setCreator(Integer creator) {
@@ -96,7 +80,7 @@ public class MiscellaneousServiceBill implements Serializable {
 	}
 
 	public Boolean getVoided() {
-		return voided;
+		return this.voided;
 	}
 
 	public void setVoided(Boolean voided) {
@@ -104,7 +88,7 @@ public class MiscellaneousServiceBill implements Serializable {
 	}
 
 	public Date getVoidedDate() {
-		return voidedDate;
+		return this.voidedDate;
 	}
 
 	public void setVoidedDate(Date voidedDate) {
@@ -112,7 +96,7 @@ public class MiscellaneousServiceBill implements Serializable {
 	}
 
 	public MiscellaneousService getService() {
-		return service;
+		return this.service;
 	}
 
 	public void setService(MiscellaneousService service) {
@@ -120,7 +104,7 @@ public class MiscellaneousServiceBill implements Serializable {
 	}
 
 	public Boolean getPrinted() {
-		return printed;
+		return this.printed;
 	}
 
 	public void setPrinted(Boolean printed) {
@@ -128,21 +112,18 @@ public class MiscellaneousServiceBill implements Serializable {
 	}
 
 	public Receipt getReceipt() {
-		return receipt;
+		return this.receipt;
 	}
 
 	public void setReceipt(Receipt receipt) {
 		this.receipt = receipt;
 	}
 
-	
-    public Integer getQuantity() {
-    	return quantity;
-    }
+	public Integer getQuantity() {
+		return this.quantity;
+	}
 
-	
-    public void setQuantity(Integer quantity) {
-    	this.quantity = quantity;
-    }
-	
+	public void setQuantity(Integer quantity) {
+		this.quantity = quantity;
+	}
 }
