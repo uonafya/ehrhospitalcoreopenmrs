@@ -1,29 +1,7 @@
-/**
- *  Copyright 2010 Society for Health Information Systems Programmes, India (HISP India)
- *
- *  This file is part of Hospital-core module.
- *
- *  Hospital-core module is free software: you can redistribute it and/or modify
- *  it under the terms of the GNU General Public License as published by
- *  the Free Software Foundation, either version 3 of the License, or
- *  (at your option) any later version.
-
- *  Hospital-core module is distributed in the hope that it will be useful,
- *  but WITHOUT ANY WARRANTY; without even the implied warranty of
- *  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
- *  GNU General Public License for more details.
- *
- *  You should have received a copy of the GNU General Public License
- *  along with Hospital-core module.  If not, see <http://www.gnu.org/licenses/>.
- *
- **/
-
-
 package org.openmrs.module.hospitalcore.db;
 
 import java.util.Date;
 import java.util.List;
-
 import org.openmrs.Concept;
 import org.openmrs.ConceptClass;
 import org.openmrs.Encounter;
@@ -32,36 +10,80 @@ import org.openmrs.Location;
 import org.openmrs.Order;
 import org.openmrs.Patient;
 import org.openmrs.api.db.DAOException;
+import org.openmrs.module.hospitalcore.model.Answer;
 import org.openmrs.module.hospitalcore.model.Department;
 import org.openmrs.module.hospitalcore.model.DepartmentConcept;
+import org.openmrs.module.hospitalcore.model.Examination;
 import org.openmrs.module.hospitalcore.model.InventoryDrug;
 import org.openmrs.module.hospitalcore.model.OpdDrugOrder;
 import org.openmrs.module.hospitalcore.model.OpdPatientQueueLog;
 import org.openmrs.module.hospitalcore.model.OpdTestOrder;
+import org.openmrs.module.hospitalcore.model.Question;
+import org.openmrs.module.hospitalcore.model.Symptom;
+import org.openmrs.module.hospitalcore.model.TriagePatientData;
 
 public interface PatientDashboardDAO {
-	public List<Order> getOrders(List<Concept> concepts, Patient patient, Location location, Date orderStartDate) throws DAOException;
-	public List<Concept> searchConceptsByNameAndClass(String text, ConceptClass clazz) throws DAOException;
-	public List<Encounter> getEncounter(Patient p , Location loc, EncounterType encType, String date) throws DAOException;
-	
-	//Department
-	public Department createDepartment(Department department) throws DAOException;
-	public void removeDepartment(Department department) throws DAOException;
-	public Department getDepartmentById(Integer id) throws DAOException;
-	public Department getDepartmentByWard(Integer wardId) throws DAOException;
-	public List<Department> listDepartment(Boolean retired) throws DAOException;
-	public Department getDepartmentByName(String name) throws DAOException;
-	//DepartmentConcept
-	public DepartmentConcept createDepartmentConcept(DepartmentConcept departmentConcept) throws DAOException;
-	public DepartmentConcept getByDepartmentAndConcept(Integer departmentId, Integer conceptId) throws DAOException;
-	public DepartmentConcept getById(Integer id) throws DAOException;
-	public void removeDepartmentConcept(DepartmentConcept departmentConcept) throws DAOException;
-	public List<DepartmentConcept> listByDepartment(Integer departmentId, Integer typeConcept) throws DAOException;
-	public List<Concept> listByDepartmentByWard(Integer wardId, Integer typeConcept) throws DAOException;
-	public List<Concept> searchInvestigation(String text) throws DAOException;
-	public List<InventoryDrug> findDrug(String name) throws DAOException;
-	public OpdDrugOrder saveOrUpdateOpdDrugOrder(OpdDrugOrder opdDrugOrder) throws DAOException;
-	public OpdTestOrder saveOrUpdateOpdOrder(OpdTestOrder opdTestOrder) throws DAOException;
-	public OpdPatientQueueLog getOpdPatientQueueLog(Encounter encounter) throws DAOException;
-	public List<OpdDrugOrder> getOpdDrugOrder(Encounter encounter) throws DAOException;
+	List<Order> getOrders(List<Concept> paramList, Patient paramPatient, Location paramLocation, Date paramDate) throws DAOException;
+
+	List<Concept> searchConceptsByNameAndClass(String paramString, ConceptClass paramConceptClass) throws DAOException;
+
+	List<Encounter> getEncounter(Patient paramPatient, Location paramLocation, EncounterType paramEncounterType, String paramString) throws DAOException;
+
+	Department createDepartment(Department paramDepartment) throws DAOException;
+
+	void removeDepartment(Department paramDepartment) throws DAOException;
+
+	Department getDepartmentById(Integer paramInteger) throws DAOException;
+
+	Department getDepartmentByWard(Integer paramInteger) throws DAOException;
+
+	List<Department> listDepartment(Boolean paramBoolean) throws DAOException;
+
+	Department getDepartmentByName(String paramString) throws DAOException;
+
+	DepartmentConcept createDepartmentConcept(DepartmentConcept paramDepartmentConcept) throws DAOException;
+
+	DepartmentConcept getByDepartmentAndConcept(Integer paramInteger1, Integer paramInteger2) throws DAOException;
+
+	DepartmentConcept getById(Integer paramInteger) throws DAOException;
+
+	void removeDepartmentConcept(DepartmentConcept paramDepartmentConcept) throws DAOException;
+
+	List<DepartmentConcept> listByDepartment(Integer paramInteger1, Integer paramInteger2) throws DAOException;
+
+	List<Concept> listByDepartmentByWard(Integer paramInteger1, Integer paramInteger2) throws DAOException;
+
+	List<Concept> searchInvestigation(String paramString) throws DAOException;
+
+	OpdTestOrder saveOrUpdateOpdOrder(OpdTestOrder paramOpdTestOrder) throws DAOException;
+
+	OpdDrugOrder saveOrUpdateOpdDrugOrder(OpdDrugOrder paramOpdDrugOrder) throws DAOException;
+
+	List<InventoryDrug> findDrug(String paramString) throws DAOException;
+
+	Symptom saveSymptom(Symptom paramSymptom) throws DAOException;
+
+	Question saveQuestion(Question paramQuestion) throws DAOException;
+
+	Answer saveAnswer(Answer paramAnswer) throws DAOException;
+
+	OpdPatientQueueLog getOpdPatientQueueLog(Encounter paramEncounter) throws DAOException;
+
+	List<Symptom> getSymptom(Encounter paramEncounter) throws DAOException;
+
+	List<Question> getQuestion(Symptom paramSymptom) throws DAOException;
+
+	Answer getAnswer(Question paramQuestion) throws DAOException;
+
+	List<OpdDrugOrder> getOpdDrugOrder(Encounter paramEncounter) throws DAOException;
+
+	TriagePatientData getTriagePatientData(Integer paramInteger) throws DAOException;
+
+	TriagePatientData getTriagePatientDataFromEncounter(Integer paramInteger) throws DAOException;
+
+	Examination saveExamination(Examination paramExamination) throws DAOException;
+
+	List<Examination> getExamination(Encounter paramEncounter) throws DAOException;
+
+	List<Question> getQuestion(Examination paramExamination) throws DAOException;
 }
