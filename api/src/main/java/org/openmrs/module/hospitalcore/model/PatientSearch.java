@@ -1,47 +1,37 @@
-/**
- *  Copyright 2010 Society for Health Information Systems Programmes, India (HISP India)
- *
- *  This file is part of Hospital-core module.
- *
- *  Hospital-core module is free software: you can redistribute it and/or modify
- *  it under the terms of the GNU General Public License as published by
- *  the Free Software Foundation, either version 3 of the License, or
- *  (at your option) any later version.
-
- *  Hospital-core module is distributed in the hope that it will be useful,
- *  but WITHOUT ANY WARRANTY; without even the implied warranty of
- *  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
- *  GNU General Public License for more details.
- *
- *  You should have received a copy of the GNU General Public License
- *  along with Hospital-core module.  If not, see <http://www.gnu.org/licenses/>.
- *
- **/
-
 package org.openmrs.module.hospitalcore.model;
 
 import java.io.Serializable;
 import java.util.Date;
 
 public class PatientSearch implements Serializable {
-
 	private static final long serialVersionUID = 1L;
 
 	private Integer patientId;
+
 	private String identifier;
+
 	private String fullname;
+
 	private String givenName;
+
 	private String middleName;
+
 	private String familyName;
+
 	private String gender;
+
 	private Date birthdate;
+
 	private Integer age;
+
 	private Integer personNameId;
-	//ghanshyam,22-oct-2013,New Requirement #2940 Dealing with dead patient
-	private Boolean dead = false;
+
+	private Boolean dead = Boolean.valueOf(false);
+
+	private Boolean admitted = Boolean.valueOf(false);
 
 	public Integer getPatientId() {
-		return patientId;
+		return this.patientId;
 	}
 
 	public void setPatientId(Integer patientId) {
@@ -49,7 +39,7 @@ public class PatientSearch implements Serializable {
 	}
 
 	public String getIdentifier() {
-		return identifier;
+		return this.identifier;
 	}
 
 	public void setIdentifier(String identifier) {
@@ -57,7 +47,7 @@ public class PatientSearch implements Serializable {
 	}
 
 	public String getFullname() {
-		return fullname;
+		return this.fullname;
 	}
 
 	public void setFullname(String fullname) {
@@ -65,7 +55,7 @@ public class PatientSearch implements Serializable {
 	}
 
 	public String getGivenName() {
-		return givenName;
+		return this.givenName;
 	}
 
 	public void setGivenName(String givenName) {
@@ -73,7 +63,7 @@ public class PatientSearch implements Serializable {
 	}
 
 	public String getMiddleName() {
-		return middleName;
+		return this.middleName;
 	}
 
 	public void setMiddleName(String middleName) {
@@ -81,7 +71,7 @@ public class PatientSearch implements Serializable {
 	}
 
 	public String getFamilyName() {
-		return familyName;
+		return this.familyName;
 	}
 
 	public void setFamilyName(String familyName) {
@@ -89,7 +79,7 @@ public class PatientSearch implements Serializable {
 	}
 
 	public String getGender() {
-		return gender;
+		return this.gender;
 	}
 
 	public void setGender(String gender) {
@@ -97,7 +87,7 @@ public class PatientSearch implements Serializable {
 	}
 
 	public Date getBirthdate() {
-		return birthdate;
+		return this.birthdate;
 	}
 
 	public void setBirthdate(Date birthdate) {
@@ -105,7 +95,7 @@ public class PatientSearch implements Serializable {
 	}
 
 	public Integer getAge() {
-		return age;
+		return this.age;
 	}
 
 	public void setAge(Integer age) {
@@ -113,18 +103,26 @@ public class PatientSearch implements Serializable {
 	}
 
 	public Integer getPersonNameId() {
-		return personNameId;
+		return this.personNameId;
 	}
 
 	public void setPersonNameId(Integer personNameId) {
 		this.personNameId = personNameId;
 	}
-	
+
 	public Boolean getDead() {
-		return dead;
+		return this.dead;
 	}
 
 	public void setDead(Boolean dead) {
 		this.dead = dead;
+	}
+
+	public Boolean getAdmitted() {
+		return this.admitted;
+	}
+
+	public void setAdmitted(Boolean admitted) {
+		this.admitted = admitted;
 	}
 }
