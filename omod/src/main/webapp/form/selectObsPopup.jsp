@@ -1,38 +1,38 @@
- <%--
- *  Copyright 2009 Society for Health Information Systems Programmes, India (HISP India)
- *
- *  This file is part of Hospitalcore module.
- *
- *  Hospitalcore module is free software: you can redistribute it and/or modify
- *  it under the terms of the GNU General Public License as published by
- *  the Free Software Foundation, either version 3 of the License, or
- *  (at your option) any later version.
+<%--
+*  Copyright 2009 Society for Health Information Systems Programmes, India (HISP India)
+*
+*  This file is part of Hospitalcore module.
+*
+*  Hospitalcore module is free software: you can redistribute it and/or modify
+*  it under the terms of the GNU General Public License as published by
+*  the Free Software Foundation, either version 3 of the License, or
+*  (at your option) any later version.
 
- *  Hospitalcore module is distributed in the hope that it will be useful,
- *  but WITHOUT ANY WARRANTY; without even the implied warranty of
- *  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
- *  GNU General Public License for more details.
- *
- *  You should have received a copy of the GNU General Public License
- *  along with Hospitalcore module.  If not, see <http://www.gnu.org/licenses/>.
- *
---%> 
+*  Hospitalcore module is distributed in the hope that it will be useful,
+*  but WITHOUT ANY WARRANTY; without even the implied warranty of
+*  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+*  GNU General Public License for more details.
+*
+*  You should have received a copy of the GNU General Public License
+*  along with Hospitalcore module.  If not, see <http://www.gnu.org/licenses/>.
+*
+--%>
 <%@ include file="/WEB-INF/template/include.jsp" %>
 
 <script type="text/javascript">
-	
-	jQuery(document).ready(function(){		
+
+	jQuery(document).ready(function(){
 		jQuery("#conceptPopup").autocomplete(openmrsContextPath + '/module/hospitalcore/ajax/autocompleteConceptSearch.htm').result(function(event, item){
 			SELECTOBSPOPUP.showConceptInfo();
 		});
 		jQuery("#conceptPopup").focus();
 	});
-	
+
 	SELECTOBSPOPUP = {
-		
+
 		// Get concept information and display on popup
 		showConceptInfo: function(){
-			
+
 			jQuery.ajax({
 				type : "GET",
 				url : openmrsContextPath + "/module/hospitalcore/getConceptInfo.form",
@@ -46,26 +46,26 @@
 				error : function(xhr, ajaxOptions, thrownError) {
 					alert(thrownError);
 				}
-			});		
+			});
 		},
-		
+
 		// Insert obs
 		insert: function(){
-		
+
 			title = jQuery("#title").val();
 			validations = SELECTOBSPOPUP.getValidation();
 			json = {
-				validations: validations		
+				validations: validations
 			};
-			
-			EDIT.insertObs(jQuery('#conceptPopup').val(), '${type}', jQuery("#title").val(), JSON.stringify(json)); 
+
+			EDIT.insertObs(jQuery('#conceptPopup').val(), '${type}', jQuery("#title").val(), JSON.stringify(json));
 			tb_remove();
 		},
-		
+
 		// Get validations
 		getValidation: function(){
 			validations = [];
-			
+
 			// get predefined validations
 			jQuery("input.validation[type=checkbox]:checked").each(function(index, item){
 				validation = {
@@ -75,7 +75,7 @@
 				};
 				validations.push(validation);
 			});
-			
+
 			// get custom validation
 			if(!StringUtils.isBlank(jQuery("#validation_custom").val())){
 				validation = {
@@ -83,7 +83,7 @@
 					regex: jQuery("#validation_custom").val(),
 					message: jQuery("#validation_custom_message").val()
 				};
-				validations.push(validation);				
+				validations.push(validation);
 			}
 			return validations;
 		}
@@ -100,9 +100,9 @@
 				<input id="conceptPopup" style="width:350px;"/>
 			</td>
 		</tr>
-		<tr>			
+		<tr>
 			<td>
-				
+
 			</td>
 			<td>
 				<c:if test="${type eq 'selection'}">
@@ -120,7 +120,7 @@
 			<td valign='top'><b>Validations</b></td>
 			<td>
 				<table style="width:100%">
-					
+
 					<tr>
 						<td>
 							<input class="validation" type="checkbox" id="validation_mandatory" value="\S" checked="checked"/><label for="validation_required"> Mandatory</label>
@@ -164,8 +164,8 @@
 				</table>
 			</td>
 		</tr>
-	</table>	
-	
+	</table>
+
 	<input type="button" onClick="SELECTOBSPOPUP.insert();" value="Insert"/>
 	<input type="button" onClick="tb_remove();" value="Close"/>
 </center>
