@@ -10,7 +10,7 @@ import org.hibernate.Criteria;
 import org.hibernate.SessionFactory;
 import org.hibernate.criterion.Criterion;
 import org.hibernate.criterion.Expression;
-import org.hibernate.criterion.Order;
+//import org.hibernate.criterion.Order;
 import org.hibernate.criterion.Projections;
 import org.hibernate.criterion.Restrictions;
 import org.openmrs.Concept;
@@ -109,7 +109,7 @@ public class HibernateRadiologyDAO implements RadiologyDAO {
 		criteria.add(Restrictions.isNull("dateVoided"));
 		if (!CollectionUtils.isEmpty(patients))
 			criteria.add(Restrictions.in("patient", patients));
-		criteria.addOrder(Order.asc("startDate"));
+		criteria.addOrder(org.hibernate.criterion.Order.asc("startDate"));
 		int firstResult = (page - 1) * pageSize;
 		criteria.setFirstResult(firstResult);
 		criteria.setMaxResults(pageSize);
