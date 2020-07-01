@@ -18,8 +18,8 @@
     left: 0;
 }
 .loadmask-msg div {
-    padding:5px 10px 5px 25px;    
-    line-height: 16px;	
+    padding:5px 10px 5px 25px;
+    line-height: 16px;
     color:#222;
     font:normal 11px tahoma, arial, helvetica, sans-serif;
     cursor:wait;
