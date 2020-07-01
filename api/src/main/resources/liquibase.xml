@@ -28,7 +28,7 @@
             ADD COLUMN `patient_identifier`  varchar(50)  default NULL;
         </sql>
     </changeSet>
-    <changeSet id="hospital-core:2020-06-24-18:52" author="ningosi">
+    <changeSet id="hospital-core:2020-06-24-18:55" author="ningosi">
         <preConditions onFail="MARK_RAN" onError="WARN">
             <dbms type="mysql"/>
         </preConditions>
@@ -402,7 +402,7 @@
     <preConditions onFail="MARK_RAN" onError="WARN">
         <dbms type="mysql"/>
     </preConditions>
-        <comment>Multiple parent mainstores</comment>
+        <comment>Multiexitple parent mainstores</comment>
         <sql>
             CREATE TABLE IF NOT EXISTS inventory_store_relationship (inventory_store_child_id integer not null, inventory_store_parent_id integer not null, primary key (inventory_store_child_id, inventory_store_parent_id));
         </sql>
