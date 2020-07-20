@@ -11,7 +11,7 @@
         <comment>Add opd patient queue tables</comment>
         <sql>
             CREATE TABLE IF NOT EXISTS opd_patient_queue (id integer not null auto_increment, user integer, patient_id integer, referral_concept_id integer, opd_concept_id integer, age integer, created_on datetime, opd_concept_name varchar(255), patient_name varchar(255), referral_concept_name varchar(255), sex varchar(255), status varchar(255), primary key (id));
-            CREATE TABLE IF NOT EXISTS opd_patient_queue_log (id integer not null auto_increment, user integer, patient_id integer, referral_concept_id integer, opd_concept_id integer, age integer, created_on datetime, opd_concept_name varchar(255), patient_name varchar(255), referral_concept_name varchar(255), sex varchar(255), status varchar(255), primary key (id));
+            CREATE TABLE IF NOT EXISTS d (id integer not null auto_increment, user integer, patient_id integer, referral_concept_id integer, opd_concept_id integer, age integer, created_on datetime, opd_concept_name varchar(255), patient_name varchar(255), referral_concept_name varchar(255), sex varchar(255), status varchar(255), primary key (id));
         </sql>
     </changeSet>
 
@@ -506,7 +506,6 @@
             ALTER TABLE opd_drug_order ADD COLUMN `referral_opd_name` VARCHAR(100) default NULL;
             CREATE TABLE IF NOT EXISTS inventory_store_drug_transaction_detail (id integer not null auto_increment, transaction_id integer, drug_id integer, formulation_id integer, quantity integer, current_quantity integer, issue_quantity integer, unit_price decimal(19,2), VAT decimal(19,2), total_price decimal(19,2), batch_no varchar(255), company_name varchar(255), date_manufacture datetime, date_expiry datetime, receipt_date datetime, created_on datetime, opening_balance bigint, closing_balance bigint, parent_id integer, primary key (id));
             ALTER TABLE inventory_store_drug_transaction_detail MODIFY VAT decimal(19,2);
-            ALTER TABLE inventory_store_drug_transaction_detail MODIFY receipt_from varchar(255);
         </sql>
     </changeSet>
 
