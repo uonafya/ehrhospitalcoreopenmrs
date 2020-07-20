@@ -11,7 +11,7 @@
         <comment>Add opd patient queue tables</comment>
         <sql>
             CREATE TABLE IF NOT EXISTS opd_patient_queue (id integer not null auto_increment, user integer, patient_id integer, referral_concept_id integer, opd_concept_id integer, age integer, created_on datetime, opd_concept_name varchar(255), patient_name varchar(255), referral_concept_name varchar(255), sex varchar(255), status varchar(255), primary key (id));
-            CREATE TABLE IF NOT EXISTS d (id integer not null auto_increment, user integer, patient_id integer, referral_concept_id integer, opd_concept_id integer, age integer, created_on datetime, opd_concept_name varchar(255), patient_name varchar(255), referral_concept_name varchar(255), sex varchar(255), status varchar(255), primary key (id));
+            CREATE TABLE IF NOT EXISTS opd_patient_queue_log (id integer not null auto_increment, user integer, patient_id integer, referral_concept_id integer, opd_concept_id integer, age integer, created_on datetime, opd_concept_name varchar(255), patient_name varchar(255), referral_concept_name varchar(255), sex varchar(255), status varchar(255), primary key (id));
         </sql>
     </changeSet>
 
