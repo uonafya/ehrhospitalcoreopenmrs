@@ -120,36 +120,21 @@
 	<!-- /Internationalization -->
 	
 	<mappingFiles>
-        Tender.hbm.xml
-        Company.hbm.xml
-        Driver.hbm.xml
-        TenderBill.hbm.xml
-        TenderBillItem.hbm.xml
         Ambulance.hbm.xml
         AmbulanceBill.hbm.xml
         AmbulanceBillItem.hbm.xml
+        Answers.hbm.xml
         BillableService.hbm.xml
-        PatientServiceBill.hbm.xml
-        PatientServiceBillItem.hbm.xml
-        MiscellaneousService.hbm.xml
-        MiscellaneousServiceBill.hbm.xml
         BillingReceipt.hbm.xml
-        Lab.hbm.xml
-        LabTest.hbm.xml
-        OpdPatientQueue.hbm.xml
-        OpdPatientQueueLog.hbm.xml
-        IpdPatientAdmission.hbm.xml
-        IpdPatientAdmissionLog.hbm.xml
-        IpdPatientAdmitted.hbm.xml
-        IpdPatientAdmittedLog.hbm.xml
+        Company.hbm.xml
+        CoreForm.hbm.xml
         Department.hbm.xml
         DepartmentConcept.hbm.xml
-        RadiologyDepartment.hbm.xml
-        RadiologyTest.hbm.xml
-        RadiologyForm.hbm.xml
-        CoreForm.hbm.xml
-        PatientSearch.hbm.xml
         DmsOpdUnit.hbm.xml
+        Driver.hbm.xml
+        Examination.hbm.xml
+        IndoorPatientServiceBill.hbm.xml
+        IndoorPatientServiceBillItem.hbm.xml
         InventoryDrug.hbm.xml
         InventoryDrugCategory.hbm.xml
         InventoryDrugFormulation.hbm.xml
@@ -160,27 +145,40 @@
         InventoryStoreDrugPatientDetail.hbm.xml
         InventoryStoreDrugTransaction.hbm.xml
         InventoryStoreDrugTransactionDetail.hbm.xml
-        <!--User must be able to send investigation orders from dashboard to billing -->
-        OpdTestOrder.hbm.xml
-        <!--Capture Vital statistics for admitted patient in ipd -->
+        InventoryStoreRoleRelation.hbm.xml
+        IpdPatientAdmission.hbm.xml
+        IpdPatientAdmissionLog.hbm.xml
+        IpdPatientAdmitted.hbm.xml
+        IpdPatientAdmittedLog.hbm.xml
         IpdPatientVitalStatistics.hbm.xml
-        <!--User should be able to send pharmacy orders to issue drugs to a patient from dashboard -->
+        Lab.hbm.xml
+        LabTest.hbm.xml
+        MiscellaneousService.hbm.xml
+        MiscellaneousServiceBill.hbm.xml
         OpdDrugOrder.hbm.xml
-        WardBedStrength.hbm.xml
-        TriagePatientQueue.hbm.xml
-        TriagePatientQueueLog.hbm.xml
-        TriagePatientData.hbm.xml
-        IndoorPatientServiceBill.hbm.xml
-        IndoorPatientServiceBillItem.hbm.xml
-        PatientMedicalHistory.hbm.xml
+        OpdPatientQueue.hbm.xml
+        OpdPatientQueueLog.hbm.xml
+        OpdTestOrder.hbm.xml
         PatientDrugHistory.hbm.xml
         PatientFamilyHistory.hbm.xml
+        PatientMedicalHistory.hbm.xml
         PatientPersonalHistory.hbm.xml
-        Symptom.hbm.xml
-        Examination.hbm.xml
+        PatientSearch.hbm.xml
+        PatientServiceBill.hbm.xml
+        PatientServiceBillItem.hbm.xml
         Question.hbm.xml
-        Answer.hbm.xml
-        InventoryStoreRoleRelation.hbm.xml
+        RadiologyDepartment.hbm.xml
+        RadiologyForm.hbm.xml
+        RadiologyTemplate.hbm.xml
+        RadiologyTest.hbm.xml
+        Symptom.hbm.xml
+        Tender.hbm.xml
+        TenderBill.hbm.xml
+        TenderBillItem.hbm.xml
+        TriagePatientData.hbm.xml
+        TriagePatientData.hbm.xml
+        TriagePatientData.hbm.xml
+        WardBedStrength.hbm.xml
     </mappingFiles>
 </module>
 
