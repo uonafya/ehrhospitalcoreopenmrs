@@ -120,15 +120,6 @@
         </sql>
     </changeSet>
 
-    <changeSet id="hospital-core:2020-06-24-19:20" author="ningosi">
-        <preConditions onFail="MARK_RAN" onError="WARN">
-            <dbms type="mysql"/>
-        </preConditions>
-        <comment>Add encounter forgeinkey to opd queue log</comment>
-        <sql>
-            ALTER TABLE opd_patient_queue_log ADD encounter_id integer default 0;
-        </sql>
-    </changeSet>
     <changeSet id="hospital-core:2020-06-24-19:24" author="ningosi">
         <preConditions onFail="MARK_RAN" onError="WARN">
             <dbms type="mysql"/>
