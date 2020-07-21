@@ -551,17 +551,6 @@
         </sql>
     </changeSet>
 
-    <changeSet id="hospital-core:2020-06-25-12:59" author="ningosi">
-    <preConditions onFail="MARK_RAN" onError="WARN">
-        <dbms type="mysql"/>
-    </preConditions>
-        <comment>Add column admitted_days,patient_category,rebate_amount,category_number for 'billing_patient_service_bill'
-            table</comment>
-        <sql>
-            ALTER TABLE billing_patient_service_bill ADD COLUMN `admitted_days` integer,ADD COLUMN `patient_category` varchar(100),ADD COLUMN `rebate_amount` decimal(19,2),ADD COLUMN `category_number` varchar(100);
-        </sql>
-    </changeSet>
-
     <changeSet id="hospital-core:2020-06-25-13:00" author="ningosi">
     <preConditions onFail="MARK_RAN" onError="WARN">
         <dbms type="mysql"/>
