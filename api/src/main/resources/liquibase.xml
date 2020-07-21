@@ -284,4 +284,65 @@
             ) ENGINE=InnoDB AUTO_INCREMENT=1051 DEFAULT CHARSET=utf8;
         </sql>
     </changeSet>
+
+    <changeSet id="hospital-core:2020-07-21-17:16" author="ningosi">
+        <preConditions onFail="MARK_RAN" onError="WARN">
+            <dbms type="mysql"/>
+        </preConditions>
+        <comment>Add table indoor_patient_service_bill</comment>
+        <sql>
+            CREATE TABLE IF NOT EXISTS `indoor_patient_service_bill` (
+            `indoor_patient_service_bill_id` int(11) NOT NULL AUTO_INCREMENT,
+            `creator` int(11) DEFAULT NULL,
+            `amount` decimal(19,2) DEFAULT NULL,
+            `created_date` datetime DEFAULT NULL,
+            `patient_id` int(11) DEFAULT NULL,
+            `actual_amount` decimal(19,2) DEFAULT NULL,
+            `encounter_id` int(11) DEFAULT NULL,
+            `selected_category` int(11) DEFAULT '0',
+            `comment` varchar(225) DEFAULT NULL,
+            `waiver_amount` decimal(19,2) DEFAULT NULL,
+            `payment_mode` varchar(50) DEFAULT NULL,
+            PRIMARY KEY (`indoor_patient_service_bill_id`),
+            KEY `fk_indoorpatientservicebill_patient` (`patient_id`),
+            KEY `fk_indoorpatientservicebill_user` (`creator`),
+            KEY `fk_indoorpatientservicebill_encounter` (`encounter_id`),
+            CONSTRAINT `fk_indoorpatientservicebill_encounter` FOREIGN KEY (`encounter_id`) REFERENCES `encounter` (`encounter_id`),
+            CONSTRAINT `fk_indoorpatientservicebill_patient` FOREIGN KEY (`patient_id`) REFERENCES `patient` (`patient_id`),
+            CONSTRAINT `fk_indoorpatientservicebill_user` FOREIGN KEY (`creator`) REFERENCES `users` (`user_id`)
+            ) ENGINE=InnoDB AUTO_INCREMENT=214 DEFAULT CHARSET=utf8;
+        </sql>
+    </changeSet>
+
+    <changeSet id="hospital-core:2020-07-21-17:17" author="ningosi">
+        <preConditions onFail="MARK_RAN" onError="WARN">
+            <dbms type="mysql"/>
+        </preConditions>
+        <comment>Add table indoor_patient_service_bill_item</comment>
+        <sql>
+            CREATE TABLE IF NOT EXISTS `indoor_patient_service_bill_item` (
+            `indoor_patient_service_bill_item_id` int(11) NOT NULL AUTO_INCREMENT,
+            `service_id` int(11) DEFAULT NULL,
+            `indoor_patient_service_bill_id` int(11) DEFAULT NULL,
+            `unitPrice` decimal(19,2) DEFAULT NULL,
+            `amount` decimal(19,2) DEFAULT NULL,
+            `quantity` int(11) DEFAULT NULL,
+            `name` varchar(255) DEFAULT NULL,
+            `created_date` datetime DEFAULT NULL,
+            `order_id` int(11) DEFAULT NULL,
+            `actual_amount` decimal(19,2) DEFAULT NULL,
+            `order_type` varchar(50) DEFAULT NULL,
+            `voided` bit(1) DEFAULT NULL,
+            `voided_date` datetime DEFAULT NULL,
+            `voided_by` varchar(255) DEFAULT NULL,
+            PRIMARY KEY (`indoor_patient_service_bill_item_id`),
+            KEY `fk_indoorpatientservicebillitem_billableservice` (`service_id`),
+            KEY `fk_indoorpatientservicebillitem_patientservicebill` (`indoor_patient_service_bill_id`),
+            KEY `fk_indoorpatientservicebillitem_order` (`order_id`),
+            CONSTRAINT `fk_indoorpatientservicebillitem_billableservice` FOREIGN KEY (`service_id`) REFERENCES `billing_billable_service` (`service_id`),
+            CONSTRAINT `fk_indoorpatientservicebillitem_order` FOREIGN KEY (`order_id`) REFERENCES `orders` (`order_id`),
+            CONSTRAINT `fk_indoorpatientservicebillitem_patientservicebill` FOREIGN KEY (`indoor_patient_service_bill_id`) REFERENCES `indoor_patient_service_bill` (`indoor_patient_service_bill_id`)
+            ) ENGINE=InnoDB AUTO_INCREMENT=368 DEFAULT CHARSET=utf8;
+        </sql>
+    </changeSet>
 </databaseChangeLog>
