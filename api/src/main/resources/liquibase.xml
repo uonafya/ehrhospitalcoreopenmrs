@@ -4,850 +4,110 @@
                    xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-2.0.xsd
     http://www.liquibase.org/xml/ns/dbchangelog-ext http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-ext.xsd">
 
-    <changeSet id="hospital-core:2020-06-24-18:46" author="ningosi">
-        <preConditions onFail="MARK_RAN" onError="WARN">
-            <dbms type="mysql"/>
-        </preConditions>
-        <comment>Add opd patient queue tables</comment>
-        <sql>
-            CREATE TABLE IF NOT EXISTS opd_patient_queue (id integer not null auto_increment, user integer, patient_id integer, referral_concept_id integer, opd_concept_id integer, age integer, created_on datetime, opd_concept_name varchar(255), patient_name varchar(255), referral_concept_name varchar(255), sex varchar(255), status varchar(255), primary key (id));
-            CREATE TABLE IF NOT EXISTS opd_patient_queue_log (id integer not null auto_increment, user integer, patient_id integer, referral_concept_id integer, opd_concept_id integer, age integer, created_on datetime, opd_concept_name varchar(255), patient_name varchar(255), referral_concept_name varchar(255), sex varchar(255), status varchar(255), primary key (id));
-        </sql>
-    </changeSet>
 
-    <changeSet id="hospital-core:2020-06-24-18:52" author="ningosi">
+    <changeSet id="hospital-core:2020-07-21-15:33" author="ningosi">
         <preConditions onFail="MARK_RAN" onError="WARN">
             <dbms type="mysql"/>
         </preConditions>
-        <comment>Add column patient indentifier for opd_patient_queue table</comment>
+        <comment>creating the billing_ambulance table</comment>
         <sql>
-            ALTER TABLE opd_patient_queue
-            ADD COLUMN `patient_identifier`  varchar(50)  default NULL;
-
-            ALTER TABLE opd_patient_queue_log
-            ADD COLUMN `patient_identifier`  varchar(50)  default NULL;
+            CREATE TABLE IF NOT EXISTS `billing_ambulance` (
+            `ambulance_id` int(11) NOT NULL AUTO_INCREMENT,
+            `name` varchar(255) DEFAULT NULL,
+            `description` varchar(255) DEFAULT NULL,
+            `created_date` datetime DEFAULT NULL,
+            `retired` bit(1) DEFAULT NULL,
+            `retired_date` datetime DEFAULT NULL,
+            PRIMARY KEY (`ambulance_id`)
+            ) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8;
         </sql>
     </changeSet>
-    <changeSet id="hospital-core:2020-06-24-18:55" author="ningosi">
+    <changeSet id="hospital-core:2020-07-21-15:38" author="ningosi">
         <preConditions onFail="MARK_RAN" onError="WARN">
             <dbms type="mysql"/>
         </preConditions>
-        <comment>Add column birth_date for opd_patient_queue table</comment>
+        <comment>creating the billing_driver table</comment>
         <sql>
-            ALTER TABLE opd_patient_queue
-            ADD COLUMN `birth_date`  datetime  default NULL,
-            DROP COLUMN `age`;
-
-            ALTER TABLE opd_patient_queue_log
-            ADD COLUMN `birth_date`  datetime  default NULL,
-            DROP COLUMN `age`;
+            CREATE TABLE IF NOT EXISTS `billing_driver` (
+            `driver_id` int(11) NOT NULL AUTO_INCREMENT,
+            `name` varchar(255) DEFAULT NULL,
+            `address` varchar(255) DEFAULT NULL,
+            `description` varchar(255) DEFAULT NULL,
+            `phone` varchar(20) DEFAULT NULL,
+            `created_date` datetime DEFAULT NULL,
+            `retired` bit(1) DEFAULT NULL,
+            `retired_date` datetime DEFAULT NULL,
+            PRIMARY KEY (`driver_id`)
+            ) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8;
         </sql>
     </changeSet>
-    <changeSet id="hospital-core:2020-06-24-19:06" author="ningosi">
+    <changeSet id="hospital-core:2020-07-21-15:43" author="ningosi">
         <preConditions onFail="MARK_RAN" onError="WARN">
             <dbms type="mysql"/>
         </preConditions>
-        <comment>Add ipd patient queue tables</comment>
+        <comment>creating the billing_receipt table</comment>
         <sql>
-            CREATE TABLE IF NOT EXISTS ipd_patient_admission (id integer not null auto_increment, patient_id integer, admission_ward_id integer, opd_log_id integer, opd_admitted_user_id integer, admission_date datetime, patient_name varchar(255), patient_identifier varchar(255), birth_date datetime, gender varchar(255), status varchar(255), primary key (id));
-            CREATE TABLE IF NOT EXISTS ipd_patient_admission_log (id integer not null auto_increment, patient_id integer, admission_ward_id integer, opd_log_id integer, opd_admitted_user_id integer, admission_date datetime, patient_name varchar(255), birth_date datetime, patient_identifier varchar(255), gender varchar(255), status varchar(255), primary key (id));
-            CREATE TABLE IF NOT EXISTS ipd_patient_admitted (id integer not null auto_increment, patient_id integer, admitted_ward_id integer, patient_admission_log_id integer, patient_amitted_log_id_transfer_from integer, user_id integer, ipd_admitted_user_id integer, admission_date datetime, patient_name varchar(255), birth_date datetime, gender varchar(255), monthly_income decimal(19,2), patient_identifier varchar(255), basic_pay varchar(255), caste varchar(255), status varchar(255), patient_address varchar(255), bed varchar(255), father_name varchar(255), admission_outcome varchar(255), primary key (id));
-            CREATE TABLE IF NOT EXISTS ipd_patient_admitted_log (id integer not null auto_increment, patient_id integer, admitted_ward_id integer, patient_admission_log_id integer, patient_amitted_log_id_transfer_from integer, user_id integer, ipd_admitted_user_id integer, admission_date datetime, patient_name varchar(255), birth_date datetime, gender varchar(255), monthly_income decimal(19,2), patient_identifier varchar(255), basic_pay varchar(255), caste varchar(255), status varchar(255), patient_address varchar(255), bed varchar(255), father_name varchar(255), admission_outcome varchar(255), primary key (id));
-        </sql>
-    </changeSet>
-
-    <changeSet id="hospital-core:2020-06-24-19:10" author="ningosi">
-        <preConditions onFail="MARK_RAN" onError="WARN">
-            <dbms type="mysql"/>
-        </preConditions>
-        <comment>Add Obs group and ipd encounter columns to ipd_patient_admission_log table</comment>
-        <sql>
-            ALTER TABLE ipd_patient_admission_log ADD opd_obs_group_id integer;
-            ALTER TABLE ipd_patient_admission_log ADD ipd_encounter_id integer;
-        </sql>
-    </changeSet>
-
-    <changeSet id="hospital-core:2020-06-24-19:14" author="ningosi">
-        <preConditions onFail="MARK_RAN" onError="WARN">
-            <dbms type="mysql"/>
-        </preConditions>
-        <comment>Add department , department ward, department diagnosis procedure</comment>
-        <sql>
-            CREATE TABLE IF NOT EXISTS department (id integer not null auto_increment, name varchar(255),retired bit(1) default NULL, created_on datetime, created_by varchar(255), primary key (id));
-            CREATE TABLE IF NOT EXISTS department_concept (id integer not null auto_increment, department_id integer, concept_id integer, type_concept integer, created_on datetime, created_by varchar(255), primary key (id));
-            CREATE TABLE IF NOT EXISTS department_ward (department_id integer not null, ward_id integer not null, primary key (department_id, ward_id));
-        </sql>
-    </changeSet>
-
-    <changeSet id="hospital-core:2020-06-24-19:15" author="ningosi">
-        <preConditions onFail="MARK_RAN" onError="WARN">
-            <dbms type="mysql"/>
-        </preConditions>
-        <comment>Change column admission_date to transfer_discharge_date in ipd_patient_admitted_log</comment>
-        <sql>
-            ALTER TABLE ipd_patient_admitted_log  CHANGE admission_date transfer_discharge_date datetime;
-        </sql>
-    </changeSet>
-
-    <changeSet id="hospital-core:2020-06-24-19:18" author="ningosi">
-        <preConditions onFail="MARK_RAN" onError="WARN">
-            <dbms type="mysql"/>
-        </preConditions>
-        <comment>Create table radiology_department and radiology_department_investigation</comment>
-        <sql>
-            CREATE TABLE IF NOT EXISTS `radiology_department` (
-            `department_id` int(11) NOT NULL auto_increment,
-            `name` varchar(30) NOT NULL default '',
-            `description` varchar(255) NOT NULL default '',
-            `role` varchar(50) NOT NULL default '',
-            PRIMARY KEY  (`department_id`)
-            ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
-
-            CREATE TABLE IF NOT EXISTS `radiology_department_investigations` (
-            `department_id` int(11) NOT NULL default '0',
-            `concept_id` int(11) NOT NULL default '0',
-            PRIMARY KEY  (`department_id`,`concept_id`)
-            ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
-        </sql>
-    </changeSet>
-    <changeSet id="hospital-core:2020-06-24-19:19" author="ningosi">
-        <preConditions onFail="MARK_RAN" onError="WARN">
-            <dbms type="mysql"/>
-        </preConditions>
-        <comment>Add encounter forgeinkey to opd queue log</comment>
-        <sql>
-            ALTER TABLE opd_patient_queue_log ADD encounter_id integer default 0;
-        </sql>
-    </changeSet>
-
-    <changeSet id="hospital-core:2020-06-24-19:24" author="ningosi">
-        <preConditions onFail="MARK_RAN" onError="WARN">
-            <dbms type="mysql"/>
-        </preConditions>
-        <comment>Add table core form</comment>
-        <sql>
-            CREATE TABLE IF NOT EXISTS `core_form` (
-            `core_form_id` int(11) NOT NULL AUTO_INCREMENT,
-            `name` varchar(120) DEFAULT NULL,
-            `description` varchar(300) NOT NULL DEFAULT '',
-            `content` varchar(20480) NOT NULL DEFAULT '',
-            `created_on` datetime DEFAULT NULL,
-            `created_by` int(11) DEFAULT NULL,
-            PRIMARY KEY (`core_form_id`)
-            ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
-        </sql>
-    </changeSet>
-    <changeSet id="hospital-core:2020-06-24-19:25" author="ningosi">
-        <preConditions onFail="MARK_RAN" onError="WARN">
-            <dbms type="mysql"/>
-        </preConditions>
-        <comment>Add column after_submit</comment>
-        <sql>
-            ALTER TABLE core_form ADD after_submit varchar(300) DEFAULT NULL;
-        </sql>
-    </changeSet>
-    <changeSet id="hospital-core:2020-06-24-19:26" author="ningosi">
-    <preConditions onFail="MARK_RAN" onError="WARN">
-        <dbms type="mysql"/>
-    </preConditions>
-        <comment>Add table patient search</comment>
-        <sql>
-            CREATE TABLE IF NOT EXISTS `patient_search` (
-            `patient_id` int(11) NOT NULL,
-            `identifier` varchar(30) DEFAULT NULL,
-            `fullname` varchar(200) DEFAULT NULL,
-            `given_name` varchar(60) DEFAULT NULL,
-            `middle_name` varchar(60) DEFAULT NULL,
-            `family_name` varchar(60) DEFAULT NULL,
-            `gender` varchar(10) DEFAULT NULL,
-            `birthdate` datetime DEFAULT NULL,
-            `age` int(11) DEFAULT NULL,
-            `person_name_id` int(11) DEFAULT NULL,
-            PRIMARY KEY (`patient_id`)
-            ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
-        </sql>
-    </changeSet>
-    <changeSet id="hospital-core:2020-06-24-19:29" author="ningosi">
-        <preConditions onFail="MARK_RAN" onError="WARN">
-            <dbms type="mysql"/>
-        </preConditions>
-        <comment>User must be able to send investigation orders from dashboard to billing - Create table opd_order</comment>
-        <sql>
-            CREATE TABLE IF NOT EXISTS `opd_test_order` (
-            `opd_order_id` int(11) NOT NULL AUTO_INCREMENT,
-            `patient_id` int(11) NOT NULL,
-            `encounter_id` int(11) NOT NULL,
-            `concept_id` int(11) NOT NULL,
-            `type_concept` int(11) NOT NULL,
-            `value_coded` int(11) DEFAULT NULL,
-            `created_by` int(11) NOT NULL,
-            `created_on` datetime NOT NULL,
-            `billing_status` smallint(1) NOT NULL DEFAULT '0',
-            `cancel_status` smallint(1) NOT NULL DEFAULT '0',
-            PRIMARY KEY (`opd_order_id`)
-            ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
-        </sql>
-    </changeSet>
-    <changeSet id="hospital-core:2020-06-24-19:30" author="ningosi">
-        <preConditions onFail="MARK_RAN" onError="WARN">
-            <dbms type="mysql"/>
-        </preConditions>
-        <comment>Capture Vital statistics for admitted patient in ipd - Create table ipd_vital_statistics</comment>
-        <sql>
-            CREATE TABLE IF NOT EXISTS `ipd_vital_statistics` (
+            CREATE TABLE IF NOT EXISTS `billing_receipt` (
             `id` int(11) NOT NULL AUTO_INCREMENT,
-            `patient_id` int(11) NOT NULL,
-            `ipd_patientadmissionlog_id` int(11) NOT NULL,
-            `blood_pressure` varchar(11) DEFAULT NULL,
-            `pulse_rate` varchar(11) DEFAULT NULL,
-            `temperature` varchar(11) DEFAULT NULL,
-            `diet_advised` varchar(50) DEFAULT NULL,
-            `note` varchar(200) DEFAULT NULL,
-            `created_by` int(11) NOT NULL,
-            `created_on` datetime NOT NULL,
+            `paid_date` datetime DEFAULT NULL,
             PRIMARY KEY (`id`)
-            ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+            ) ENGINE=InnoDB AUTO_INCREMENT=315 DEFAULT CHARSET=utf8;
         </sql>
     </changeSet>
-    <changeSet id="hospital-core:2020-06-24-19:31" author="ningosi">
-    <preConditions onFail="MARK_RAN" onError="WARN">
-        <dbms type="mysql"/>
-    </preConditions>
-        <comment>User should be able to send pharmacy orders to issue drugs to a patient from dashboard - Create table opd_drug_order</comment>
-        <sql>
-            CREATE TABLE IF NOT EXISTS `opd_drug_order` (
-            `opd_drug_order_id` int(11) NOT NULL AUTO_INCREMENT,
-            `patient_id` int(11) NOT NULL,
-            `encounter_id` int(11) NOT NULL,
-            `inventory_drug_id` int(11) NOT NULL,
-            `formulation_id` int(11) DEFAULT NULL,
-            `frequency_concept_id` int(11) DEFAULT NULL,
-            `no_of_days` int(11) DEFAULT NULL,
-            `comments` varchar(200) DEFAULT NULL,
-            `created_by` int(11) NOT NULL,
-            `created_on` datetime NOT NULL,
-            `order_status` smallint(1) NOT NULL DEFAULT '0',
-            `cancel_status` smallint(1) NOT NULL DEFAULT '0',
-            PRIMARY KEY (`opd_drug_order_id`)
-            ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
-        </sql>
-    </changeSet>
-    <changeSet id="hospital-core:2020-06-24-19:41" author="ningosi">
-    <preConditions onFail="MARK_RAN" onError="WARN">
-        <dbms type="mysql"/>
-    </preConditions>
-        <comment>Create table ward_bed_strength</comment>
-        <sql>
-            CREATE TABLE IF NOT EXISTS `ward_bed_strength` (
-            `ward_bed_strength_id` int(11) NOT NULL AUTO_INCREMENT,
-            `concept_id` int(11) NOT NULL,
-            `bed_strength` int(11) DEFAULT NULL,
-            `created_by` int(11) NOT NULL,
-            `created_on` datetime NOT NULL,
-            PRIMARY KEY (`ward_bed_strength_id`)
-            ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
-        </sql>
-    </changeSet>
-
-    <changeSet id="hospital-core:2020-06-25-11:45" author="ningosi">
+    <changeSet id="hospital-core:2020-07-21-15:47" author="ningosi">
         <preConditions onFail="MARK_RAN" onError="WARN">
             <dbms type="mysql"/>
         </preConditions>
-        <comment>Add column otherInstructions for ipd_patient_admitted_log table</comment>
+        <comment>creating the billing_ambulance_bill table</comment>
         <sql>
-            ALTER TABLE ipd_patient_admitted_log
-            ADD COLUMN `other_instructions`  varchar(250)  default NULL;
-
+            CREATE TABLE IF NOT EXISTS `billing_ambulance_bill` (
+            `ambulance__bill_id` int(11) NOT NULL AUTO_INCREMENT,
+            `description` varchar(255) DEFAULT NULL,
+            `creator` int(11) DEFAULT NULL,
+            `amount` decimal(19,2) DEFAULT NULL,
+            `printed` bit(1) DEFAULT NULL,
+            `created_date` datetime DEFAULT NULL,
+            `voided` bit(1) DEFAULT NULL,
+            `voided_date` datetime DEFAULT NULL,
+            `driver_id` int(11) DEFAULT NULL,
+            `receipt_id` int(11) DEFAULT NULL,
+            PRIMARY KEY (`ambulance__bill_id`),
+            KEY `fk_ambulancebill_driver` (`driver_id`),
+            KEY `fk_ambulancebill_user` (`creator`),
+            KEY `fk_ambulance_receipt` (`receipt_id`),
+            CONSTRAINT `fk_ambulancebill_driver` FOREIGN KEY (`driver_id`) REFERENCES `billing_driver` (`driver_id`),
+            CONSTRAINT `fk_ambulancebill_user` FOREIGN KEY (`creator`) REFERENCES `users` (`user_id`),
+            CONSTRAINT `fk_ambulance_receipt` FOREIGN KEY (`receipt_id`) REFERENCES `billing_receipt` (`id`)
+            ) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8;
         </sql>
     </changeSet>
 
-    <changeSet id="hospital-core:2020-06-25-11:46" author="ningosi">
-    <preConditions onFail="MARK_RAN" onError="WARN">
-        <dbms type="mysql"/>
-    </preConditions>
-        <comment>Add column billable_service_id for opd_test_order table - Patient does not disappear from queue even after billing is complete</comment>
-        <sql>
-            ALTER TABLE opd_test_order
-            ADD COLUMN `billable_service_id`  int(11) DEFAULT NULL;
-        </sql>
-    </changeSet>
-
-    <changeSet id="hospital-core:2020-06-25-11:47" author="ningosi">
-    <preConditions onFail="MARK_RAN" onError="WARN">
-        <dbms type="mysql"/>
-    </preConditions>
-        <comment>Introducing bed availability - Add column comments for ipd_patient_admitted table</comment>
-        <sql>
-            ALTER TABLE ipd_patient_admitted
-            ADD COLUMN `comments`  varchar(100)  default NULL;
-        </sql>
-    </changeSet><changeSet id="hospital-core:2020-06-25-11:49" author="ningosi">
-    <preConditions onFail="MARK_RAN" onError="WARN">
-        <dbms type="mysql"/>
-    </preConditions>
-    <comment>Add column comments for ipd_patient_admitted_log table</comment>
-    <sql>
-        ALTER TABLE ipd_patient_admitted_log
-        ADD COLUMN `comments`  varchar(100)  default NULL;
-    </sql>
-</changeSet>
-
-<changeSet id="hospital-core:2020-06-25-11:51" author="ningosi">
-<preConditions onFail="MARK_RAN" onError="WARN">
-    <dbms type="mysql"/>
-</preConditions>
-    <comment>Add triage patient queue tables</comment>
-    <sql>
-        CREATE TABLE IF NOT EXISTS triage_patient_queue (id integer not null auto_increment, user integer, patient_id integer, referral_concept_id integer, triage_concept_id integer, created_on datetime, triage_concept_name varchar(255), patient_name varchar(255), referral_concept_name varchar(255), sex varchar(255), status varchar(255), patient_identifier  varchar(50)  default NULL, birth_date  datetime  default NULL, primary key (id));
-        CREATE TABLE IF NOT EXISTS triage_patient_queue_log (id integer not null auto_increment, user integer, patient_id integer, referral_concept_id integer, triage_concept_id integer, created_on datetime, triage_concept_name varchar(255), patient_name varchar(255), referral_concept_name varchar(255), sex varchar(255), status varchar(255), patient_identifier  varchar(50)  default NULL, birth_date  datetime  default NULL, encounter_id integer default 0, primary key (id));
-    </sql>
-</changeSet>
-    <changeSet id="hospital-core:2020-06-25-11:53" author="ningosi">
-    <preConditions onFail="MARK_RAN" onError="WARN">
-        <dbms type="mysql"/>
-    </preConditions>
-        <comment>Create table triage_patient_data to add capture information in triage fields</comment>
-        <sql>
-            CREATE TABLE IF NOT EXISTS triage_patient_data (id INTEGER NOT NULL AUTO_INCREMENT,
-            triage_log_id INTEGER,
-            `weight` DECIMAL(5,2),
-            `height` DECIMAL(5,2),
-            `temperature` DECIMAL(5,2),
-            `systolic` int(5),
-            `daistolic` int(5),
-            `respiratory_rate` int(5),
-            `pulse_rate` int(5),
-            `blood_group` VARCHAR(10),
-            `last_menstrual` DATETIME,
-            `rhesus_factor` VARCHAR(12),
-            `pitct` VARCHAR(12),
-            created_on DATETIME, PRIMARY KEY (id));
-        </sql>
-    </changeSet>
-    <changeSet id="hospital-core:2020-06-25-11:54" author="ningosi">
-    <preConditions onFail="MARK_RAN" onError="WARN">
-        <dbms type="mysql"/>
-    </preConditions>
-        <comment>Add column triage_data_id for opd_patient_queue table and opd_patient_queue_log</comment>
-        <sql>
-            ALTER TABLE opd_patient_queue
-            ADD COLUMN `triage_data_id`  INTEGER;
-
-            ALTER TABLE opd_patient_queue_log
-            ADD COLUMN `triage_data_id`  INTEGER;
-        </sql>
-    </changeSet>
-
-    <changeSet id="hospital-core:2020-06-25-11:55" author="ningosi">
-    <preConditions onFail="MARK_RAN" onError="WARN">
-        <dbms type="mysql"/>
-    </preConditions>
-        <comment>Add column dead for 'patient_search' table</comment>
-        <sql>
-            ALTER TABLE patient_search ADD dead smallint(6) DEFAULT 0;
-        </sql>
-    </changeSet>
-
-    <changeSet id="hospital-core:2020-06-25-11:56" author="ningosi">
-    <preConditions onFail="MARK_RAN" onError="WARN">
-        <dbms type="mysql"/>
-    </preConditions>
-        <comment>Add column for knowing the status of Patient as Indoor or outdoor</comment>
-        <sql>
-            ALTER TABLE ipd_patient_admission
-            ADD COLUMN `accept_status` smallint(1) NOT NULL DEFAULT '0',
-            ADD COLUMN `initial_deposit_status` smallint(1) NOT NULL DEFAULT '0',
-            ADD COLUMN `ipd_encounter_id` int(11) DEFAULT NULL;
-
-            ALTER TABLE ipd_patient_admission_log
-            ADD COLUMN `indoor_status` smallint(1) NOT NULL DEFAULT '0',
-            ADD COLUMN `request_discharge_status` smallint(1) NOT NULL DEFAULT '0',
-            ADD COLUMN `billing_status` smallint(1) NOT NULL DEFAULT '0';
-
-            ALTER TABLE ipd_patient_admitted
-            ADD COLUMN `request_discharge_status` smallint(1) NOT NULL DEFAULT '0',
-            ADD COLUMN `billing_status` smallint(1) NOT NULL DEFAULT '0';
-        </sql>
-    </changeSet>
-
-    <changeSet id="hospital-core:2020-06-25-12:22" author="ningosi">
-    <preConditions onFail="MARK_RAN" onError="WARN">
-        <dbms type="mysql"/>
-    </preConditions>
-        <comment>Add column chief,sub_chief,religion in ipd_patient_admitted table and in ipd_patient_admitted_log table</comment>
-
-        <sql>
-            ALTER TABLE ipd_patient_admitted
-            ADD COLUMN `chief` VARCHAR(50) default NULL,
-            ADD COLUMN `sub_chief` VARCHAR(50) default NULL,
-            ADD COLUMN `religion` VARCHAR(20) default NULL;
-
-            ALTER TABLE ipd_patient_admitted_log
-            ADD COLUMN `chief` VARCHAR(50) default NULL,
-            ADD COLUMN `sub_chief` VARCHAR(50) default NULL,
-            ADD COLUMN `religion` VARCHAR(20) default NULL;
-        </sql>
-
-    </changeSet>
-    <changeSet id="hospital-core:2020-06-25-12:23" author="ningosi">
-    <preConditions onFail="MARK_RAN" onError="WARN">
-        <dbms type="mysql"/>
-    </preConditions>
-        <comment>Multiexitple parent mainstores</comment>
-        <sql>
-            CREATE TABLE IF NOT EXISTS inventory_store_relationship (inventory_store_child_id integer not null, inventory_store_parent_id integer not null, primary key (inventory_store_child_id, inventory_store_parent_id));
-        </sql>
-    </changeSet>
-
-    <changeSet id="hospital-core:2020-06-25-12:25" author="ningosi">
-    <preConditions onFail="MARK_RAN" onError="WARN">
-        <dbms type="mysql"/>
-    </preConditions>
-        <comment>Add column for keeping schedule date for minor OT procedures</comment>
-        <sql>
-            ALTER TABLE opd_test_order
-            ADD COLUMN `schedule_date` datetime default NULL,
-            ADD COLUMN `indoor_status` smallint(1) NOT NULL DEFAULT '0';
-        </sql>
-    </changeSet>
-
-    <changeSet id="hospital-core:2020-06-25-12:26" author="ningosi">
-    <preConditions onFail="MARK_RAN" onError="WARN">
-        <dbms type="mysql"/>
-    </preConditions>
-        <comment>Add column visit_outcome for opd_patient_queue_log</comment>
-        <sql>
-            ALTER TABLE opd_patient_queue_log
-            ADD COLUMN `visit_outcome`  VARCHAR(21) default NULL;
-        </sql>
-    </changeSet>
-
-    <changeSet id="hospital-core:2020-06-25-12:28" author="ningosi">
-    <preConditions onFail="MARK_RAN" onError="WARN">
-        <dbms type="mysql"/>
-    </preConditions>
-        <comment>Add columns to capture more patient information in triage</comment>
-        <sql>
-            ALTER TABLE triage_patient_data
-            ADD COLUMN `mua` DECIMAL(5,2),
-            ADD COLUMN `chest` DECIMAL(5,2),
-            ADD COLUMN `abdominal` DECIMAL(5,2);
-        </sql>
-    </changeSet>
-
-    <changeSet id="hospital-core:2020-06-25-12:30" author="ningosi">
-    <preConditions onFail="MARK_RAN" onError="WARN">
-        <dbms type="mysql"/>
-    </preConditions>
-        <comment>Create table to store patient past medical and surgical history</comment>
-        <sql>
-            CREATE TABLE IF NOT EXISTS patient_medical_history (id INTEGER NOT NULL AUTO_INCREMENT, triage_log_id INTEGER, patient_id INTEGER, illness_existing VARCHAR(10), illness_problem VARCHAR(100), illness_long VARCHAR(100), illness_progress VARCHAR(100), illness_record VARCHAR(100), chronic_illness VARCHAR(10), chronic_illness_problem VARCHAR(100), chronic_illness_occure VARCHAR(100), chronic_illness_outcome VARCHAR(100), chronic_illness_record VARCHAR(100), previous_admission VARCHAR(10), previous_adm_when VARCHAR(100), previous_adm_problem VARCHAR(100), previous_adm_outcome VARCHAR(100), previous_adm_record VARCHAR(100), previous_investigation VARCHAR(10), previous_invest_when VARCHAR(100), previous_invest_problem VARCHAR(100), previous_invest_outcome VARCHAR(100), previous_invest_record VARCHAR(100), bcg VARCHAR(20), polio VARCHAR(20), dpt VARCHAR(20), measles VARCHAR(20), pneumococcal VARCHAR(20), yellow_fever VARCHAR(20), tetanus_male VARCHAR(20), tetanus_female VARCHAR(20), other_vaccinations VARCHAR(250), created_on DATETIME, PRIMARY KEY (id));
-            CREATE TABLE IF NOT EXISTS patient_drug_history (id INTEGER NOT NULL AUTO_INCREMENT, triage_log_id INTEGER, patient_id INTEGER, current_medication VARCHAR(10), medication_name VARCHAR(100), medication_period VARCHAR(100), medication_reason VARCHAR(100), medication_record VARCHAR(100), sensitive_medication VARCHAR(10), sensitive_medication_name VARCHAR(100), sensitive_medication_symptom VARCHAR(100),  invasive_contraception  VARCHAR(10), invasive_contraception_name  VARCHAR(100), created_on DATETIME, PRIMARY KEY (id));
-            CREATE TABLE IF NOT EXISTS patient_family_history (id INTEGER NOT NULL AUTO_INCREMENT, triage_log_id INTEGER, patient_id INTEGER, parent_status VARCHAR(10), parent_death_cause VARCHAR(100), parent_death_age VARCHAR(100), sibling_status VARCHAR(100), sibling_death_cause VARCHAR(100), sibling_death_age VARCHAR(100), family_illness_history VARCHAR(100), created_on DATETIME, PRIMARY KEY (id));
-            CREATE TABLE IF NOT EXISTS patient_personal_history (id INTEGER NOT NULL AUTO_INCREMENT, triage_log_id INTEGER, patient_id INTEGER, smoke VARCHAR(10), smoke_item VARCHAR(100), smoke_average VARCHAR(100), alcohol VARCHAR(10), alcohol_item VARCHAR(100), alcohol_average VARCHAR(100), drug VARCHAR(10), drug_item VARCHAR(100), drug_average VARCHAR(100), hiv_status VARCHAR(10), exposed_hiv VARCHAR(10), exposed_hiv_factor VARCHAR(100), family_help VARCHAR(10), other_help VARCHAR(100), income_source VARCHAR(10), created_on DATETIME, PRIMARY KEY (id));
-        </sql>
-    </changeSet>
-
-    <changeSet id="hospital-core:2020-06-25-12:43" author="ningosi">
-    <preConditions onFail="MARK_RAN" onError="WARN">
-        <dbms type="mysql"/>
-    </preConditions>
-        <comment>create table symptom,question,answer</comment>
-        <sql>
-            CREATE TABLE IF NOT EXISTS symptom (symptom_id integer not null auto_increment, encounter integer, symptom_concept integer, `created_date` datetime default null, `creator` int(11) default null,primary key (symptom_id));
-            CREATE TABLE IF NOT EXISTS question (question_id integer not null auto_increment, symptom_id integer, question_concept integer, primary key (question_id));
-            CREATE TABLE IF NOT EXISTS answer (answer_id integer not null auto_increment, question_id integer, answer_concept integer, free_text varchar(50), primary key (answer_id));
-        </sql>
-    </changeSet>
-
-    <changeSet id="hospital-core:2020-06-25-12:44" author="ningosi">
-    <preConditions onFail="MARK_RAN" onError="WARN">
-        <dbms type="mysql"/>
-    </preConditions>
-        <comment>Add columns to capture more patient information in triage</comment>
-        <sql>
-            ALTER TABLE triage_patient_queue ADD COLUMN `category` VARCHAR(21) default NULL;
-            ALTER TABLE triage_patient_queue_log ADD COLUMN `category` VARCHAR(21) default NULL;
-
-            ALTER TABLE opd_patient_queue ADD COLUMN `category` VARCHAR(21) default NULL;
-            ALTER TABLE opd_patient_queue_log ADD COLUMN `category` VARCHAR(21) default NULL;
-        </sql>
-    </changeSet>
-
-    <changeSet id="hospital-core:2020-06-25-12:45" author="ningosi">
-    <preConditions onFail="MARK_RAN" onError="WARN">
-        <dbms type="mysql"/>
-    </preConditions>
-        <comment>Add column visit_status</comment>
-        <sql>
-            ALTER TABLE triage_patient_queue ADD COLUMN `visit_status` VARCHAR(21) default NULL;
-            ALTER TABLE triage_patient_queue_log ADD COLUMN `visit_status` VARCHAR(21) default NULL;
-
-            ALTER TABLE opd_patient_queue ADD COLUMN `visit_status` VARCHAR(21) default NULL;
-            ALTER TABLE opd_patient_queue_log ADD COLUMN `visit_status` VARCHAR(21) default NULL;
-        </sql>
-    </changeSet>
-    <changeSet id="hospital-core:2020-06-25-12:47" author="ningosi">
+    <changeSet id="hospital-core:2020-07-21-15:51" author="ningosi">
         <preConditions onFail="MARK_RAN" onError="WARN">
             <dbms type="mysql"/>
         </preConditions>
-        <comment>Add column referral_opd_name</comment>
+        <comment>creating the billing_ambulance_bill_item table</comment>
         <sql>
-            ALTER TABLE opd_test_order ADD COLUMN `referral_opd_name` VARCHAR(100) default NULL;
+            CREATE TABLE IF NOT EXISTS `billing_ambulance_bill_item` (
+            `ambulance__bill_item_id` int(11) NOT NULL AUTO_INCREMENT,
+            `ambulance_id` int(11) DEFAULT NULL,
+            `ambulance_bill_id` int(11) DEFAULT NULL,
+            `number_of_trip` int(11) DEFAULT NULL,
+            `amount` decimal(19,2) DEFAULT NULL,
+            `name` varchar(255) DEFAULT NULL,
+            `created_date` datetime DEFAULT NULL,
+            `voided` bit(1) DEFAULT NULL,
+            `voided_date` datetime DEFAULT NULL,
+            `patient_name` varchar(50) DEFAULT NULL,
+            `receipt_number` varchar(13) DEFAULT NULL,
+            `origin` varchar(20) DEFAULT NULL,
+            `destination` varchar(20) DEFAULT NULL,
+            PRIMARY KEY (`ambulance__bill_item_id`),
+            KEY `fk_ambulancebillitem_ambulancebill` (`ambulance_bill_id`),
+            KEY `fk_ambulancebillitem_ambulance` (`ambulance_id`),
+            CONSTRAINT `fk_ambulancebillitem_ambulance` FOREIGN KEY (`ambulance_id`) REFERENCES `billing_ambulance` (`ambulance_id`),
+            CONSTRAINT `fk_ambulancebillitem_ambulancebill` FOREIGN KEY (`ambulance_bill_id`) REFERENCES `billing_ambulance_bill` (`ambulance__bill_id`)
+            ) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8;
         </sql>
-    </changeSet>
-
-    <changeSet id="hospital-core:2020-06-25-12:48" author="ningosi">
-    <preConditions onFail="MARK_RAN" onError="WARN">
-        <dbms type="mysql"/>
-    </preConditions>
-        <comment>Add column referral_opd_name and Shifting inventory_store_drug_transaction_detail table to hospital core</comment>
-        <sql>
-            ALTER TABLE opd_drug_order ADD COLUMN `referral_opd_name` VARCHAR(100) default NULL;
-            CREATE TABLE IF NOT EXISTS inventory_store_drug_transaction_detail (id integer not null auto_increment, transaction_id integer, drug_id integer, formulation_id integer, quantity integer, current_quantity integer, issue_quantity integer, unit_price decimal(19,2), VAT decimal(19,2), total_price decimal(19,2), batch_no varchar(255), company_name varchar(255), date_manufacture datetime, date_expiry datetime, receipt_date datetime, created_on datetime, opening_balance bigint, closing_balance bigint, parent_id integer, primary key (id));
-            ALTER TABLE inventory_store_drug_transaction_detail MODIFY VAT decimal(19,2);
-        </sql>
-    </changeSet>
-
-    <changeSet id="hospital-core:2020-06-25-12:53" author="ningosi">
-    <preConditions onFail="MARK_RAN" onError="WARN">
-        <dbms type="mysql"/>
-    </preConditions>
-        <comment>Shifting inventory_store_drug_transaction_detail table to hospital core</comment>
-        <sql>
-            ALTER TABLE inventory_store_drug_transaction_detail ADD reorder_point integer;
-            ALTER TABLE inventory_store_drug_transaction_detail ADD attribute varchar(10);
-        </sql>
-    </changeSet>
-
-    <changeSet id="hospital-core:2020-06-25-12:54" author="ningosi">
-    <preConditions onFail="MARK_RAN" onError="WARN">
-        <dbms type="mysql"/>
-    </preConditions>
-        <comment>increasing length of visit status column in opd_patient_queue</comment>
-        <sql>
-            ALTER TABLE opd_patient_queue MODIFY COLUMN visit_status VARCHAR(255);
-        </sql>
-    </changeSet>
-
-    <changeSet id="hospital-core:2020-06-25-12:56" author="ningosi">
-    <preConditions onFail="MARK_RAN" onError="WARN">
-        <dbms type="mysql"/>
-    </preConditions>
-        <comment>Add column absconded to ipd_patient_admitted and add column absconded to ipd_patient_admission_log </comment>
-        <sql>
-            ALTER TABLE ipd_patient_admitted ADD COLUMN `absconded` VARCHAR(5) default NULL;
-            ALTER TABLE ipd_patient_admission_log ADD COLUMN `absconded` VARCHAR(5) default NULL;
-        </sql>
-    </changeSet>
-    <changeSet id="hospital-core:2020-06-25-12:58" author="ningosi">
-    <preConditions onFail="MARK_RAN" onError="WARN">
-        <dbms type="mysql"/>
-    </preConditions>
-        <comment>Add columns to capture more patient information in traige</comment>
-        <sql>
-            ALTER TABLE triage_patient_data
-            ADD COLUMN `encounter_opd` integer;
-        </sql>
-    </changeSet>
-
-    <changeSet id="hospital-core:2020-06-25-13:00" author="ningosi">
-    <preConditions onFail="MARK_RAN" onError="WARN">
-        <dbms type="mysql"/>
-    </preConditions>
-        <comment>Add column admitted for 'patient_search' table</comment>
-        <sql>
-            ALTER TABLE patient_search ADD admitted smallint(6) DEFAULT 0;
-        </sql>
-    </changeSet>
-
-    <changeSet id="hospital-core:2020-06-25-13:02" author="ningosi">
-    <preConditions onFail="MARK_RAN" onError="WARN">
-        <dbms type="mysql"/>
-    </preConditions>
-        <comment>Add column absconded_date to ipd_patient_admitted and add column absconded to ipd_patient_admitted_log and cost_to_patient to inventory_store_drug_transaction_detail</comment>
-        <sql>
-            ALTER TABLE ipd_patient_admitted ADD COLUMN `absconded_date` datetime default NULL;
-            ALTER TABLE ipd_patient_admitted_log ADD COLUMN `absconded_date` datetime default NULL;
-            ALTER TABLE inventory_store_drug_transaction_detail  ADD COLUMN  `cost_to_patient` decimal(19,2);
-        </sql>
-    </changeSet>
-    <changeSet id="hospital-core:2020-06-25-13:04" author="ningosi">
-    <preConditions onFail="MARK_RAN" onError="WARN">
-        <dbms type="mysql"/>
-    </preConditions>
-        <comment>rename column referral_opd_name to referral_ward_name</comment>
-        <sql>
-            ALTER TABLE opd_test_order CHANGE referral_opd_name referral_ward_name varchar(100) DEFAULT Null;
-            ALTER TABLE opd_drug_order CHANGE referral_opd_name referral_ward_name varchar(100) DEFAULT Null;
-        </sql>
-    </changeSet>
-    <changeSet id="hospital-core:2020-06-25-13:05" author="ningosi">
-    <preConditions onFail="MARK_RAN" onError="WARN">
-        <dbms type="mysql"/>
-    </preConditions>
-        <comment>ALTER TABLE billing_patient_service_bill ADD COLUMN patient_subcategory varchar(100)</comment>
-        <sql>
-            ALTER TABLE billing_patient_service_bill ADD COLUMN patient_subcategory varchar(100);
-        </sql>
-    </changeSet>
-
-    <changeSet id="hospital-core:2020-06-25-13:06" author="ningosi">
-    <preConditions onFail="MARK_RAN" onError="WARN">
-        <dbms type="mysql"/>
-    </preConditions>
-        <comment>Changing parent to father and added new columns related to mother in patient_family_history table</comment>
-        <sql>
-            ALTER TABLE patient_family_history CHANGE COLUMN parent_status father_status varchar(100);
-            ALTER TABLE patient_family_history CHANGE COLUMN parent_death_cause father_death_cause varchar(100);
-            ALTER TABLE patient_family_history CHANGE COLUMN parent_death_age father_death_age varchar(100);
-            ALTER TABLE patient_family_history ADD COLUMN (mother_status varchar(100)  DEFAULT NULL ,
-            mother_death_cause varchar(100)  DEFAULT NULL,
-            mother_death_age varchar(100)  DEFAULT NULL);
-        </sql>
-    </changeSet>
-    <changeSet id="hospital-core:2020-06-25-13:07" author="ningosi">
-    <preConditions onFail="MARK_RAN" onError="WARN">
-        <dbms type="mysql"/>
-    </preConditions>
-      <comment>Add column selected_category for `indoor_patient_service_bill</comment>
-        <sql>
-
-            ALTER TABLE indoor_patient_service_bill ADD COLUMN `selected_category` integer default 0;
-        </sql>
-    </changeSet>
-    <changeSet id="hospital-core:2020-06-25-13:33" author="ningosi">
-    <preConditions onFail="MARK_RAN" onError="WARN">
-        <dbms type="mysql"/>
-    </preConditions>
-        <comment>create table examination,question,answer</comment>
-        <sql>
-            CREATE TABLE IF NOT EXISTS examination (exam_id integer not null auto_increment, encounter integer, exam_concept integer, `created_date` datetime default null, `creator` int(11) default null,primary key (exam_id));
-        </sql>
-    </changeSet>
-    <changeSet id="hospital-core:2020-06-25-13:38" author="ningosi">
-    <preConditions onFail="MARK_RAN" onError="WARN">
-        <dbms type="mysql"/>
-    </preConditions>
-        <comment>Add columns to question</comment>
-        <sql>
-            ALTER TABLE question ADD COLUMN `exam_id` integer;
-        </sql>
-    </changeSet>
-
-    <changeSet id="hospital-core:2020-06-25-13:40" author="ningosi">
-    <preConditions onFail="MARK_RAN" onError="WARN">
-        <dbms type="mysql"/>
-    </preConditions>
-        <comment>Add column flag  in inventory_store_drug_transaction_detail table</comment>
-        <sql>
-            ALTER TABLE inventory_store_drug_transaction_detail ADD flag integer;
-        </sql>
-    </changeSet>
-    <changeSet id="hospital-core:2020-06-25-13:43" author="ningosi">
-    <preConditions onFail="MARK_RAN" onError="WARN">
-        <dbms type="mysql"/>
-    </preConditions>
-        <comment>Add column BMI  in triage_patient_data table </comment>
-        <sql>
-            ALTER TABLE triage_patient_data ADD BMI  DECIMAL(5,2);
-        </sql>
-    </changeSet>
-
-    <changeSet id="hospital-core:2020-06-25-13:44" author="ningosi">
-    <preConditions onFail="MARK_RAN" onError="WARN">
-        <dbms type="mysql"/>
-    </preConditions>
-        <comment>Add new table for role relationship</comment>
-        <sql>
-            CREATE TABLE IF NOT EXISTS inventory_store_role_relation (id integer not null auto_increment,inventory_store_id integer not null, inventory_store_role varchar(50) not null, primary key (id));
-        </sql>
-    </changeSet>
-
-    <changeSet id="hospital-core:2020-06-25-14:00" author="ningosi">
-    <preConditions onFail="MARK_RAN" onError="WARN">
-        <dbms type="mysql"/>
-    </preConditions>
-        <comment>Add column issue_count  in inventory_store_drug_patient_detail table</comment>
-        <sql>
-            ALTER TABLE inventory_store_drug_patient_detail ADD COLUMN `issue_count` INT(11) DEFAULT 0 AFTER transaction_detail_id;
-        </sql>
-    </changeSet>
-
-    <changeSet id="hospital-core:2020-07-20-20:25" author="ningosi">
-    <preConditions onFail="MARK_RAN" onError="WARN">
-        <dbms type="mysql"/>
-    </preConditions>
-        <comment>create 'indoor_patient_service_bill' table</comment>
-        <sql>
-        CREATE
-        TABLE IF NOT EXISTS `indoor_patient_service_bill` (
-        `indoor_patient_service_bill_id` INT(11) NOT NULL AUTO_INCREMENT,
-        `creator`
-        INT(11) DEFAULT
-        NULL,
-        `amount` DECIMAL(19,2) DEFAULT NULL,
-        `created_date` DATETIME DEFAULT NULL,
-        `patient_id`
-        INT(11) DEFAULT
-        NULL,
-        `actual_amount` DECIMAL(19,2) DEFAULT NULL,
-        `encounter_id` INT(11) DEFAULT NULL,
-        PRIMARY KEY (`indoor_patient_service_bill_id`),
-        KEY
-        `fk_indoorpatientservicebill_patient` (`patient_id`),
-        KEY
-        `fk_indoorpatientservicebill_user` (`creator`),
-        CONSTRAINT
-        `fk_indoorpatientservicebill_user` FOREIGN KEY (`creator`) REFERENCES
-        `users` (`user_id`),
-        CONSTRAINT `fk_indoorpatientservicebill_patient`
-        FOREIGN KEY (`patient_id`)
-        REFERENCES `patient` (`patient_id`),
-        CONSTRAINT `fk_indoorpatientservicebill_encounter`
-        FOREIGN KEY (`encounter_id`)
-        REFERENCES `encounter` (`encounter_id`)
-        )
-        ENGINE=INNODB DEFAULT CHARSET=utf8;
-        </sql>
-    </changeSet>
-    <changeSet id="hospitalcore:2020-07-20-20:27" author="ningosi">
-        <preConditions onFail="MARK_RAN" onError="WARN">
-        <dbms type="mysql"/>
-        </preConditions>
-        <comment>'indoor_patient_service_bill_item' table</comment>
-        <sql>
-            CREATE TABLE IF NOT EXISTS
-            `indoor_patient_service_bill_item` (
-            `indoor_patient_service_bill_item_id`
-            INT(11) NOT NULL AUTO_INCREMENT,
-            `service_id` INT(11) DEFAULT NULL,
-            `indoor_patient_service_bill_id` INT(11) DEFAULT NULL,
-            `unitPrice`
-            DECIMAL(19,2) DEFAULT NULL,
-            `amount` DECIMAL(19,2) DEFAULT NULL,
-            `quantity` INT(11) DEFAULT NULL,
-            `name` VARCHAR(255) DEFAULT NULL,
-            `created_date` DATETIME DEFAULT NULL,
-            `order_id` INT(11) DEFAULT NULL,
-            `actual_amount` DECIMAL(19,2) DEFAULT NULL,
-            PRIMARY KEY
-            (`indoor_patient_service_bill_item_id`),
-            KEY
-            `fk_indoorpatientservicebillitem_billableservice`
-            (`service_id`),
-            KEY
-            `fk_indoorpatientservicebillitem_patientservicebill`
-            (`indoor_patient_service_bill_id`),
-            KEY
-            `fk_indoorpatientservicebillitem_order`
-            (`order_id`),
-            CONSTRAINT
-            `fk_indoorpatientservicebillitem_billableservice` FOREIGN KEY
-            (`service_id`)
-            REFERENCES `billing_billable_service` (`service_id`),
-            CONSTRAINT
-            `fk_indoorpatientservicebillitem_patientservicebill` FOREIGN KEY
-            (`indoor_patient_service_bill_id`) REFERENCES `indoor_patient_service_bill`
-            (`indoor_patient_service_bill_id`),
-            CONSTRAINT
-            `fk_indoorpatientservicebillitem_order` FOREIGN KEY(`order_id`)
-            REFERENCES `orders` (`order_id`)
-            ) ENGINE=INNODB DEFAULT
-            CHARSET=utf8;
-        </sql>
-    </changeSet>
-
-    <changeSet author="ningosi" id="add-Oxygen-Column-01">
-        <comment>Adding oxygen saturation column</comment>
-        <addColumn tableName="triage_patient_data">
-            <column name="oxygen_saturation" type="int">
-                <constraints nullable="true"/>
-            </column>
-        </addColumn>
-    </changeSet>
-
-    <changeSet id="modify-Oxygen-datatype-01" author="ningosi">
-        <comment>
-            Changing oxygen saturation from integer to double
-        </comment>
-        <ext:modifyColumn tableName="triage_patient_data">
-            <column name="oxygen_saturation" type="double"/>
-        </ext:modifyColumn>
-    </changeSet>
-
-    <changeSet author="ningosi" id="add-dosage-01">
-        <comment>Adding dosage column</comment>
-        <addColumn tableName="opd_drug_order">
-            <column name="dosage" type="varchar(100)">
-                <constraints nullable="true"/>
-            </column>
-        </addColumn>
-    </changeSet>
-
-    <changeSet author="ningosi" id="add-dosageunit-01">
-        <comment>Adding dosage unit column</comment>
-        <addColumn tableName="opd_drug_order">
-            <column name="dosage_unit" type="int(11)">
-                <constraints nullable="true"/>
-            </column>
-        </addColumn>
-    </changeSet>
-
-
-    <changeSet author="ningosi" id="add-drug-comment-01">
-        <comment>Adding comment column</comment>
-        <addColumn tableName="inventory_store_drug_patient">
-            <column name="comment" type="varchar(225)">
-                <constraints nullable="true"/>
-            </column>
-        </addColumn>
-    </changeSet>
-
-    <changeSet author="ningosi" id="add-drug-waiver-amount-01">
-        <comment>Adding waiver-amount column</comment>
-        <addColumn tableName="inventory_store_drug_patient">
-            <column name="waiver_amount" type="decimal(19,2)">
-                <constraints nullable="true"/>
-            </column>
-        </addColumn>
-    </changeSet>
-
-    <changeSet author="ningosi" id="add-payment-mode-01">
-        <comment>Adding payment-mode column</comment>
-        <addColumn tableName="indoor_patient_service_bill">
-            <column name="payment_mode" type="varchar(50)">
-                <constraints nullable="true"/>
-            </column>
-        </addColumn>
-    </changeSet>
-
-    <changeSet author="ningosi" id="add-prescriber-01">
-        <comment>Adding OPD Prescriber</comment>
-        <addColumn tableName="inventory_store_drug_patient">
-            <column name="prescriber" type="int(11)">
-                <constraints nullable="true"/>
-            </column>
-        </addColumn>
-
-        <addDefaultValue
-                columnDataType="int"
-                columnName="prescriber"
-                defaultValue="0"
-                tableName="inventory_store_drug_patient"/>
-    </changeSet>
-    <changeSet author="ningosi" id="patient-id-01">
-        <comment>Getting Patient Data</comment>
-        <addColumn tableName="triage_patient_data">
-            <column name="patient_id" type="int">
-                <constraints nullable="true"/>
-            </column>
-        </addColumn>
-
-        <addDefaultValue
-                columnDataType="int"
-                columnName="patient_id"
-                defaultValue="0"
-                tableName="triage_patient_data"/>
     </changeSet>
 </databaseChangeLog>
