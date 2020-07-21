@@ -110,4 +110,178 @@
             ) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8;
         </sql>
     </changeSet>
+    <changeSet id="hospital-core:2020-07-21-15:59" author="ningosi">
+        <preConditions onFail="MARK_RAN" onError="WARN">
+            <dbms type="mysql"/>
+        </preConditions>
+        <comment>creating the answer table</comment>
+        <sql>
+            CREATE TABLE IF NOT EXISTS `answer` (
+            `answer_id` int(11) NOT NULL AUTO_INCREMENT,
+            `question_id` int(11) DEFAULT NULL,
+            `answer_concept` int(11) DEFAULT NULL,
+            `free_text` varchar(50) DEFAULT NULL,
+            PRIMARY KEY (`answer_id`)
+            ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+        </sql>
+    </changeSet>
+    <changeSet id="hospital-core:2020-07-21-16:05" author="ningosi">
+        <preConditions onFail="MARK_RAN" onError="WARN">
+            <dbms type="mysql"/>
+        </preConditions>
+        <comment>creating the billing_billable_service table</comment>
+        <sql>
+            CREATE TABLE IF NOT EXISTS  `billing_billable_service` (
+            `service_id` int(11) NOT NULL AUTO_INCREMENT,
+            `concept_id` int(11) DEFAULT NULL,
+            `name` varchar(255) DEFAULT NULL,
+            `short_name` varchar(255) DEFAULT NULL,
+            `price` decimal(19,2) DEFAULT NULL,
+            `disable` bit(1) DEFAULT NULL,
+            `category` int(11) DEFAULT NULL,
+            PRIMARY KEY (`service_id`)
+            ) ENGINE=InnoDB AUTO_INCREMENT=479 DEFAULT CHARSET=utf8;
+        </sql>
+    </changeSet>
+    <changeSet id="hospital-core:2020-07-21-16:06" author="ningosi">
+        <preConditions onFail="MARK_RAN" onError="WARN">
+            <dbms type="mysql"/>
+        </preConditions>
+        <comment>creating the billing_receipt table</comment>
+        <sql>
+            CREATE TABLE IF NOT EXISTS `billing_receipt` (
+            `id` int(11) NOT NULL AUTO_INCREMENT,
+            `paid_date` datetime DEFAULT NULL,
+            PRIMARY KEY (`id`)
+            ) ENGINE=InnoDB AUTO_INCREMENT=315 DEFAULT CHARSET=utf8;
+        </sql>
+    </changeSet>
+    <changeSet id="hospital-core:2020-07-21-16:11" author="ningosi">
+        <preConditions onFail="MARK_RAN" onError="WARN">
+            <dbms type="mysql"/>
+        </preConditions>
+        <comment>creating the billing_company table</comment>
+        <sql>
+            CREATE TABLE IF NOT EXISTS `billing_company` (
+            `company_id` int(11) NOT NULL AUTO_INCREMENT,
+            `name` varchar(255) DEFAULT NULL,
+            `address` varchar(255) DEFAULT NULL,
+            `description` varchar(255) DEFAULT NULL,
+            `phone` varchar(20) DEFAULT NULL,
+            `created_date` datetime DEFAULT NULL,
+            `retired` bit(1) DEFAULT NULL,
+            `retired_date` datetime DEFAULT NULL,
+            PRIMARY KEY (`company_id`)
+            ) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8;
+        </sql>
+    </changeSet>
+    <changeSet id="hospital-core:2020-07-21-16:15" author="ningosi">
+        <preConditions onFail="MARK_RAN" onError="WARN">
+            <dbms type="mysql"/>
+        </preConditions>
+        <comment>creating the core_form table</comment>
+        <sql>
+            CREATE TABLE IF NOT EXISTS `core_form` (
+            `core_form_id` int(11) NOT NULL AUTO_INCREMENT,
+            `name` varchar(120) DEFAULT NULL,
+            `description` varchar(300) NOT NULL DEFAULT '',
+            `content` varchar(20480) NOT NULL DEFAULT '',
+            `created_on` datetime DEFAULT NULL,
+            `created_by` int(11) DEFAULT NULL,
+            `after_submit` varchar(300) DEFAULT NULL,
+            PRIMARY KEY (`core_form_id`)
+            ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+        </sql>
+    </changeSet>
+    <changeSet id="hospital-core:2020-07-21-16:20" author="ningosi">
+        <preConditions onFail="MARK_RAN" onError="WARN">
+            <dbms type="mysql"/>
+        </preConditions>
+        <comment>Add table department</comment>
+        <sql>
+            CREATE TABLE IF NOT EXISTS `department` (
+            `id` int(11) NOT NULL AUTO_INCREMENT,
+            `name` varchar(255) DEFAULT NULL,
+            `retired` bit(1) DEFAULT NULL,
+            `created_on` datetime DEFAULT NULL,
+            `created_by` varchar(255) DEFAULT NULL,
+            PRIMARY KEY (`id`)
+            ) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8;
+        </sql>
+    </changeSet>
+    <changeSet id="hospital-core:2020-07-21-16:48" author="ningosi">
+        <preConditions onFail="MARK_RAN" onError="WARN">
+            <dbms type="mysql"/>
+        </preConditions>
+        <comment>Add table department_concept</comment>
+        <sql>
+            CREATE TABLE IF NOT EXISTS `department_concept` (
+            `id` int(11) NOT NULL AUTO_INCREMENT,
+            `department_id` int(11) DEFAULT NULL,
+            `concept_id` int(11) DEFAULT NULL,
+            `type_concept` int(11) DEFAULT NULL,
+            `created_on` datetime DEFAULT NULL,
+            `created_by` varchar(255) DEFAULT NULL,
+            PRIMARY KEY (`id`)
+            ) ENGINE=InnoDB AUTO_INCREMENT=161 DEFAULT CHARSET=utf8;
+        </sql>
+    </changeSet>
+
+    <changeSet id="hospital-core:2020-07-21-16:53" author="ningosi">
+        <preConditions onFail="MARK_RAN" onError="WARN">
+            <dbms type="mysql"/>
+        </preConditions>
+        <comment>Add table dms_opdunit</comment>
+        <sql>
+            CREATE TABLE IF NOT EXISTS `dms_opdunit` (
+            `unit_id` int(11) NOT NULL AUTO_INCREMENT,
+            `unit_no` int(11) DEFAULT NULL,
+            `opd_concept_id` int(11) DEFAULT NULL,
+            `opd_day` int(11) DEFAULT NULL,
+            `start_time` datetime DEFAULT NULL,
+            `end_time` datetime DEFAULT NULL,
+            `active_date` datetime DEFAULT NULL,
+            `deactive_date` datetime DEFAULT NULL,
+            `creator` varchar(255) DEFAULT NULL,
+            PRIMARY KEY (`id`)
+            ) ENGINE=InnoDB AUTO_INCREMENT=161 DEFAULT CHARSET=utf8;
+        </sql>
+    </changeSet>
+
+    <changeSet id="hospital-core:2020-07-21-17:03" author="ningosi">
+        <preConditions onFail="MARK_RAN" onError="WARN">
+            <dbms type="mysql"/>
+        </preConditions>
+        <comment>Add table billing_driver</comment>
+        <sql>
+            CREATE TABLE IF NOT EXISTS `billing_driver` (
+            `driver_id` int(11) NOT NULL AUTO_INCREMENT,
+            `name` varchar(255) DEFAULT NULL,
+            `address` varchar(255) DEFAULT NULL,
+            `description` varchar(255) DEFAULT NULL,
+            `phone` varchar(20) DEFAULT NULL,
+            `created_date` datetime DEFAULT NULL,
+            `retired` bit(1) DEFAULT NULL,
+            `retired_date` datetime DEFAULT NULL,
+            PRIMARY KEY (`driver_id`)
+            ) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8;
+        </sql>
+    </changeSet>
+
+    <changeSet id="hospital-core:2020-07-21-17:06" author="ningosi">
+        <preConditions onFail="MARK_RAN" onError="WARN">
+            <dbms type="mysql"/>
+        </preConditions>
+        <comment>Add table examination</comment>
+        <sql>
+            CREATE TABLE IF NOT EXISTS `examination` (
+            `exam_id` int(11) NOT NULL AUTO_INCREMENT,
+            `encounter` int(11) DEFAULT NULL,
+            `exam_concept` int(11) DEFAULT NULL,
+            `created_date` datetime DEFAULT NULL,
+            `creator` int(11) DEFAULT NULL,
+            PRIMARY KEY (`exam_id`)
+            ) ENGINE=InnoDB AUTO_INCREMENT=1051 DEFAULT CHARSET=utf8;
+        </sql>
+    </changeSet>
 </databaseChangeLog>
