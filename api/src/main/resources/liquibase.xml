@@ -812,4 +812,111 @@
             ) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8;
         </sql>
     </changeSet>
+    <changeSet id="hospital-core:2020-07-22-09:22" author="ningosi">
+        <preConditions onFail="MARK_RAN" onError="WARN">
+            <dbms type="mysql"/>
+        </preConditions>
+        <comment>Add table opd_drug_order</comment>
+        <sql>
+            CREATE TABLE IF NOT EXISTS `opd_drug_order` (
+            `opd_drug_order_id` int(11) NOT NULL AUTO_INCREMENT,
+            `patient_id` int(11) NOT NULL,
+            `encounter_id` int(11) NOT NULL,
+            `inventory_drug_id` int(11) NOT NULL,
+            `formulation_id` int(11) DEFAULT NULL,
+            `frequency_concept_id` int(11) DEFAULT NULL,
+            `no_of_days` int(11) DEFAULT NULL,
+            `comments` varchar(200) DEFAULT NULL,
+            `created_by` int(11) NOT NULL,
+            `created_on` datetime NOT NULL,
+            `order_status` smallint(1) NOT NULL DEFAULT '0',
+            `cancel_status` smallint(1) NOT NULL DEFAULT '0',
+            `referral_ward_name` varchar(100) DEFAULT NULL,
+            `dosage` varchar(100) DEFAULT NULL,
+            `dosage_unit` int(11) DEFAULT NULL,
+            PRIMARY KEY (`opd_drug_order_id`)
+            ) ENGINE=InnoDB AUTO_INCREMENT=238 DEFAULT CHARSET=utf8;
+        </sql>
+    </changeSet>
+    <changeSet id="hospital-core:2020-07-22-09:23" author="ningosi">
+        <preConditions onFail="MARK_RAN" onError="WARN">
+            <dbms type="mysql"/>
+        </preConditions>
+        <comment>Add table opd_patient_queue</comment>
+        <sql>
+            CREATE TABLE IF NOT EXISTS `opd_patient_queue` (
+            `id` int(11) NOT NULL AUTO_INCREMENT,
+            `user` int(11) DEFAULT NULL,
+            `patient_id` int(11) DEFAULT NULL,
+            `referral_concept_id` int(11) DEFAULT NULL,
+            `opd_concept_id` int(11) DEFAULT NULL,
+            `created_on` datetime DEFAULT NULL,
+            `opd_concept_name` varchar(255) DEFAULT NULL,
+            `patient_name` varchar(255) DEFAULT NULL,
+            `referral_concept_name` varchar(255) DEFAULT NULL,
+            `sex` varchar(255) DEFAULT NULL,
+            `status` varchar(255) DEFAULT NULL,
+            `patient_identifier` varchar(50) DEFAULT NULL,
+            `birth_date` datetime DEFAULT NULL,
+            `triage_data_id` int(11) DEFAULT NULL,
+            `category` varchar(21) DEFAULT NULL,
+            `visit_status` varchar(21) DEFAULT NULL,
+            PRIMARY KEY (`id`)
+            ) ENGINE=InnoDB AUTO_INCREMENT=85 DEFAULT CHARSET=utf8;
+        </sql>
+    </changeSet>
+    <changeSet id="hospital-core:2020-07-22-09:28" author="ningosi">
+        <preConditions onFail="MARK_RAN" onError="WARN">
+            <dbms type="mysql"/>
+        </preConditions>
+        <comment>Add table opd_patient_queue_log</comment>
+        <sql>
+            CREATE TABLE IF NOT EXISTS `opd_patient_queue_log` (
+            `id` int(11) NOT NULL AUTO_INCREMENT,
+            `user` int(11) DEFAULT NULL,
+            `patient_id` int(11) DEFAULT NULL,
+            `referral_concept_id` int(11) DEFAULT NULL,
+            `opd_concept_id` int(11) DEFAULT NULL,
+            `created_on` datetime DEFAULT NULL,
+            `opd_concept_name` varchar(255) DEFAULT NULL,
+            `patient_name` varchar(255) DEFAULT NULL,
+            `referral_concept_name` varchar(255) DEFAULT NULL,
+            `sex` varchar(255) DEFAULT NULL,
+            `status` varchar(255) DEFAULT NULL,
+            `patient_identifier` varchar(50) DEFAULT NULL,
+            `birth_date` datetime DEFAULT NULL,
+            `encounter_id` int(11) DEFAULT '0',
+            `triage_data_id` int(11) DEFAULT NULL,
+            `visit_outcome` varchar(21) DEFAULT NULL,
+            `category` varchar(21) DEFAULT NULL,
+            `visit_status` varchar(21) DEFAULT NULL,
+            PRIMARY KEY (`id`)
+            ) ENGINE=InnoDB AUTO_INCREMENT=1161 DEFAULT CHARSET=utf8;
+        </sql>
+    </changeSet>
+    <changeSet id="hospital-core:2020-07-22-09:29" author="ningosi">
+        <preConditions onFail="MARK_RAN" onError="WARN">
+            <dbms type="mysql"/>
+        </preConditions>
+        <comment>Add table opd_test_order</comment>
+        <sql>
+            CREATE TABLE IF NOT EXISTS `opd_test_order` (
+            `opd_order_id` int(11) NOT NULL AUTO_INCREMENT,
+            `patient_id` int(11) NOT NULL,
+            `encounter_id` int(11) NOT NULL,
+            `concept_id` int(11) NOT NULL,
+            `type_concept` int(11) NOT NULL,
+            `value_coded` int(11) DEFAULT NULL,
+            `created_by` int(11) NOT NULL,
+            `created_on` datetime NOT NULL,
+            `billing_status` smallint(1) NOT NULL DEFAULT '0',
+            `cancel_status` smallint(1) NOT NULL DEFAULT '0',
+            `billable_service_id` int(11) DEFAULT NULL,
+            `schedule_date` datetime DEFAULT NULL,
+            `indoor_status` smallint(1) NOT NULL DEFAULT '0',
+            `referral_ward_name` varchar(100) DEFAULT NULL,
+            PRIMARY KEY (`opd_order_id`)
+            ) ENGINE=InnoDB AUTO_INCREMENT=1005 DEFAULT CHARSET=utf8;
+        </sql>
+    </changeSet>
 </databaseChangeLog>
