@@ -1306,4 +1306,89 @@
             ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
         </sql>
     </changeSet>
+    <changeSet id="hospital-core:2020-07-22-12:11" author="ningosi">
+        <preConditions onFail="MARK_RAN" onError="WARN">
+            <dbms type="mysql"/>
+        </preConditions>
+        <comment>Add table triage_patient_data</comment>
+        <sql>
+            CREATE TABLE IF NOT EXISTS `triage_patient_data` (
+            `id` int(11) NOT NULL AUTO_INCREMENT,
+            `triage_log_id` int(11) DEFAULT NULL,
+            `weight` decimal(5,2) DEFAULT NULL,
+            `height` decimal(5,2) DEFAULT NULL,
+            `temperature` decimal(5,2) DEFAULT NULL,
+            `systolic` int(5) DEFAULT NULL,
+            `daistolic` int(5) DEFAULT NULL,
+            `respiratory_rate` int(5) DEFAULT NULL,
+            `pulse_rate` int(5) DEFAULT NULL,
+            `blood_group` varchar(10) DEFAULT NULL,
+            `last_menstrual` datetime DEFAULT NULL,
+            `rhesus_factor` varchar(12) DEFAULT NULL,
+            `pitct` varchar(255) DEFAULT NULL,
+            `created_on` datetime DEFAULT NULL,
+            `mua` decimal(5,2) DEFAULT NULL,
+            `chest` decimal(5,2) DEFAULT NULL,
+            `abdominal` decimal(5,2) DEFAULT NULL,
+            `encounter_opd` int(11) DEFAULT NULL,
+            `BMI` decimal(5,2) DEFAULT NULL,
+            `oxygen_saturation` double DEFAULT NULL,
+            `patient_id` int(11) DEFAULT '0',
+            PRIMARY KEY (`id`)
+            ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+        </sql>
+    </changeSet>
+    <changeSet id="hospital-core:2020-07-22-13:23" author="ningosi">
+        <preConditions onFail="MARK_RAN" onError="WARN">
+            <dbms type="mysql"/>
+        </preConditions>
+        <comment>Add table triage_patient_queue</comment>
+        <sql>
+            CREATE TABLE IF NOT EXISTS `triage_patient_queue` (
+            `id` int(11) NOT NULL AUTO_INCREMENT,
+            `user` int(11) DEFAULT NULL,
+            `patient_id` int(11) DEFAULT NULL,
+            `referral_concept_id` int(11) DEFAULT NULL,
+            `triage_concept_id` int(11) DEFAULT NULL,
+            `created_on` datetime DEFAULT NULL,
+            `triage_concept_name` varchar(255) DEFAULT NULL,
+            `patient_name` varchar(255) DEFAULT NULL,
+            `referral_concept_name` varchar(255) DEFAULT NULL,
+            `sex` varchar(255) DEFAULT NULL,
+            `status` varchar(255) DEFAULT NULL,
+            `patient_identifier` varchar(50) DEFAULT NULL,
+            `birth_date` datetime DEFAULT NULL,
+            `category` varchar(21) DEFAULT NULL,
+            `visit_status` varchar(21) DEFAULT NULL,
+            PRIMARY KEY (`id`)
+            ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+        </sql>
+    </changeSet>
+    <changeSet id="hospital-core:2020-07-22-13:24" author="ningosi">
+        <preConditions onFail="MARK_RAN" onError="WARN">
+            <dbms type="mysql"/>
+        </preConditions>
+        <comment>Add table triage_patient_queue_log</comment>
+        <sql>
+            CREATE TABLE IF NOT EXISTS `triage_patient_queue_log` (
+            `id` int(11) NOT NULL AUTO_INCREMENT,
+            `user` int(11) DEFAULT NULL,
+            `patient_id` int(11) DEFAULT NULL,
+            `referral_concept_id` int(11) DEFAULT NULL,
+            `triage_concept_id` int(11) DEFAULT NULL,
+            `created_on` datetime DEFAULT NULL,
+            `triage_concept_name` varchar(255) DEFAULT NULL,
+            `patient_name` varchar(255) DEFAULT NULL,
+            `referral_concept_name` varchar(255) DEFAULT NULL,
+            `sex` varchar(255) DEFAULT NULL,
+            `status` varchar(255) DEFAULT NULL,
+            `patient_identifier` varchar(50) DEFAULT NULL,
+            `birth_date` datetime DEFAULT NULL,
+            `encounter_id` int(11) DEFAULT '0',
+            `category` varchar(21) DEFAULT NULL,
+            `visit_status` varchar(21) DEFAULT NULL,
+            PRIMARY KEY (`id`)
+            ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+        </sql>
+    </changeSet>
 </databaseChangeLog>
