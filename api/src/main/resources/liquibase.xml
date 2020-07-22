@@ -1391,4 +1391,20 @@
             ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
         </sql>
     </changeSet>
+    <changeSet id="hospital-core:2020-07-22-13:59" author="ningosi">
+        <preConditions onFail="MARK_RAN" onError="WARN">
+            <dbms type="mysql"/>
+        </preConditions>
+        <comment>Add table ward_bed_strength</comment>
+        <sql>
+            CREATE TABLE IF NOT EXISTS `ward_bed_strength` (
+            `ward_bed_strength_id` int(11) NOT NULL AUTO_INCREMENT,
+            `concept_id` int(11) NOT NULL,
+            `bed_strength` int(11) DEFAULT NULL,
+            `created_by` int(11) NOT NULL,
+            `created_on` datetime NOT NULL,
+            PRIMARY KEY (`ward_bed_strength_id`)
+            ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+        </sql>
+    </changeSet>
 </databaseChangeLog>
