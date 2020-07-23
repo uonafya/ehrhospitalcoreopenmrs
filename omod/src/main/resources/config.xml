@@ -176,8 +176,8 @@
         TenderBill.hbm.xml
         TenderBillItem.hbm.xml
         TriagePatientData.hbm.xml
-        TriagePatientData.hbm.xml
-        TriagePatientData.hbm.xml
+        TriagePatientQueue.hbm.xml
+        TriagePatientQueueLog.hbm.xml
         WardBedStrength.hbm.xml
     </mappingFiles>
 </module>
