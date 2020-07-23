@@ -243,8 +243,8 @@
             `active_date` datetime DEFAULT NULL,
             `deactive_date` datetime DEFAULT NULL,
             `creator` varchar(255) DEFAULT NULL,
-            PRIMARY KEY (`id`)
-            ) ENGINE=InnoDB AUTO_INCREMENT=161 DEFAULT CHARSET=utf8;
+            PRIMARY KEY (`unit_id`)
+            ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
         </sql>
     </changeSet>
 
@@ -264,7 +264,7 @@
             `retired` bit(1) DEFAULT NULL,
             `retired_date` datetime DEFAULT NULL,
             PRIMARY KEY (`driver_id`)
-            ) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8;
+            ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
         </sql>
     </changeSet>
 
@@ -281,7 +281,7 @@
             `created_date` datetime DEFAULT NULL,
             `creator` int(11) DEFAULT NULL,
             PRIMARY KEY (`exam_id`)
-            ) ENGINE=InnoDB AUTO_INCREMENT=1051 DEFAULT CHARSET=utf8;
+            ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
         </sql>
     </changeSet>
 
@@ -310,7 +310,7 @@
             CONSTRAINT `fk_indoorpatientservicebill_encounter` FOREIGN KEY (`encounter_id`) REFERENCES `encounter` (`encounter_id`),
             CONSTRAINT `fk_indoorpatientservicebill_patient` FOREIGN KEY (`patient_id`) REFERENCES `patient` (`patient_id`),
             CONSTRAINT `fk_indoorpatientservicebill_user` FOREIGN KEY (`creator`) REFERENCES `users` (`user_id`)
-            ) ENGINE=InnoDB AUTO_INCREMENT=214 DEFAULT CHARSET=utf8;
+            ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
         </sql>
     </changeSet>
 
@@ -342,7 +342,7 @@
             CONSTRAINT `fk_indoorpatientservicebillitem_billableservice` FOREIGN KEY (`service_id`) REFERENCES `billing_billable_service` (`service_id`),
             CONSTRAINT `fk_indoorpatientservicebillitem_order` FOREIGN KEY (`order_id`) REFERENCES `orders` (`order_id`),
             CONSTRAINT `fk_indoorpatientservicebillitem_patientservicebill` FOREIGN KEY (`indoor_patient_service_bill_id`) REFERENCES `indoor_patient_service_bill` (`indoor_patient_service_bill_id`)
-            ) ENGINE=InnoDB AUTO_INCREMENT=368 DEFAULT CHARSET=utf8;
+            ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
         </sql>
     </changeSet>
 
@@ -364,7 +364,7 @@
             `created_on` datetime DEFAULT NULL,
             `created_by` varchar(255) DEFAULT NULL,
             PRIMARY KEY (`id`)
-            ) ENGINE=InnoDB AUTO_INCREMENT=357 DEFAULT CHARSET=utf8;
+            ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
         </sql>
     </changeSet>
     <changeSet id="hospital-core:2020-07-21-17:25" author="ningosi">
@@ -380,7 +380,7 @@
             `created_on` datetime DEFAULT NULL,
             `created_by` varchar(255) DEFAULT NULL,
             PRIMARY KEY (`id`)
-            ) ENGINE=InnoDB AUTO_INCREMENT=74 DEFAULT CHARSET=utf8;
+            ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
         </sql>
     </changeSet>
     <changeSet id="hospital-core:2020-07-21-17:27" author="ningosi">
@@ -397,7 +397,7 @@
             `created_on` datetime DEFAULT NULL,
             `created_by` varchar(255) DEFAULT NULL,
             PRIMARY KEY (`id`)
-            ) ENGINE=InnoDB AUTO_INCREMENT=622 DEFAULT CHARSET=utf8;
+            ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
         </sql>
     </changeSet>
     <changeSet id="hospital-core:2020-07-21-17:30" author="ningosi">
@@ -413,7 +413,7 @@
             `created_on` datetime DEFAULT NULL,
             `created_by` varchar(255) DEFAULT NULL,
             PRIMARY KEY (`id`)
-            ) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8;
+            ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
         </sql>
     </changeSet>
     <changeSet id="hospital-core:2020-07-21-17:58" author="ningosi">
@@ -433,7 +433,7 @@
             `is_drug` int(11) DEFAULT NULL,
             PRIMARY KEY (`id`),
             KEY `fk_inventorystore_user` (`role`)
-            ) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=utf8;
+            ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
         </sql>
     </changeSet>
     <changeSet id="hospital-core:2020-07-21-17:59" author="ningosi">
@@ -454,7 +454,7 @@
             PRIMARY KEY (`id`),
             KEY `fk_inventorystore_mainstore` (`mainstore_id`),
             CONSTRAINT `fk_inventorystore_mainstore` FOREIGN KEY (`mainstore_id`) REFERENCES `inventory_store` (`id`)
-            ) ENGINE=InnoDB AUTO_INCREMENT=22 DEFAULT CHARSET=utf8;
+            ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
         </sql>
     </changeSet>
 
@@ -479,7 +479,7 @@
             `waiver_amount` decimal(19,2) DEFAULT NULL,
             `prescriber` int(11) DEFAULT '0',
             PRIMARY KEY (`id`)
-            ) ENGINE=InnoDB AUTO_INCREMENT=193 DEFAULT CHARSET=utf8;
+            ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
         </sql>
     </changeSet>
 
@@ -496,7 +496,7 @@
             `issue_count` int(11) DEFAULT '0',
             `quantity` int(11) DEFAULT NULL,
             PRIMARY KEY (`id`)
-            ) ENGINE=InnoDB AUTO_INCREMENT=151 DEFAULT CHARSET=utf8;
+            ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
         </sql>
     </changeSet>
     <changeSet id="hospital-core:2020-07-21-18:06" author="ningosi">
@@ -516,7 +516,7 @@
             `payment_mode` varchar(50) DEFAULT NULL,
             `patient_category` varchar(255) DEFAULT NULL,
             PRIMARY KEY (`id`)
-            ) ENGINE=InnoDB AUTO_INCREMENT=395 DEFAULT CHARSET=utf8;
+            ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
         </sql>
     </changeSet>
 
@@ -557,7 +557,7 @@
             `receipt_from` varchar(255) DEFAULT NULL,
             `flag` int(11) DEFAULT NULL,
             PRIMARY KEY (`id`)
-            ) ENGINE=InnoDB AUTO_INCREMENT=444 DEFAULT CHARSET=utf8;
+            ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
         </sql>
     </changeSet>
     <changeSet id="hospital-core:2020-07-21-18:11" author="ningosi">
@@ -571,7 +571,7 @@
             `inventory_store_id` int(11) NOT NULL,
             `inventory_store_role` varchar(50) NOT NULL,
             PRIMARY KEY (`id`)
-            ) ENGINE=InnoDB AUTO_INCREMENT=8 DEFAULT CHARSET=utf8;
+            ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
         </sql>
     </changeSet>
     <changeSet id="hospital-core:2020-07-22-08:43" author="ningosi">
@@ -599,7 +599,7 @@
             `billing_status` smallint(1) NOT NULL DEFAULT '0',
             `absconded` varchar(5) DEFAULT NULL,
             PRIMARY KEY (`id`)
-            ) ENGINE=InnoDB AUTO_INCREMENT=102 DEFAULT CHARSET=utf8;
+            ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
         </sql>
     </changeSet>
     <changeSet id="hospital-core:2020-07-22-08:44" author="ningosi">
@@ -700,7 +700,7 @@
             `religion` varchar(20) DEFAULT NULL,
             `absconded_date` datetime DEFAULT NULL,
             PRIMARY KEY (`id`)
-            ) ENGINE=InnoDB AUTO_INCREMENT=50 DEFAULT CHARSET=utf8;
+            ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
         </sql>
     </changeSet>
     <changeSet id="hospital-core:2020-07-22-08:58" author="ningosi">
@@ -741,7 +741,7 @@
             `retired` bit(1) DEFAULT NULL,
             `retired_date` datetime DEFAULT NULL,
             PRIMARY KEY (`lab_id`)
-            ) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8;
+            ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
         </sql>
     </changeSet>
     <changeSet id="hospital-core:2020-07-22-09:11" author="ningosi">
@@ -763,7 +763,7 @@
             `creator` int(11) DEFAULT NULL,
             `encounter_id` int(11) DEFAULT NULL,
             PRIMARY KEY (`labtest_id`)
-            ) ENGINE=InnoDB AUTO_INCREMENT=292 DEFAULT CHARSET=utf8;
+            ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
         </sql>
     </changeSet>
     <changeSet id="hospital-core:2020-07-22-09:15" author="ningosi">
@@ -782,7 +782,7 @@
             `creator` int(11) DEFAULT NULL,
             `created_date` datetime DEFAULT NULL,
             PRIMARY KEY (`id`)
-            ) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8;
+            ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
         </sql>
     </changeSet>
     <changeSet id="hospital-core:2020-07-22-09:17" author="ningosi">
@@ -809,7 +809,7 @@
             KEY `fk_miscellaneous_receipt` (`receipt_id`),
             CONSTRAINT `fk_miscellaneous_receipt` FOREIGN KEY (`receipt_id`) REFERENCES `billing_receipt` (`id`),
             CONSTRAINT `fk_miscellaneous_service_bill_miscellaneous_service_service` FOREIGN KEY (`service_id`) REFERENCES `billing_miscellaneous_service` (`id`)
-            ) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8;
+            ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
         </sql>
     </changeSet>
     <changeSet id="hospital-core:2020-07-22-09:22" author="ningosi">
@@ -835,7 +835,7 @@
             `dosage` varchar(100) DEFAULT NULL,
             `dosage_unit` int(11) DEFAULT NULL,
             PRIMARY KEY (`opd_drug_order_id`)
-            ) ENGINE=InnoDB AUTO_INCREMENT=238 DEFAULT CHARSET=utf8;
+            ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
         </sql>
     </changeSet>
     <changeSet id="hospital-core:2020-07-22-09:23" author="ningosi">
@@ -862,7 +862,7 @@
             `category` varchar(21) DEFAULT NULL,
             `visit_status` varchar(21) DEFAULT NULL,
             PRIMARY KEY (`id`)
-            ) ENGINE=InnoDB AUTO_INCREMENT=85 DEFAULT CHARSET=utf8;
+            ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
         </sql>
     </changeSet>
     <changeSet id="hospital-core:2020-07-22-09:28" author="ningosi">
@@ -891,7 +891,7 @@
             `category` varchar(21) DEFAULT NULL,
             `visit_status` varchar(21) DEFAULT NULL,
             PRIMARY KEY (`id`)
-            ) ENGINE=InnoDB AUTO_INCREMENT=1161 DEFAULT CHARSET=utf8;
+            ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
         </sql>
     </changeSet>
     <changeSet id="hospital-core:2020-07-22-09:29" author="ningosi">
@@ -916,7 +916,7 @@
             `indoor_status` smallint(1) NOT NULL DEFAULT '0',
             `referral_ward_name` varchar(100) DEFAULT NULL,
             PRIMARY KEY (`opd_order_id`)
-            ) ENGINE=InnoDB AUTO_INCREMENT=1005 DEFAULT CHARSET=utf8;
+            ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
         </sql>
     </changeSet>
     <changeSet id="hospital-core:2020-07-22-09:34" author="ningosi">
@@ -1102,7 +1102,7 @@
             CONSTRAINT `fk_patientservicebill_patient` FOREIGN KEY (`patient_id`) REFERENCES `patient` (`patient_id`),
             CONSTRAINT `fk_patientservicebill_receipt` FOREIGN KEY (`receipt_id`) REFERENCES `billing_receipt` (`id`),
             CONSTRAINT `fk_patientservicebill_user` FOREIGN KEY (`creator`) REFERENCES `users` (`user_id`)
-            ) ENGINE=InnoDB AUTO_INCREMENT=300 DEFAULT CHARSET=utf8;
+            ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
         </sql>
     </changeSet>
     <changeSet id="hospital-core:2020-07-22-09:56" author="ningosi">
