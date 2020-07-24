@@ -1,3 +1,23 @@
+/**
+ *  Copyright 2010 Society for Health Information Systems Programmes, India (HISP India)
+ *
+ *  This file is part of Hospital-core module.
+ *
+ *  Hospital-core module is free software: you can redistribute it and/or modify
+ *  it under the terms of the GNU General Public License as published by
+ *  the Free Software Foundation, either version 3 of the License, or
+ *  (at your option) any later version.
+
+ *  Hospital-core module is distributed in the hope that it will be useful,
+ *  but WITHOUT ANY WARRANTY; without even the implied warranty of
+ *  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ *  GNU General Public License for more details.
+ *
+ *  You should have received a copy of the GNU General Public License
+ *  along with Hospital-core module.  If not, see <http://www.gnu.org/licenses/>.
+ *
+ **/
+
 package org.openmrs.module.hospitalcore.model;
 
 import java.io.Serializable;
@@ -5,61 +25,47 @@ import java.math.BigDecimal;
 import java.util.Date;
 import java.util.HashSet;
 import java.util.Set;
+
 import org.openmrs.Encounter;
 import org.openmrs.Patient;
 import org.openmrs.User;
 
+/**
+ *
+ */
 public class PatientServiceBill implements Serializable {
+	
+	/**
+     * 
+     */
 	private static final long serialVersionUID = 1L;
-
+	
 	private Integer patientServiceBillId;
-
+	
 	private Patient patient;
-
+	
 	private User creator;
-
+	
 	private BigDecimal amount;
-
+	
 	private BigDecimal actualAmount;
-
-	private Boolean printed = Boolean.valueOf(false);
-
-	private Boolean voided = Boolean.valueOf(false);
-
+	
+	private Boolean printed = false;
+	
+	private Boolean voided = false;
+	
 	private BigDecimal rebateAmount;
-
+	
 	private String categoryNumber;
-
+	
 	private String patientCategory;
-
+	
 	private Integer admittedDays;
 
 	private String patientSubCategory;
-
-	private Date voidedDate;
-
-	private Date createdDate;
-
-	private String description;
-
-	private Receipt receipt;
-
-	private BigDecimal waiverAmount;
-
-	private Integer freeBill;
-
-	private String comment;
-
-	private String paymentMode;
-
-	private Set<PatientServiceBillItem> billItems;
-
-	private Encounter encounter;
-
-	private int dischargeStatus;
-
+	
 	public String getPatientSubCategory() {
-		return this.patientSubCategory;
+		return patientSubCategory;
 	}
 
 	public void setPatientSubCategory(String patientSubCategory) {
@@ -67,7 +73,7 @@ public class PatientServiceBill implements Serializable {
 	}
 
 	public BigDecimal getRebateAmount() {
-		return this.rebateAmount;
+		return rebateAmount;
 	}
 
 	public void setRebateAmount(BigDecimal rebateAmount) {
@@ -75,7 +81,7 @@ public class PatientServiceBill implements Serializable {
 	}
 
 	public String getCategoryNumber() {
-		return this.categoryNumber;
+		return categoryNumber;
 	}
 
 	public void setCategoryNumber(String categoryNumber) {
@@ -83,7 +89,7 @@ public class PatientServiceBill implements Serializable {
 	}
 
 	public String getPatientCategory() {
-		return this.patientCategory;
+		return patientCategory;
 	}
 
 	public void setPatientCategory(String patientCategory) {
@@ -91,117 +97,145 @@ public class PatientServiceBill implements Serializable {
 	}
 
 	public Integer getAdmittedDays() {
-		return this.admittedDays;
+		return admittedDays;
 	}
 
 	public void setAdmittedDays(Integer admittedDays) {
 		this.admittedDays = admittedDays;
 	}
 
+	private Date voidedDate;
+	
+	private Date createdDate;
+	
+	private String description;
+	
+	private Receipt receipt;
+	
+	private BigDecimal waiverAmount;
+	
+
+	
+	
+	//ghanshyam 3-june-2013 New Requirement #1632 Orders from dashboard must be appear in billing queue.User must be able to generate bills from this queue
+	private Integer freeBill;//0=paidBill,1=freeBill,2=mixedBill
+	
+	//ghanshyam 25-feb-2013 New Requirement #966[Billing]Add Paid Bill/Add Free Bill for Bangladesh module(added 'comment' property)
+	private String comment;
+	
+	private String paymentMode;
+	
 	public String getPaymentMode() {
-		return this.paymentMode;
+		return paymentMode;
 	}
 
 	public void setPaymentMode(String paymentMode) {
 		this.paymentMode = paymentMode;
 	}
 
+	private Set<PatientServiceBillItem> billItems;
+	
+    private Encounter encounter;
+	
+	private int dischargeStatus;
+	
 	public Integer getPatientServiceBillId() {
-		return this.patientServiceBillId;
+		return patientServiceBillId;
 	}
-
+	
 	public void setPatientServiceBillId(Integer patientServiceBillId) {
 		this.patientServiceBillId = patientServiceBillId;
 	}
-
+	
 	public Patient getPatient() {
-		return this.patient;
+		return patient;
 	}
-
+	
 	public void setPatient(Patient patient) {
 		this.patient = patient;
 	}
-
+	
 	public BigDecimal getAmount() {
-		return this.amount;
+		return amount;
 	}
-
+	
 	public void setAmount(BigDecimal amount) {
 		this.amount = amount;
 	}
-
+	
 	public Boolean getPrinted() {
-		return this.printed;
+		return printed;
 	}
-
+	
 	public void setPrinted(Boolean printed) {
 		this.printed = printed;
 	}
-
+	
 	public Boolean getVoided() {
-		return this.voided;
+		return voided;
 	}
-
+	
 	public void setVoided(Boolean voided) {
 		this.voided = voided;
 	}
-
+	
 	public Date getVoidedDate() {
-		return this.voidedDate;
+		return voidedDate;
 	}
-
+	
 	public void setVoidedDate(Date voidedDate) {
 		this.voidedDate = voidedDate;
 	}
-
+	
 	public Date getCreatedDate() {
-		return this.createdDate;
+		return createdDate;
 	}
-
+	
 	public void setCreatedDate(Date createdDate) {
 		this.createdDate = createdDate;
 	}
-
+	
 	public String getDescription() {
-		return this.description;
+		return description;
 	}
-
+	
 	public void setDescription(String description) {
 		this.description = description;
 	}
-
+	
 	public void addBillItem(PatientServiceBillItem item) {
-		if (this.billItems == null)
-			this.billItems = new HashSet<PatientServiceBillItem>();
-		this.billItems.add(item);
+		if (billItems == null)
+			billItems = new HashSet<PatientServiceBillItem>();
+		billItems.add(item);
 	}
-
+	
 	public Set<PatientServiceBillItem> getBillItems() {
-		return this.billItems;
+		return billItems;
 	}
-
+	
 	public void setBillItems(Set<PatientServiceBillItem> billItems) {
 		this.billItems = billItems;
 	}
-
+	
 	public User getCreator() {
-		return this.creator;
+		return creator;
 	}
-
+	
 	public void setCreator(User creator) {
 		this.creator = creator;
 	}
-
+	
 	public Receipt getReceipt() {
-		return this.receipt;
+		return receipt;
 	}
-
+	
 	public void setReceipt(Receipt receipt) {
 		this.receipt = receipt;
 	}
-
+	
+	//ghanshyam 3-june-2013 New Requirement #1632 Orders from dashboard must be appear in billing queue.User must be able to generate bills from this queue
 	public Integer getFreeBill() {
-		return this.freeBill;
+		return freeBill;
 	}
 
 	public void setFreeBill(Integer freeBill) {
@@ -209,23 +243,23 @@ public class PatientServiceBill implements Serializable {
 	}
 
 	public BigDecimal getActualAmount() {
-		return this.actualAmount;
+		return actualAmount;
 	}
-
+	
 	public void setActualAmount(BigDecimal actualAmount) {
 		this.actualAmount = actualAmount;
 	}
-
+	
 	public String getComment() {
-		return this.comment;
+		return comment;
 	}
-
+	
 	public void setComment(String comment) {
 		this.comment = comment;
 	}
 
 	public BigDecimal getWaiverAmount() {
-		return this.waiverAmount;
+		return waiverAmount;
 	}
 
 	public void setWaiverAmount(BigDecimal waiverAmount) {
@@ -233,7 +267,7 @@ public class PatientServiceBill implements Serializable {
 	}
 
 	public Encounter getEncounter() {
-		return this.encounter;
+		return encounter;
 	}
 
 	public void setEncounter(Encounter encounter) {
@@ -241,7 +275,7 @@ public class PatientServiceBill implements Serializable {
 	}
 
 	public int getDischargeStatus() {
-		return this.dischargeStatus;
+		return dischargeStatus;
 	}
 
 	public void setDischargeStatus(int dischargeStatus) {

@@ -1,7 +1,29 @@
+/**
+ *  Copyright 2010 Society for Health Information Systems Programmes, India (HISP India)
+ *
+ *  This file is part of Hospital-core module.
+ *
+ *  Hospital-core module is free software: you can redistribute it and/or modify
+ *  it under the terms of the GNU General Public License as published by
+ *  the Free Software Foundation, either version 3 of the License, or
+ *  (at your option) any later version.
+
+ *  Hospital-core module is distributed in the hope that it will be useful,
+ *  but WITHOUT ANY WARRANTY; without even the implied warranty of
+ *  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ *  GNU General Public License for more details.
+ *
+ *  You should have received a copy of the GNU General Public License
+ *  along with Hospital-core module.  If not, see <http://www.gnu.org/licenses/>.
+ *
+ **/
+
+
 package org.openmrs.module.hospitalcore.db;
 
 import java.util.ArrayList;
 import java.util.List;
+
 import org.openmrs.Concept;
 import org.openmrs.Encounter;
 import org.openmrs.Patient;
@@ -15,67 +37,54 @@ import org.openmrs.module.hospitalcore.model.OpdPatientQueueLog;
 import org.openmrs.module.hospitalcore.model.WardBedStrength;
 
 public interface IpdDAO {
-	IpdPatientAdmission saveIpdPatientAdmission(IpdPatientAdmission paramIpdPatientAdmission) throws DAOException;
+	
+	public IpdPatientAdmission saveIpdPatientAdmission(IpdPatientAdmission admission) throws DAOException;
+	public IpdPatientAdmissionLog saveIpdPatientAdmissionLog(IpdPatientAdmissionLog admissionLog) throws DAOException;
+	public IpdPatientAdmitted saveIpdPatientAdmitted(IpdPatientAdmitted admitted) throws DAOException;
+	public IpdPatientAdmittedLog saveIpdPatientAdmittedLog(IpdPatientAdmittedLog admitted) throws DAOException;
+	
+	public IpdPatientAdmittedLog getIpdPatientAdmittedLog(Integer id) throws DAOException;
+	public IpdPatientAdmitted getIpdPatientAdmitted(Integer id) throws DAOException;
+	public IpdPatientAdmissionLog getIpdPatientAdmissionLog(Integer id) throws DAOException;
+	public IpdPatientAdmissionLog getIpdPatientAdmissionLog(OpdPatientQueueLog opdLog) throws DAOException;
+	public IpdPatientAdmissionLog getIpdPatientAdmissionLog(Encounter encounter) throws DAOException;
+	public IpdPatientAdmission getIpdPatientAdmission(Integer id) throws DAOException;
+	
+	public List<IpdPatientAdmittedLog> getAllIpdPatientAdmittedLog() throws DAOException;
+	public List<IpdPatientAdmitted> getAllIpdPatientAdmitted() throws DAOException;
+	public List<IpdPatientAdmissionLog> listIpdPatientAdmissionLog(Integer patientId, Integer admissionWardId,String status,Integer min, Integer max)
+	throws DAOException;
+	public List<IpdPatientAdmission> getAllIpdPatientAdmission() throws DAOException;
+	public List<IpdPatientAdmission> getAllIndoorPatient() throws DAOException;
+        
+        // 24/11/2014 to Work with size selctor for IPDQueue
+	public List<IpdPatientAdmissionLog> getAllIndoorPatientFromAdmissionLog(String searchKey,int page,int pgSize) throws DAOException;
+	
+        public int countGetAllIndoorPatientFromAdmissionLog(String searchKey,int page) throws DAOException;
+        
+	public void removeIpdPatientAdmission(IpdPatientAdmission admission) throws DAOException;
+	public void removeIpdPatientAdmitted(IpdPatientAdmitted admitted) throws DAOException;
+	
+	public List<IpdPatientAdmittedLog> listAdmittedLogByPatientId(Integer patientId) throws DAOException;
+	
+	public IpdPatientAdmitted getAdmittedByPatientId(Integer patientId) throws DAOException;
+	
+	public IpdPatientAdmitted getAdmittedByAdmissionLogId(IpdPatientAdmissionLog ipdPatientAdmissionLog) throws DAOException;
 
-	IpdPatientAdmissionLog saveIpdPatientAdmissionLog(IpdPatientAdmissionLog paramIpdPatientAdmissionLog) throws DAOException;
+	public List<IpdPatientAdmitted> getAllIpdAdmittedPatientByWardId(Integer wardId)
+			throws DAOException;
+	public WardBedStrength getWardBedStrengthByWardId(Integer wardId) throws DAOException;
+	public void saveWardBedStrength(WardBedStrength wardBedStrength) throws DAOException;
 
-	IpdPatientAdmitted saveIpdPatientAdmitted(IpdPatientAdmitted paramIpdPatientAdmitted) throws DAOException;
+	
+	//ghanshyam 10-june-2013 New Requirement #1847 Capture Vital statistics for admitted patient in ipd
+	public IpdPatientVitalStatistics saveIpdPatientVitalStatistics(IpdPatientVitalStatistics vitalStatistics) throws DAOException;
+	public List<IpdPatientVitalStatistics> getIpdPatientVitalStatistics(Integer patientId,Integer patientAdmissionLogId) throws DAOException;
+	public List<Concept> getDiet() throws DAOException;
+	public IpdPatientAdmission getIpdPatientAdmissionByEncounter(Encounter encounter) throws DAOException;
 
-	IpdPatientAdmittedLog saveIpdPatientAdmittedLog(IpdPatientAdmittedLog paramIpdPatientAdmittedLog) throws DAOException;
-
-	IpdPatientAdmittedLog getIpdPatientAdmittedLog(Integer paramInteger) throws DAOException;
-
-	IpdPatientAdmitted getIpdPatientAdmitted(Integer paramInteger) throws DAOException;
-
-	IpdPatientAdmissionLog getIpdPatientAdmissionLog(Integer paramInteger) throws DAOException;
-
-	IpdPatientAdmissionLog getIpdPatientAdmissionLog(OpdPatientQueueLog paramOpdPatientQueueLog) throws DAOException;
-
-	IpdPatientAdmissionLog getIpdPatientAdmissionLog(Encounter paramEncounter) throws DAOException;
-
-	IpdPatientAdmission getIpdPatientAdmission(Integer paramInteger) throws DAOException;
-
-	List<IpdPatientAdmittedLog> getAllIpdPatientAdmittedLog() throws DAOException;
-
-	List<IpdPatientAdmitted> getAllIpdPatientAdmitted() throws DAOException;
-
-	List<IpdPatientAdmissionLog> listIpdPatientAdmissionLog(Integer paramInteger1, Integer paramInteger2, String paramString, Integer paramInteger3, Integer paramInteger4) throws DAOException;
-
-	List<IpdPatientAdmission> getAllIpdPatientAdmission() throws DAOException;
-
-	List<IpdPatientAdmission> getAllIndoorPatient() throws DAOException;
-
-	List<IpdPatientAdmissionLog> getAllIndoorPatientFromAdmissionLog(String paramString, int paramInt1, int paramInt2) throws DAOException;
-
-	int countGetAllIndoorPatientFromAdmissionLog(String paramString, int paramInt) throws DAOException;
-
-	void removeIpdPatientAdmission(IpdPatientAdmission paramIpdPatientAdmission) throws DAOException;
-
-	void removeIpdPatientAdmitted(IpdPatientAdmitted paramIpdPatientAdmitted) throws DAOException;
-
-	List<IpdPatientAdmittedLog> listAdmittedLogByPatientId(Integer paramInteger) throws DAOException;
-
-	IpdPatientAdmitted getAdmittedByPatientId(Integer paramInteger) throws DAOException;
-
-	IpdPatientAdmitted getAdmittedByAdmissionLogId(IpdPatientAdmissionLog paramIpdPatientAdmissionLog) throws DAOException;
-
-	List<IpdPatientAdmitted> getAllIpdAdmittedPatientByWardId(Integer paramInteger) throws DAOException;
-
-	WardBedStrength getWardBedStrengthByWardId(Integer paramInteger) throws DAOException;
-
-	void saveWardBedStrength(WardBedStrength paramWardBedStrength) throws DAOException;
-
-	IpdPatientVitalStatistics saveIpdPatientVitalStatistics(IpdPatientVitalStatistics paramIpdPatientVitalStatistics) throws DAOException;
-
-	List<IpdPatientVitalStatistics> getIpdPatientVitalStatistics(Integer paramInteger1, Integer paramInteger2) throws DAOException;
-
-	List<Concept> getDiet() throws DAOException;
-
-	IpdPatientAdmission getIpdPatientAdmissionByEncounter(Encounter paramEncounter) throws DAOException;
-
-	List<IpdPatientAdmission> searchIpdPatientAdmission(String paramString1, ArrayList<Integer> paramArrayList, String paramString2, String paramString3, String paramString4, String paramString5) throws DAOException;
-
-	List<IpdPatientAdmitted> searchIpdPatientAdmitted(String paramString1, ArrayList<Integer> paramArrayList, String paramString2, String paramString3, String paramString4, String paramString5) throws DAOException;
-
-	IpdPatientAdmission getIpdPatientAdmissionByPatientId(Patient paramPatient) throws DAOException;
+	public List<IpdPatientAdmission> searchIpdPatientAdmission(String patientSearch, ArrayList<Integer> userIds, String fromDate, String toDate,String wardId, String status) throws DAOException;
+	public List<IpdPatientAdmitted> searchIpdPatientAdmitted(String patientSearch, ArrayList<Integer> userIds, String fromDate, String toDate,String wardId, String status) throws DAOException;
+	public IpdPatientAdmission getIpdPatientAdmissionByPatientId(Patient patientId) throws DAOException;
+	
 }

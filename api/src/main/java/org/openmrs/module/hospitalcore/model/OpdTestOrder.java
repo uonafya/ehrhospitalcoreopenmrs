@@ -1,3 +1,26 @@
+/**
+ *  Copyright 2013 Society for Health Information Systems Programmes, India (HISP India)
+ *
+ *  This file is part of Hospital-core module.
+ *
+ *  Hospital-core module is free software: you can redistribute it and/or modify
+ *  it under the terms of the GNU General Public License as published by
+ *  the Free Software Foundation, either version 3 of the License, or
+ *  (at your option) any later version.
+
+ *  Hospital-core module is distributed in the hope that it will be useful,
+ *  but WITHOUT ANY WARRANTY; without even the implied warranty of
+ *  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ *  GNU General Public License for more details.
+ *
+ *  You should have received a copy of the GNU General Public License
+ *  along with Hospital-core module.  If not, see <http://www.gnu.org/licenses/>.
+ *
+ *  author: ghanshyam
+ *  date: 1-june-2013
+ *  issue no: #1633
+ **/
+
 package org.openmrs.module.hospitalcore.model;
 
 import java.util.Date;
@@ -8,37 +31,24 @@ import org.openmrs.User;
 
 public class OpdTestOrder {
 	private static final long serialVersionUID = 1L;
-
 	private Integer opdOrderId;
-
 	private Patient patient;
-
 	private Encounter encounter;
-
 	private Concept concept;
-
 	private Integer typeConcept;
-
 	private Concept valueCoded;
-
 	private User creator;
-
 	private Date createdOn;
-
-	private int billingStatus;
-
-	private int cancelStatus;
-
+	private int billingStatus; //0=not yet billed,1=billed
+	private int cancelStatus; //0=not yet canceled,1=canceled
 	private BillableService billableService;
-
 	private Date scheduleDate;
-
 	private int indoorStatus;
-
+	
 	private String fromDept;
 
 	public String getFromDept() {
-		return this.fromDept;
+		return fromDept;
 	}
 
 	public void setFromDept(String fromDept) {
@@ -46,7 +56,7 @@ public class OpdTestOrder {
 	}
 
 	public Integer getOpdOrderId() {
-		return this.opdOrderId;
+		return opdOrderId;
 	}
 
 	public void setOpdOrderId(Integer opdOrderId) {
@@ -54,7 +64,7 @@ public class OpdTestOrder {
 	}
 
 	public Patient getPatient() {
-		return this.patient;
+		return patient;
 	}
 
 	public void setPatient(Patient patient) {
@@ -62,7 +72,7 @@ public class OpdTestOrder {
 	}
 
 	public Encounter getEncounter() {
-		return this.encounter;
+		return encounter;
 	}
 
 	public void setEncounter(Encounter encounter) {
@@ -70,7 +80,7 @@ public class OpdTestOrder {
 	}
 
 	public Concept getConcept() {
-		return this.concept;
+		return concept;
 	}
 
 	public void setConcept(Concept concept) {
@@ -78,7 +88,7 @@ public class OpdTestOrder {
 	}
 
 	public Integer getTypeConcept() {
-		return this.typeConcept;
+		return typeConcept;
 	}
 
 	public void setTypeConcept(Integer typeConcept) {
@@ -86,7 +96,7 @@ public class OpdTestOrder {
 	}
 
 	public Concept getValueCoded() {
-		return this.valueCoded;
+		return valueCoded;
 	}
 
 	public void setValueCoded(Concept valueCoded) {
@@ -94,7 +104,7 @@ public class OpdTestOrder {
 	}
 
 	public User getCreator() {
-		return this.creator;
+		return creator;
 	}
 
 	public void setCreator(User creator) {
@@ -102,7 +112,7 @@ public class OpdTestOrder {
 	}
 
 	public Date getCreatedOn() {
-		return this.createdOn;
+		return createdOn;
 	}
 
 	public void setCreatedOn(Date createdOn) {
@@ -110,7 +120,7 @@ public class OpdTestOrder {
 	}
 
 	public int getBillingStatus() {
-		return this.billingStatus;
+		return billingStatus;
 	}
 
 	public void setBillingStatus(int billingStatus) {
@@ -118,7 +128,7 @@ public class OpdTestOrder {
 	}
 
 	public int getCancelStatus() {
-		return this.cancelStatus;
+		return cancelStatus;
 	}
 
 	public void setCancelStatus(int cancelStatus) {
@@ -126,7 +136,7 @@ public class OpdTestOrder {
 	}
 
 	public BillableService getBillableService() {
-		return this.billableService;
+		return billableService;
 	}
 
 	public void setBillableService(BillableService billableService) {
@@ -134,7 +144,7 @@ public class OpdTestOrder {
 	}
 
 	public Date getScheduleDate() {
-		return this.scheduleDate;
+		return scheduleDate;
 	}
 
 	public void setScheduleDate(Date scheduleDate) {
@@ -142,10 +152,11 @@ public class OpdTestOrder {
 	}
 
 	public int getIndoorStatus() {
-		return this.indoorStatus;
+		return indoorStatus;
 	}
 
 	public void setIndoorStatus(int indoorStatus) {
 		this.indoorStatus = indoorStatus;
 	}
+
 }

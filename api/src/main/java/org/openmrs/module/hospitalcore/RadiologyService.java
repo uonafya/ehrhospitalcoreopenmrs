@@ -1,9 +1,24 @@
+/*
+ * The contents of this file are subject to the OpenMRS Public License
+ * Version 1.0 (the "License"); you may not use this file except in
+ * compliance with the License. You may obtain a copy of the License at
+ * http://license.openmrs.org
+ *
+ * Software distributed under the License is distributed on an "AS IS"
+ * basis, WITHOUT WARRANTY OF ANY KIND, either express or implied. See the
+ * License for the specific language governing rights and limitations
+ * under the License.
+ *
+ * Copyright (C) OpenMRS, LLC.  All Rights Reserved.
+ */
+
 package org.openmrs.module.hospitalcore;
 
 import java.text.ParseException;
 import java.util.Date;
 import java.util.List;
 import java.util.Set;
+
 import org.openmrs.Concept;
 import org.openmrs.Encounter;
 import org.openmrs.Order;
@@ -17,73 +32,303 @@ import org.springframework.transaction.annotation.Transactional;
 
 @Transactional
 public interface RadiologyService extends OpenmrsService {
-	RadiologyForm saveRadiologyForm(RadiologyForm paramRadiologyForm);
 
-	RadiologyForm getRadiologyFormById(Integer paramInteger);
+	/**
+	 * Get radiology test by id
+	 * 
+	 * @param form
+	 * @return
+	 */
+	public RadiologyForm saveRadiologyForm(RadiologyForm form);
 
-	List<RadiologyForm> getAllRadiologyForms();
+	/**
+	 * Get radiology test by id
+	 * 
+	 * @param id
+	 * @return
+	 */
+	public RadiologyForm getRadiologyFormById(Integer id);
 
-	void deleteRadiologyForm(RadiologyForm paramRadiologyForm);
+	/**
+	 * Get all radiology forms
+	 * 
+	 * @return
+	 */
+	public List<RadiologyForm> getAllRadiologyForms();
 
-	List<RadiologyForm> getRadiologyForms(String paramString);
+	/**
+	 * Delete radiology form
+	 * 
+	 * @param form
+	 */
+	public void deleteRadiologyForm(RadiologyForm form);
 
-	RadiologyDepartment saveRadiologyDepartment(RadiologyDepartment paramRadiologyDepartment);
+	/**
+	 * Get radiology forms
+	 * 
+	 * @param conceptName
+	 * @return
+	 */
+	public List<RadiologyForm> getRadiologyForms(String conceptName);
 
-	RadiologyDepartment getRadiologyDepartmentById(Integer paramInteger);
+	/**
+	 * Save radiology department
+	 * 
+	 * @param department
+	 * @return
+	 */
+	public RadiologyDepartment saveRadiologyDepartment(
+			RadiologyDepartment department);
 
-	void deleteRadiologyDepartment(RadiologyDepartment paramRadiologyDepartment);
+	/**
+	 * Get radiology department by id
+	 * 
+	 * @param id
+	 * @return
+	 */
+	public RadiologyDepartment getRadiologyDepartmentById(Integer id);
 
-	RadiologyDepartment getCurrentRadiologyDepartment();
+	/**
+	 * Delete a radiology department
+	 * 
+	 * @param department
+	 */
+	public void deleteRadiologyDepartment(RadiologyDepartment department);
 
-	List<Order> getOrders(Date paramDate, String paramString, Set<Concept> paramSet, int paramInt) throws ParseException;
+	/**
+	 * get the default radiology department using current user's role
+	 * 
+	 * @return
+	 */
+	public RadiologyDepartment getCurrentRadiologyDepartment();
 
-	Integer countOrders(Date paramDate, String paramString, Set<Concept> paramSet) throws ParseException;
+	/**
+	 * Find orders
+	 * 
+	 * @param startDate
+	 * @param phrase
+	 * @param tests
+	 * @param page
+	 * @return
+	 * @throws ParseException
+	 */
+	public List<Order> getOrders(Date startDate, String phrase,
+			Set<Concept> tests, int page) throws ParseException;
 
-	Integer acceptTest(Order paramOrder);
+	/**
+	 * Count found orders
+	 * 
+	 * @param startDate
+	 * @param phrase
+	 * @param tests
+	 * @return
+	 * @throws ParseException
+	 */
+	public Integer countOrders(Date startDate, String phrase, Set<Concept> tests)
+			throws ParseException;
 
-	RadiologyTest saveRadiologyTest(RadiologyTest paramRadiologyTest);
+	/**
+	 * Accept a radiology test
+	 * 
+	 * @param order
+	 * @return id of accepted radiology test
+	 */
+	public Integer acceptTest(Order order);
 
-	RadiologyTest getRadiologyTestById(Integer paramInteger);
+	/**
+	 * Save radiology test
+	 * 
+	 * @param test
+	 * @return
+	 */
+	public RadiologyTest saveRadiologyTest(RadiologyTest test);
 
-	List<RadiologyTest> getAllRadiologyTests();
+	/**
+	 * Get radiology test by id
+	 * 
+	 * @param id
+	 * @return
+	 */
+	public RadiologyTest getRadiologyTestById(Integer id);
 
-	void deleteRadiologyTest(RadiologyTest paramRadiologyTest);
+	/**
+	 * Get all radiology test
+	 * 
+	 * @return
+	 */
+	public List<RadiologyTest> getAllRadiologyTests();
 
-	String unacceptTest(RadiologyTest paramRadiologyTest);
+	/**
+	 * Delete radiology test
+	 * 
+	 * @param test
+	 */
+	public void deleteRadiologyTest(RadiologyTest test);
 
-	RadiologyTest getRadiologyTestByOrder(Order paramOrder);
+	/**
+	 * Unaccept a test
+	 * 
+	 * @param testId
+	 * @return
+	 */
+	public String unacceptTest(RadiologyTest test);
 
-	String rescheduleTest(Order paramOrder, Date paramDate);
+	/**
+	 * Get radiology test by order
+	 * 
+	 * @param order
+	 * @return
+	 */
+	public RadiologyTest getRadiologyTestByOrder(Order order);
 
-	List<RadiologyTest> getAcceptedRadiologyTests(Date paramDate, String paramString, Set<Concept> paramSet, int paramInt) throws ParseException;
+	/**
+	 * Reschedule a test
+	 * 
+	 * @param order
+	 * @param rescheduledDate
+	 * @return reschedule status
+	 */
+	public String rescheduleTest(Order order, Date rescheduledDate);
 
-	Integer countAcceptedRadiologyTests(Date paramDate, String paramString, Set<Concept> paramSet) throws ParseException;
+	/**
+	 * Find radiology tests for worklist
+	 * 
+	 * @param date
+	 * @param phrase
+	 * @param page
+	 *            TODO
+	 * @param investigation
+	 * @return
+	 * @throws ParseException
+	 */
+	public List<RadiologyTest> getAcceptedRadiologyTests(Date date,
+			String phrase, Set<Concept> allowableTests, int page)
+			throws ParseException;
 
-	String completeTest(RadiologyTest paramRadiologyTest);
+	/**
+	 * Count radiology tests rows
+	 * 
+	 * @param date
+	 * @param phrase
+	 * @param allowableTests
+	 * @param page
+	 * @return
+	 * @throws ParseException
+	 */
+	public Integer countAcceptedRadiologyTests(Date date, String phrase,
+			Set<Concept> allowableTests) throws ParseException;
 
-	List<RadiologyTest> getAllRadiologyTestsByDate(Date paramDate, String paramString, Concept paramConcept) throws ParseException;
+	/**
+	 * Complete a test then return whether the test is successfully completed.
+	 * 
+	 * @param test
+	 * @return
+	 */
+	public String completeTest(RadiologyTest test);
 
-	List<RadiologyTest> getCompletedRadiologyTests(Date paramDate, String paramString, Set<Concept> paramSet, int paramInt) throws ParseException;
+	/**
+	 * Get all radiology tests by date
+	 * 
+	 * @param date
+	 * @param phrase
+	 * @param investigation
+	 * @return
+	 * @throws ParseException
+	 */
+	public List<RadiologyTest> getAllRadiologyTestsByDate(Date date,
+			String phrase, Concept investigation) throws ParseException;
 
-	Integer countCompletedRadiologyTests(Date paramDate, String paramString, Set<Concept> paramSet) throws ParseException;
+	/**
+	 * Get all completed radiology tests
+	 * 
+	 * @param date
+	 * @param phrase
+	 * @param allowableTests
+	 * @param page
+	 *            TODO
+	 * @return
+	 * @throws ParseException
+	 */
+	public List<RadiologyTest> getCompletedRadiologyTests(Date date,
+			String phrase, Set<Concept> allowableTests, int page)
+			throws ParseException;
 
-	List<RadiologyTest> getRadiologyTestsByDateAndPatient(Date paramDate, Patient paramPatient) throws ParseException;
+	/**
+	 * Count all completed radiology tests
+	 * 
+	 * @param date
+	 * @param phrase
+	 * @param allowableTests
+	 * @return
+	 * @throws ParseException
+	 */
+	public Integer countCompletedRadiologyTests(Date date, String phrase,
+			Set<Concept> allowableTests) throws ParseException;
 
-	RadiologyTest getRadiologyTest(Encounter paramEncounter);
+	/**
+	 * Get all radiology tests by date and patient
+	 * 
+	 * @param date
+	 * @param patient
+	 * @return
+	 * @throws ParseException
+	 */
+	public List<RadiologyTest> getRadiologyTestsByDateAndPatient(Date date,
+			Patient patient) throws ParseException;
+	
+	/**
+	 * Get radiology test by encounter
+	 * @param ecnounter
+	 * @return
+	 */
+	public RadiologyTest getRadiologyTest(Encounter encounter);
 
-	void createConceptsForXrayDefaultForm();
+	/**
+	 * Create concepts for Xray default form
+	 */
+	public void createConceptsForXrayDefaultForm();
 
-	RadiologyForm getDefaultForm();
+	/**
+	 * get default form
+	 * 
+	 * @return
+	 */
+	public RadiologyForm getDefaultForm();
 
-	RadiologyTemplate getRadiologyTemplate(Integer paramInteger);
+	/**
+	 * Get Radiology Template
+	 * 
+	 * @param id
+	 * @return
+	 */
+	public RadiologyTemplate getRadiologyTemplate(Integer id);
 
-	RadiologyTemplate saveRadiologyTemplate(RadiologyTemplate paramRadiologyTemplate);
+	/**
+	 * Save Radiology Template
+	 * 
+	 * @param template
+	 * @return
+	 */
+	public RadiologyTemplate saveRadiologyTemplate(RadiologyTemplate template);
 
-	List<RadiologyTemplate> getAllRadiologyTemplates();
+	/**
+	 * Get all Radiology Templates
+	 * @return
+	 */
+	public List<RadiologyTemplate> getAllRadiologyTemplates();
+	
+	/**
+	 * Delete Radiology template
+	 * @param template
+	 */
+	public void deleteRadiologyTemplate(RadiologyTemplate template);
+	
+	/**
+	 * Get Radiology Template by concept
+	 * @param concept
+	 * @return
+	 */
+	public List<RadiologyTemplate> getRadiologyTemplates(Concept concept);
 
-	void deleteRadiologyTemplate(RadiologyTemplate paramRadiologyTemplate);
-
-	List<RadiologyTemplate> getRadiologyTemplates(Concept paramConcept);
-
-	List<RadiologyTest> getCompletedRadiologyTestsByPatient(Patient paramPatient);
+	public List<RadiologyTest> getCompletedRadiologyTestsByPatient(Patient patient);
 }

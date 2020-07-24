@@ -1,42 +1,45 @@
+/*
+ * The contents of this file are subject to the OpenMRS Public License
+ * Version 1.0 (the "License"); you may not use this file except in
+ * compliance with the License. You may obtain a copy of the License at
+ * http://license.openmrs.org
+ *
+ * Software distributed under the License is distributed on an "AS IS"
+ * basis, WITHOUT WARRANTY OF ANY KIND, either express or implied. See the
+ * License for the specific language governing rights and limitations
+ * under the License.
+ *
+ * Copyright (C) OpenMRS, LLC.  All Rights Reserved.
+ */
+
 package org.openmrs.module.hospitalcore.util;
 
 import java.util.Comparator;
+//ghanshyam 04/07/2012 New Requirement #274
+public class TestModel implements Comparator<TestModel>, Comparable<TestModel>{
 
-public class TestModel implements Comparator<TestModel>, Comparable<TestModel> {
 	private String startDate;
-
 	private String patientIdentifier;
-
 	private String patientName;
-
 	private String gender;
-
 	private String testName;
-
 	private Integer orderId;
-
 	private String status;
-
 	private Integer testId;
-
 	private Integer givenFormId;
-
 	private Integer notGivenFormId;
-
 	private String acceptedDate;
-
 	private String investigation;
-
 	private Integer givenEncounterId;
-
 	private Integer notGivenEncounterId;
-
 	private Boolean xray;
-
 	private String age;
+	//ghanshyam 04/07/2012 New Requirement #274
+	public TestModel(){
+	   }
 
 	public String getStartDate() {
-		return this.startDate;
+		return startDate;
 	}
 
 	public void setStartDate(String startDate) {
@@ -44,7 +47,7 @@ public class TestModel implements Comparator<TestModel>, Comparable<TestModel> {
 	}
 
 	public String getPatientIdentifier() {
-		return this.patientIdentifier;
+		return patientIdentifier;
 	}
 
 	public void setPatientIdentifier(String patientIdentifier) {
@@ -52,7 +55,7 @@ public class TestModel implements Comparator<TestModel>, Comparable<TestModel> {
 	}
 
 	public String getPatientName() {
-		return this.patientName;
+		return patientName;
 	}
 
 	public void setPatientName(String patientName) {
@@ -60,7 +63,7 @@ public class TestModel implements Comparator<TestModel>, Comparable<TestModel> {
 	}
 
 	public String getGender() {
-		return this.gender;
+		return gender;
 	}
 
 	public void setGender(String gender) {
@@ -68,7 +71,7 @@ public class TestModel implements Comparator<TestModel>, Comparable<TestModel> {
 	}
 
 	public String getTestName() {
-		return this.testName;
+		return testName;
 	}
 
 	public void setTestName(String testName) {
@@ -76,7 +79,7 @@ public class TestModel implements Comparator<TestModel>, Comparable<TestModel> {
 	}
 
 	public Integer getOrderId() {
-		return this.orderId;
+		return orderId;
 	}
 
 	public void setOrderId(Integer orderId) {
@@ -84,7 +87,7 @@ public class TestModel implements Comparator<TestModel>, Comparable<TestModel> {
 	}
 
 	public String getStatus() {
-		return this.status;
+		return status;
 	}
 
 	public void setStatus(String status) {
@@ -92,7 +95,7 @@ public class TestModel implements Comparator<TestModel>, Comparable<TestModel> {
 	}
 
 	public Integer getTestId() {
-		return this.testId;
+		return testId;
 	}
 
 	public void setTestId(Integer testId) {
@@ -100,7 +103,7 @@ public class TestModel implements Comparator<TestModel>, Comparable<TestModel> {
 	}
 
 	public Integer getGivenFormId() {
-		return this.givenFormId;
+		return givenFormId;
 	}
 
 	public void setGivenFormId(Integer formId) {
@@ -108,7 +111,7 @@ public class TestModel implements Comparator<TestModel>, Comparable<TestModel> {
 	}
 
 	public String getAcceptedDate() {
-		return this.acceptedDate;
+		return acceptedDate;
 	}
 
 	public void setAcceptedDate(String acceptedDate) {
@@ -116,7 +119,7 @@ public class TestModel implements Comparator<TestModel>, Comparable<TestModel> {
 	}
 
 	public String getInvestigation() {
-		return this.investigation;
+		return investigation;
 	}
 
 	public void setInvestigation(String investigation) {
@@ -124,7 +127,7 @@ public class TestModel implements Comparator<TestModel>, Comparable<TestModel> {
 	}
 
 	public Integer getGivenEncounterId() {
-		return this.givenEncounterId;
+		return givenEncounterId;
 	}
 
 	public void setGivenEncounterId(Integer encounterId) {
@@ -132,7 +135,7 @@ public class TestModel implements Comparator<TestModel>, Comparable<TestModel> {
 	}
 
 	public Integer getNotGivenFormId() {
-		return this.notGivenFormId;
+		return notGivenFormId;
 	}
 
 	public void setNotGivenFormId(Integer notGivenFormId) {
@@ -140,7 +143,7 @@ public class TestModel implements Comparator<TestModel>, Comparable<TestModel> {
 	}
 
 	public Integer getNotGivenEncounterId() {
-		return this.notGivenEncounterId;
+		return notGivenEncounterId;
 	}
 
 	public void setNotGivenEncounterId(Integer notGivenEncounterId) {
@@ -148,7 +151,7 @@ public class TestModel implements Comparator<TestModel>, Comparable<TestModel> {
 	}
 
 	public Boolean getXray() {
-		return this.xray;
+		return xray;
 	}
 
 	public void setXray(Boolean xray) {
@@ -156,18 +159,22 @@ public class TestModel implements Comparator<TestModel>, Comparable<TestModel> {
 	}
 
 	public String getAge() {
-		return this.age;
+		return age;
 	}
 
 	public void setAge(String age) {
 		this.age = age;
 	}
-
-	public int compareTo(TestModel t) {
-		return this.patientName.compareTo(t.patientName);
-	}
-
+	//ghanshyam 04/07/2012 New Requirement #274
+	
+	 // Overriding the compareTo method
+	   public int compareTo(TestModel t){
+	      return (this.patientName).compareTo(t.patientName);
+	   }
+	   
+	   // Overriding the compare method
 	public int compare(TestModel t, TestModel t1) {
 		return 0;
 	}
-}
+
+	   }

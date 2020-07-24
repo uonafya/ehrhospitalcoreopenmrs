@@ -1,7 +1,23 @@
+/*
+ * The contents of this file are subject to the OpenMRS Public License
+ * Version 1.0 (the "License"); you may not use this file except in
+ * compliance with the License. You may obtain a copy of the License at
+ * http://license.openmrs.org
+ *
+ * Software distributed under the License is distributed on an "AS IS"
+ * basis, WITHOUT WARRANTY OF ANY KIND, either express or implied. See the
+ * License for the specific language governing rights and limitations
+ * under the License.
+ *
+ * Copyright (C) OpenMRS, LLC.  All Rights Reserved.
+ */
+
+
 package org.openmrs.module.hospitalcore;
 
 import java.util.ArrayList;
 import java.util.List;
+
 import org.openmrs.Concept;
 import org.openmrs.Encounter;
 import org.openmrs.Patient;
@@ -16,94 +32,97 @@ import org.openmrs.module.hospitalcore.model.OpdPatientQueueLog;
 import org.openmrs.module.hospitalcore.model.WardBedStrength;
 import org.springframework.transaction.annotation.Transactional;
 
-@Transactional(readOnly = false)
-public interface IpdService extends OpenmrsService {
-	IpdPatientAdmission saveIpdPatientAdmission(IpdPatientAdmission paramIpdPatientAdmission) throws APIException;
+@Transactional(readOnly=false)
+public interface IpdService extends OpenmrsService{
+	
+	public IpdPatientAdmission saveIpdPatientAdmission(IpdPatientAdmission admission) throws APIException;
+	
+	public void removeIpdPatientAdmission(IpdPatientAdmission admission) throws APIException;
+	
+	public IpdPatientAdmissionLog saveIpdPatientAdmissionLog(IpdPatientAdmissionLog admissionLog) throws APIException;
+	
+	public IpdPatientAdmitted saveIpdPatientAdmitted(IpdPatientAdmitted admitted) throws APIException;
+	
+	public void removeIpdPatientAdmitted(IpdPatientAdmitted admitted) throws APIException;
+	
+	public IpdPatientAdmittedLog saveIpdPatientAdmittedLog(IpdPatientAdmittedLog admitted) throws APIException;
+	
+	@Transactional(readOnly = true)
+	public IpdPatientAdmittedLog getIpdPatientAdmittedLog(Integer id) throws APIException;
+	
+	@Transactional(readOnly = true)
+	public IpdPatientAdmitted getIpdPatientAdmitted(Integer id) throws APIException;
+	
+	@Transactional(readOnly = true)
+	public IpdPatientAdmissionLog getIpdPatientAdmissionLog(Integer id) throws APIException;
+	
+	@Transactional(readOnly = true)
+	public IpdPatientAdmissionLog getIpdPatientAdmissionLog(OpdPatientQueueLog opdLog) throws APIException;
+	
+	@Transactional(readOnly = true)
+	public IpdPatientAdmissionLog getIpdPatientAdmissionLog(Encounter encounter) throws APIException;
+	
+	@Transactional(readOnly = true)
+	public IpdPatientAdmission getIpdPatientAdmission(Integer id) throws APIException;
+	
+	@Transactional(readOnly = true)
+	public List<IpdPatientAdmittedLog> getAllIpdPatientAdmittedLog() throws APIException;
+	
+	@Transactional(readOnly = true)
+	public List<IpdPatientAdmitted> getAllIpdPatientAdmitted() throws APIException;
+	
+	@Transactional(readOnly = true)
+	public List<IpdPatientAdmissionLog> listIpdPatientAdmissionLog(Integer patientId, Integer admissionWardId,String status,Integer min, Integer max)
+			throws APIException;
+	
+	@Transactional(readOnly = true)
+	public List<IpdPatientAdmission> getAllIpdPatientAdmission() throws APIException;
+	
+	@Transactional(readOnly = true)
+	public List<IpdPatientAdmission> getAllIndoorPatient() throws APIException;
+	
+        // 24/11/2014 to Work with size selctor for IPDQueue
+	@Transactional(readOnly = true)
+	public List<IpdPatientAdmissionLog> getAllIndoorPatientFromAdmissionLog(String searchKey,int page,int pgSize) throws APIException;
+	
+        @Transactional(readOnly = true)
+	public int countGetAllIndoorPatientFromAdmissionLog(String searchKey,int page) throws APIException;
+        
+	public IpdPatientAdmitted transfer(Integer id, Integer wardId, Integer doctorId, String bed) throws APIException;
+	
+	//ghanshyam 11-july-2013 feedback # 1724 Introducing bed availability
+	public IpdPatientAdmitted transfer(Integer id, Integer wardId, Integer doctorId, String bed,String comments) throws APIException;
+	
+	public IpdPatientAdmittedLog discharge(Integer id, Integer outComeConceptId) throws APIException;
+	
+	// Kesavulu loka 24/06/2013 # 1926 One text filed for otherInstructions.
+	public IpdPatientAdmittedLog discharge(Integer id, Integer outComeConceptId, String otherInstructions) throws APIException;
+	
+	@Transactional(readOnly = true)
+	public List<IpdPatientAdmittedLog> listAdmittedLogByPatientId(Integer patientId) throws APIException;
+	
+	@Transactional(readOnly = true)
+	public IpdPatientAdmitted getAdmittedByPatientId(Integer patientId) throws APIException;
+	
+	@Transactional(readOnly = true)
+	public IpdPatientAdmitted getAdmittedByAdmissionLogId(IpdPatientAdmissionLog ipdPatientAdmissionLog) throws APIException;
+	
+	public void saveWardBedStrength(WardBedStrength wardBedStrength) throws APIException;
+	public WardBedStrength getWardBedStrengthByWardId(Integer wardId) throws APIException;
 
-	void removeIpdPatientAdmission(IpdPatientAdmission paramIpdPatientAdmission) throws APIException;
-
-	IpdPatientAdmissionLog saveIpdPatientAdmissionLog(IpdPatientAdmissionLog paramIpdPatientAdmissionLog) throws APIException;
-
-	IpdPatientAdmitted saveIpdPatientAdmitted(IpdPatientAdmitted paramIpdPatientAdmitted) throws APIException;
-
-	void removeIpdPatientAdmitted(IpdPatientAdmitted paramIpdPatientAdmitted) throws APIException;
-
-	IpdPatientAdmittedLog saveIpdPatientAdmittedLog(IpdPatientAdmittedLog paramIpdPatientAdmittedLog) throws APIException;
+	//ghanshyam 10-june-2013 New Requirement #1847 Capture Vital statistics for admitted patient in ipd
+	public IpdPatientVitalStatistics saveIpdPatientVitalStatistics(IpdPatientVitalStatistics vitalStatistics) throws APIException;
+	public List<Concept> getDiet() throws APIException;
+	public List<IpdPatientVitalStatistics> getIpdPatientVitalStatistics(Integer patientId,Integer patientAdmissionLogId) throws APIException;
+	public IpdPatientAdmission getIpdPatientAdmissionByEncounter(Encounter encounter) throws APIException;
 
 	@Transactional(readOnly = true)
-	IpdPatientAdmittedLog getIpdPatientAdmittedLog(Integer paramInteger) throws APIException;
-
+	public List<IpdPatientAdmission> searchIpdPatientAdmission(String patientSearch, ArrayList<Integer> userIds, String fromDate, String toDate, String wardId, String status) throws APIException;
 	@Transactional(readOnly = true)
-	IpdPatientAdmitted getIpdPatientAdmitted(Integer paramInteger) throws APIException;
-
+	public List<IpdPatientAdmitted> searchIpdPatientAdmitted(String patientSearch, ArrayList<Integer> userIds, String fromDate, String toDate, String wardId, String status) throws APIException;
+	
 	@Transactional(readOnly = true)
-	IpdPatientAdmissionLog getIpdPatientAdmissionLog(Integer paramInteger) throws APIException;
+	public IpdPatientAdmission getIpdPatientAdmissionByPatientId(Patient patientId) throws APIException;
+	
 
-	@Transactional(readOnly = true)
-	IpdPatientAdmissionLog getIpdPatientAdmissionLog(OpdPatientQueueLog paramOpdPatientQueueLog) throws APIException;
-
-	@Transactional(readOnly = true)
-	IpdPatientAdmissionLog getIpdPatientAdmissionLog(Encounter paramEncounter) throws APIException;
-
-	@Transactional(readOnly = true)
-	IpdPatientAdmission getIpdPatientAdmission(Integer paramInteger) throws APIException;
-
-	@Transactional(readOnly = true)
-	List<IpdPatientAdmittedLog> getAllIpdPatientAdmittedLog() throws APIException;
-
-	@Transactional(readOnly = true)
-	List<IpdPatientAdmitted> getAllIpdPatientAdmitted() throws APIException;
-
-	@Transactional(readOnly = true)
-	List<IpdPatientAdmissionLog> listIpdPatientAdmissionLog(Integer paramInteger1, Integer paramInteger2, String paramString, Integer paramInteger3, Integer paramInteger4) throws APIException;
-
-	@Transactional(readOnly = true)
-	List<IpdPatientAdmission> getAllIpdPatientAdmission() throws APIException;
-
-	@Transactional(readOnly = true)
-	List<IpdPatientAdmission> getAllIndoorPatient() throws APIException;
-
-	@Transactional(readOnly = true)
-	List<IpdPatientAdmissionLog> getAllIndoorPatientFromAdmissionLog(String paramString, int paramInt1, int paramInt2) throws APIException;
-
-	@Transactional(readOnly = true)
-	int countGetAllIndoorPatientFromAdmissionLog(String paramString, int paramInt) throws APIException;
-
-	IpdPatientAdmitted transfer(Integer paramInteger1, Integer paramInteger2, Integer paramInteger3, String paramString) throws APIException;
-
-	IpdPatientAdmitted transfer(Integer paramInteger1, Integer paramInteger2, Integer paramInteger3, String paramString1, String paramString2) throws APIException;
-
-	IpdPatientAdmittedLog discharge(Integer paramInteger1, Integer paramInteger2) throws APIException;
-
-	IpdPatientAdmittedLog discharge(Integer paramInteger1, Integer paramInteger2, String paramString) throws APIException;
-
-	@Transactional(readOnly = true)
-	List<IpdPatientAdmittedLog> listAdmittedLogByPatientId(Integer paramInteger) throws APIException;
-
-	@Transactional(readOnly = true)
-	IpdPatientAdmitted getAdmittedByPatientId(Integer paramInteger) throws APIException;
-
-	@Transactional(readOnly = true)
-	IpdPatientAdmitted getAdmittedByAdmissionLogId(IpdPatientAdmissionLog paramIpdPatientAdmissionLog) throws APIException;
-
-	void saveWardBedStrength(WardBedStrength paramWardBedStrength) throws APIException;
-
-	WardBedStrength getWardBedStrengthByWardId(Integer paramInteger) throws APIException;
-
-	IpdPatientVitalStatistics saveIpdPatientVitalStatistics(IpdPatientVitalStatistics paramIpdPatientVitalStatistics) throws APIException;
-
-	List<Concept> getDiet() throws APIException;
-
-	List<IpdPatientVitalStatistics> getIpdPatientVitalStatistics(Integer paramInteger1, Integer paramInteger2) throws APIException;
-
-	IpdPatientAdmission getIpdPatientAdmissionByEncounter(Encounter paramEncounter) throws APIException;
-
-	@Transactional(readOnly = true)
-	List<IpdPatientAdmission> searchIpdPatientAdmission(String paramString1, ArrayList<Integer> paramArrayList, String paramString2, String paramString3, String paramString4, String paramString5) throws APIException;
-
-	@Transactional(readOnly = true)
-	List<IpdPatientAdmitted> searchIpdPatientAdmitted(String paramString1, ArrayList<Integer> paramArrayList, String paramString2, String paramString3, String paramString4, String paramString5) throws APIException;
-
-	@Transactional(readOnly = true)
-	IpdPatientAdmission getIpdPatientAdmissionByPatientId(Patient paramPatient) throws APIException;
 }

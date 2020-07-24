@@ -1,7 +1,7 @@
 <?xml version="1.0"?>
 <!DOCTYPE hibernate-mapping PUBLIC
-		"-//Hibernate/Hibernate Mapping DTD 3.0//EN"
-		"http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd" >
+    "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+    "http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd" >
 
 <hibernate-mapping package="org.openmrs.module.hospitalcore.model">
 
@@ -15,7 +15,7 @@
 		<many-to-one name="referralConcept" column="referral_concept_id"  class="org.openmrs.Concept" foreign-key="fk_opdpatientqueueservice_concept"/>
 		<many-to-one name="opdConcept" column="opd_concept_id"  class="org.openmrs.Concept" foreign-key="fk_opdpatientqueueservice_opd_concept"/>
 		<many-to-one name="encounter" column="encounter_id"  class="org.openmrs.Encounter" />
-
+		
 		<property name="birthDate" column="birth_date" />
 		<property name="createdOn" column="created_on" />
 		<property name="opdConceptName" column="opd_concept_name" />

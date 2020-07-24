@@ -1,342 +1,335 @@
+/**
+ *  Copyright 2010 Society for Health Information Systems Programmes, India (HISP India)
+ *
+ *  This file is part of Hospital-core module.
+ *
+ *  Hospital-core module is free software: you can redistribute it and/or modify
+ *  it under the terms of the GNU General Public License as published by
+ *  the Free Software Foundation, either version 3 of the License, or
+ *  (at your option) any later version.
+
+ *  Hospital-core module is distributed in the hope that it will be useful,
+ *  but WITHOUT ANY WARRANTY; without even the implied warranty of
+ *  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ *  GNU General Public License for more details.
+ *
+ *  You should have received a copy of the GNU General Public License
+ *  along with Hospital-core module.  If not, see <http://www.gnu.org/licenses/>.
+ *
+ **/
+
 package org.openmrs.module.hospitalcore.model;
 
 import java.io.Serializable;
+import java.math.BigDecimal;
 import java.util.Date;
 
 public class PatientMedicalHistory implements Serializable {
-    private static final long serialVersionUID = 1L;
 
-    private Integer id;
+	private static final long serialVersionUID = 1L;
+	private Integer id;
+	private TriagePatientQueueLog triageLogId;
+	private Integer patientId;
+	private String illnessExisting;
+	private String illnessProblem;
+	private String illnessLong;
+	private String illnessProgress;
+	private String illnessRecord;
+	private Date createdOn;
+	
+	private String chronicIllness;
+	private String chronicIllnessProblem;	
+	private String chronicIllnessOccure;	
+	private String chronicIllnessOutcome;	
+	private String chronicIllnessRecord;	
+	private String previousAdmission;	
+	private String previousAdmissionWhen;	
+	private String previousAdmissionProblem;	
+	private String previousAdmissionOutcome;	
+	private String previousAdmissionRecord;	
+	private String previousInvestigation;	
+	private String previousInvestigationWhen;	
+	private String previousInvestigationProblem;	
+	private String previousInvestigationOutcome;
+	private String previousInvestigationRecord;
+	private String bcg;
+	private String polio;
+	private String dpt;
+	private String measles;
+	private String pneumococcal;
+	private String yellowFever;
+	private String tetanusMale;
+	private String tetanusFemale;
+	private String otherVaccinations;
+		
+	
+	public String getChronicIllness() {
+		return chronicIllness;
+	}
+
+	public void setChronicIllness(String chronicIllness) {
+		this.chronicIllness = chronicIllness;
+	}
+
+	public String getChronicIllnessProblem() {
+		return chronicIllnessProblem;
+	}
+
+	public void setChronicIllnessProblem(String chronicIllnessProblem) {
+		this.chronicIllnessProblem = chronicIllnessProblem;
+	}
+
+	public String getChronicIllnessOccure() {
+		return chronicIllnessOccure;
+	}
+
+	public void setChronicIllnessOccure(String chronicIllnessOccure) {
+		this.chronicIllnessOccure = chronicIllnessOccure;
+	}
+
+	public String getChronicIllnessOutcome() {
+		return chronicIllnessOutcome;
+	}
+
+	public void setChronicIllnessOutcome(String chronicIllnessOutcome) {
+		this.chronicIllnessOutcome = chronicIllnessOutcome;
+	}
+
+	public String getChronicIllnessRecord() {
+		return chronicIllnessRecord;
+	}
+
+	public void setChronicIllnessRecord(String chronicIllnessRecord) {
+		this.chronicIllnessRecord = chronicIllnessRecord;
+	}
+
+	public String getPreviousAdmission() {
+		return previousAdmission;
+	}
+
+	public void setPreviousAdmission(String previousAdmission) {
+		this.previousAdmission = previousAdmission;
+	}
+
+	public String getPreviousAdmissionWhen() {
+		return previousAdmissionWhen;
+	}
+
+	public void setPreviousAdmissionWhen(String previousAdmissionWhen) {
+		this.previousAdmissionWhen = previousAdmissionWhen;
+	}
+
+	public String getPreviousAdmissionProblem() {
+		return previousAdmissionProblem;
+	}
+
+	public void setPreviousAdmissionProblem(String previousAdmissionProblem) {
+		this.previousAdmissionProblem = previousAdmissionProblem;
+	}
+
+	public String getPreviousAdmissionOutcome() {
+		return previousAdmissionOutcome;
+	}
+
+	public void setPreviousAdmissionOutcome(String previousAdmissionOutcome) {
+		this.previousAdmissionOutcome = previousAdmissionOutcome;
+	}
+
+	public String getPreviousAdmissionRecord() {
+		return previousAdmissionRecord;
+	}
+
+	public void setPreviousAdmissionRecord(String previousAdmissionRecord) {
+		this.previousAdmissionRecord = previousAdmissionRecord;
+	}
+
+	public String getPreviousInvestigation() {
+		return previousInvestigation;
+	}
+
+	public void setPreviousInvestigation(String previousInvestigation) {
+		this.previousInvestigation = previousInvestigation;
+	}
+
+	public String getPreviousInvestigationWhen() {
+		return previousInvestigationWhen;
+	}
+
+	public void setPreviousInvestigationWhen(String previousInvestigationWhen) {
+		this.previousInvestigationWhen = previousInvestigationWhen;
+	}
+
+	public String getPreviousInvestigationProblem() {
+		return previousInvestigationProblem;
+	}
+
+	public void setPreviousInvestigationProblem(String previousInvestigationProblem) {
+		this.previousInvestigationProblem = previousInvestigationProblem;
+	}
+
+	public String getPreviousInvestigationOutcome() {
+		return previousInvestigationOutcome;
+	}
+
+	public void setPreviousInvestigationOutcome(String previousInvestigationOutcome) {
+		this.previousInvestigationOutcome = previousInvestigationOutcome;
+	}
+
+	public String getPreviousInvestigationRecord() {
+		return previousInvestigationRecord;
+	}
+
+	public void setPreviousInvestigationRecord(String previousInvestigationRecord) {
+		this.previousInvestigationRecord = previousInvestigationRecord;
+	}
+
+	public String getBcg() {
+		return bcg;
+	}
+
+	public void setBcg(String bcg) {
+		this.bcg = bcg;
+	}
+
+	public String getPolio() {
+		return polio;
+	}
+
+	public void setPolio(String polio) {
+		this.polio = polio;
+	}
+
+	public String getDpt() {
+		return dpt;
+	}
+
+	public void setDpt(String dpt) {
+		this.dpt = dpt;
+	}
+
+	public String getMeasles() {
+		return measles;
+	}
+
+	public void setMeasles(String measles) {
+		this.measles = measles;
+	}
+
+	public String getPneumococcal() {
+		return pneumococcal;
+	}
+
+	public void setPneumococcal(String pneumococcal) {
+		this.pneumococcal = pneumococcal;
+	}
+
+	public String getYellowFever() {
+		return yellowFever;
+	}
 
-    private TriagePatientQueueLog triageLogId;
+	public void setYellowFever(String yellowFever) {
+		this.yellowFever = yellowFever;
+	}
 
-    private Integer patientId;
+	public String getTetanusMale() {
+		return tetanusMale;
+	}
 
-    private String illnessExisting;
+	public void setTetanusMale(String tetanusMale) {
+		this.tetanusMale = tetanusMale;
+	}
 
-    private String illnessProblem;
+	public String getTetanusFemale() {
+		return tetanusFemale;
+	}
 
-    private String illnessLong;
+	public void setTetanusFemale(String tetanusFemale) {
+		this.tetanusFemale = tetanusFemale;
+	}
 
-    private String illnessProgress;
+	public String getOtherVaccinations() {
+		return otherVaccinations;
+	}
 
-    private String illnessRecord;
+	public void setOtherVaccinations(String otherVaccinations) {
+		this.otherVaccinations = otherVaccinations;
+	}
 
-    private Date createdOn;
+	public Integer getPatientId() {
+		return patientId;
+	}
 
-    private String chronicIllness;
+	public void setPatientId(Integer patientId) {
+		this.patientId = patientId;
+	}
 
-    private String chronicIllnessProblem;
+	public String getIllnessExisting() {
+		return illnessExisting;
+	}
 
-    private String chronicIllnessOccure;
+	public void setIllnessExisting(String illnessExisting) {
+		this.illnessExisting = illnessExisting;
+	}
 
-    private String chronicIllnessOutcome;
+	public String getIllnessProblem() {
+		return illnessProblem;
+	}
 
-    private String chronicIllnessRecord;
+	public void setIllnessProblem(String illnessProblem) {
+		this.illnessProblem = illnessProblem;
+	}
 
-    private String previousAdmission;
+	public String getIllnessLong() {
+		return illnessLong;
+	}
 
-    private String previousAdmissionWhen;
+	public void setIllnessLong(String illnessLong) {
+		this.illnessLong = illnessLong;
+	}
 
-    private String previousAdmissionProblem;
+	public String getIllnessProgress() {
+		return illnessProgress;
+	}
 
-    private String previousAdmissionOutcome;
+	public void setIllnessProgress(String illnessProgress) {
+		this.illnessProgress = illnessProgress;
+	}
 
-    private String previousAdmissionRecord;
+	public String getIllnessRecord() {
+		return illnessRecord;
+	}
 
-    private String previousInvestigation;
+	public void setIllnessRecord(String illnessRecord) {
+		this.illnessRecord = illnessRecord;
+	}
 
-    private String previousInvestigationWhen;
+	public static long getSerialversionuid() {
+		return serialVersionUID;
+	}
 
-    private String previousInvestigationProblem;
+	public Integer getId() {
+		return id;
+	}
 
-    private String previousInvestigationOutcome;
+	public void setId(Integer id) {
+		this.id = id;
+	}
 
-    private String previousInvestigationRecord;
+	public TriagePatientQueueLog getTriageLogId() {
+		return triageLogId;
+	}
 
-    private String bcg;
+	public void setTriageLogId(TriagePatientQueueLog triageLogId) {
+		this.triageLogId = triageLogId;
+	}
 
-    private String polio;
 
-    private String dpt;
+	public Date getCreatedOn() {
+		return createdOn;
+	}
 
-    private String measles;
+	public void setCreatedOn(Date createdOn) {
+		this.createdOn = createdOn;
+	}
 
-    private String pneumococcal;
-
-    private String yellowFever;
-
-    private String tetanusMale;
-
-    private String tetanusFemale;
-
-    private String otherVaccinations;
-
-    public String getChronicIllness() {
-        return this.chronicIllness;
-    }
-
-    public void setChronicIllness(String chronicIllness) {
-        this.chronicIllness = chronicIllness;
-    }
-
-    public String getChronicIllnessProblem() {
-        return this.chronicIllnessProblem;
-    }
-
-    public void setChronicIllnessProblem(String chronicIllnessProblem) {
-        this.chronicIllnessProblem = chronicIllnessProblem;
-    }
-
-    public String getChronicIllnessOccure() {
-        return this.chronicIllnessOccure;
-    }
-
-    public void setChronicIllnessOccure(String chronicIllnessOccure) {
-        this.chronicIllnessOccure = chronicIllnessOccure;
-    }
-
-    public String getChronicIllnessOutcome() {
-        return this.chronicIllnessOutcome;
-    }
-
-    public void setChronicIllnessOutcome(String chronicIllnessOutcome) {
-        this.chronicIllnessOutcome = chronicIllnessOutcome;
-    }
-
-    public String getChronicIllnessRecord() {
-        return this.chronicIllnessRecord;
-    }
-
-    public void setChronicIllnessRecord(String chronicIllnessRecord) {
-        this.chronicIllnessRecord = chronicIllnessRecord;
-    }
-
-    public String getPreviousAdmission() {
-        return this.previousAdmission;
-    }
-
-    public void setPreviousAdmission(String previousAdmission) {
-        this.previousAdmission = previousAdmission;
-    }
-
-    public String getPreviousAdmissionWhen() {
-        return this.previousAdmissionWhen;
-    }
-
-    public void setPreviousAdmissionWhen(String previousAdmissionWhen) {
-        this.previousAdmissionWhen = previousAdmissionWhen;
-    }
-
-    public String getPreviousAdmissionProblem() {
-        return this.previousAdmissionProblem;
-    }
-
-    public void setPreviousAdmissionProblem(String previousAdmissionProblem) {
-        this.previousAdmissionProblem = previousAdmissionProblem;
-    }
-
-    public String getPreviousAdmissionOutcome() {
-        return this.previousAdmissionOutcome;
-    }
-
-    public void setPreviousAdmissionOutcome(String previousAdmissionOutcome) {
-        this.previousAdmissionOutcome = previousAdmissionOutcome;
-    }
-
-    public String getPreviousAdmissionRecord() {
-        return this.previousAdmissionRecord;
-    }
-
-    public void setPreviousAdmissionRecord(String previousAdmissionRecord) {
-        this.previousAdmissionRecord = previousAdmissionRecord;
-    }
-
-    public String getPreviousInvestigation() {
-        return this.previousInvestigation;
-    }
-
-    public void setPreviousInvestigation(String previousInvestigation) {
-        this.previousInvestigation = previousInvestigation;
-    }
-
-    public String getPreviousInvestigationWhen() {
-        return this.previousInvestigationWhen;
-    }
-
-    public void setPreviousInvestigationWhen(String previousInvestigationWhen) {
-        this.previousInvestigationWhen = previousInvestigationWhen;
-    }
-
-    public String getPreviousInvestigationProblem() {
-        return this.previousInvestigationProblem;
-    }
-
-    public void setPreviousInvestigationProblem(String previousInvestigationProblem) {
-        this.previousInvestigationProblem = previousInvestigationProblem;
-    }
-
-    public String getPreviousInvestigationOutcome() {
-        return this.previousInvestigationOutcome;
-    }
-
-    public void setPreviousInvestigationOutcome(String previousInvestigationOutcome) {
-        this.previousInvestigationOutcome = previousInvestigationOutcome;
-    }
-
-    public String getPreviousInvestigationRecord() {
-        return this.previousInvestigationRecord;
-    }
-
-    public void setPreviousInvestigationRecord(String previousInvestigationRecord) {
-        this.previousInvestigationRecord = previousInvestigationRecord;
-    }
-
-    public String getBcg() {
-        return this.bcg;
-    }
-
-    public void setBcg(String bcg) {
-        this.bcg = bcg;
-    }
-
-    public String getPolio() {
-        return this.polio;
-    }
-
-    public void setPolio(String polio) {
-        this.polio = polio;
-    }
-
-    public String getDpt() {
-        return this.dpt;
-    }
-
-    public void setDpt(String dpt) {
-        this.dpt = dpt;
-    }
-
-    public String getMeasles() {
-        return this.measles;
-    }
-
-    public void setMeasles(String measles) {
-        this.measles = measles;
-    }
-
-    public String getPneumococcal() {
-        return this.pneumococcal;
-    }
-
-    public void setPneumococcal(String pneumococcal) {
-        this.pneumococcal = pneumococcal;
-    }
-
-    public String getYellowFever() {
-        return this.yellowFever;
-    }
-
-    public void setYellowFever(String yellowFever) {
-        this.yellowFever = yellowFever;
-    }
-
-    public String getTetanusMale() {
-        return this.tetanusMale;
-    }
-
-    public void setTetanusMale(String tetanusMale) {
-        this.tetanusMale = tetanusMale;
-    }
-
-    public String getTetanusFemale() {
-        return this.tetanusFemale;
-    }
-
-    public void setTetanusFemale(String tetanusFemale) {
-        this.tetanusFemale = tetanusFemale;
-    }
-
-    public String getOtherVaccinations() {
-        return this.otherVaccinations;
-    }
-
-    public void setOtherVaccinations(String otherVaccinations) {
-        this.otherVaccinations = otherVaccinations;
-    }
-
-    public Integer getPatientId() {
-        return this.patientId;
-    }
-
-    public void setPatientId(Integer patientId) {
-        this.patientId = patientId;
-    }
-
-    public String getIllnessExisting() {
-        return this.illnessExisting;
-    }
-
-    public void setIllnessExisting(String illnessExisting) {
-        this.illnessExisting = illnessExisting;
-    }
-
-    public String getIllnessProblem() {
-        return this.illnessProblem;
-    }
-
-    public void setIllnessProblem(String illnessProblem) {
-        this.illnessProblem = illnessProblem;
-    }
-
-    public String getIllnessLong() {
-        return this.illnessLong;
-    }
-
-    public void setIllnessLong(String illnessLong) {
-        this.illnessLong = illnessLong;
-    }
-
-    public String getIllnessProgress() {
-        return this.illnessProgress;
-    }
-
-    public void setIllnessProgress(String illnessProgress) {
-        this.illnessProgress = illnessProgress;
-    }
-
-    public String getIllnessRecord() {
-        return this.illnessRecord;
-    }
-
-    public void setIllnessRecord(String illnessRecord) {
-        this.illnessRecord = illnessRecord;
-    }
-
-    public static long getSerialversionuid() {
-        return 1L;
-    }
-
-    public Integer getId() {
-        return this.id;
-    }
-
-    public void setId(Integer id) {
-        this.id = id;
-    }
-
-    public TriagePatientQueueLog getTriageLogId() {
-        return this.triageLogId;
-    }
-
-    public void setTriageLogId(TriagePatientQueueLog triageLogId) {
-        this.triageLogId = triageLogId;
-    }
-
-    public Date getCreatedOn() {
-        return this.createdOn;
-    }
-
-    public void setCreatedOn(Date createdOn) {
-        this.createdOn = createdOn;
-    }
 }
