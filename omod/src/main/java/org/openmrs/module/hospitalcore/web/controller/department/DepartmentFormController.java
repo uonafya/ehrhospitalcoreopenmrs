@@ -21,7 +21,19 @@
 
 
 package org.openmrs.module.hospitalcore.web.controller.department;
-
+/*
+ * The contents of this file are subject to the OpenMRS Public License
+ * Version 1.0 (the "License"); you may not use this file except in
+ * compliance with the License. You may obtain a copy of the License at
+ * http://license.openmrs.org
+ *
+ * Software distributed under the License is distributed on an "AS IS"
+ * basis, WITHOUT WARRANTY OF ANY KIND, either express or implied. See the
+ * License for the specific language governing rights and limitations
+ * under the License.
+ *
+ * Copyright (C) OpenMRS, LLC.  All Rights Reserved.
+ */
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
@@ -51,9 +63,7 @@ import org.springframework.web.bind.support.SessionStatus;
 
 /**
  * <p> Class: DepartmentFormController </p>
- * <p> Package: org.openmrs.module.hospitalcore.web.controller.department </p> 
- * <p> Author: Nguyen manh chuyen </p>
- * <p> Update by: Nguyen manh chuyen </p>
+ * <p> Package: org.openmrs.module.hospitalcore.web.controller.department </p>
  * <p> Version: $1.0 </p>
  * <p> Create date: Apr 13, 2011 2:06:19 PM </p>
  * <p> Update date: Apr 13, 2011 2:06:19 PM </p>
