@@ -1,217 +1,217 @@
+/**
+ *  Copyright 2010 Society for Health Information Systems Programmes, India (HISP India)
+ *
+ *  This file is part of Hospital-core module.
+ *
+ *  Hospital-core module is free software: you can redistribute it and/or modify
+ *  it under the terms of the GNU General Public License as published by
+ *  the Free Software Foundation, either version 3 of the License, or
+ *  (at your option) any later version.
+
+ *  Hospital-core module is distributed in the hope that it will be useful,
+ *  but WITHOUT ANY WARRANTY; without even the implied warranty of
+ *  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ *  GNU General Public License for more details.
+ *
+ *  You should have received a copy of the GNU General Public License
+ *  along with Hospital-core module.  If not, see <http://www.gnu.org/licenses/>.
+ *
+ **/
+
 package org.openmrs.module.hospitalcore.model;
 
 import java.io.Serializable;
 import java.math.BigDecimal;
 import java.util.Date;
+
 import org.openmrs.Patient;
 
 public class TriagePatientData implements Serializable {
-    private static final long serialVersionUID = 1L;
 
-    private Patient patient;
+	private static final long serialVersionUID = 1L;
+	private Patient patient;
+	private Integer id;
+	private TriagePatientQueueLog triageLogId;
+	private BigDecimal weight;
+	private BigDecimal height;
+	private BigDecimal BMI;
+	private BigDecimal mua;
+	private BigDecimal chest;
+	private BigDecimal abdominal;
+	public Patient getPatient(){
+		return patient;
+	}
+	public void setPatient(Patient patient){
+		this.patient = patient;
+	}
+	public BigDecimal getMua() {
+		return mua;
+	}
 
-    private Integer id;
+	public void setMua(BigDecimal mua) {
+		this.mua = mua;
+	}
 
-    private TriagePatientQueueLog triageLogId;
+	public BigDecimal getChest() {
+		return chest;
+	}
 
-    private BigDecimal weight;
+	public void setChest(BigDecimal chest) {
+		this.chest = chest;
+	}
 
-    private BigDecimal height;
+	public BigDecimal getAbdominal() {
+		return abdominal;
+	}
 
-    private BigDecimal BMI;
+	public void setAbdominal(BigDecimal abdominal) {
+		this.abdominal = abdominal;
+	}
 
-    private BigDecimal mua;
-
-    private BigDecimal chest;
-
-    private BigDecimal abdominal;
-
-    private BigDecimal temperature;
-
-    private Integer systolic;
-
-    private Integer daistolic;
-
-    private Integer respiratoryRate;
-
-    private Integer pulsRate;
-
-    private String bloodGroup;
-
-    private Date lastMenstrualDate;
-
-    private String rhesusFactor;
-
-    private String pitct;
-
-    private Date createdOn;
-
-    private Integer encounterOpd;
-
+	private BigDecimal temperature;
+	private Integer systolic;
+	private Integer daistolic;
+	private Integer respiratoryRate;
+	private Integer pulsRate;
+	private String bloodGroup;
+	private Date lastMenstrualDate;
+	private String rhesusFactor;
+	private String pitct;
+	private Date createdOn;
+	private Integer encounterOpd;
     private Double oxygenSaturation;
+	
+	public Integer getEncounterOpd() {
+		return encounterOpd;
+	}
 
-    public Patient getPatient() {
-        return this.patient;
-    }
+	public void setEncounterOpd(Integer encounterOpd) {
+		this.encounterOpd = encounterOpd;
+	}
 
-    public void setPatient(Patient patient) {
-        this.patient = patient;
-    }
+	public Integer getId() {
+		return id;
+	}
 
-    public BigDecimal getMua() {
-        return this.mua;
-    }
+	public void setId(Integer id) {
+		this.id = id;
+	}
 
-    public void setMua(BigDecimal mua) {
-        this.mua = mua;
-    }
+	public TriagePatientQueueLog getTriageLogId() {
+		return triageLogId;
+	}
 
-    public BigDecimal getChest() {
-        return this.chest;
-    }
+	public void setTriageLogId(TriagePatientQueueLog triageLogId) {
+		this.triageLogId = triageLogId;
+	}
 
-    public void setChest(BigDecimal chest) {
-        this.chest = chest;
-    }
+	public BigDecimal getWeight() {
+		return weight;
+	}
 
-    public BigDecimal getAbdominal() {
-        return this.abdominal;
-    }
+	public void setWeight(BigDecimal weight) {
+		this.weight = weight;
+	}
 
-    public void setAbdominal(BigDecimal abdominal) {
-        this.abdominal = abdominal;
-    }
+	public BigDecimal getHeight() {
+		return height;
+	}
 
-    public Integer getEncounterOpd() {
-        return this.encounterOpd;
-    }
+	public void setHeight(BigDecimal height) {
+		this.height = height;
+	}
 
-    public void setEncounterOpd(Integer encounterOpd) {
-        this.encounterOpd = encounterOpd;
-    }
+	public BigDecimal getTemperature() {
+		return temperature;
+	}
 
-    public Integer getId() {
-        return this.id;
-    }
+	public void setTemperature(BigDecimal temperature) {
+		this.temperature = temperature;
+	}
 
-    public void setId(Integer id) {
-        this.id = id;
-    }
+	public Integer getSystolic() {
+		return systolic;
+	}
 
-    public TriagePatientQueueLog getTriageLogId() {
-        return this.triageLogId;
-    }
+	public void setSystolic(Integer systolic) {
+		this.systolic = systolic;
+	}
 
-    public void setTriageLogId(TriagePatientQueueLog triageLogId) {
-        this.triageLogId = triageLogId;
-    }
+	public Integer getDaistolic() {
+		return daistolic;
+	}
 
-    public BigDecimal getWeight() {
-        return this.weight;
-    }
+	public void setDaistolic(Integer daistolic) {
+		this.daistolic = daistolic;
+	}
 
-    public void setWeight(BigDecimal weight) {
-        this.weight = weight;
-    }
+	public Integer getRespiratoryRate() {
+		return respiratoryRate;
+	}
 
-    public BigDecimal getHeight() {
-        return this.height;
-    }
+	public void setRespiratoryRate(Integer respiratoryRate) {
+		this.respiratoryRate = respiratoryRate;
+	}
 
-    public void setHeight(BigDecimal height) {
-        this.height = height;
-    }
+	public Integer getPulsRate() {
+		return pulsRate;
+	}
 
-    public BigDecimal getTemperature() {
-        return this.temperature;
-    }
+	public void setPulsRate(Integer pulsRate) {
+		this.pulsRate = pulsRate;
+	}
 
-    public void setTemperature(BigDecimal temperature) {
-        this.temperature = temperature;
-    }
+	public String getBloodGroup() {
+		return bloodGroup;
+	}
 
-    public Integer getSystolic() {
-        return this.systolic;
-    }
+	public void setBloodGroup(String bloodGroup) {
+		this.bloodGroup = bloodGroup;
+	}
 
-    public void setSystolic(Integer systolic) {
-        this.systolic = systolic;
-    }
+	public Date getLastMenstrualDate() {
+		return lastMenstrualDate;
+	}
 
-    public Integer getDaistolic() {
-        return this.daistolic;
-    }
+	public void setLastMenstrualDate(Date lastMenstrualDate) {
+		this.lastMenstrualDate = lastMenstrualDate;
+	}
 
-    public void setDaistolic(Integer daistolic) {
-        this.daistolic = daistolic;
-    }
+	public String getRhesusFactor() {
+		return rhesusFactor;
+	}
 
-    public Integer getRespiratoryRate() {
-        return this.respiratoryRate;
-    }
+	public void setRhesusFactor(String rhesusFactor) {
+		this.rhesusFactor = rhesusFactor;
+	}
 
-    public void setRespiratoryRate(Integer respiratoryRate) {
-        this.respiratoryRate = respiratoryRate;
-    }
+	public String getPitct() {
+		return pitct;
+	}
 
-    public Integer getPulsRate() {
-        return this.pulsRate;
-    }
+	public void setPitct(String pitct) {
+		this.pitct = pitct;
+	}
 
-    public void setPulsRate(Integer pulsRate) {
-        this.pulsRate = pulsRate;
-    }
+	public Date getCreatedOn() {
+		return createdOn;
+	}
 
-    public String getBloodGroup() {
-        return this.bloodGroup;
-    }
+	public void setCreatedOn(Date createdOn) {
+		this.createdOn = createdOn;
+	}
 
-    public void setBloodGroup(String bloodGroup) {
-        this.bloodGroup = bloodGroup;
-    }
+	public BigDecimal getBMI() {
+		return BMI;
+	}
 
-    public Date getLastMenstrualDate() {
-        return this.lastMenstrualDate;
-    }
+	public void setBMI(BigDecimal BMI) {
+		this.BMI = BMI;
+	}
 
-    public void setLastMenstrualDate(Date lastMenstrualDate) {
-        this.lastMenstrualDate = lastMenstrualDate;
-    }
-
-    public String getRhesusFactor() {
-        return this.rhesusFactor;
-    }
-
-    public void setRhesusFactor(String rhesusFactor) {
-        this.rhesusFactor = rhesusFactor;
-    }
-
-    public String getPitct() {
-        return this.pitct;
-    }
-
-    public void setPitct(String pitct) {
-        this.pitct = pitct;
-    }
-
-    public Date getCreatedOn() {
-        return this.createdOn;
-    }
-
-    public void setCreatedOn(Date createdOn) {
-        this.createdOn = createdOn;
-    }
-
-    public BigDecimal getBMI() {
-        return this.BMI;
-    }
-
-    public void setBMI(BigDecimal BMI) {
-        this.BMI = BMI;
-    }
 
     public Double getOxygenSaturation() {
-        return this.oxygenSaturation;
+        return oxygenSaturation;
     }
 
     public void setOxygenSaturation(Double oxygenSaturation) {

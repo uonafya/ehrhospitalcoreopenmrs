@@ -1,152 +1,161 @@
+/**
+ *  Copyright 2010 Society for Health Information Systems Programmes, India (HISP India)
+ *
+ *  This file is part of Hospital-core module.
+ *
+ *  Hospital-core module is free software: you can redistribute it and/or modify
+ *  it under the terms of the GNU General Public License as published by
+ *  the Free Software Foundation, either version 3 of the License, or
+ *  (at your option) any later version.
+
+ *  Hospital-core module is distributed in the hope that it will be useful,
+ *  but WITHOUT ANY WARRANTY; without even the implied warranty of
+ *  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ *  GNU General Public License for more details.
+ *
+ *  You should have received a copy of the GNU General Public License
+ *  along with Hospital-core module.  If not, see <http://www.gnu.org/licenses/>.
+ *
+ **/
+
 package org.openmrs.module.hospitalcore.model;
 
 import java.io.Serializable;
+import java.math.BigDecimal;
 import java.util.Date;
 
 public class PatientDrugHistory implements Serializable {
-    private static final long serialVersionUID = 1L;
 
-    private Integer id;
+	private static final long serialVersionUID = 1L;
+	private Integer id;
+	private TriagePatientQueueLog triageLogId;
+	private Integer patientId;
+	private String currentMedication;
+	private String medicationName;
+	private String medicationPeriod;
+	private String medicationReason;
+	private String medicationRecord;
+	private String sensitiveMedication;
+	private String sensitiveMedicationName;
+	private String sensitiveMedicationSymptom;
+	private String invasiveContraception;
+	private String invasiveContraceptionName; 
+	private Date createdOn;
+	
+	public String getCurrentMedication() {
+		return currentMedication;
+	}
 
-    private TriagePatientQueueLog triageLogId;
+	public void setCurrentMedication(String currentMedication) {
+		this.currentMedication = currentMedication;
+	}
 
-    private Integer patientId;
+	public String getMedicationName() {
+		return medicationName;
+	}
 
-    private String currentMedication;
+	public void setMedicationName(String medicationName) {
+		this.medicationName = medicationName;
+	}
 
-    private String medicationName;
+	public String getMedicationPeriod() {
+		return medicationPeriod;
+	}
 
-    private String medicationPeriod;
+	public void setMedicationPeriod(String medicationPeriod) {
+		this.medicationPeriod = medicationPeriod;
+	}
 
-    private String medicationReason;
+	public String getMedicationReason() {
+		return medicationReason;
+	}
 
-    private String medicationRecord;
+	public void setMedicationReason(String medicationReason) {
+		this.medicationReason = medicationReason;
+	}
 
-    private String sensitiveMedication;
+	public String getMedicationRecord() {
+		return medicationRecord;
+	}
 
-    private String sensitiveMedicationName;
+	public void setMedicationRecord(String medicationRecord) {
+		this.medicationRecord = medicationRecord;
+	}
 
-    private String sensitiveMedicationSymptom;
+	public String getSensitiveMedication() {
+		return sensitiveMedication;
+	}
 
-    private String invasiveContraception;
+	public void setSensitiveMedication(String sensitiveMedication) {
+		this.sensitiveMedication = sensitiveMedication;
+	}
 
-    private String invasiveContraceptionName;
+	public String getSensitiveMedicationName() {
+		return sensitiveMedicationName;
+	}
 
-    private Date createdOn;
+	public void setSensitiveMedicationName(String sensitiveMedicationName) {
+		this.sensitiveMedicationName = sensitiveMedicationName;
+	}
 
-    public String getCurrentMedication() {
-        return this.currentMedication;
-    }
+	public String getSensitiveMedicationSymptom() {
+		return sensitiveMedicationSymptom;
+	}
 
-    public void setCurrentMedication(String currentMedication) {
-        this.currentMedication = currentMedication;
-    }
+	public void setSensitiveMedicationSymptom(String sensitiveMedicationSymptom) {
+		this.sensitiveMedicationSymptom = sensitiveMedicationSymptom;
+	}
 
-    public String getMedicationName() {
-        return this.medicationName;
-    }
+	public String getInvasiveContraception() {
+		return invasiveContraception;
+	}
 
-    public void setMedicationName(String medicationName) {
-        this.medicationName = medicationName;
-    }
+	public void setInvasiveContraception(String invasiveContraception) {
+		this.invasiveContraception = invasiveContraception;
+	}
 
-    public String getMedicationPeriod() {
-        return this.medicationPeriod;
-    }
+	public String getInvasiveContraceptionName() {
+		return invasiveContraceptionName;
+	}
 
-    public void setMedicationPeriod(String medicationPeriod) {
-        this.medicationPeriod = medicationPeriod;
-    }
+	public void setInvasiveContraceptionName(String invasiveContraceptionName) {
+		this.invasiveContraceptionName = invasiveContraceptionName;
+	}
 
-    public String getMedicationReason() {
-        return this.medicationReason;
-    }
+	public Integer getPatientId() {
+		return patientId;
+	}
 
-    public void setMedicationReason(String medicationReason) {
-        this.medicationReason = medicationReason;
-    }
+	public void setPatientId(Integer patientId) {
+		this.patientId = patientId;
+	}
 
-    public String getMedicationRecord() {
-        return this.medicationRecord;
-    }
+	public static long getSerialversionuid() {
+		return serialVersionUID;
+	}
 
-    public void setMedicationRecord(String medicationRecord) {
-        this.medicationRecord = medicationRecord;
-    }
+	public Integer getId() {
+		return id;
+	}
 
-    public String getSensitiveMedication() {
-        return this.sensitiveMedication;
-    }
+	public void setId(Integer id) {
+		this.id = id;
+	}
 
-    public void setSensitiveMedication(String sensitiveMedication) {
-        this.sensitiveMedication = sensitiveMedication;
-    }
+	public TriagePatientQueueLog getTriageLogId() {
+		return triageLogId;
+	}
 
-    public String getSensitiveMedicationName() {
-        return this.sensitiveMedicationName;
-    }
+	public void setTriageLogId(TriagePatientQueueLog triageLogId) {
+		this.triageLogId = triageLogId;
+	}
 
-    public void setSensitiveMedicationName(String sensitiveMedicationName) {
-        this.sensitiveMedicationName = sensitiveMedicationName;
-    }
+	public Date getCreatedOn() {
+		return createdOn;
+	}
 
-    public String getSensitiveMedicationSymptom() {
-        return this.sensitiveMedicationSymptom;
-    }
+	public void setCreatedOn(Date createdOn) {
+		this.createdOn = createdOn;
+	}
 
-    public void setSensitiveMedicationSymptom(String sensitiveMedicationSymptom) {
-        this.sensitiveMedicationSymptom = sensitiveMedicationSymptom;
-    }
-
-    public String getInvasiveContraception() {
-        return this.invasiveContraception;
-    }
-
-    public void setInvasiveContraception(String invasiveContraception) {
-        this.invasiveContraception = invasiveContraception;
-    }
-
-    public String getInvasiveContraceptionName() {
-        return this.invasiveContraceptionName;
-    }
-
-    public void setInvasiveContraceptionName(String invasiveContraceptionName) {
-        this.invasiveContraceptionName = invasiveContraceptionName;
-    }
-
-    public Integer getPatientId() {
-        return this.patientId;
-    }
-
-    public void setPatientId(Integer patientId) {
-        this.patientId = patientId;
-    }
-
-    public static long getSerialversionuid() {
-        return 1L;
-    }
-
-    public Integer getId() {
-        return this.id;
-    }
-
-    public void setId(Integer id) {
-        this.id = id;
-    }
-
-    public TriagePatientQueueLog getTriageLogId() {
-        return this.triageLogId;
-    }
-
-    public void setTriageLogId(TriagePatientQueueLog triageLogId) {
-        this.triageLogId = triageLogId;
-    }
-
-    public Date getCreatedOn() {
-        return this.createdOn;
-    }
-
-    public void setCreatedOn(Date createdOn) {
-        this.createdOn = createdOn;
-    }
 }

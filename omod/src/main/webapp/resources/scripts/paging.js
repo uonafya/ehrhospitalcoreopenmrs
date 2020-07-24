@@ -16,7 +16,7 @@
  *  You should have received a copy of the GNU General Public License
  *  along with Hospitalcore module.  If not, see <http://www.gnu.org/licenses/>.
  *
- */
+*/
 function changePageSize( baseLink )
 {
 	var pageSize = jQuery("#sizeOfPage").val();

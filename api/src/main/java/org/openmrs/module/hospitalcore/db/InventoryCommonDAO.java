@@ -1,6 +1,30 @@
+/**
+ *  Copyright 2013 Society for Health Information Systems Programmes, India (HISP India)
+ *
+ *  This file is part of Hospital-core module.
+ *
+ *  Hospital-core module is free software: you can redistribute it and/or modify
+ *  it under the terms of the GNU General Public License as published by
+ *  the Free Software Foundation, either version 3 of the License, or
+ *  (at your option) any later version.
+
+ *  Hospital-core module is distributed in the hope that it will be useful,
+ *  but WITHOUT ANY WARRANTY; without even the implied warranty of
+ *  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ *  GNU General Public License for more details.
+ *
+ *  You should have received a copy of the GNU General Public License
+ *  along with Hospital-core module.  If not, see <http://www.gnu.org/licenses/>.
+ *  
+ *  author: ghanshyam
+ *  date: 11-01-2013
+ *  issue: #556 Bangladesh
+ **/
+
 package org.openmrs.module.hospitalcore.db;
 
 import java.util.List;
+
 import org.openmrs.Concept;
 import org.openmrs.Patient;
 import org.openmrs.api.db.DAOException;
@@ -9,16 +33,21 @@ import org.openmrs.module.hospitalcore.model.InventoryDrugFormulation;
 import org.openmrs.module.hospitalcore.model.InventoryStoreDrugPatient;
 import org.openmrs.module.hospitalcore.model.InventoryStoreDrugPatientDetail;
 
+/**
+*
+*/
 public interface InventoryCommonDAO {
-	List<InventoryStoreDrugPatient> getAllIssueDateByPatientId(Patient paramPatient) throws DAOException;
 
-	List<InventoryStoreDrugPatient> getDeatilOfInventoryStoreDrugPatient(Patient paramPatient, String paramString) throws DAOException;
-
-	List<InventoryStoreDrugPatientDetail> getDrugDetailOfPatient(InventoryStoreDrugPatient paramInventoryStoreDrugPatient) throws DAOException;
-
-	InventoryDrug getDrugByName(String paramString) throws DAOException;
-
-	List<Concept> getDrugFrequency() throws DAOException;
-
-	InventoryDrugFormulation getDrugFormulationById(Integer paramInteger) throws DAOException;
+	public List<InventoryStoreDrugPatient> getAllIssueDateByPatientId(Patient patient) throws DAOException;
+	
+	public List<InventoryStoreDrugPatient> getDeatilOfInventoryStoreDrugPatient(Patient patient,String date) throws DAOException;
+	
+	public List<InventoryStoreDrugPatientDetail> getDrugDetailOfPatient(InventoryStoreDrugPatient isdpd) throws DAOException;
+	
+	//ghanshyam 12-june-2013 New Requirement #1635 User should be able to send pharmacy orders to issue drugs to a patient from dashboard
+	public InventoryDrug getDrugByName(String name) throws DAOException;
+	
+	public List<Concept> getDrugFrequency() throws DAOException;
+	
+	public InventoryDrugFormulation getDrugFormulationById(Integer id) throws DAOException;
 }

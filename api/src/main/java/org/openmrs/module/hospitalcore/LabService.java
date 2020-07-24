@@ -1,7 +1,23 @@
+/*
+ * The contents of this file are subject to the OpenMRS Public License
+ * Version 1.0 (the "License"); you may not use this file except in
+ * compliance with the License. You may obtain a copy of the License at
+ * http://license.openmrs.org
+ *
+ * Software distributed under the License is distributed on an "AS IS"
+ * basis, WITHOUT WARRANTY OF ANY KIND, either express or implied. See the
+ * License for the specific language governing rights and limitations
+ * under the License.
+ *
+ * Copyright (C) OpenMRS, LLC.  All Rights Reserved.
+ */
+
+
 package org.openmrs.module.hospitalcore;
 
 import java.util.Date;
 import java.util.List;
+
 import org.openmrs.Concept;
 import org.openmrs.Order;
 import org.openmrs.Role;
@@ -13,37 +29,45 @@ import org.springframework.transaction.annotation.Transactional;
 
 @Transactional
 public interface LabService extends OpenmrsService {
-	Lab saveLab(Lab paramLab) throws APIException;
 
-	Lab getLabByName(String paramString) throws APIException;
-
-	List<Lab> getAllLab() throws APIException;
-
-	List<Lab> getAllActivelab() throws APIException;
-
-	Lab getLabByRole(Role paramRole) throws APIException;
-
-	List<Lab> getLabByRoles(List<Role> paramList) throws APIException;
-
-	Lab getLabById(Integer paramInteger) throws APIException;
-
-	void deleteLab(Lab paramLab) throws APIException;
-
-	Lab getLabByConcept(Concept paramConcept, List<Lab> paramList) throws APIException;
-
-	LabTest saveLabTest(LabTest paramLabTest) throws APIException;
-
-	LabTest getLabTestById(Integer paramInteger) throws APIException;
-
-	LabTest getLabTestByOrder(Order paramOrder) throws APIException;
-
-	LabTest getLabTestBySampleNumber(String paramString) throws APIException;
-
-	List<LabTest> getLatestLabTestByDate(Lab paramLab, Date paramDate) throws APIException;
-
-	String getNextSampleNumber(Lab paramLab, Date paramDate) throws APIException;
-
-	void deleteLabTest(LabTest paramLabTest) throws APIException;
-
-	void deleteLabTestByOrder(Order paramOrder) throws APIException;
+	/**
+	 * LAB
+	 */
+	public Lab saveLab(Lab lab) throws APIException;
+	
+	public Lab getLabByName(String name) throws APIException;
+	
+	public List<Lab> getAllLab() throws APIException;
+	
+	public List<Lab> getAllActivelab() throws APIException;
+	
+	public Lab getLabByRole(Role role) throws APIException;
+	
+	public List<Lab> getLabByRoles(List<Role> roles) throws APIException;
+	
+	public Lab getLabById(Integer labId) throws APIException;
+	
+	public void deleteLab(Lab lab) throws APIException;
+	
+	public Lab getLabByConcept(Concept concept, List<Lab> labs) throws APIException;
+	
+	/**
+	 * LAB TEST
+	 */
+	
+	public LabTest saveLabTest(LabTest labTest) throws APIException;
+	
+	public LabTest getLabTestById(Integer labTestId) throws APIException;
+	
+	public LabTest getLabTestByOrder(Order order) throws APIException;
+	
+	public LabTest getLabTestBySampleNumber(String sampleNumber) throws APIException;
+	
+	public List<LabTest> getLatestLabTestByDate(Lab lab, Date date) throws APIException;
+	
+	public String getNextSampleNumber(Lab lab, Date date) throws APIException;
+	
+	public void deleteLabTest(LabTest labtest) throws APIException;
+	
+	public void deleteLabTestByOrder(Order order) throws APIException;	
 }

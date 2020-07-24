@@ -1,152 +1,164 @@
+/**
+ *  Copyright 2010 Society for Health Information Systems Programmes, India (HISP India)
+ *
+ *  This file is part of Hospital-core module.
+ *
+ *  Hospital-core module is free software: you can redistribute it and/or modify
+ *  it under the terms of the GNU General Public License as published by
+ *  the Free Software Foundation, either version 3 of the License, or
+ *  (at your option) any later version.
+
+ *  Hospital-core module is distributed in the hope that it will be useful,
+ *  but WITHOUT ANY WARRANTY; without even the implied warranty of
+ *  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ *  GNU General Public License for more details.
+ *
+ *  You should have received a copy of the GNU General Public License
+ *  along with Hospital-core module.  If not, see <http://www.gnu.org/licenses/>.
+ *
+ **/
+
 package org.openmrs.module.hospitalcore.model;
 
 import java.io.Serializable;
 import java.util.Date;
 
 public class PatientFamilyHistory implements Serializable {
-    private static final long serialVersionUID = 1L;
 
-    private Integer id;
+	
+	public String getSiblingStatus() {
+		return siblingStatus;
+	}
 
-    private TriagePatientQueueLog triageLogId;
+	public void setSiblingStatus(String siblingStatus) {
+		this.siblingStatus = siblingStatus;
+	}
 
-    private Integer patientId;
+	public String getSiblingDeathCause() {
+		return siblingDeathCause;
+	}
 
-    private String fatherStatus;
+	public void setSiblingDeathCause(String siblingDeathCause) {
+		this.siblingDeathCause = siblingDeathCause;
+	}
 
-    private String fatherDeathCause;
+	public String getSiblingDeathAge() {
+		return siblingDeathAge;
+	}
 
-    private String fatherDeathAge;
+	public void setSiblingDeathAge(String siblingDeathAge) {
+		this.siblingDeathAge = siblingDeathAge;
+	}
 
-    private String motherStatus;
+	public String getFamilyIllnessHistory() {
+		return familyIllnessHistory;
+	}
 
-    private String motherDeathCause;
+	public void setFamilyIllnessHistory(String familyIllnessHistory) {
+		this.familyIllnessHistory = familyIllnessHistory;
+	}
 
-    private String motherDeathAge;
+	private static final long serialVersionUID = 1L;
+	private Integer id;
+	private TriagePatientQueueLog triageLogId;
+	private Integer patientId;
+	private String fatherStatus;
+	private String fatherDeathCause;
+	private String fatherDeathAge;
+	private String motherStatus;
+	private String motherDeathCause;
+	private String motherDeathAge;
+	private String siblingStatus;
+	private String siblingDeathCause;
+	private String siblingDeathAge;
+	private String familyIllnessHistory;
 
-    private String siblingStatus;
+	
+	private Date createdOn;
+	
+	public Integer getPatientId() {
+		return patientId;
+	}
 
-    private String siblingDeathCause;
+	public void setPatientId(Integer patientId) {
+		this.patientId = patientId;
+	}
 
-    private String siblingDeathAge;
+	public static long getSerialversionuid() {
+		return serialVersionUID;
+	}
 
-    private String familyIllnessHistory;
+	public Integer getId() {
+		return id;
+	}
 
-    private Date createdOn;
+	public void setId(Integer id) {
+		this.id = id;
+	}
 
-    public String getSiblingStatus() {
-        return this.siblingStatus;
-    }
+	public TriagePatientQueueLog getTriageLogId() {
+		return triageLogId;
+	}
 
-    public void setSiblingStatus(String siblingStatus) {
-        this.siblingStatus = siblingStatus;
-    }
+	public void setTriageLogId(TriagePatientQueueLog triageLogId) {
+		this.triageLogId = triageLogId;
+	}
 
-    public String getSiblingDeathCause() {
-        return this.siblingDeathCause;
-    }
+	public Date getCreatedOn() {
+		return createdOn;
+	}
 
-    public void setSiblingDeathCause(String siblingDeathCause) {
-        this.siblingDeathCause = siblingDeathCause;
-    }
+	public void setCreatedOn(Date createdOn) {
+		this.createdOn = createdOn;
+	}
 
-    public String getSiblingDeathAge() {
-        return this.siblingDeathAge;
-    }
+	public String getFatherStatus() {
+		return fatherStatus;
+	}
 
-    public void setSiblingDeathAge(String siblingDeathAge) {
-        this.siblingDeathAge = siblingDeathAge;
-    }
+	public void setFatherStatus(String fatherStatus) {
+		this.fatherStatus = fatherStatus;
+	}
 
-    public String getFamilyIllnessHistory() {
-        return this.familyIllnessHistory;
-    }
+	public String getFatherDeathCause() {
+		return fatherDeathCause;
+	}
 
-    public void setFamilyIllnessHistory(String familyIllnessHistory) {
-        this.familyIllnessHistory = familyIllnessHistory;
-    }
+	public void setFatherDeathCause(String fatherDeathCause) {
+		this.fatherDeathCause = fatherDeathCause;
+	}
 
-    public Integer getPatientId() {
-        return this.patientId;
-    }
+	public String getFatherDeathAge() {
+		return fatherDeathAge;
+	}
 
-    public void setPatientId(Integer patientId) {
-        this.patientId = patientId;
-    }
+	public void setFatherDeathAge(String fatherDeathAge) {
+		this.fatherDeathAge = fatherDeathAge;
+	}
 
-    public static long getSerialversionuid() {
-        return 1L;
-    }
+	public String getMotherStatus() {
+		return motherStatus;
+	}
 
-    public Integer getId() {
-        return this.id;
-    }
+	public void setMotherStatus(String motherStatus) {
+		this.motherStatus = motherStatus;
+	}
 
-    public void setId(Integer id) {
-        this.id = id;
-    }
+	public String getMotherDeathCause() {
+		return motherDeathCause;
+	}
 
-    public TriagePatientQueueLog getTriageLogId() {
-        return this.triageLogId;
-    }
+	public void setMotherDeathCause(String motherDeathCause) {
+		this.motherDeathCause = motherDeathCause;
+	}
 
-    public void setTriageLogId(TriagePatientQueueLog triageLogId) {
-        this.triageLogId = triageLogId;
-    }
+	public String getMotherDeathAge() {
+		return motherDeathAge;
+	}
 
-    public Date getCreatedOn() {
-        return this.createdOn;
-    }
+	public void setMotherDeathAge(String motherDeathAge) {
+		this.motherDeathAge = motherDeathAge;
+	}
 
-    public void setCreatedOn(Date createdOn) {
-        this.createdOn = createdOn;
-    }
-
-    public String getFatherStatus() {
-        return this.fatherStatus;
-    }
-
-    public void setFatherStatus(String fatherStatus) {
-        this.fatherStatus = fatherStatus;
-    }
-
-    public String getFatherDeathCause() {
-        return this.fatherDeathCause;
-    }
-
-    public void setFatherDeathCause(String fatherDeathCause) {
-        this.fatherDeathCause = fatherDeathCause;
-    }
-
-    public String getFatherDeathAge() {
-        return this.fatherDeathAge;
-    }
-
-    public void setFatherDeathAge(String fatherDeathAge) {
-        this.fatherDeathAge = fatherDeathAge;
-    }
-
-    public String getMotherStatus() {
-        return this.motherStatus;
-    }
-
-    public void setMotherStatus(String motherStatus) {
-        this.motherStatus = motherStatus;
-    }
-
-    public String getMotherDeathCause() {
-        return this.motherDeathCause;
-    }
-
-    public void setMotherDeathCause(String motherDeathCause) {
-        this.motherDeathCause = motherDeathCause;
-    }
-
-    public String getMotherDeathAge() {
-        return this.motherDeathAge;
-    }
-
-    public void setMotherDeathAge(String motherDeathAge) {
-        this.motherDeathAge = motherDeathAge;
-    }
+	
 }

@@ -1,6 +1,29 @@
+/**
+ *  Copyright 2010 Society for Health Information Systems Programmes, India (HISP India)
+ *
+ *  This file is part of Hospital-core module.
+ *
+ *  Hospital-core module is free software: you can redistribute it and/or modify
+ *  it under the terms of the GNU General Public License as published by
+ *  the Free Software Foundation, either version 3 of the License, or
+ *  (at your option) any later version.
+
+ *  Hospital-core module is distributed in the hope that it will be useful,
+ *  but WITHOUT ANY WARRANTY; without even the implied warranty of
+ *  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ *  GNU General Public License for more details.
+ *
+ *  You should have received a copy of the GNU General Public License
+ *  along with Hospital-core module.  If not, see <http://www.gnu.org/licenses/>.
+ *
+ **/
+
+
+
 package org.openmrs.module.hospitalcore.db;
 
 import java.util.List;
+
 import org.openmrs.Concept;
 import org.openmrs.ConceptAnswer;
 import org.openmrs.Encounter;
@@ -18,89 +41,68 @@ import org.openmrs.module.hospitalcore.model.PatientPersonalHistory;
 import org.openmrs.module.hospitalcore.model.TriagePatientData;
 import org.openmrs.module.hospitalcore.model.TriagePatientQueue;
 import org.openmrs.module.hospitalcore.model.TriagePatientQueueLog;
-
+/**
+ * <p> Class: PatientQueueDAO </p>
+ * <p> Package: org.openmrs.module.hospitalcore.db </p> 
+ * <p> Author: Nguyen manh chuyen </p>
+ * <p> Update by: Nguyen manh chuyen </p>
+ * <p> Version: $1.0 </p>
+ * <p> Create date: Feb 16, 2011 12:34:23 PM </p>
+ * <p> Update date: Feb 16, 2011 12:34:23 PM </p>
+ **/
 public interface PatientQueueDAO {
-	OpdPatientQueue saveOpdPatientQueue(OpdPatientQueue paramOpdPatientQueue) throws DAOException;
-
-	OpdPatientQueue updateOpdPatientQueue(Integer paramInteger, String paramString) throws DAOException;
-
-	PatientMedicalHistory getPatientHistoryByPatientId(Integer paramInteger) throws DAOException;
-
-	PatientDrugHistory getPatientDrugHistoryByPatientId(Integer paramInteger) throws DAOException;
-
-	PatientFamilyHistory getPatientFamilyHistoryByPatientId(Integer paramInteger) throws DAOException;
-
-	PatientPersonalHistory getPatientPersonalHistoryByPatientId(Integer paramInteger) throws DAOException;
-
-	OpdPatientQueue getOpdPatientQueueById(Integer paramInteger) throws DAOException;
-
-	void deleteOpdPatientQueue(OpdPatientQueue paramOpdPatientQueue) throws DAOException;
-
-	List<OpdPatientQueue> listOpdPatientQueue(String paramString1, Integer paramInteger, String paramString2, int paramInt1, int paramInt2) throws DAOException;
-
-	List<TriagePatientQueue> listTriagePatientQueue(String paramString1, Integer paramInteger, String paramString2, int paramInt1, int paramInt2) throws DAOException;
-
-	Integer countOpdPatientQueue(String paramString1, String paramString2, Integer paramInteger, String paramString3) throws DAOException;
-
-	OpdPatientQueueLog saveOpdPatientQueueLog(OpdPatientQueueLog paramOpdPatientQueueLog) throws DAOException;
-
-	OpdPatientQueueLog getOpdPatientQueueLogById(Integer paramInteger) throws DAOException;
-
-	List<OpdPatientQueue> getAllPatientInQueue() throws DAOException;
-
-	OpdPatientQueue getOpdPatientQueue(String paramString, Integer paramInteger) throws DAOException;
-
-	TriagePatientQueue getTriagePatientQueue(String paramString, Integer paramInteger) throws DAOException;
-
-	TriagePatientQueue getTriagePatientQueueById(Integer paramInteger) throws APIException;
-
-	TriagePatientQueue saveTriagePatientQueue(TriagePatientQueue paramTriagePatientQueue) throws DAOException;
-
-	TriagePatientQueueLog saveTriagePatientQueueLog(TriagePatientQueueLog paramTriagePatientQueueLog) throws APIException;
-
-	void deleteTriagePatientQueue(TriagePatientQueue paramTriagePatientQueue) throws APIException;
-
-	TriagePatientData saveTriagePatientData(TriagePatientData paramTriagePatientData) throws APIException;
-
-	PatientMedicalHistory savePatientMedicalHistory(PatientMedicalHistory paramPatientMedicalHistory) throws APIException;
-
-	PatientDrugHistory savePatientDrugHistory(PatientDrugHistory paramPatientDrugHistory) throws APIException;
-
-	PatientPersonalHistory savePatientPersonalHistory(PatientPersonalHistory paramPatientPersonalHistory) throws APIException;
-
-	PatientFamilyHistory savePatientFamilyHistory(PatientFamilyHistory paramPatientFamilyHistory) throws APIException;
-
-	ConceptAnswer getConceptAnswer(Concept paramConcept) throws DAOException;
-
-	Encounter getLastOPDEncounter(Patient paramPatient) throws APIException;
-
-	OpdPatientQueueLog getOpdPatientQueueLogByEncounter(Encounter paramEncounter) throws APIException;
-
-	Obs getObservationByPersonConceptAndEncounter(Person paramPerson, Concept paramConcept, Encounter paramEncounter) throws APIException;
-
-	OpdPatientQueueLog getOpdPatientQueueLog(String paramString, Integer paramInteger) throws DAOException;
-
-	void updatePatientHistoryByPatientId(PatientMedicalHistory paramPatientMedicalHistory) throws DAOException;
-
-	void updatePatientDrugHistoryByPatientId(PatientDrugHistory paramPatientDrugHistory) throws DAOException;
-
-	void updatePatientFamilyHistoryByPatientId(PatientFamilyHistory paramPatientFamilyHistory) throws DAOException;
-
-	void updatePatientPersonalHistoryByPatientId(PatientPersonalHistory paramPatientPersonalHistory) throws DAOException;
-
-	List<Obs> getAllDiagnosis(Integer paramInteger) throws DAOException;
-
-	List<Obs> getAllSymptom(Integer paramInteger) throws DAOException;
-
-	List<Obs> getAllExamination(Integer paramInteger) throws DAOException;
-
-	TriagePatientData updateTriagePatientData(TriagePatientData paramTriagePatientData) throws DAOException;
-
-	List<Obs> getAllUnderlinedCondition(Integer paramInteger) throws DAOException;
-
-	List<Obs> getAllSigns(Integer paramInteger) throws DAOException;
-
-	List<Obs> getAllDifferentialDiagnosis(Integer paramInteger) throws DAOException;
-
-	List<Obs> getAllWorkingDiagnosis(Integer paramInteger) throws DAOException;
+	//opd patient queue
+	public OpdPatientQueue saveOpdPatientQueue(OpdPatientQueue opdPatientQueue) throws DAOException;
+	public OpdPatientQueue updateOpdPatientQueue(Integer id, String status) throws DAOException;
+	public PatientMedicalHistory getPatientHistoryByPatientId(Integer id) throws DAOException;
+	public PatientDrugHistory getPatientDrugHistoryByPatientId(Integer id) throws DAOException;
+	public PatientFamilyHistory getPatientFamilyHistoryByPatientId(Integer id) throws DAOException;
+	public PatientPersonalHistory getPatientPersonalHistoryByPatientId(Integer id) throws DAOException;
+	public OpdPatientQueue getOpdPatientQueueById(Integer id) throws DAOException;
+	public void deleteOpdPatientQueue(OpdPatientQueue opdPatientQueue) throws DAOException;
+	public List<OpdPatientQueue> listOpdPatientQueue(String patientName ,  Integer referralConceptId,String status, int min, int max) throws DAOException;
+	public List<TriagePatientQueue> listTriagePatientQueue(String patientName ,  Integer referralConceptId,String status, int min, int max) throws DAOException;
+	public Integer countOpdPatientQueue(String patientName , String searchType,Integer referralConceptId,String status) throws DAOException;
+	//opd patient queue log
+	public OpdPatientQueueLog saveOpdPatientQueueLog(OpdPatientQueueLog opdPatientQueueLog) throws DAOException ;
+	public OpdPatientQueueLog getOpdPatientQueueLogById(Integer id) throws DAOException;
+	public List<OpdPatientQueue> getAllPatientInQueue() throws DAOException ;
+	public OpdPatientQueue getOpdPatientQueue(String patientIdentifier,Integer opdConceptId) throws DAOException;
+	public TriagePatientQueue getTriagePatientQueue(String patientIdentifier,Integer triageConceptId) throws DAOException;
+	public TriagePatientQueue getTriagePatientQueueById(Integer id) throws APIException;
+	public TriagePatientQueue saveTriagePatientQueue(TriagePatientQueue triagePatientQueue) throws DAOException;
+	public TriagePatientQueueLog saveTriagePatientQueueLog(TriagePatientQueueLog triagePatientQueueLog) throws APIException ;
+	public void deleteTriagePatientQueue(TriagePatientQueue triagePatientQueue) throws APIException;
+	public TriagePatientData saveTriagePatientData(TriagePatientData triagePatientData) throws APIException ;
+	public PatientMedicalHistory savePatientMedicalHistory(PatientMedicalHistory patientMedicalHistory) throws APIException ;
+	public PatientDrugHistory savePatientDrugHistory(PatientDrugHistory patientDrugHistory) throws APIException ;
+	public PatientPersonalHistory savePatientPersonalHistory(PatientPersonalHistory patientPersonalHistory) throws APIException ;
+	public PatientFamilyHistory savePatientFamilyHistory(PatientFamilyHistory patientFamilyHistory) throws APIException ;
+	public ConceptAnswer getConceptAnswer(Concept answerConcept) throws DAOException;
+	public Encounter getLastOPDEncounter(Patient patient) throws APIException;
+	public OpdPatientQueueLog getOpdPatientQueueLogByEncounter(Encounter encounter) throws APIException;
+	public Obs getObservationByPersonConceptAndEncounter(Person person,Concept concept,Encounter encounter) throws APIException;
+	public OpdPatientQueueLog getOpdPatientQueueLog(String patientIdentifier,Integer opdConceptId) throws DAOException;
+	
+	public void updatePatientHistoryByPatientId(PatientMedicalHistory patientMedicalHistory) throws DAOException;
+	public void updatePatientDrugHistoryByPatientId(PatientDrugHistory patientDrugHistory) throws DAOException;
+	public void updatePatientFamilyHistoryByPatientId (PatientFamilyHistory patientFamilyHistory) throws DAOException;
+	public void updatePatientPersonalHistoryByPatientId (PatientPersonalHistory patientPersonalHistory) throws DAOException;
+	
+	
+	public List<Obs> getAllDiagnosis(Integer personId) throws DAOException;
+	
+	public List<Obs> getAllSymptom(Integer personId) throws DAOException;
+	public List<Obs> getAllExamination(Integer personId) throws DAOException;
+	public TriagePatientData updateTriagePatientData(TriagePatientData triagePatientData) throws DAOException ;
+	//UnderLined Condition
+	public List<Obs> getAllUnderlinedCondition(Integer personId) throws DAOException;
+	//signs
+	public List<Obs> getAllSigns(Integer personId)throws DAOException;
+	//differential diagnosis
+	public List<Obs> getAllDifferentialDiagnosis(Integer personId)throws DAOException;
+	//working diagnosis
+	public List<Obs> getAllWorkingDiagnosis(Integer personId)throws DAOException;
+	
 }
+

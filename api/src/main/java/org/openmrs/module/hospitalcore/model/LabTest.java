@@ -1,7 +1,29 @@
+/**
+ *  Copyright 2010 Society for Health Information Systems Programmes, India (HISP India)
+ *
+ *  This file is part of Hospital-core module.
+ *
+ *  Hospital-core module is free software: you can redistribute it and/or modify
+ *  it under the terms of the GNU General Public License as published by
+ *  the Free Software Foundation, either version 3 of the License, or
+ *  (at your option) any later version.
+
+ *  Hospital-core module is distributed in the hope that it will be useful,
+ *  but WITHOUT ANY WARRANTY; without even the implied warranty of
+ *  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ *  GNU General Public License for more details.
+ *
+ *  You should have received a copy of the GNU General Public License
+ *  along with Hospital-core module.  If not, see <http://www.gnu.org/licenses/>.
+ *
+ **/
+
+
 package org.openmrs.module.hospitalcore.model;
 
 import java.io.Serializable;
 import java.util.Date;
+
 import org.openmrs.Concept;
 import org.openmrs.Encounter;
 import org.openmrs.Order;
@@ -9,32 +31,23 @@ import org.openmrs.Patient;
 import org.openmrs.User;
 
 public class LabTest implements Serializable {
+	
 	private static final long serialVersionUID = 552808832594082704L;
 
 	private Integer labTestId;
-
 	private Lab lab;
-
 	private Date acceptDate;
-
 	private String sampleNumber;
-
 	private Order order;
-
 	private int labTestStatus;
-
 	private Patient patient;
-
 	private Concept concept;
-
 	private User creator;
-
 	private String status;
-
 	private Encounter encounter;
 
 	public Date getAcceptDate() {
-		return this.acceptDate;
+		return acceptDate;
 	}
 
 	public void setAcceptDate(Date acceptDate) {
@@ -42,7 +55,7 @@ public class LabTest implements Serializable {
 	}
 
 	public String getSampleNumber() {
-		return this.sampleNumber;
+		return sampleNumber;
 	}
 
 	public void setSampleNumber(String sampleNumber) {
@@ -50,7 +63,7 @@ public class LabTest implements Serializable {
 	}
 
 	public Order getOrder() {
-		return this.order;
+		return order;
 	}
 
 	public void setOrder(Order order) {
@@ -58,7 +71,7 @@ public class LabTest implements Serializable {
 	}
 
 	public Integer getLabTestId() {
-		return this.labTestId;
+		return labTestId;
 	}
 
 	public void setLabTestId(Integer labTestId) {
@@ -66,7 +79,7 @@ public class LabTest implements Serializable {
 	}
 
 	public Lab getLab() {
-		return this.lab;
+		return lab;
 	}
 
 	public void setLab(Lab lab) {
@@ -74,7 +87,7 @@ public class LabTest implements Serializable {
 	}
 
 	public int getLabTestStatus() {
-		return this.labTestStatus;
+		return labTestStatus;
 	}
 
 	public void setLabTestStatus(int labTestStatus) {
@@ -82,7 +95,7 @@ public class LabTest implements Serializable {
 	}
 
 	public Patient getPatient() {
-		return this.patient;
+		return patient;
 	}
 
 	public void setPatient(Patient patient) {
@@ -90,7 +103,7 @@ public class LabTest implements Serializable {
 	}
 
 	public Concept getConcept() {
-		return this.concept;
+		return concept;
 	}
 
 	public void setConcept(Concept concept) {
@@ -98,7 +111,7 @@ public class LabTest implements Serializable {
 	}
 
 	public User getCreator() {
-		return this.creator;
+		return creator;
 	}
 
 	public void setCreator(User creator) {
@@ -106,7 +119,7 @@ public class LabTest implements Serializable {
 	}
 
 	public String getStatus() {
-		return this.status;
+		return status;
 	}
 
 	public void setStatus(String status) {
@@ -114,10 +127,10 @@ public class LabTest implements Serializable {
 	}
 
 	public Encounter getEncounter() {
-		return this.encounter;
+		return encounter;
 	}
 
 	public void setEncounter(Encounter encounter) {
 		this.encounter = encounter;
-	}
+	}	
 }

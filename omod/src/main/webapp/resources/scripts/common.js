@@ -16,7 +16,7 @@
  *  You should have received a copy of the GNU General Public License
  *  along with Hospitalcore module.  If not, see <http://www.gnu.org/licenses/>.
  *
- */
+*/
 jQuery(document).ready(function(){
 	jQuery(".udiv").hover(
 		function(){
@@ -28,7 +28,7 @@ jQuery(document).ready(function(){
 			jQuery(this).addClass("boxNormal");
 		}
 	);
-
+	
 	var billDiv = jQuery("div#billDiv");
 	if( billDiv.length > 0 )
 	{
@@ -37,7 +37,7 @@ jQuery(document).ready(function(){
 		billDiv.css({"position":"fixed","top":top+"px","left":left+"px"});
 		jQuery("div#extra",billDiv).css({"max-height":"300px","overflow":"auto"});
 		billDiv.draggable({cancel:"div#extra",containment:"window"});
-
+		
 		jQuery("#toogleBillBtn").click();
 	}
 	jQuery("#tabs").tabs();
@@ -66,7 +66,7 @@ function f_filterResults(n_win, n_docel, n_body) {
 }
 function toogleBill(this_)
 {
-	if( jQuery(this_).val() == "-" )
+	if( jQuery(this_).val() == "-" ) 
 	{
 		var billDiv = jQuery("div#billDiv");
 		jQuery("#extra",billDiv).hide();
@@ -96,38 +96,38 @@ function toogleBill(this_)
 //uncomment this line for English Number System
 var th = ['','thousand','million', 'milliard','billion'];
 
-var dg = ['zero','one','two','three','four', 'five','six','seven','eight','nine'];
-var tn = ['ten','eleven','twelve','thirteen', 'fourteen','fifteen','sixteen', 'seventeen','eighteen','nineteen'];
-var tw = ['twenty','thirty','forty','fifty', 'sixty','seventy','eighty','ninety'];
+var dg = ['zero','one','two','three','four', 'five','six','seven','eight','nine']; 
+var tn = ['ten','eleven','twelve','thirteen', 'fourteen','fifteen','sixteen', 'seventeen','eighteen','nineteen']; 
+var tw = ['twenty','thirty','forty','fifty', 'sixty','seventy','eighty','ninety']; 
 
-function toWords(s){s = s.toString();
-	if( s.indexOf('.') != -1 ){
-		var arr = s.split(".");
-		if( arr[1] == "00"){
-			s = arr[0];
-		}
+function toWords(s){s = s.toString(); 
+if( s.indexOf('.') != -1 ){
+	var arr = s.split(".");
+	if( arr[1] == "00"){
+		s = arr[0];
 	}
-	s = s.replace(/[\, ]/g,'');
-	/*if (s != String(parseFloat(s)))
-        return 'not a number';*/
-	var x = s.indexOf('.');
+}
+s = s.replace(/[\, ]/g,''); 
+/*if (s != String(parseFloat(s))) 
+	return 'not a number';*/ 
+var x = s.indexOf('.');
 
 	if (x == -1) x = s.length;
-
-	if (x > 15)
-		return 'too big';
-	var n = s.split('');
-	var str = '';
-	var sk = 0;
+	
+	if (x > 15) 
+		return 'too big'; 
+	var n = s.split(''); 
+	var str = ''; 
+	var sk = 0; 
 	for (var i=0; i < x; i++) {
 		if ((x-i)%3==2) {
-			if (n[i] == '1') {str += tn[Number(n[i+1])] + ' '; i++; sk=1;}
-			else if (n[i]!=0) {str += tw[n[i]-2] + ' ';sk=1;}}
-		else if (n[i]!=0) {str += dg[n[i]] +' ';
-			if ((x-i)%3==0) str += 'hundred ';sk=1;}
-		if ((x-i)%3==1) {if (sk) str += th[(x-i-1)/3] + ' ';sk=0;}}
+			if (n[i] == '1') {str += tn[Number(n[i+1])] + ' '; i++; sk=1;} 
+			else if (n[i]!=0) {str += tw[n[i]-2] + ' ';sk=1;}} 
+		else if (n[i]!=0) {str += dg[n[i]] +' '; 
+		if ((x-i)%3==0) str += 'hundred ';sk=1;} 
+		if ((x-i)%3==1) {if (sk) str += th[(x-i-1)/3] + ' ';sk=0;}} 
 	if (x != s.length) {
-		var y = s.length; str += 'point ';
-		for (var i=x+1; i<y; i++) str += dg[n[i]] +' ';}
+		var y = s.length; str += 'point '; 
+		for (var i=x+1; i<y; i++) str += dg[n[i]] +' ';} 
 	return str.replace(/\s+/g,' ');
-}
+	}

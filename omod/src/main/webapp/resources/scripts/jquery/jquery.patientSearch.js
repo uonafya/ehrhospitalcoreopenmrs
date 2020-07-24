@@ -7,7 +7,7 @@
 					searchBoxView: "default",
 					resultView: "/module/registration/patient/billing",
 					target: "#patientSearchResult",
-					rowPerPage: 10,
+					rowPerPage: 50,
 					success: function(data){},
 					beforeNewSearch: function(){}
 				};
