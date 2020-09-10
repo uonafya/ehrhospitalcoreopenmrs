@@ -510,4 +510,12 @@ public class HibernateIpdDAO implements IpdDAO {
 		return (IpdPatientAdmission) criteria.uniqueResult();
 	}
 
+	public IpdPatientAdmission getIpdPatientAdmissionByPatient(Patient patient)
+			throws DAOException {
+		Criteria criteria = sessionFactory.getCurrentSession().createCriteria(
+				IpdPatientAdmission.class);
+		criteria.add(Restrictions.eq("patient", patient));
+		return (IpdPatientAdmission) criteria.uniqueResult();
+	}
+
 }
