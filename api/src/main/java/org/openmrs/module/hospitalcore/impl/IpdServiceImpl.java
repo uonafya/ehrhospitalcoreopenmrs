@@ -500,5 +500,8 @@ public class IpdServiceImpl extends BaseOpenmrsService implements IpdService {
 
 		return dao.getIpdPatientAdmissionByPatientId(patientId);
 	}
+	public List<IpdPatientAdmitted> getBedAvailability(Concept wardId,String bedNo) throws APIException {
+		return dao.getBedAvailability(wardId,bedNo);
+	}
 	
 }
