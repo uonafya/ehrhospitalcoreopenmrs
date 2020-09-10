@@ -80,10 +80,9 @@ public interface IpdDAO {
 	public List<IpdPatientAdmission> searchIpdPatientAdmission(String patientSearch, ArrayList<Integer> userIds, String fromDate, String toDate,String wardId, String status) throws DAOException;
 	public List<IpdPatientAdmitted> searchIpdPatientAdmitted(String patientSearch, ArrayList<Integer> userIds, String fromDate, String toDate,String wardId, String status) throws DAOException;
 	public IpdPatientAdmission getIpdPatientAdmissionByPatientId(Patient patientId) throws DAOException;
-<<<<<<< HEAD
+
 	public IpdPatientAdmission getIpdPatientAdmissionByPatient(Patient patient) throws DAOException;
-=======
 	public List<IpdPatientAdmitted> getBedAvailability(Concept wardId,String bedNo);
->>>>>>> 940baba51de07e88fcb48e0e72ef979c21d9932b
+
 	
 }
