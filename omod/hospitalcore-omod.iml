@@ -5,7 +5,11 @@
       <configuration>
         <setting name="validation-enabled" value="true" />
         <datasource-mapping>
+<<<<<<< HEAD
+          <factory-entry name="hospitalcore-omod" />
+=======
           <factory-entry name="Entities" />
+>>>>>>> 940baba51de07e88fcb48e0e72ef979c21d9932b
         </datasource-mapping>
         <naming-strategy-map />
       </configuration>
