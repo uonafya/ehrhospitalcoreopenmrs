@@ -124,7 +124,10 @@ public interface IpdService extends OpenmrsService{
 	@Transactional(readOnly = true)
 	public IpdPatientAdmission getIpdPatientAdmissionByPatientId(Patient patientId) throws APIException;
 
+	@Transactional(readOnly = true)
+	public IpdPatientAdmission getIpdPatientAdmissionByPatient(Patient patient) throws APIException;
+
 	public List<IpdPatientAdmitted> getBedAvailability(Concept wardId,String bedNo);
-	
+
 
 }

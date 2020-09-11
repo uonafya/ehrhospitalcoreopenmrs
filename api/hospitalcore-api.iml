@@ -5,7 +5,11 @@
       <configuration>
         <setting name="validation-enabled" value="true" />
         <datasource-mapping>
+<<<<<<< HEAD
+          <factory-entry name="hospitalcore-api" />
+=======
           <factory-entry name="Entities" />
+>>>>>>> 940baba51de07e88fcb48e0e72ef979c21d9932b
         </datasource-mapping>
         <naming-strategy-map />
       </configuration>
@@ -19,6 +23,7 @@
     <output-test url="file://$MODULE_DIR$/target/test-classes" />
     <content url="file://$MODULE_DIR$">
       <sourceFolder url="file://$MODULE_DIR$/src/main/java" isTestSource="false" />
+      <sourceFolder url="file://$MODULE_DIR$/src/main/resources" type="java-resource" />
       <excludeFolder url="file://$MODULE_DIR$/target" />
     </content>
     <orderEntry type="inheritedJdk" />
