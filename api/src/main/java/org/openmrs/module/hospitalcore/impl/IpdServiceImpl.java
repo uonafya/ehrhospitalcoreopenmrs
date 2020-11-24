@@ -464,7 +464,9 @@ public class IpdServiceImpl extends BaseOpenmrsService implements IpdService {
 		dao.saveWardBedStrength(wardBedStrength);
 
 	}
-
+	public IpdPatientAdmission getIpdPatientAdmissionByPatient(Patient patient) throws APIException {
+		return dao.getIpdPatientAdmissionByPatient(patient);
+	}
 	public WardBedStrength getWardBedStrengthByWardId(Integer wardId)
 			throws APIException {
 
@@ -497,6 +499,9 @@ public class IpdServiceImpl extends BaseOpenmrsService implements IpdService {
 	public IpdPatientAdmission getIpdPatientAdmissionByPatientId(Patient patientId) throws APIException {
 
 		return dao.getIpdPatientAdmissionByPatientId(patientId);
+	}
+	public List<IpdPatientAdmitted> getBedAvailability(Concept wardId,String bedNo) throws APIException {
+		return dao.getBedAvailability(wardId,bedNo);
 	}
 	
 }

@@ -312,4 +312,58 @@ public class PatientUtils {
 		String ageYear = String.valueOf(yearDiff);
 		return ageYear;
 	}
+
+	public static String estimateAgeCategory(Date date) {
+
+		String ageCategory = "";
+		// new date
+		Calendar cal = Calendar.getInstance();
+
+		// set to old date
+		Calendar cal2 = Calendar.getInstance();
+		cal2.setTime(date);
+
+		Date date2 = cal.getTime();
+		int yearNew = cal.get(Calendar.YEAR);
+		int yearOld = cal2.get(Calendar.YEAR);
+		int monthNew = cal.get(Calendar.MONTH);
+		int monthOld = cal2.get(Calendar.MONTH);
+		int dayNew = cal.get(Calendar.DAY_OF_MONTH);
+		int dayOld = cal2.get(Calendar.DAY_OF_MONTH);
+		int maxDayInOldMonth = cal2.getActualMaximum(Calendar.DAY_OF_MONTH);
+
+		int yearDiff = yearNew - yearOld;
+		int monthDiff = monthNew - monthOld;
+		int dayDiff = dayNew - dayOld;
+
+		int ageYear = yearDiff, ageMonth = monthDiff, ageDay = dayDiff;
+
+		if (monthDiff < 0) {
+			ageYear--;
+			ageMonth = 12 - Math.abs(monthDiff);
+
+		}
+		if (dayDiff < 0) {
+			ageMonth--;
+			if (ageMonth < 0) {
+				ageYear--;
+				ageMonth = 12 - Math.abs(ageMonth);
+			}
+			ageDay = maxDayInOldMonth - dayOld + dayNew;
+		}
+
+
+		if (ageYear < 13) {
+			ageCategory="CHILD";
+		} else if(ageYear > 12 && ageYear < 20){
+			ageCategory="ADOLESCENT";
+		}
+		else if(ageYear > 19 && ageYear < 60){
+			ageCategory="ADULT";
+		}
+		else if(ageYear > 59){
+			ageCategory="SENIOR CITIZEN";
+		}
+		return ageCategory;
+	}
 }
