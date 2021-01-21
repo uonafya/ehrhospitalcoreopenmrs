@@ -14,6 +14,11 @@
 
 package org.openmrs.module.hospitalcore.util;
 
+import org.openmrs.Concept;
+import org.openmrs.Order;
+import org.openmrs.api.context.Context;
+import org.openmrs.module.hospitalcore.model.RadiologyTest;
+
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -21,11 +26,6 @@ import java.util.List;
 import java.util.Locale;
 import java.util.Map;
 import java.util.Set;
-import org.openmrs.Concept;
-import org.openmrs.ConceptWord;
-import org.openmrs.Order;
-import org.openmrs.api.context.Context;
-import org.openmrs.module.hospitalcore.model.RadiologyTest;
 
 public class RadiologyDashboardUtil {
 
@@ -73,7 +73,7 @@ public class RadiologyDashboardUtil {
 		//ghanshyam 6-august-2013 code review bug
 		SimpleDateFormat sdf = new SimpleDateFormat("dd-MMM-yyyy HH:mm:ss");
 		TestModel tm = new TestModel();
-		tm.setStartDate(sdf.format(order.getStartDate()));
+		tm.setStartDate(sdf.format(order.getDateActivated()));
 		tm.setPatientIdentifier(order.getPatient().getPatientIdentifier()
 				.getIdentifier());
 		tm.setPatientName(PatientUtils.getFullName(order.getPatient()));
@@ -130,10 +130,10 @@ public class RadiologyDashboardUtil {
 		if (concept != null) {
 			return concept;
 		} else {
-			List<ConceptWord> cws = Context.getConceptService().findConcepts(
+			List<Concept> cws = Context.getConceptService().getConceptsByName(
 					name, new Locale("en"), false);
 			if (!cws.isEmpty())
-				return cws.get(0).getConcept();
+				return cws.get(0);
 		}
 		return null;
 	}
