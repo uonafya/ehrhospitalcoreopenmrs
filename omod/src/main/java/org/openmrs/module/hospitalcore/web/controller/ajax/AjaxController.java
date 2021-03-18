@@ -14,17 +14,8 @@
 
 package org.openmrs.module.hospitalcore.web.controller.ajax;
 
-import java.util.ArrayList;
-import java.util.Collections;
-import java.util.Comparator;
-import java.util.HashSet;
-import java.util.List;
-import java.util.Locale;
-import java.util.Set;
-
 import org.apache.commons.collections.CollectionUtils;
 import org.openmrs.Concept;
-import org.openmrs.ConceptWord;
 import org.openmrs.api.context.Context;
 import org.openmrs.module.hospitalcore.HospitalCoreService;
 import org.openmrs.module.hospitalcore.model.CoreForm;
@@ -33,6 +24,14 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
+
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.Comparator;
+import java.util.HashSet;
+import java.util.List;
+import java.util.Locale;
+import java.util.Set;
 
 @Controller("HospitalcoreAjaxController")
 public class AjaxController {
@@ -49,11 +48,11 @@ public class AjaxController {
 	public String autocompleteConceptSearch(
 			@RequestParam(value = "q", required = false) String name,
 			Model model) {
-		List<ConceptWord> cws = Context.getConceptService().findConcepts(name,
+		List<Concept> cws = Context.getConceptService().getConceptsByName(name,
 				new Locale("en"), false);
 		Set<String> conceptNames = new HashSet<String>();
-		for (ConceptWord word : cws) {
-			String conceptName = word.getConcept().getName().getName();
+		for (Concept word : cws) {
+			String conceptName = word.getName().getName();
 			conceptNames.add(conceptName);
 		}
 		List<String> concepts = new ArrayList<String>();

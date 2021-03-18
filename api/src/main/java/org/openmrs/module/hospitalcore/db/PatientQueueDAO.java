@@ -115,6 +115,9 @@ public interface PatientQueueDAO {
 	public List<Obs> getAllDifferentialDiagnosis(Integer personId)throws DAOException;
 	//working diagnosis
 	public List<Obs> getAllWorkingDiagnosis(Integer personId)throws DAOException;
+//get all the latest triage information
+	List<TriagePatientData> getPatientTriageData(Patient patient);
+	TriagePatientData getPatientTriageData(Integer id);
 	
 }
 

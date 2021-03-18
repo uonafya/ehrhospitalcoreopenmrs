@@ -14,15 +14,14 @@
 
 package org.openmrs.module.hospitalcore.util;
 
-import java.util.Iterator;
-import java.util.List;
-
 import org.apache.commons.lang.StringUtils;
-import org.openmrs.Encounter;
 import org.openmrs.EncounterType;
 import org.openmrs.OrderType;
 import org.openmrs.api.context.Context;
 import org.openmrs.module.hospitalcore.model.PatientServiceBillItem;
+
+import java.util.Iterator;
+import java.util.List;
 
 public class OrderUtil {
 	
@@ -44,7 +43,7 @@ public class OrderUtil {
 	public static OrderType getOrderTypeByName(String orderTypeName) {
 		
 		OrderType orderType = null;
-		List<OrderType> allOrderTypes = Context.getOrderService().getAllOrderTypes();
+		List<OrderType> allOrderTypes = Context.getOrderService().getOrderTypes(false);
 		Iterator<OrderType> allOrderTypesIterator = allOrderTypes.iterator();
 		
 		while (allOrderTypesIterator.hasNext()) {

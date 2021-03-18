@@ -27,7 +27,10 @@ import org.openmrs.Encounter;
 import org.openmrs.Order;
 import org.openmrs.OrderType;
 import org.openmrs.Patient;
+import org.openmrs.Person;
+import org.openmrs.Provider;
 import org.openmrs.Role;
+import org.openmrs.api.ProviderService;
 import org.openmrs.api.context.Context;
 import org.openmrs.api.impl.BaseOpenmrsService;
 import org.openmrs.module.hospitalcore.BillingConstants;
@@ -213,26 +216,26 @@ public class RadiologyServiceImpl extends BaseOpenmrsService implements
 
 	public String rescheduleTest(Order order, Date rescheduledDate) {
 
-		if (!order.getDiscontinued()) {
+		if (order.getDateStopped() != null) {
 			RadiologyTest test = getRadiologyTestByOrder(order);
 			if (test != null) {
 				if (test.getStatus().equalsIgnoreCase(
 						RadiologyConstants.TEST_STATUS_ACCEPTED)) {
-					order.setStartDate(rescheduledDate);
+					order.setDateActivated(rescheduledDate);
 					order.setChangedBy(Context.getAuthenticatedUser());
 					order.setDateChanged(new Date());
 					deleteRadiologyTest(test);
-					Context.getOrderService().saveOrder(order);
+					Context.getOrderService().saveOrder(order, null);
 					return RadiologyConstants.RESCHEDULE_TEST_RETURN_STATUS_SUCCESS;
 				} else {
 					// TODO: add more reschedule test return status here
 					return test.getStatus();
 				}
 			} else {
-				order.setStartDate(rescheduledDate);
+				order.setDateActivated(rescheduledDate);
 				order.setChangedBy(Context.getAuthenticatedUser());
 				order.setDateChanged(new Date());
-				Context.getOrderService().saveOrder(order);
+				Context.getOrderService().saveOrder(order, null);
 				return RadiologyConstants.RESCHEDULE_TEST_RETURN_STATUS_SUCCESS;
 			}
 		}
@@ -360,10 +363,9 @@ public class RadiologyServiceImpl extends BaseOpenmrsService implements
 					.getStatus()
 					.equalsIgnoreCase(RadiologyConstants.TEST_STATUS_COMPLETED)))) {
 				Order order = test.getOrder();
-				order.setDiscontinued(true);
-				order.setDiscontinuedDate(new Date());
-				order.setDiscontinuedBy(Context.getAuthenticatedUser());
-				Context.getOrderService().saveOrder(order);
+				order.setAutoExpireDate(new Date());
+				order.setCreator(Context.getAuthenticatedUser());
+				Context.getOrderService().saveOrder(order, null);
 				test.setStatus(RadiologyConstants.TEST_STATUS_COMPLETED);
 				saveRadiologyTest(test);
 				return RadiologyConstants.COMPLETE_TEST_RETURN_STATUS_SUCCESS;
@@ -428,5 +430,15 @@ public class RadiologyServiceImpl extends BaseOpenmrsService implements
 	public List<RadiologyTest> getCompletedRadiologyTestsByPatient(Patient patient) {
 		// TODO Auto-generated method stub
 		return dao.getCompletedRadiologyTestsByPatient(patient);
+	}
+
+	private Provider getProvider(Person person) {
+		Provider provider = null;
+		ProviderService providerService = Context.getProviderService();
+		List<Provider> providerList = new ArrayList<Provider>(providerService.getProvidersByPerson(person));
+		if(providerList.size() > 0){
+			provider = providerList.get(0);
+		}
+		return provider;
 	}
 }

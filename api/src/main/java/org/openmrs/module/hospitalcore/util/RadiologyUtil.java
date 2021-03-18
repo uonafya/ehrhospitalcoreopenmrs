@@ -14,18 +14,7 @@
 
 package org.openmrs.module.hospitalcore.util;
 
-import java.text.ParseException;
-import java.text.SimpleDateFormat;
-import java.util.ArrayList;
-import java.util.Date;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Locale;
-import java.util.Map;
-import java.util.Set;
-
 import org.openmrs.Concept;
-import org.openmrs.ConceptWord;
 import org.openmrs.Encounter;
 import org.openmrs.Obs;
 import org.openmrs.Order;
@@ -36,6 +25,16 @@ import org.openmrs.module.hospitalcore.form.RadiologyForm;
 import org.openmrs.module.hospitalcore.model.RadiologyDepartment;
 import org.openmrs.module.hospitalcore.model.RadiologyTest;
 import org.springframework.ui.Model;
+
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.ArrayList;
+import java.util.Date;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Locale;
+import java.util.Map;
+import java.util.Set;
 
 public class RadiologyUtil {
 
@@ -164,7 +163,7 @@ public class RadiologyUtil {
 		//ghanshyam 6-august-2013 code review bug
 		SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy");
 		TestModel tm = new TestModel();
-		tm.setStartDate(sdf.format(order.getStartDate()));
+		tm.setStartDate(sdf.format(order.getDateActivated()));
 		tm.setPatientIdentifier(order.getPatient().getPatientIdentifier()
 				.getIdentifier());
 		tm.setPatientName(PatientUtils.getFullName(order.getPatient()));
@@ -221,10 +220,10 @@ public class RadiologyUtil {
 		if (concept != null) {
 			return concept;
 		} else {
-			List<ConceptWord> cws = Context.getConceptService().findConcepts(
+			List<Concept> cws = Context.getConceptService().getConceptsByName(
 					name, new Locale("en"), false);
 			if (!cws.isEmpty())
-				return cws.get(0).getConcept();
+				return cws.get(0);
 		}
 		return null;
 	}

@@ -36,7 +36,12 @@ import org.openmrs.Location;
 import org.openmrs.Order;
 import org.openmrs.OrderType;
 import org.openmrs.Patient;
+import org.openmrs.Person;
+import org.openmrs.Provider;
+import org.openmrs.TestOrder;
 import org.openmrs.api.APIException;
+import org.openmrs.api.PersonService;
+import org.openmrs.api.ProviderService;
 import org.openmrs.api.context.Context;
 import org.openmrs.api.impl.BaseOpenmrsService;
 import org.openmrs.module.hospitalcore.BillingConstants;
@@ -903,8 +908,8 @@ public class BillingServiceImpl extends BaseOpenmrsService implements BillingSer
 		    BillingConstants.GLOBAL_PROPRETY_RADIOLOGY_ENCOUNTER_TYPE, "RADIOLOGYENCOUNTER");
 		EncounterType radiologyEncounterType = Context.getEncounterService().getEncounterType(radiologyEncounterTypeText);
 		
-		Integer labOrderTypeId = GlobalPropertyUtil.getInteger(BillingConstants.GLOBAL_PROPRETY_LAB_ORDER_TYPE, 2);
-		OrderType labOrderType = Context.getOrderService().getOrderType(labOrderTypeId);
+		//Integer labOrderTypeId = Context.getOrderService().getOrderTypeByUuid("52a447d3-a64a-11e3-9aeb-50e549534c5e");
+		OrderType labOrderType = Context.getOrderService().getOrderTypeByUuid("52a447d3-a64a-11e3-9aeb-50e549534c5e");
 		
 		Integer radiologyOrderTypeId = GlobalPropertyUtil.getInteger(BillingConstants.GLOBAL_PROPRETY_RADIOLOGY_ORDER_TYPE,
 		    8);
@@ -1012,6 +1017,7 @@ public class BillingServiceImpl extends BaseOpenmrsService implements BillingSer
 				}
 			} else {
 				if (labConceptIds.contains(concept.getConceptId())) {
+					System.out.println("Eventually we will land here if the concepts are found");
 					labEncounter = getEncounter(bill, labEncounter, labEncounterType);
 					Order order = addOrder(labEncounter, concept, bill, labOrderType);
 					item.setOrder(order);
@@ -1040,6 +1046,7 @@ public class BillingServiceImpl extends BaseOpenmrsService implements BillingSer
 		LabService ls = (LabService) Context.getService(LabService.class);
 		List<Lab> labs = ls.getAllLab();
 		for (Lab lab : labs) {
+			System.out.println("The lab items found here>>"+lab+" and has the following items>>>"+getConceptIdSet(lab.getInvestigationsToDisplay()));
 			conceptIdSet.addAll(getConceptIdSet(lab.getInvestigationsToDisplay()));
 		}
 		return conceptIdSet;
@@ -1101,28 +1108,37 @@ public class BillingServiceImpl extends BaseOpenmrsService implements BillingSer
 	}
 	
 	private Order addOrder(Encounter encounter, Concept concept, PatientServiceBill bill, OrderType orderType) {
-		Order order = new Order();
+		System.out.println("The outdoor oredr will fall here");
+		Order order = new TestOrder();
 		order.setConcept(concept);
 		order.setCreator(bill.getCreator());
 		order.setDateCreated(new Date());
-		order.setOrderer(Context.getAuthenticatedUser());
+		if(getProvider(Context.getAuthenticatedUser().getPerson()) != null){
+			order.setOrderer(getProvider(Context.getAuthenticatedUser().getPerson()));
+		}
 		order.setPatient(bill.getPatient());
-		order.setStartDate(new Date());
+		order.setDateActivated(new Date());
 		order.setAccessionNumber("0");
 		order.setOrderType(orderType);
 		order.setEncounter(encounter);
+		order.setCareSetting(Context.getOrderService().getCareSettingByUuid("6f0c9a92-6f24-11e3-af88-005056821db0"));
 		encounter.addOrder(order);
+		//save the encounter that has the order, this should save the order too
+		Context.getEncounterService().saveEncounter(encounter);
 		return order;
 	}
 	
 	private Order addOrder(Encounter encounter, Concept concept, IndoorPatientServiceBill bill, OrderType orderType) {
+		System.out.println("The indoor oredr will start here");
 		Order order = new Order();
 		order.setConcept(concept);
 		order.setCreator(bill.getCreator());
 		order.setDateCreated(new Date());
-		order.setOrderer(Context.getAuthenticatedUser());
+		if(getProvider(Context.getAuthenticatedUser().getPerson()) != null){
+			order.setOrderer(getProvider(Context.getAuthenticatedUser().getPerson()));
+		}
 		order.setPatient(bill.getPatient());
-		order.setStartDate(new Date());
+		order.setDateActivated(new Date());
 		order.setAccessionNumber("0");
 		order.setOrderType(orderType);
 		order.setEncounter(encounter);
@@ -1283,6 +1299,16 @@ public class BillingServiceImpl extends BaseOpenmrsService implements BillingSer
         
         public List<IndoorPatientServiceBill> getSelectedCategory(Encounter encounter,Patient patient)throws APIException{
 		return dao.getSelectedCategory(encounter,patient);
+	}
+
+	private Provider getProvider(Person person) {
+		Provider provider = null;
+		ProviderService providerService = Context.getProviderService();
+		List<Provider> providerList = new ArrayList<Provider>(providerService.getProvidersByPerson(person));
+		if(providerList.size() > 0){
+			provider = providerList.get(0);
+		}
+		return provider;
 	}
 	
 }
