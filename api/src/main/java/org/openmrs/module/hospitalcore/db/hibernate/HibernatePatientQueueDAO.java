@@ -620,6 +620,17 @@ public class HibernatePatientQueueDAO implements PatientQueueDAO {
 				"obs.concept", Context.getConceptService().getConcept("WORKING DIAGNOSIS")));
 
 		return criteria.list();
-	}	
+	}
+
+	public List<TriagePatientData> getPatientTriageData(Patient patient) {
+		Criteria criteria = sessionFactory.getCurrentSession().createCriteria(TriagePatientData.class);
+		criteria.add(Restrictions.eq("patient", patient));
+		return criteria.list();
+	}
+	public TriagePatientData getPatientTriageData(Integer id) {
+		Criteria criteria = sessionFactory.getCurrentSession().createCriteria(TriagePatientData.class);
+		criteria.add(Restrictions.eq("id", id));
+		return (TriagePatientData) criteria.list().get(0);
+	}
 	
 }

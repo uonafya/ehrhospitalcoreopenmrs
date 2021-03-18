@@ -331,4 +331,12 @@ public class PatientQueueServiceImpl  extends BaseOpenmrsService implements Pati
 		
 		return dao.getAllWorkingDiagnosis(personId);
 	}
+
+	public List<TriagePatientData> getPatientTriageData(Patient patient) {
+		// TODO Auto-generated method stub
+		return dao.getPatientTriageData(patient);
+	}
+	public TriagePatientData getPatientTriageData(Integer id) {
+		return dao.getPatientTriageData(id);
+	}
 }
