@@ -10,7 +10,6 @@
 	<packaging>jar</packaging>
 	<name>Hospital core module OMOD</name>
 	<description>OpenMRS module project for hospitalcore</description>
-
 	<dependencies>
 		<dependency>
 			<groupId>org.openmrs.module</groupId>

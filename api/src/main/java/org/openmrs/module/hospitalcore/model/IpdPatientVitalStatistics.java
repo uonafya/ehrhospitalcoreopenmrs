@@ -25,6 +25,9 @@ public class IpdPatientVitalStatistics {
 	private IpdPatientAdmissionLog ipdPatientAdmissionLog;
 	// vitalSatatistics Form
 	private String bloodPressure;
+	private String systolicBloodPressure;
+	private String diastolicBloodPressure;
+
 	private String pulseRate;
 	private String temperature;
 	private String dietAdvised;
@@ -60,9 +63,23 @@ public class IpdPatientVitalStatistics {
 	public String getBloodPressure() {
 		return bloodPressure;
 	}
+	public String getSystolicBloodPressure() {
+		return systolicBloodPressure;
+	}
+	public String getDiastolicBloodPressure() {
+		return diastolicBloodPressure;
+	}
 
 	public void setBloodPressure(String bloodPressure) {
 		this.bloodPressure = bloodPressure;
+	}
+
+	public void setSystolicBloodPressure(String systolicBloodPressure) {
+		this.systolicBloodPressure = systolicBloodPressure;
+	}
+
+	public void setDiastolicBloodPressure(String diastolicBloodPressure) {
+		this.diastolicBloodPressure = diastolicBloodPressure;
 	}
 
 	public String getPulseRate() {
