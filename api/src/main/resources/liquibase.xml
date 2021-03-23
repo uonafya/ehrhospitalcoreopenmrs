@@ -1408,4 +1408,24 @@
             ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
         </sql>
     </changeSet>
+     <changeSet id="hospital-core:2021-03-23-10:23" author="karimkkanji">
+        <preConditions onFail="MARK_RAN" onError="WARN">
+            <dbms type="mysql"/>
+        </preConditions>
+        <comment>Add Systolic Blood Pressure columns to ipd_vital_statistics</comment>
+        <sql>
+            ALTER TABLE  ipd_vital_statistics
+            ADD COLUMN `systolic_blood_pressure` varchar(11) DEFAULT NULL;
+        </sql>
+    </changeSet>
+    <changeSet id="hospital-core:2021-03-23-10:50" author="karimkkanji">
+        <preConditions onFail="MARK_RAN" onError="WARN">
+            <dbms type="mysql"/>
+        </preConditions>
+        <comment>Add Diastolic Blood Pressure columns to ipd_vital_statistics</comment>
+        <sql>
+            ALTER TABLE  ipd_vital_statistics
+            ADD COLUMN `diastolic_blood_pressure` varchar(11) DEFAULT NULL;
+        </sql>
+    </changeSet>
 </databaseChangeLog>
