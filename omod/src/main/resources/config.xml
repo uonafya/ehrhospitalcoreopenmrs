@@ -167,6 +167,11 @@
 		Question.hbm.xml
 		Answer.hbm.xml
 		InventoryStoreRoleRelation.hbm.xml
+		<!--add some of the immunization mappings-->
+		ImmunizationStoreTransactionType.hbm.xml
+		ImmunizationStoreDrugTransactionDetail.hbm.xml
+		ImmunizationStoreDrug.hbm.xml
+
     </mappingFiles>
 </module>
 

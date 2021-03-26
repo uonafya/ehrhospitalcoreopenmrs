@@ -36,6 +36,8 @@ import org.openmrs.Person;
 import org.openmrs.api.context.Context;
 import org.openmrs.api.db.DAOException;
 import org.openmrs.module.hospitalcore.db.PatientQueueDAO;
+import org.openmrs.module.hospitalcore.model.ImmunizationStoreDrug;
+import org.openmrs.module.hospitalcore.model.InventoryDrug;
 import org.openmrs.module.hospitalcore.model.OpdPatientQueue;
 import org.openmrs.module.hospitalcore.model.OpdPatientQueueLog;
 import org.openmrs.module.hospitalcore.model.PatientDrugHistory;
@@ -631,6 +633,13 @@ public class HibernatePatientQueueDAO implements PatientQueueDAO {
 		Criteria criteria = sessionFactory.getCurrentSession().createCriteria(TriagePatientData.class);
 		criteria.add(Restrictions.eq("id", id));
 		return (TriagePatientData) criteria.list().get(0);
+	}
+
+
+	public List<ImmunizationStoreDrug> getImmunizationStoreDrugsForDrug(InventoryDrug inventoryDrug) {
+		Criteria criteria = sessionFactory.getCurrentSession().createCriteria(ImmunizationStoreDrug.class).add(
+				Restrictions.eq("inventoryDrug", inventoryDrug));
+		return criteria.list();
 	}
 	
 }
