@@ -12,8 +12,8 @@
     </annotationProcessing>
     <bytecodeTargetLevel>
       <module name="hospitalcore" target="1.5" />
-      <module name="hospitalcore-api" target="1.5" />
-      <module name="hospitalcore-omod" target="1.5" />
+      <module name="hospitalcore-api" target="1.6" />
+      <module name="hospitalcore-omod" target="1.6" />
     </bytecodeTargetLevel>
   </component>
 </project>

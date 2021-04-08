@@ -15,12 +15,6 @@
 
 package org.openmrs.module.hospitalcore.impl;
 
-import java.util.ArrayList;
-import java.util.Date;
-import java.util.HashSet;
-import java.util.List;
-import java.util.Set;
-
 import org.openmrs.Concept;
 import org.openmrs.ConceptAnswer;
 import org.openmrs.ConceptClass;
@@ -41,11 +35,16 @@ import org.openmrs.module.hospitalcore.model.InventoryDrug;
 import org.openmrs.module.hospitalcore.model.OpdDrugOrder;
 import org.openmrs.module.hospitalcore.model.OpdPatientQueueLog;
 import org.openmrs.module.hospitalcore.model.OpdTestOrder;
-import org.openmrs.module.hospitalcore.model.PatientServiceBill;
 import org.openmrs.module.hospitalcore.model.Question;
 import org.openmrs.module.hospitalcore.model.Symptom;
 import org.openmrs.module.hospitalcore.model.TriagePatientData;
 import org.openmrs.module.hospitalcore.util.PatientDashboardConstants;
+
+import java.util.ArrayList;
+import java.util.Date;
+import java.util.HashSet;
+import java.util.List;
+import java.util.Set;
 
 public class PatientDashboardServiceImpl implements PatientDashboardService {
 
@@ -59,8 +58,17 @@ public class PatientDashboardServiceImpl implements PatientDashboardService {
 	}
 	
 	public List<Concept> searchSymptom(String text) throws APIException {
+
 		ConceptClass cc =  Context.getConceptService().getConceptClassByName(PatientDashboardConstants.CONCEPT_CLASS_NAME_SYMPTOM);
-		return dao.searchConceptsByNameAndClass(text, cc);
+		ConceptClass ccf =  Context.getConceptService().getConceptClassByName(PatientDashboardConstants.CONCEPT_CLASS_NAME_SYMPTOM_FINDINGS);
+		if(dao.searchConceptsByNameAndClass(text, cc) != null && dao.searchConceptsByNameAndClass(text, cc).size() > 0) {
+			return dao.searchConceptsByNameAndClass(text, cc);
+		}
+		else if(dao.searchConceptsByNameAndClass(text, ccf) != null && dao.searchConceptsByNameAndClass(text, ccf).size() > 0) {
+			return dao.searchConceptsByNameAndClass(text, ccf);
+		}
+		return null;
+
 	}
 	//Examination
 	public List<Concept> searchExamination(String text) throws APIException {
