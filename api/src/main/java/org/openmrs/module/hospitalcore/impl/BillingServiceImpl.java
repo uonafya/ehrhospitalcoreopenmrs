@@ -1046,7 +1046,6 @@ public class BillingServiceImpl extends BaseOpenmrsService implements BillingSer
 		LabService ls = (LabService) Context.getService(LabService.class);
 		List<Lab> labs = ls.getAllLab();
 		for (Lab lab : labs) {
-			System.out.println("The lab items found here>>"+lab+" and has the following items>>>"+getConceptIdSet(lab.getInvestigationsToDisplay()));
 			conceptIdSet.addAll(getConceptIdSet(lab.getInvestigationsToDisplay()));
 		}
 		return conceptIdSet;
