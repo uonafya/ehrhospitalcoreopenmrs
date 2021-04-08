@@ -913,7 +913,7 @@ public class BillingServiceImpl extends BaseOpenmrsService implements BillingSer
 		
 		Integer radiologyOrderTypeId = GlobalPropertyUtil.getInteger(BillingConstants.GLOBAL_PROPRETY_RADIOLOGY_ORDER_TYPE,
 		    8);
-		OrderType radiologyOrderType = Context.getOrderService().getOrderType(radiologyOrderTypeId);
+		OrderType radiologyOrderType = Context.getOrderService().getOrderTypeByUuid("b554bb28-29a6-11eb-8daa-377c8e081a2c");
 		
 		Encounter labEncounter = null;
 		Encounter radiologyEncounter = null;
