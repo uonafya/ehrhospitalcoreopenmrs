@@ -129,7 +129,7 @@ public class RadiologyServiceImpl extends BaseOpenmrsService implements
 			Set<Concept> tests, int page) throws ParseException {
 
 		Integer radiologyOrderTypeId = GlobalPropertyUtil.getInteger(
-				BillingConstants.GLOBAL_PROPRETY_RADIOLOGY_ORDER_TYPE, 8);
+				BillingConstants.GLOBAL_PROPRETY_RADIOLOGY_ORDER_TYPE, 4);
 		OrderType orderType = Context.getOrderService().getOrderType(
 				radiologyOrderTypeId);
 
