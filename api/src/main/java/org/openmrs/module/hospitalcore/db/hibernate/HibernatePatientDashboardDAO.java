@@ -29,6 +29,7 @@ import org.hibernate.Criteria;
 import org.hibernate.Query;
 import org.hibernate.SessionFactory;
 import org.hibernate.criterion.Criterion;
+import org.hibernate.criterion.Disjunction;
 import org.hibernate.criterion.Expression;
 import org.hibernate.criterion.LogicalExpression;
 import org.hibernate.criterion.MatchMode;
@@ -324,13 +325,19 @@ public class HibernatePatientDashboardDAO implements PatientDashboardDAO {
 		}
 		ConceptClass cct =  Context.getConceptService().getConceptClassByName("Test");
 		ConceptClass ccl =  Context.getConceptService().getConceptClassByName("LabSet");
+		ConceptClass ccRadiology =  Context.getConceptService().getConceptClassByUuid("8caa332c-efe4-4025-8b18-3398328e1323");
 		criteria.setResultTransformer(Criteria.DISTINCT_ROOT_ENTITY);
 		criteria.add(Restrictions.eq("retired", false));
 		criteria.add(Restrictions.in("conceptId", billableServiceConceptIds));
 		Criterion lhs= Restrictions.eq("conceptClass", cct);
 		Criterion rhs= Restrictions.eq("conceptClass", ccl);
+		Criterion rcl= Restrictions.eq("conceptClass", ccRadiology);
+		Disjunction disjunction = Restrictions.disjunction();
+		disjunction.add(lhs);
+		disjunction.add(rhs);
+		disjunction.add(rcl);
 		LogicalExpression orExp = Restrictions.or(lhs, rhs);
-		criteria.add( orExp );
+		criteria.add( disjunction );
 		if (StringUtils.isNotBlank(text)) {
 			criteria.createAlias("names", "names");
 			criteria.add(Restrictions

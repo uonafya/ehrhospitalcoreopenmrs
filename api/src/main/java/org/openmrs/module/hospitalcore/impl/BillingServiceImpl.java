@@ -913,7 +913,7 @@ public class BillingServiceImpl extends BaseOpenmrsService implements BillingSer
 		
 		Integer radiologyOrderTypeId = GlobalPropertyUtil.getInteger(BillingConstants.GLOBAL_PROPRETY_RADIOLOGY_ORDER_TYPE,
 		    8);
-		OrderType radiologyOrderType = Context.getOrderService().getOrderType(radiologyOrderTypeId);
+		OrderType radiologyOrderType = Context.getOrderService().getOrderTypeByUuid("b554bb28-29a6-11eb-8daa-377c8e081a2c");
 		
 		Encounter labEncounter = null;
 		Encounter radiologyEncounter = null;
@@ -1046,7 +1046,6 @@ public class BillingServiceImpl extends BaseOpenmrsService implements BillingSer
 		LabService ls = (LabService) Context.getService(LabService.class);
 		List<Lab> labs = ls.getAllLab();
 		for (Lab lab : labs) {
-			System.out.println("The lab items found here>>"+lab+" and has the following items>>>"+getConceptIdSet(lab.getInvestigationsToDisplay()));
 			conceptIdSet.addAll(getConceptIdSet(lab.getInvestigationsToDisplay()));
 		}
 		return conceptIdSet;

@@ -147,16 +147,15 @@ public class HibernateRadiologyDAO implements RadiologyDAO {
 		criteria.add(Restrictions.eq("orderType", orderType));
 		SimpleDateFormat dateTimeFormatter = new SimpleDateFormat(
 				"yyyy-MM-dd hh:mm:ss");
-		criteria.add(Expression.between("startDate",
+		criteria.add(Expression.between("dateActivated",
 				dateTimeFormatter.parse(startDate),
 				dateTimeFormatter.parse(endDate)));
-		criteria.add(Restrictions.eq("discontinued", false));
 		criteria.add(Restrictions.in("concept", tests));
 		//ghanshyam-kesav 16-08-2012 Bug #323 [BILLING] When a bill with a lab\radiology order is edited the order is re-sent
 		criteria.add(Restrictions.isNull("dateVoided"));
 		if (!CollectionUtils.isEmpty(patients))
 			criteria.add(Restrictions.in("patient", patients));
-		criteria.addOrder(org.hibernate.criterion.Order.asc("startDate"));
+		criteria.addOrder(org.hibernate.criterion.Order.asc("dateActivated"));
 		int firstResult = (page - 1) * pageSize;
 		criteria.setFirstResult(firstResult);
 		criteria.setMaxResults(pageSize);
@@ -293,7 +292,7 @@ public class HibernateRadiologyDAO implements RadiologyDAO {
 
 		SimpleDateFormat dateTimeFormatter = new SimpleDateFormat(
 				"yyyy-MM-dd hh:mm:ss");
-		orderCriteria.add(Expression.between("discontinuedDate",
+		orderCriteria.add(Expression.between("dateStopped",
 				dateTimeFormatter.parse(startDate),
 				dateTimeFormatter.parse(endDate)));
 
@@ -319,7 +318,7 @@ public class HibernateRadiologyDAO implements RadiologyDAO {
 
 		SimpleDateFormat dateTimeFormatter = new SimpleDateFormat(
 				"yyyy-MM-dd hh:mm:ss");
-		orderCriteria.add(Expression.between("discontinuedDate",
+		orderCriteria.add(Expression.between("dateStopped",
 				dateTimeFormatter.parse(startDate),
 				dateTimeFormatter.parse(endDate)));
 
@@ -343,7 +342,7 @@ public class HibernateRadiologyDAO implements RadiologyDAO {
 
 		SimpleDateFormat dateTimeFormatter = new SimpleDateFormat(
 				"yyyy-MM-dd hh:mm:ss");
-		orderCriteria.add(Expression.between("discontinuedDate",
+		orderCriteria.add(Expression.between("dateStopped",
 				dateTimeFormatter.parse(startDate),
 				dateTimeFormatter.parse(endDate)));
 		criteria.add(Restrictions.eq("patient", patient));
