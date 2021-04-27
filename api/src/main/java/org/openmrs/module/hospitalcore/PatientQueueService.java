@@ -44,7 +44,6 @@ import org.openmrs.Patient;
 import org.openmrs.Person;
 import org.openmrs.api.APIException;
 import org.openmrs.api.OpenmrsService;
-import org.openmrs.module.hospitalcore.model.ImmunizationStoreDrug;
 import org.openmrs.module.hospitalcore.model.InventoryDrug;
 import org.openmrs.module.hospitalcore.model.OpdPatientQueue;
 import org.openmrs.module.hospitalcore.model.OpdPatientQueueLog;
@@ -126,7 +125,4 @@ public interface PatientQueueService extends OpenmrsService {
 	//additional methods to pick the the triage information
 	List<TriagePatientData> getPatientTriageData(Patient patient);
 	TriagePatientData getPatientTriageData(Integer id);
-
-	//adding mch immunization services
-	List<ImmunizationStoreDrug> getImmunizationStoreDrugsForDrug(InventoryDrug inventoryDrug);
 }

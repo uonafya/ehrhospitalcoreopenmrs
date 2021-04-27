@@ -341,9 +341,5 @@ public class PatientQueueServiceImpl  extends BaseOpenmrsService implements Pati
 	public TriagePatientData getPatientTriageData(Integer id) {
 		return dao.getPatientTriageData(id);
 	}
-	
-	public List<ImmunizationStoreDrug> getImmunizationStoreDrugsForDrug(InventoryDrug inventoryDrug) {
-		return dao.getImmunizationStoreDrugsForDrug(inventoryDrug);
-	}
 
 }

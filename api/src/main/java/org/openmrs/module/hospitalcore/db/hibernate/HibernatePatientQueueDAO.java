@@ -634,12 +634,5 @@ public class HibernatePatientQueueDAO implements PatientQueueDAO {
 		criteria.add(Restrictions.eq("id", id));
 		return (TriagePatientData) criteria.list().get(0);
 	}
-
-
-	public List<ImmunizationStoreDrug> getImmunizationStoreDrugsForDrug(InventoryDrug inventoryDrug) {
-		Criteria criteria = sessionFactory.getCurrentSession().createCriteria(ImmunizationStoreDrug.class).add(
-				Restrictions.eq("inventoryDrug", inventoryDrug));
-		return criteria.list();
-	}
 	
 }

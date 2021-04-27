@@ -121,7 +121,5 @@ public interface PatientQueueDAO {
 	List<TriagePatientData> getPatientTriageData(Patient patient);
 	TriagePatientData getPatientTriageData(Integer id);
 
-	List<ImmunizationStoreDrug> getImmunizationStoreDrugsForDrug(InventoryDrug inventoryDrug);
-	
 }
 
