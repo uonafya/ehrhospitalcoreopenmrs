@@ -36,8 +36,6 @@ import org.openmrs.Person;
 import org.openmrs.api.context.Context;
 import org.openmrs.api.db.DAOException;
 import org.openmrs.module.hospitalcore.db.PatientQueueDAO;
-import org.openmrs.module.hospitalcore.model.ImmunizationStoreDrug;
-import org.openmrs.module.hospitalcore.model.InventoryDrug;
 import org.openmrs.module.hospitalcore.model.OpdPatientQueue;
 import org.openmrs.module.hospitalcore.model.OpdPatientQueueLog;
 import org.openmrs.module.hospitalcore.model.PatientDrugHistory;
