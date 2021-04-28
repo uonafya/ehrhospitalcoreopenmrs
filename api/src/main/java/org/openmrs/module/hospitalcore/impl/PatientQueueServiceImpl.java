@@ -46,8 +46,6 @@ import org.openmrs.api.APIException;
 import org.openmrs.api.impl.BaseOpenmrsService;
 import org.openmrs.module.hospitalcore.PatientQueueService;
 import org.openmrs.module.hospitalcore.db.PatientQueueDAO;
-import org.openmrs.module.hospitalcore.model.ImmunizationStoreDrug;
-import org.openmrs.module.hospitalcore.model.InventoryDrug;
 import org.openmrs.module.hospitalcore.model.OpdPatientQueue;
 import org.openmrs.module.hospitalcore.model.OpdPatientQueueLog;
 import org.openmrs.module.hospitalcore.model.PatientDrugHistory;
@@ -340,10 +338,6 @@ public class PatientQueueServiceImpl  extends BaseOpenmrsService implements Pati
 	}
 	public TriagePatientData getPatientTriageData(Integer id) {
 		return dao.getPatientTriageData(id);
-	}
-	
-	public List<ImmunizationStoreDrug> getImmunizationStoreDrugsForDrug(InventoryDrug inventoryDrug) {
-		return dao.getImmunizationStoreDrugsForDrug(inventoryDrug);
 	}
 
 }
