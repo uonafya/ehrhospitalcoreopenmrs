@@ -74,6 +74,10 @@ import org.openmrs.module.hospitalcore.util.GlobalPropertyUtil;
 import org.openmrs.module.hospitalcore.util.HospitalCoreConstants;
 
 public class BillingServiceImpl extends BaseOpenmrsService implements BillingService {
+	//get class for the lab and radiology such that when saving the orders we base on those classes and NOT sets
+	ConceptClass radiologyClass = Context.getConceptService().getConceptClassByUuid("8caa332c-efe4-4025-8b18-3398328e1323");
+	ConceptClass labSet = Context.getConceptService().getConceptClassByUuid("8d492026-c2cc-11de-8d13-0010c6dffd0f");
+	ConceptClass test = Context.getConceptService().getConceptClassByUuid("8d4907b2-c2cc-11de-8d13-0010c6dffd0f");
 	
 	private Log log = LogFactory.getLog(this.getClass());
 	
@@ -910,9 +914,7 @@ public class BillingServiceImpl extends BaseOpenmrsService implements BillingSer
 		
 		//Integer labOrderTypeId = Context.getOrderService().getOrderTypeByUuid("52a447d3-a64a-11e3-9aeb-50e549534c5e");
 		OrderType labOrderType = Context.getOrderService().getOrderTypeByUuid("52a447d3-a64a-11e3-9aeb-50e549534c5e");
-		
-		Integer radiologyOrderTypeId = GlobalPropertyUtil.getInteger(BillingConstants.GLOBAL_PROPRETY_RADIOLOGY_ORDER_TYPE,
-		    8);
+
 		OrderType radiologyOrderType = Context.getOrderService().getOrderTypeByUuid("b554bb28-29a6-11eb-8daa-377c8e081a2c");
 		
 		Encounter labEncounter = null;
@@ -944,27 +946,19 @@ public class BillingServiceImpl extends BaseOpenmrsService implements BillingSer
 					}
 				}
 			} else {
-				if (labConceptIds.contains(concept.getConceptId())) {
+				if (concept.getConceptClass() != null && (concept.getConceptClass().equals(labSet) || concept.getConceptClass().equals(test))) {
 					labEncounter = getEncounter(bill, labEncounter, labEncounterType);
 					Order order = addOrder(labEncounter, concept, bill, labOrderType);
 					item.setOrder(order);
 					
-				} else if (radiologyConceptIds.contains(concept.getConceptId())) {
+				} else if (concept.getConceptClass() != null && (concept.getConceptClass().equals(radiologyClass))) {
 					radiologyEncounter = getEncounter(bill, radiologyEncounter, radiologyEncounterType);
 					Order order = addOrder(radiologyEncounter, concept, bill, radiologyOrderType);
 					item.setOrder(order);
 				}
+				//add the procedures to respective queue or tables for them to be picked at OT
 			}
 		}
-		
-		/*
-		if (labEncounter != null) {
-			Context.getEncounterService().saveEncounter(labEncounter);
-		}
-		if (radiologyEncounter != null) {
-			Context.getEncounterService().saveEncounter(radiologyEncounter);
-		}
-		*/
 		savePatientServiceBill(bill);
 	}
 	
@@ -1016,28 +1010,18 @@ public class BillingServiceImpl extends BaseOpenmrsService implements BillingSer
 					}
 				}
 			} else {
-				if (labConceptIds.contains(concept.getConceptId())) {
-					System.out.println("Eventually we will land here if the concepts are found");
+				if (concept.getConceptClass() != null && (concept.getConceptClass().equals(labSet) || concept.getConceptClass().equals(test))) {
 					labEncounter = getEncounter(bill, labEncounter, labEncounterType);
 					Order order = addOrder(labEncounter, concept, bill, labOrderType);
 					item.setOrder(order);
 					
-				} else if (radiologyConceptIds.contains(concept.getConceptId())) {
+				} else if (concept.getConceptClass() != null && (concept.getConceptClass().equals(radiologyClass))) {
 					radiologyEncounter = getEncounter(bill, radiologyEncounter, radiologyEncounterType);
 					Order order = addOrder(radiologyEncounter, concept, bill, radiologyOrderType);
 					item.setOrder(order);
 				}
 			}
 		}
-		
-		/*
-		if (labEncounter != null) {
-			Context.getEncounterService().saveEncounter(labEncounter);
-		}
-		if (radiologyEncounter != null) {
-			Context.getEncounterService().saveEncounter(radiologyEncounter);
-		}
-		*/
 		saveIndoorPatientServiceBill(bill);
 	}
 	
@@ -1107,7 +1091,6 @@ public class BillingServiceImpl extends BaseOpenmrsService implements BillingSer
 	}
 	
 	private Order addOrder(Encounter encounter, Concept concept, PatientServiceBill bill, OrderType orderType) {
-		System.out.println("The outdoor oredr will fall here");
 		Order order = new TestOrder();
 		order.setConcept(concept);
 		order.setCreator(bill.getCreator());
@@ -1128,7 +1111,6 @@ public class BillingServiceImpl extends BaseOpenmrsService implements BillingSer
 	}
 	
 	private Order addOrder(Encounter encounter, Concept concept, IndoorPatientServiceBill bill, OrderType orderType) {
-		System.out.println("The indoor oredr will start here");
 		Order order = new Order();
 		order.setConcept(concept);
 		order.setCreator(bill.getCreator());
@@ -1146,14 +1128,14 @@ public class BillingServiceImpl extends BaseOpenmrsService implements BillingSer
 	}
 	
 	/**
-	 * @see org.openmrs.module.billing.BillingService#getAllActiveCompany()
+	 * @see
 	 */
 	public List<Company> getAllActiveCompany() throws APIException {
 		return dao.getAllActiveCompany();
 	}
 	
 	/**
-	 * @see org.openmrs.module.billing.BillingService#getAllActiveDriver()
+	 * @see
 	 */
 	public List<Driver> getAllActiveDriver() throws APIException {
 		return dao.getAllActiveDriver();
@@ -1246,7 +1228,7 @@ public class BillingServiceImpl extends BaseOpenmrsService implements BillingSer
 	}
 	
 	/**
-	 * @see org.openmrs.module.billing.BillingService#getPatientServiceBillByReceiptId(java.lang.Integer)
+	 * @see
 	 */
 	public PatientServiceBill getPatientServiceBillByReceiptId(Integer patientServiceBillReceiptId) throws APIException {
 		return dao.getPatientServiceBillByReceiptId(patientServiceBillReceiptId);
