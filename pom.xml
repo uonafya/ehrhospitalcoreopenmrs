@@ -18,22 +18,6 @@
 		<url>https://github.com/uonafya/hospitalcoreopenmrs.git</url>
 		<tag>HEAD</tag>
 	</scm>
-	
-	<distributionManagement>
-        <!-- use the following if you're not using a snapshot version. -->
-            <repository>
-                <id>shimla-nexus</id>
-                <name>Shimla nexus repo</name>
-                <url>http://hospdev.hispindia.org/nexus/content/repositories/releases/</url>
-            </repository>
-        <!-- use the following if you ARE using a snapshot version. -->
-            <snapshotRepository>
-                <id>shimla-nexus</id>
-                <name>Shimla nexus repo</name>
-                <url>http://hospdev.hispindia.org/nexus/content/repositories/snapshots/</url>
-                <uniqueVersion>false</uniqueVersion>
-             </snapshotRepository>
-        </distributionManagement>
 
 	<modules>
 		<module>api</module>
@@ -136,6 +120,12 @@
 			<id>openmrs-repo</id>
 			<name>OpenMRS Nexus Repository</name>
 			<url>http://mavenrepo.openmrs.org/nexus/content/repositories/public</url>
+		</repository>
+		<repository>
+			<id>central</id>
+			<name>Maven Repository Switchboard</name>
+			<layout>default</layout>
+			<url>http://repo1.maven.org/maven2</url>
 		</repository>
 	</repositories>
 
