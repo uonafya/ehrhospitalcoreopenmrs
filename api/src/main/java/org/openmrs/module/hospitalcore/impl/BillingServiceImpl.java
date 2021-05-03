@@ -14,15 +14,6 @@
 
 package org.openmrs.module.hospitalcore.impl;
 
-import java.util.ArrayList;
-import java.util.Collection;
-import java.util.Collections;
-import java.util.Date;
-import java.util.HashSet;
-import java.util.List;
-import java.util.Map;
-import java.util.Set;
-
 import org.apache.commons.lang.StringUtils;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
@@ -40,7 +31,6 @@ import org.openmrs.Person;
 import org.openmrs.Provider;
 import org.openmrs.TestOrder;
 import org.openmrs.api.APIException;
-import org.openmrs.api.PersonService;
 import org.openmrs.api.ProviderService;
 import org.openmrs.api.context.Context;
 import org.openmrs.api.impl.BaseOpenmrsService;
@@ -73,11 +63,20 @@ import org.openmrs.module.hospitalcore.util.ConceptSetComparator;
 import org.openmrs.module.hospitalcore.util.GlobalPropertyUtil;
 import org.openmrs.module.hospitalcore.util.HospitalCoreConstants;
 
+import java.util.ArrayList;
+import java.util.Collection;
+import java.util.Collections;
+import java.util.Date;
+import java.util.HashSet;
+import java.util.List;
+import java.util.Map;
+import java.util.Set;
+
 public class BillingServiceImpl extends BaseOpenmrsService implements BillingService {
 	//get class for the lab and radiology such that when saving the orders we base on those classes and NOT sets
-	ConceptClass radiologyClass = Context.getConceptService().getConceptClassByUuid("8caa332c-efe4-4025-8b18-3398328e1323");
-	ConceptClass labSet = Context.getConceptService().getConceptClassByUuid("8d492026-c2cc-11de-8d13-0010c6dffd0f");
-	ConceptClass test = Context.getConceptService().getConceptClassByUuid("8d4907b2-c2cc-11de-8d13-0010c6dffd0f");
+	String radiologyClass = "8caa332c-efe4-4025-8b18-3398328e1323";
+	String labSet = "8d492026-c2cc-11de-8d13-0010c6dffd0f";
+	String test = "8d4907b2-c2cc-11de-8d13-0010c6dffd0f";
 	
 	private Log log = LogFactory.getLog(this.getClass());
 	
@@ -924,6 +923,7 @@ public class BillingServiceImpl extends BaseOpenmrsService implements BillingSer
 		Integer medicalExaminationClassId = GlobalPropertyUtil.getInteger(
 		    HospitalCoreConstants.PROPERTY_MEDICAL_EXAMINATION, 9);
 		ConceptClass medicalExaminationClass = Context.getConceptService().getConceptClass(medicalExaminationClassId);
+
 		
 		for (PatientServiceBillItem item : bill.getBillItems()) {
 			Concept concept = Context.getConceptService().getConcept(item.getService().getConceptId());
@@ -946,17 +946,17 @@ public class BillingServiceImpl extends BaseOpenmrsService implements BillingSer
 					}
 				}
 			} else {
-				if (concept.getConceptClass() != null && (concept.getConceptClass().equals(labSet) || concept.getConceptClass().equals(test))) {
+				if (concept.getConceptClass() != null && (concept.getConceptClass().getUuid().equals(labSet) || concept.getConceptClass().getUuid().equals(test))) {
 					labEncounter = getEncounter(bill, labEncounter, labEncounterType);
 					Order order = addOrder(labEncounter, concept, bill, labOrderType);
 					item.setOrder(order);
 					
-				} else if (concept.getConceptClass() != null && (concept.getConceptClass().equals(radiologyClass))) {
+				} else if (concept.getConceptClass() != null && (concept.getConceptClass().getUuid().equals(radiologyClass))) {
 					radiologyEncounter = getEncounter(bill, radiologyEncounter, radiologyEncounterType);
 					Order order = addOrder(radiologyEncounter, concept, bill, radiologyOrderType);
 					item.setOrder(order);
 				}
-				//add the procedures to respective queue or tables for them to be picked at OT
+				//add the procedures to respective queue or tables for them to be picked at OT and procedures
 			}
 		}
 		savePatientServiceBill(bill);
@@ -1010,16 +1010,17 @@ public class BillingServiceImpl extends BaseOpenmrsService implements BillingSer
 					}
 				}
 			} else {
-				if (concept.getConceptClass() != null && (concept.getConceptClass().equals(labSet) || concept.getConceptClass().equals(test))) {
+				if (concept.getConceptClass() != null && (concept.getConceptClass().getUuid().equals(labSet) || concept.getConceptClass().getUuid().equals(test))) {
 					labEncounter = getEncounter(bill, labEncounter, labEncounterType);
 					Order order = addOrder(labEncounter, concept, bill, labOrderType);
 					item.setOrder(order);
 					
-				} else if (concept.getConceptClass() != null && (concept.getConceptClass().equals(radiologyClass))) {
+				} else if (concept.getConceptClass() != null && (concept.getConceptClass().getUuid().equals(radiologyClass))) {
 					radiologyEncounter = getEncounter(bill, radiologyEncounter, radiologyEncounterType);
 					Order order = addOrder(radiologyEncounter, concept, bill, radiologyOrderType);
 					item.setOrder(order);
 				}
+				//add implementation for the procedures and OT functionalities after payment
 			}
 		}
 		saveIndoorPatientServiceBill(bill);
