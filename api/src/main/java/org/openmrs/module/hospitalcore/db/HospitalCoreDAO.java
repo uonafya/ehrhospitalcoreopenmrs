@@ -34,6 +34,7 @@ import org.openmrs.module.hospitalcore.concept.ConceptModel;
 import org.openmrs.module.hospitalcore.model.CoreForm;
 import org.openmrs.module.hospitalcore.model.OpdTestOrder;
 import org.openmrs.module.hospitalcore.model.PatientSearch;
+import org.openmrs.module.hospitalcore.model.PatientServiceBillItem;
 
 public interface HospitalCoreDAO {
 
@@ -133,4 +134,6 @@ public interface HospitalCoreDAO {
 	public Obs getObs(Person person,Encounter encounter) throws DAOException;
 	public String getPatientType(Patient patientId) throws DAOException;
 	public List<Obs> getObsInstanceForDiagnosis(Encounter encounter,Concept concept) throws DAOException;
+	public List<OpdTestOrder> getAllOpdOrdersByDateRange();
+	public List<PatientServiceBillItem> getAllPatientServiceBillItemsByDate();
 }

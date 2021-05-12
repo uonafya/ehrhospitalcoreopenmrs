@@ -52,6 +52,7 @@ import org.openmrs.module.hospitalcore.model.CoreForm;
 import org.openmrs.module.hospitalcore.model.IpdPatientAdmitted;
 import org.openmrs.module.hospitalcore.model.OpdTestOrder;
 import org.openmrs.module.hospitalcore.model.PatientSearch;
+import org.openmrs.module.hospitalcore.model.PatientServiceBillItem;
 import org.openmrs.module.hospitalcore.util.DateUtils;
 import org.openmrs.module.hospitalcore.util.HospitalCoreConstants;
 
@@ -561,6 +562,21 @@ public class HibernateHospitalCoreDAO implements HospitalCoreDAO {
                 (Obs.class);
         criteria.add(Restrictions.eq("encounter", encounter));
         criteria.add(Restrictions.eq("concept", concept));
+        return criteria.list();
+    }
+
+    @Override
+    public List<OpdTestOrder> getAllOpdOrdersByDateRange() {
+        Criteria criteria = sessionFactory.getCurrentSession().createCriteria
+                (OpdTestOrder.class);
+        criteria.add(Restrictions.eq("billingStatus", 1));
+        return criteria.list();
+    }
+
+    @Override
+    public List<PatientServiceBillItem> getAllPatientServiceBillItemsByDate() {
+        Criteria criteria = sessionFactory.getCurrentSession().createCriteria
+                (PatientServiceBillItem.class);
         return criteria.list();
     }
 }

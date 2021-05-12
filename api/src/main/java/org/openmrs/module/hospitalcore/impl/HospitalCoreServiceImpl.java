@@ -69,6 +69,7 @@ import org.openmrs.module.hospitalcore.db.HospitalCoreDAO;
 import org.openmrs.module.hospitalcore.model.CoreForm;
 import org.openmrs.module.hospitalcore.model.OpdTestOrder;
 import org.openmrs.module.hospitalcore.model.PatientSearch;
+import org.openmrs.module.hospitalcore.model.PatientServiceBillItem;
 import org.openmrs.module.hospitalcore.util.HospitalCoreConstants;
 import org.w3c.dom.Document;
 import org.w3c.dom.NamedNodeMap;
@@ -781,6 +782,16 @@ public class HospitalCoreServiceImpl extends BaseOpenmrsService implements
 	
 	public List<Obs> getObsInstanceForDiagnosis(Encounter encounter,Concept concept){
 		return dao.getObsInstanceForDiagnosis(encounter,concept);
+	}
+
+	@Override
+	public List<OpdTestOrder> getAllOpdOrdersByDateRange() {
+		return dao.getAllOpdOrdersByDateRange();
+	}
+
+	@Override
+	public List<PatientServiceBillItem> getAllPatientServiceBillItemsByDate() {
+		return dao.getAllPatientServiceBillItemsByDate();
 	}
 
 }
