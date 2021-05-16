@@ -363,10 +363,15 @@ public class RadiologyServiceImpl extends BaseOpenmrsService implements
 					.getStatus()
 					.equalsIgnoreCase(RadiologyConstants.TEST_STATUS_COMPLETED)))) {
 				Order order = test.getOrder();
-				order.setAutoExpireDate(new Date());
 				order.setCreator(Context.getAuthenticatedUser());
-				Context.getOrderService().saveOrder(order, null);
-				test.setStatus(RadiologyConstants.TEST_STATUS_COMPLETED);
+				Order revisedOrder = order.cloneForRevision();
+                revisedOrder.setEncounter(test.getEncounter());
+                revisedOrder.setOrderer(test.getOrder().getOrderer());
+                revisedOrder.setAction(Order.Action.DISCONTINUE);
+                revisedOrder.setAutoExpireDate(new Date());
+
+                Context.getOrderService().saveOrder(revisedOrder, null);
+                test.setStatus(RadiologyConstants.TEST_STATUS_COMPLETED);
 				saveRadiologyTest(test);
 				return RadiologyConstants.COMPLETE_TEST_RETURN_STATUS_SUCCESS;
 			}
