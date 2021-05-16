@@ -40,6 +40,7 @@ import org.openmrs.api.OpenmrsService;
 import org.openmrs.module.hospitalcore.model.CoreForm;
 import org.openmrs.module.hospitalcore.model.OpdTestOrder;
 import org.openmrs.module.hospitalcore.model.PatientSearch;
+import org.openmrs.module.hospitalcore.model.PatientServiceBillItem;
 import org.springframework.transaction.annotation.Transactional;
 import org.xml.sax.SAXException;
 
@@ -236,4 +237,7 @@ public interface HospitalCoreService extends OpenmrsService {
 	public Obs getObs(Person person,Encounter encounter) throws APIException;
 	public String getPatientType(Patient patientId) throws APIException;
 	public List<Obs> getObsInstanceForDiagnosis(Encounter encounter,Concept concept) throws APIException;
+	//Additional methods to help pull information for the revenue summaries
+	public List<OpdTestOrder> getAllOpdOrdersByDateRange();
+	public List<PatientServiceBillItem> getAllPatientServiceBillItemsByDate();
 }
