@@ -62,6 +62,10 @@ public class HibernateHospitalCoreDAO implements HospitalCoreDAO {
 
     SimpleDateFormat formatterExt = new SimpleDateFormat("dd/MM/yyyy");
 
+    SimpleDateFormat formatterDate = new SimpleDateFormat("yyyy-MM-dd");
+
+    SimpleDateFormat formatterDateTime = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+
     private SessionFactory sessionFactory;
 
     public SessionFactory getSessionFactory() {
@@ -566,17 +570,47 @@ public class HibernateHospitalCoreDAO implements HospitalCoreDAO {
     }
 
     @Override
-    public List<OpdTestOrder> getAllOpdOrdersByDateRange() {
+    public List<OpdTestOrder> getAllOpdOrdersByDateRange(boolean today) {
         Criteria criteria = sessionFactory.getCurrentSession().createCriteria
                 (OpdTestOrder.class);
         criteria.add(Restrictions.eq("billingStatus", 1));
+        String date = formatterDate.format(new Date());
+        String startFromDate = date + " 00:00:00";
+        String endFromDate = date + " 23:59:59";
+        if(today) {
+            try {
+                criteria.add(Restrictions.and(Restrictions.ge("createdOn", formatterDateTime.parse(startFromDate)),
+                        Restrictions.le("createdOn", formatterDateTime.parse(endFromDate))));
+            }
+            catch (Exception e) {
+                // TODO: handle exception
+                System.out.println("Error convert date: " + e.toString());
+                e.printStackTrace();
+            }
+
+        }
         return criteria.list();
     }
 
     @Override
-    public List<PatientServiceBillItem> getAllPatientServiceBillItemsByDate() {
+    public List<PatientServiceBillItem> getAllPatientServiceBillItemsByDate(boolean today) {
         Criteria criteria = sessionFactory.getCurrentSession().createCriteria
                 (PatientServiceBillItem.class);
+        String date = formatterDate.format(new Date());
+        String startFromDate = date + " 00:00:00";
+        String endFromDate = date + " 23:59:59";
+        if(today) {
+            try {
+                criteria.add(Restrictions.and(Restrictions.ge("createdOn", formatterDateTime.parse(startFromDate)),
+                        Restrictions.le("createdOn", formatterDateTime.parse(endFromDate))));
+            }
+            catch (Exception e) {
+                // TODO: handle exception
+                System.out.println("Error convert date: " + e.toString());
+                e.printStackTrace();
+            }
+
+        }
         return criteria.list();
     }
 }
