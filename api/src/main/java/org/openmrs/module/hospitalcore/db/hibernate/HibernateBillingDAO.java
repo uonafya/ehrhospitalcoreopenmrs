@@ -1180,4 +1180,11 @@ public class HibernateBillingDAO implements BillingDAO {
 		return criteria.list();
 	}
 
+	@Override
+	public List<PatientServiceBillItem> getPatientBillableServicesByPatientServiceBill(PatientServiceBill patientServiceBill) {
+		Criteria criteria = sessionFactory.getCurrentSession().createCriteria(PatientServiceBillItem.class);
+		criteria.add(Restrictions.eq("patientServiceBill", patientServiceBill));
+		return criteria.list();
+	}
+
 }
