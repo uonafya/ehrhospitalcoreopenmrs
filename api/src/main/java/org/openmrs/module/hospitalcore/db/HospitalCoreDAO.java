@@ -134,6 +134,6 @@ public interface HospitalCoreDAO {
 	public Obs getObs(Person person,Encounter encounter) throws DAOException;
 	public String getPatientType(Patient patientId) throws DAOException;
 	public List<Obs> getObsInstanceForDiagnosis(Encounter encounter,Concept concept) throws DAOException;
-	public List<OpdTestOrder> getAllOpdOrdersByDateRange();
-	public List<PatientServiceBillItem> getAllPatientServiceBillItemsByDate();
+	public List<OpdTestOrder> getAllOpdOrdersByDateRange(boolean today);
+	public List<PatientServiceBillItem> getAllPatientServiceBillItemsByDate(boolean today);
 }
