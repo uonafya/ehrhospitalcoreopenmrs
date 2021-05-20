@@ -25,15 +25,14 @@ public class IpdPatientVitalStatistics {
 	private IpdPatientAdmissionLog ipdPatientAdmissionLog;
 	// vitalSatatistics Form
 	private String bloodPressure;
-	private String systolicBloodPressure;
-	private String diastolicBloodPressure;
-
 	private String pulseRate;
 	private String temperature;
 	private String dietAdvised;
 	private String note;
 	private Integer creator;
 	private Date createdOn;
+	private String systolicBloodPressure;
+	private String diastolicBloodPressure;
 
 	public Integer getId() {
 		return id;
