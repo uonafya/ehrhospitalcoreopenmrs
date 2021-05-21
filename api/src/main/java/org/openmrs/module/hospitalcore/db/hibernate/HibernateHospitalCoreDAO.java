@@ -601,8 +601,8 @@ public class HibernateHospitalCoreDAO implements HospitalCoreDAO {
         String endFromDate = date + " 23:59:59";
         if(today) {
             try {
-                criteria.add(Restrictions.and(Restrictions.ge("createdOn", formatterDateTime.parse(startFromDate)),
-                        Restrictions.le("createdOn", formatterDateTime.parse(endFromDate))));
+                criteria.add(Restrictions.and(Restrictions.ge("createdDate", formatterDateTime.parse(startFromDate)),
+                        Restrictions.le("createdDate", formatterDateTime.parse(endFromDate))));
             }
             catch (Exception e) {
                 // TODO: handle exception
