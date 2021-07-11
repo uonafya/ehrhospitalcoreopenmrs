@@ -50,6 +50,7 @@ import org.openmrs.module.hospitalcore.model.OpdTestOrder;
 import org.openmrs.module.hospitalcore.model.Question;
 import org.openmrs.module.hospitalcore.model.Symptom;
 import org.openmrs.module.hospitalcore.model.TriagePatientData;
+import org.openmrs.module.hospitalcore.util.PatientDashboardConstants;
 
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
@@ -191,6 +192,32 @@ public class HibernatePatientDashboardDAO implements PatientDashboardDAO {
 
 		crit.addOrder(org.hibernate.criterion.Order.desc("encounterDatetime"));
 		return crit.list();
+	}
+
+	@Override
+	public List<Concept> searchConceptsByNameFromAlistOfClasses(String text) throws DAOException {
+
+		Criteria criteria = sessionFactory.getCurrentSession().createCriteria(
+				Concept.class);
+		ConceptClass cc =  Context.getConceptService().getConceptClassByName(PatientDashboardConstants.CONCEPT_CLASS_NAME_SYMPTOM);
+		ConceptClass ccf =  Context.getConceptService().getConceptClassByName(PatientDashboardConstants.CONCEPT_CLASS_NAME_SYMPTOM_FINDINGS);
+		ConceptClass ccd =  Context.getConceptService().getConceptClassByName(PatientDashboardConstants.CONCEPT_CLASS_NAME_DIAGNOSIS);
+		criteria.setResultTransformer(Criteria.DISTINCT_ROOT_ENTITY);
+		criteria.add(Expression.eq("retired", false));
+		Criterion l1= Restrictions.eq("conceptClass", cc);
+		Criterion l2= Restrictions.eq("conceptClass", ccf);
+		Criterion l3= Restrictions.eq("conceptClass", ccd);
+		Disjunction disjunction = Restrictions.disjunction();
+		disjunction.add(l1);
+		disjunction.add(l2);
+		disjunction.add(l3);
+		criteria.add( disjunction );
+		if (StringUtils.isNotBlank(text)) {
+			criteria.createAlias("names", "names");
+			criteria.add(Restrictions
+					.like("names.name", text, MatchMode.ANYWHERE));
+		}
+		return criteria.list();
 	}
 
 	// Department
@@ -335,7 +362,6 @@ public class HibernatePatientDashboardDAO implements PatientDashboardDAO {
 		disjunction.add(lhs);
 		disjunction.add(rhs);
 		disjunction.add(rcl);
-		LogicalExpression orExp = Restrictions.or(lhs, rhs);
 		criteria.add( disjunction );
 		if (StringUtils.isNotBlank(text)) {
 			criteria.createAlias("names", "names");

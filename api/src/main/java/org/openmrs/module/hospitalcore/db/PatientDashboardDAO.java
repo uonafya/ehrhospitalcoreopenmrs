@@ -42,6 +42,7 @@ public interface PatientDashboardDAO {
 	public List<Order> getOrders(List<Concept> concepts, Patient patient, Location location, Date orderStartDate) throws DAOException;
 	public List<Concept> searchConceptsByNameAndClass(String text, ConceptClass clazz) throws DAOException;
 	public List<Encounter> getEncounter(Patient p , Location loc, EncounterType encType, String date) throws DAOException;
+	public List<Concept> searchConceptsByNameFromAlistOfClasses(String text) throws DAOException;
 	
 	//Department
 	public Department createDepartment(Department department) throws DAOException;
