@@ -201,16 +201,13 @@ public class HibernatePatientDashboardDAO implements PatientDashboardDAO {
 				Concept.class);
 		ConceptClass cc =  Context.getConceptService().getConceptClassByName(PatientDashboardConstants.CONCEPT_CLASS_NAME_SYMPTOM);
 		ConceptClass ccf =  Context.getConceptService().getConceptClassByName(PatientDashboardConstants.CONCEPT_CLASS_NAME_SYMPTOM_FINDINGS);
-		ConceptClass ccd =  Context.getConceptService().getConceptClassByName(PatientDashboardConstants.CONCEPT_CLASS_NAME_DIAGNOSIS);
 		criteria.setResultTransformer(Criteria.DISTINCT_ROOT_ENTITY);
 		criteria.add(Expression.eq("retired", false));
 		Criterion l1= Restrictions.eq("conceptClass", cc);
 		Criterion l2= Restrictions.eq("conceptClass", ccf);
-		Criterion l3= Restrictions.eq("conceptClass", ccd);
 		Disjunction disjunction = Restrictions.disjunction();
 		disjunction.add(l1);
 		disjunction.add(l2);
-		disjunction.add(l3);
 		criteria.add( disjunction );
 		if (StringUtils.isNotBlank(text)) {
 			criteria.createAlias("names", "names");
