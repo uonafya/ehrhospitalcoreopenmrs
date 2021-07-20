@@ -59,13 +59,8 @@ public class PatientDashboardServiceImpl implements PatientDashboardService {
 	
 	public List<Concept> searchSymptom(String text) throws APIException {
 
-		ConceptClass cc =  Context.getConceptService().getConceptClassByName(PatientDashboardConstants.CONCEPT_CLASS_NAME_SYMPTOM);
-		ConceptClass ccf =  Context.getConceptService().getConceptClassByName(PatientDashboardConstants.CONCEPT_CLASS_NAME_SYMPTOM_FINDINGS);
-		if(dao.searchConceptsByNameAndClass(text, cc) != null && dao.searchConceptsByNameAndClass(text, cc).size() > 0) {
-			return dao.searchConceptsByNameAndClass(text, cc);
-		}
-		else if(dao.searchConceptsByNameAndClass(text, ccf) != null && dao.searchConceptsByNameAndClass(text, ccf).size() > 0) {
-			return dao.searchConceptsByNameAndClass(text, ccf);
+		if(dao.searchConceptsByNameFromAlistOfClasses(text) != null && dao.searchConceptsByNameFromAlistOfClasses(text).size() > 0) {
+			return dao.searchConceptsByNameFromAlistOfClasses(text);
 		}
 		return null;
 
