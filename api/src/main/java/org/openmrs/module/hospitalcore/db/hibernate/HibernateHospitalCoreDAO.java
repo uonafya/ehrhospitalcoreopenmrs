@@ -598,24 +598,28 @@ public class HibernateHospitalCoreDAO implements HospitalCoreDAO {
     }
 
     @Override
-    public List<PatientServiceBillItem> getAllPatientServiceBillItemsByDate(boolean today) {
+    public List<PatientServiceBillItem> getAllPatientServiceBillItemsByDate(boolean today, String fromDate, String toDate) {
         Criteria criteria = sessionFactory.getCurrentSession().createCriteria
                 (PatientServiceBillItem.class);
         String date = formatterDate.format(new Date());
-        String startFromDate = date + " 00:00:00";
-        String endFromDate = date + " 23:59:59";
-        if(today) {
-            try {
-                criteria.add(Restrictions.and(Restrictions.ge("createdDate", formatterDateTime.parse(startFromDate)),
-                        Restrictions.le("createdDate", formatterDateTime.parse(endFromDate))));
-            }
-            catch (Exception e) {
-                // TODO: handle exception
-                System.out.println("Error convert date: " + e.toString());
-                e.printStackTrace();
-            }
 
+        if(today) {
+            setAllPatientServiceBillItemsByDateCriteria(criteria,date,date);
+        }else if ((!StringUtils.isBlank(fromDate)) && (!StringUtils.isBlank(toDate))){
+            setAllPatientServiceBillItemsByDateCriteria(criteria,fromDate,toDate);
         }
         return criteria.list();
+    }
+
+    public  void setAllPatientServiceBillItemsByDateCriteria(Criteria criteria, String fromDate,String toDate){
+        try {
+            criteria.add(Restrictions.and(Restrictions.ge("createdDate", formatterDateTime.parse(fromDate)),
+                    Restrictions.le("createdDate", formatterDateTime.parse(toDate))));
+        }
+        catch (Exception e) {
+            // TODO: handle exception
+            System.out.println("Error convert date: " + e.toString());
+            e.printStackTrace();
+        }
     }
 }

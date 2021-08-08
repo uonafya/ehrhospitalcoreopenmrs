@@ -239,5 +239,5 @@ public interface HospitalCoreService extends OpenmrsService {
 	public List<Obs> getObsInstanceForDiagnosis(Encounter encounter,Concept concept) throws APIException;
 	//Additional methods to help pull information for the revenue summaries
 	public List<OpdTestOrder> getAllOpdOrdersByDateRange(boolean today,String fromDate,String toDate);
-	public List<PatientServiceBillItem> getAllPatientServiceBillItemsByDate(boolean today);
+	public List<PatientServiceBillItem> getAllPatientServiceBillItemsByDate(boolean today, String fromDate, String toDate);
 }

@@ -790,8 +790,8 @@ public class HospitalCoreServiceImpl extends BaseOpenmrsService implements
 	}
 
 	@Override
-	public List<PatientServiceBillItem> getAllPatientServiceBillItemsByDate(boolean today) {
-		return dao.getAllPatientServiceBillItemsByDate(today);
+	public List<PatientServiceBillItem> getAllPatientServiceBillItemsByDate(boolean today,String fromDate, String toDate) {
+		return dao.getAllPatientServiceBillItemsByDate(today,fromDate,toDate);
 	}
 
 }
