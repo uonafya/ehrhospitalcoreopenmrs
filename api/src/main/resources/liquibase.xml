@@ -1505,4 +1505,17 @@
             ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
         </sql>
     </changeSet>
+    <changeSet id="radiology:2021-07-28-16:52" author="ningosi">
+        <preConditions onFail="MARK_RAN" onError="WARN">
+            <dbms type="mysql"/>
+        </preConditions>
+        <comment>Creating radiology_department_investigations table to manage tests and departiments</comment>
+        <sql>
+            CREATE TABLE IF NOT EXISTS `radiology_department_investigations` (
+            `department_id` int(11) NOT NULL DEFAULT '0',
+            `concept_id` int(11) NOT NULL DEFAULT '0',
+            PRIMARY KEY (`department_id`,`concept_id`)
+            ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+        </sql>
+    </changeSet>
 </databaseChangeLog>
