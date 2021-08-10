@@ -570,47 +570,56 @@ public class HibernateHospitalCoreDAO implements HospitalCoreDAO {
     }
 
     @Override
-    public List<OpdTestOrder> getAllOpdOrdersByDateRange(boolean today) {
+    public List<OpdTestOrder> getAllOpdOrdersByDateRange(boolean today,String fromDate,String toDate) {
         Criteria criteria = sessionFactory.getCurrentSession().createCriteria
                 (OpdTestOrder.class);
         criteria.add(Restrictions.eq("billingStatus", 1));
-        String date = formatterDate.format(new Date());
-        String startFromDate = date + " 00:00:00";
-        String endFromDate = date + " 23:59:59";
-        if(today) {
-            try {
-                criteria.add(Restrictions.and(Restrictions.ge("createdOn", formatterDateTime.parse(startFromDate)),
-                        Restrictions.le("createdOn", formatterDateTime.parse(endFromDate))));
-            }
-            catch (Exception e) {
-                // TODO: handle exception
-                System.out.println("Error convert date: " + e.toString());
-                e.printStackTrace();
-            }
 
+        if(today) {
+            String date = formatterDate.format(new Date());
+            setAllOpdOrdersByDateRangeFetchCriteria(criteria, date, date);
+
+        }else if ((!StringUtils.isBlank(fromDate)) && (!StringUtils.isBlank(toDate))){
+            setAllOpdOrdersByDateRangeFetchCriteria(criteria, fromDate, toDate);
         }
         return criteria.list();
     }
 
+    private void setAllOpdOrdersByDateRangeFetchCriteria(Criteria criteria, String startFromDate, String endFromDate) {
+        try {
+            criteria.add(Restrictions.and(Restrictions.ge("createdOn", formatterDateTime.parse(startFromDate + " 00:00:00")),
+                    Restrictions.le("createdOn", formatterDateTime.parse(endFromDate+ " 23:59:59"))));
+        }
+        catch (Exception e) {
+            // TODO: handle exception
+            System.out.println("Error convert date: " + e.toString());
+            e.printStackTrace();
+        }
+    }
+
     @Override
-    public List<PatientServiceBillItem> getAllPatientServiceBillItemsByDate(boolean today) {
+    public List<PatientServiceBillItem> getAllPatientServiceBillItemsByDate(boolean today, String fromDate, String toDate) {
         Criteria criteria = sessionFactory.getCurrentSession().createCriteria
                 (PatientServiceBillItem.class);
         String date = formatterDate.format(new Date());
-        String startFromDate = date + " 00:00:00";
-        String endFromDate = date + " 23:59:59";
-        if(today) {
-            try {
-                criteria.add(Restrictions.and(Restrictions.ge("createdDate", formatterDateTime.parse(startFromDate)),
-                        Restrictions.le("createdDate", formatterDateTime.parse(endFromDate))));
-            }
-            catch (Exception e) {
-                // TODO: handle exception
-                System.out.println("Error convert date: " + e.toString());
-                e.printStackTrace();
-            }
 
+        if(today) {
+            setAllPatientServiceBillItemsByDateCriteria(criteria,date,date);
+        }else if ((!StringUtils.isBlank(fromDate)) && (!StringUtils.isBlank(toDate))){
+            setAllPatientServiceBillItemsByDateCriteria(criteria,fromDate,toDate);
         }
         return criteria.list();
+    }
+
+    public  void setAllPatientServiceBillItemsByDateCriteria(Criteria criteria, String fromDate,String toDate){
+        try {
+            criteria.add(Restrictions.and(Restrictions.ge("createdDate", formatterDateTime.parse(fromDate)),
+                    Restrictions.le("createdDate", formatterDateTime.parse(toDate))));
+        }
+        catch (Exception e) {
+            // TODO: handle exception
+            System.out.println("Error convert date: " + e.toString());
+            e.printStackTrace();
+        }
     }
 }
