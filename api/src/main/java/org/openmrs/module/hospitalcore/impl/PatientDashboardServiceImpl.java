@@ -56,14 +56,10 @@ public class PatientDashboardServiceImpl implements PatientDashboardService {
 	public void setDao(PatientDashboardDAO dao) {
 		this.dao = dao;
 	}
-	
+
 	public List<Concept> searchSymptom(String text) throws APIException {
-
-		if(dao.searchConceptsByNameFromAlistOfClasses(text) != null && dao.searchConceptsByNameFromAlistOfClasses(text).size() > 0) {
-			return dao.searchConceptsByNameFromAlistOfClasses(text);
-		}
-		return null;
-
+		ConceptClass cc =  Context.getConceptService().getConceptClassByName(PatientDashboardConstants.CONCEPT_CLASS_NAME_SYMPTOM);
+		return dao.searchConceptsByNameAndClass(text, cc);
 	}
 	//Examination
 	public List<Concept> searchExamination(String text) throws APIException {

@@ -785,13 +785,13 @@ public class HospitalCoreServiceImpl extends BaseOpenmrsService implements
 	}
 
 	@Override
-	public List<OpdTestOrder> getAllOpdOrdersByDateRange(boolean today) {
-		return dao.getAllOpdOrdersByDateRange(today);
+	public List<OpdTestOrder> getAllOpdOrdersByDateRange(boolean today,String fromDate,String toDate) {
+		return dao.getAllOpdOrdersByDateRange(today,fromDate,toDate);
 	}
 
 	@Override
-	public List<PatientServiceBillItem> getAllPatientServiceBillItemsByDate(boolean today) {
-		return dao.getAllPatientServiceBillItemsByDate(today);
+	public List<PatientServiceBillItem> getAllPatientServiceBillItemsByDate(boolean today,String fromDate, String toDate) {
+		return dao.getAllPatientServiceBillItemsByDate(today,fromDate,toDate);
 	}
 
 }
