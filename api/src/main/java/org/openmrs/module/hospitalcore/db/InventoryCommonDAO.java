@@ -41,4 +41,6 @@ public interface InventoryCommonDAO {
 	public List<Concept> getDrugFrequency() throws DAOException;
 	
 	public InventoryDrugFormulation getDrugFormulationById(Integer id) throws DAOException;
+
+	List<InventoryStoreDrugPatient> getAllIssueByDateRange(String startDate, String endDate);
 }
