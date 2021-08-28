@@ -14,12 +14,12 @@
 
 package org.openmrs.module.hospitalcore.db.hibernate;
 
-import java.text.ParseException;
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
-import antlr.StringUtils;
+import org.apache.commons.lang.StringUtils;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.hibernate.Criteria;
@@ -124,11 +124,14 @@ public class HibernateInventoryCommonDAO implements InventoryCommonDAO {
 		return (InventoryDrugFormulation) criteria.uniqueResult();
 	}
 
-	@Override
 	public List<InventoryStoreDrugPatient> getAllIssueByDateRange(String startDate, String endDate) {
+		List<InventoryStoreDrugPatient> inventoryStoreDrugPatients= new ArrayList<InventoryStoreDrugPatient>();
 		Criteria criteria = sessionFactory.getCurrentSession()
 				.createCriteria(InventoryStoreDrugPatient.class);
-		if (!(startDate.isEmpty())& !(endDate.isEmpty())){
+
+		String today = formatterExt.format(new Date());
+
+		if (!StringUtils.isBlank(startDate) && !StringUtils.isBlank(endDate)){
 			String startFromDate = startDate + " 00:00:00";
 			String endAtDate = endDate + " 23:59:59";
 			try {
@@ -136,21 +139,28 @@ public class HibernateInventoryCommonDAO implements InventoryCommonDAO {
 						Restrictions.ge("createdOn",formatter.parse(startFromDate)),
 						Restrictions.le("createdOn",formatter.parse(endAtDate))
 				));
+				inventoryStoreDrugPatients.addAll(criteria.list());
 			} catch (Exception e) {
 				e.printStackTrace();
 			}
-		}else if (startDate.isEmpty() || endDate.isEmpty()){
-			String startFromDate = new Date() + " 00:00:00";
-			String endAtDate = new Date() + " 23:59:59";
+		}else {
+
+			String startFromDate = today + " 00:00:00";
+			String endAtDate = today + " 23:59:59";
 			try {
 				criteria.add(Restrictions.and(
 						Restrictions.ge("createdOn",formatter.parse(startFromDate)),
 						Restrictions.le("createdOn",formatter.parse(endAtDate))
 				));
+				inventoryStoreDrugPatients.addAll(criteria.list());
+
 			} catch (Exception e) {
 				e.printStackTrace();
 			}
 		}
-		return criteria.list();
+
+
+
+		return inventoryStoreDrugPatients;
 	}
 }
