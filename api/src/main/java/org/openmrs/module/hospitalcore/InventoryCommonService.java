@@ -46,4 +46,9 @@ public interface InventoryCommonService extends OpenmrsService{
 	public List<Concept> getDrugFrequency() throws APIException;
 	
 	public InventoryDrugFormulation getDrugFormulationById(Integer id) throws APIException;
+
+	//get all issueings(orders whose fee has been paid for at cashpoint) on a  given date
+	public List<InventoryStoreDrugPatient> getAllIssueByDateRange(String startDate, String endDate) throws APIException;
+	//get transactionDetails for each of the iss apiuings done => getDrugDetailOfPatient
+
 }

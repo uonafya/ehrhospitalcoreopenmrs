@@ -65,4 +65,9 @@ public class InventoryCommonServiceImpl extends BaseOpenmrsService implements In
 	public InventoryDrugFormulation getDrugFormulationById(Integer id) throws APIException {
 		return dao.getDrugFormulationById(id);
 	}
+
+	@Override
+	public List<InventoryStoreDrugPatient> getAllIssueByDateRange(String startDate, String endDate) throws APIException {
+		return dao.getAllIssueByDateRange(startDate,endDate);
+	}
 }
