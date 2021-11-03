@@ -37,6 +37,16 @@ public class InventoryDrug  implements  Serializable {
 	  private int attribute;
 	  private Integer reorderQty;
 	  private Integer consumption;
+
+	public Integer getVoided() {
+		return voided;
+	}
+
+	public void setVoided(Integer voided) {
+		this.voided = voided;
+	}
+
+	private Integer voided;
 	public Integer getId() {
 		return id;
 	}
