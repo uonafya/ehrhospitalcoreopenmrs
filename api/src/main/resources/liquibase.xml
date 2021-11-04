@@ -1518,4 +1518,15 @@
             ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
         </sql>
     </changeSet>
+
+    <changeSet id="hospital-core:2021-10-03-15:10" author="ningosi">
+        <preConditions onFail="MARK_RAN" onError="WARN">
+            <dbms type="mysql"/>
+        </preConditions>
+        <comment>Add voided column to inventory_drug table</comment>
+        <sql>
+            ALTER TABLE  inventory_drug
+            ADD COLUMN `voided` int(11) DEFAULT NULL;
+        </sql>
+    </changeSet>
 </databaseChangeLog>

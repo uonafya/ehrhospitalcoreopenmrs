@@ -385,6 +385,7 @@ public class HibernatePatientDashboardDAO implements PatientDashboardDAO {
 	public List<InventoryDrug> findDrug(String name) throws DAOException {
 		Criteria criteria = sessionFactory.getCurrentSession().createCriteria(
 				InventoryDrug.class, "drug");
+		criteria.add(Restrictions.eq("drug.voided", 0));
 		if (!StringUtils.isBlank(name)) {
 			criteria.add(Restrictions.like("drug.name", "%" + name + "%"));
 		}

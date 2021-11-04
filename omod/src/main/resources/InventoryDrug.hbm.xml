@@ -25,6 +25,7 @@
         </set>
 		<property name="createdOn" column="created_on"  />
 		<property name="createdBy" column="created_by" length="255" />
-		
+		<property name="voided" column="voided" />
+
 	</class>
 </hibernate-mapping>
