@@ -34,6 +34,7 @@ import org.openmrs.api.APIException;
 import org.openmrs.api.ProviderService;
 import org.openmrs.api.context.Context;
 import org.openmrs.api.impl.BaseOpenmrsService;
+import org.openmrs.module.ehrconfigs.utils.EhrConfigsUtils;
 import org.openmrs.module.hospitalcore.BillingConstants;
 import org.openmrs.module.hospitalcore.BillingService;
 import org.openmrs.module.hospitalcore.LabService;
@@ -1063,7 +1064,7 @@ public class BillingServiceImpl extends BaseOpenmrsService implements BillingSer
 			enc.setLocation(location);
 			enc.setDateCreated(new Date());
 			enc.setEncounterDatetime(new Date());
-			enc.setProvider(bill.getCreator());
+			enc.setProvider(EhrConfigsUtils.getDefaultEncounterRole(), EhrConfigsUtils.getProvider(bill.getCreator().getPerson()));
 			enc.setEncounterType(encounterType);
 			enc.setPatient(bill.getPatient());
 			Context.getEncounterService().saveEncounter(enc);
@@ -1081,7 +1082,7 @@ public class BillingServiceImpl extends BaseOpenmrsService implements BillingSer
 			enc.setLocation(location);
 			enc.setDateCreated(new Date());
 			enc.setEncounterDatetime(new Date());
-			enc.setProvider(bill.getCreator());
+			enc.setProvider(EhrConfigsUtils.getDefaultEncounterRole(), EhrConfigsUtils.getProvider(bill.getCreator().getPerson()));
 			enc.setEncounterType(encounterType);
 			enc.setPatient(bill.getPatient());
 			Context.getEncounterService().saveEncounter(enc);

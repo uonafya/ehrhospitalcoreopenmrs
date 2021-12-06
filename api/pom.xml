@@ -26,7 +26,11 @@
 			<groupId>org.openmrs.test</groupId>
 			<artifactId>openmrs-test</artifactId>
 			<type>pom</type>
-		</dependency>	
+		</dependency>
+		<dependency>
+			<groupId>org.openmrs.module</groupId>
+			<artifactId>ehrconfigs-api</artifactId>
+		</dependency>
 	</dependencies>
 	<build>
 		<resources>
