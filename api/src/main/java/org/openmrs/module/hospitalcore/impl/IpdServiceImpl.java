@@ -341,7 +341,7 @@ public class IpdServiceImpl extends BaseOpenmrsService implements IpdService {
 			dischargeObs.setObsDatetime(new Date());
 			dischargeObs.setLocation(location);
 			dischargeObs.setDateCreated(new Date());
-			dischargeObs.setPatient(ipdEncounter.getPatient());
+			dischargeObs.setPerson(ipdEncounter.getPatient());
 			dischargeObs.setEncounter(ipdEncounter);
 			dischargeObs = Context.getObsService().saveObs(dischargeObs,
 					"update obs dischargeObs if need");
@@ -413,7 +413,7 @@ public class IpdServiceImpl extends BaseOpenmrsService implements IpdService {
 			dischargeObs.setObsDatetime(new Date());
 			dischargeObs.setLocation(location);
 			dischargeObs.setDateCreated(new Date());
-			dischargeObs.setPatient(ipdEncounter.getPatient());
+			dischargeObs.setPerson(ipdEncounter.getPatient());
 			dischargeObs.setEncounter(ipdEncounter);
 			dischargeObs = Context.getObsService().saveObs(dischargeObs,
 					"update obs dischargeObs if need");
