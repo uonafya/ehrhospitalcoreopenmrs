@@ -26,10 +26,24 @@
 
 	<properties>
 		<openMRSVersion>2.3.3</openMRSVersion>
+		<legacyUiVersion>1.5.0</legacyUiVersion>
 	</properties>
 
 	<dependencyManagement>
 		<dependencies>
+			<dependency>
+				<groupId>org.openmrs.module</groupId>
+				<artifactId>legacyui-api</artifactId>
+				<version>${legacyUiVersion}</version>
+				<scope>provided</scope>
+			</dependency>
+
+			<dependency>
+				<groupId>org.openmrs.module</groupId>
+				<artifactId>legacyui-omod</artifactId>
+				<version>${legacyUiVersion}</version>
+				<scope>provided</scope>
+			</dependency>
 			<dependency>
 				<groupId>org.openmrs.api</groupId>
 				<artifactId>openmrs-api</artifactId>
