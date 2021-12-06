@@ -411,7 +411,7 @@ public class BillingServiceImpl extends BaseOpenmrsService implements BillingSer
 						rs += "<input id='" + id + "_name'      name='" + id + "_name'      type='hidden' value='"
 						        + tmpAnswerConcept.getName() + "'>";
 						rs += "<input id='" + id + "_shortname' name='" + id + "_shortname' type='hidden' value='"
-						        + tmpAnswerConcept.getName().getShortName() + "'>";
+						        + tmpAnswerConcept.getName().getName() + "'>";
 						BillableService s = services.get(id);
 						if (s != null) {
 							rs += "<span style='vertical-align:middle;'>";
@@ -430,7 +430,7 @@ public class BillingServiceImpl extends BaseOpenmrsService implements BillingSer
 						rs += "<input id='" + id + "_name'      name='" + id + "_name'      type='hidden' value='"
 						        + tmpAnswerConcept.getName() + "'>";
 						rs += "<input id='" + id + "_shortname' name='" + id + "_shortname' type='hidden' value='"
-						        + tmpAnswerConcept.getName().getShortName() + "'>";
+						        + tmpAnswerConcept.getName().getName() + "'>";
 						
 					}
 				}
@@ -462,7 +462,7 @@ public class BillingServiceImpl extends BaseOpenmrsService implements BillingSer
 						rs += "<input id='" + id + "_name' name='" + id + "_name' type='hidden' value='"
 						        + ca.getConcept().getName() + "'>";
 						rs += "<input id='" + id + "_shortname'    name='" + id + "_shortname'    type='hidden' value='"
-						        + ca.getConcept().getName().getShortName() + "'>";
+						        + ca.getConcept().getName().getName() + "'>";
 						BillableService s = services.get(id);
 						if (s != null) {
 							rs += "<input onblure='updatePrice(this)'  type='text' class='priceField' id='" + id
@@ -479,7 +479,7 @@ public class BillingServiceImpl extends BaseOpenmrsService implements BillingSer
 						rs += "<input id='" + id + "_name' name='" + id + "_name' type='hidden' value='"
 						        + ca.getConcept().getName() + "'>";
 						rs += "<input id='" + id + "_shortname'    name='" + id + "_shortname'    type='hidden' value='"
-						        + ca.getConcept().getName().getShortName() + "'>";
+						        + ca.getConcept().getName().getName() + "'>";
 					}
 				}
 				child = traversServices(ca.getConcept(), services);
@@ -573,8 +573,8 @@ public class BillingServiceImpl extends BaseOpenmrsService implements BillingSer
 						        || tmpConceptClass.getName().equalsIgnoreCase("Procedure")) {
 							noChild.add(ca);
 						} else {
-							String name = StringUtils.isBlank(tmpAnswerConcept.getName().getShortName()) ? tmpAnswerConcept
-							        .getName().getName() : tmpAnswerConcept.getName().getShortName();
+							String name = StringUtils.isBlank(tmpAnswerConcept.getName().getName()) ? tmpAnswerConcept
+							        .getName().getName() : tmpAnswerConcept.getName().getName();
 							tabsLi += "<li><a title='" + tmpAnswerConcept.getName().getName() + "' href='#fragment-"
 							        + tmpAnswerConcept.getConceptId() + "'><span>" + name + "</span></a></li>";
 						}
@@ -645,8 +645,8 @@ public class BillingServiceImpl extends BaseOpenmrsService implements BillingSer
 						        || tmpConceptClass.getName().equalsIgnoreCase("Procedure")) {
 							noChild.add(ca);
 						} else {
-							String name = StringUtils.isBlank(tmpConceptSet.getName().getShortName()) ? tmpConceptSet
-							        .getName().getName() : tmpConceptSet.getName().getShortName();
+							String name = StringUtils.isBlank(tmpConceptSet.getName().getName()) ? tmpConceptSet
+							        .getName().getName() : tmpConceptSet.getName().getName();
 							tabsLi += "<li><a title='" + tmpConceptSet.getName().getName() + "' href='#fragment-"
 							        + tmpConceptSet.getConceptId() + "'><span>" + name + "</span></a></li>";
 						}

@@ -19,6 +19,10 @@
 
 	<require_version>2.3.3</require_version>
 
+	<require_modules>
+		<require_module version="${ehrconfigsVersion}">org.openmrs.module.ehrconfigs</require_module>
+	</require_modules>
+
 	<extension>
 		<point>org.openmrs.admin.list</point>
 		<class>@MODULE_PACKAGE@.extension.html.AdminList</class>
