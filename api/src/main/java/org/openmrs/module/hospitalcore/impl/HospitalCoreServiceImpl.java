@@ -322,7 +322,7 @@ public class HospitalCoreServiceImpl extends BaseOpenmrsService implements
 			Concept concept = insertConceptUnlessExist("N/A", "Misc",
 					opdVisitConceptName);
 			Obs obs = new Obs();
-			obs.setPatient(patient);
+			obs.setPerson(patient);
 			obs.setConcept(concept);
 			obs.setDateCreated(new Date());
 			obs.setObsDatetime(new Date());
@@ -405,8 +405,8 @@ public class HospitalCoreServiceImpl extends BaseOpenmrsService implements
 
 		boolean found = false;
 		for (ConceptMap cm : concept.getConceptMappings()) {
-			if (cm.getSource().equals(conceptSource))
-				if (cm.getSourceCode().equalsIgnoreCase(sourceCode)) {
+			if (cm.getConceptReferenceTerm().getConceptSource().equals(conceptSource))
+				if (cm.getConceptReferenceTerm().getCode().equalsIgnoreCase(sourceCode)) {
 					found = true;
 					break;
 				}
@@ -415,8 +415,8 @@ public class HospitalCoreServiceImpl extends BaseOpenmrsService implements
 		if (!found) {
 			ConceptMap conceptMap = new ConceptMap();
 			conceptMap.setConcept(concept);
-			conceptMap.setSource(conceptSource);
-			conceptMap.setSourceCode(sourceCode);
+			conceptMap.getConceptReferenceTerm().setConceptSource(conceptSource);
+			conceptMap.getConceptReferenceTerm().setCode(sourceCode);
 			conceptMap.setDateCreated(new Date());
 			conceptMap.setCreator(Context.getAuthenticatedUser());
 			concept.addConceptMapping(conceptMap);
@@ -498,7 +498,6 @@ public class HospitalCoreServiceImpl extends BaseOpenmrsService implements
 
 		List<ConceptModel> conceptModels = merge(concepts, mapping, synonym);
 
-		System.out.println("NUMBER OF CONCEPTS + " + conceptModels.size());
 		diagnosisNo = dao.buildConcepts(conceptModels);
 		return diagnosisNo;
 	}
