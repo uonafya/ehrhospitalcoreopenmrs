@@ -21,10 +21,6 @@
 			<artifactId>legacyui-omod</artifactId>
 		</dependency>
 		<dependency>
-			<groupId>org.openmrs.module</groupId>
-			<artifactId>ehrconfigs-api</artifactId>
-		</dependency>
-		<dependency>
 			<groupId>org.openmrs.api</groupId>
 			<artifactId>openmrs-api</artifactId>
 			<type>jar</type>
