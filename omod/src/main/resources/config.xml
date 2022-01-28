@@ -19,9 +19,6 @@
 
 	<require_version>${openMRSVersion}</require_version>
 
-	<require_modules>
-		<require_module version="${ehrconfigsVersion}">org.openmrs.module.ehrconfigs</require_module>
-	</require_modules>
 
 	<extension>
 		<point>org.openmrs.admin.list</point>
