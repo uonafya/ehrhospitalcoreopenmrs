@@ -27,7 +27,7 @@
 	<properties>
 		<openMRSVersion>2.3.3</openMRSVersion>
 		<legacyUiVersion>1.5.0</legacyUiVersion>
-		<ehrconfigsVersion>1.0.10-SNAPSHOT</ehrconfigsVersion>
+		<ehrconfigsVersion>2.0.0</ehrconfigsVersion>
 	</properties>
 
 	<dependencyManagement>
