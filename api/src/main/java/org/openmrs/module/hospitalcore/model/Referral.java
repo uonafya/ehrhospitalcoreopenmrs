@@ -10,7 +10,6 @@ import org.openmrs.PersonAttributeType;
 import org.openmrs.api.context.Context;
 import org.openmrs.module.hospitalcore.HospitalCoreService;
 import org.openmrs.module.hospitalcore.PatientQueueService;
-import org.openmrs.module.hospitalcore.util.PatientDashboardConstants;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -63,15 +62,17 @@ public class Referral {
         }
 
         Concept referredToConcept = Context.getConceptService().getConcept(referredTo.getId());
-        Obs obsReferral = new Obs();
-        obsReferral.setObsGroup(obsGroup);
-        obsReferral.setConcept(referralConcept);
-        obsReferral.setValueCoded(referredToConcept);
-        obsReferral.setCreator(encounter.getCreator());
-        obsReferral.setComment(referralComments);
-        obsReferral.setDateCreated(encounter.getDateCreated());
-        obsReferral.setEncounter(encounter);
-        encounter.addObs(obsReferral);
+            Obs obsReferral = new Obs();
+            obsReferral.setObsGroup(obsGroup);
+            obsReferral.setConcept(referralConcept);
+            if(referredToConcept != null) {
+                obsReferral.setValueCoded(referredToConcept);
+            }
+            obsReferral.setCreator(encounter.getCreator());
+            obsReferral.setComment(referralComments);
+            obsReferral.setDateCreated(encounter.getDateCreated());
+            obsReferral.setEncounter(encounter);
+            encounter.addObs(obsReferral);
 
         if (isInternal) {
             Concept referrerConcept = Context.getConceptService().getConcept(referrer);
@@ -111,6 +112,5 @@ public class Referral {
         queue.setTriageDataId(null);
         queue.setCategory(selectedCategory);
         OpdPatientQueue opdPatient = Context.getService(PatientQueueService.class).saveOpdPatientQueue(queue);
-        //logger.info(opdPatient.toString());
     }
 }

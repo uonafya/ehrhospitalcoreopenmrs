@@ -43,14 +43,18 @@ public class ReferralReasons {
         }
 
         Concept referralReasonsConceptAnswer = Context.getConceptService().getConcept(referralReasons.getId());
-        Obs obsReferralReasons = new Obs();
-        obsReferralReasons.setObsGroup(obsGroup);
-        obsReferralReasons.setConcept(referralReasonsConcept);
-        obsReferralReasons.setValueCoded(referralReasonsConceptAnswer);
-        obsReferralReasons.setComment(specify);
-        obsReferralReasons.setCreator(encounter.getCreator());
-        obsReferralReasons.setDateCreated(encounter.getDateCreated());
-        obsReferralReasons.setEncounter(encounter);
-        encounter.addObs(obsReferralReasons);
+
+            Obs obsReferralReasons = new Obs();
+            obsReferralReasons.setObsGroup(obsGroup);
+            obsReferralReasons.setConcept(referralReasonsConcept);
+            if(referralReasonsConceptAnswer != null) {
+                obsReferralReasons.setValueCoded(referralReasonsConceptAnswer);
+            }
+            obsReferralReasons.setComment(specify);
+            obsReferralReasons.setCreator(encounter.getCreator());
+            obsReferralReasons.setDateCreated(encounter.getDateCreated());
+            obsReferralReasons.setEncounter(encounter);
+            encounter.addObs(obsReferralReasons);
+
     }
 }
