@@ -69,6 +69,7 @@ import org.openmrs.module.hospitalcore.db.HospitalCoreDAO;
 import org.openmrs.module.hospitalcore.model.CoreForm;
 import org.openmrs.module.hospitalcore.model.OpdTestOrder;
 import org.openmrs.module.hospitalcore.model.PatientSearch;
+import org.openmrs.module.hospitalcore.model.PatientServiceBill;
 import org.openmrs.module.hospitalcore.model.PatientServiceBillItem;
 import org.openmrs.module.hospitalcore.util.HospitalCoreConstants;
 import org.w3c.dom.Document;
@@ -792,6 +793,21 @@ public class HospitalCoreServiceImpl extends BaseOpenmrsService implements
 	@Override
 	public List<PatientServiceBillItem> getAllPatientServiceBillItemsByDate(boolean today,String fromDate, String toDate) {
 		return dao.getAllPatientServiceBillItemsByDate(today,fromDate,toDate);
+	}
+
+	@Override
+	public List<PatientServiceBill> getAllNhifPatientServiceBillByDateRange(Date fromDate, Date toDate) throws APIException {
+		return dao.getAllNhifPatientServiceBillByDateRange(fromDate, toDate);
+	}
+
+	@Override
+	public List<OpdTestOrder> getAllPatientPayedopdOrdersByDateRange(List<String> department, Date fromDate, Date toDate) throws APIException {
+		return dao.getAllPatientPayedopdOrdersByDateRange(department, fromDate, toDate);
+	}
+
+	@Override
+	public List<OpdTestOrder> getAllPaymentsFromRegistrationDesk(Date fromDate, Date toDate) throws APIException {
+		return dao.getAllPaymentsFromRegistrationDesk(fromDate, toDate);
 	}
 
 }
