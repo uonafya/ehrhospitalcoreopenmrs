@@ -42,6 +42,7 @@ import org.openmrs.PersonAddress;
 import org.openmrs.PersonAttribute;
 import org.openmrs.PersonAttributeType;
 import org.openmrs.PersonName;
+import org.openmrs.api.APIException;
 import org.openmrs.api.context.Context;
 import org.openmrs.api.db.DAOException;
 import org.openmrs.module.hospitalcore.HospitalCoreService;
@@ -640,7 +641,7 @@ public class HibernateHospitalCoreDAO implements HospitalCoreDAO {
 
     @Override
     @SuppressWarnings("unchecked")
-    public List<OpdTestOrder> getAllPatientPayedopdOrdersByDateRange(List<String> department, Date fromDate, Date toDate) throws DAOException {
+    public List<OpdTestOrder> getAllPatientPayedopdOrdersByDateRange(List<Concept> department, Date fromDate, Date toDate) throws DAOException {
         Criteria criteria = sessionFactory.getCurrentSession().createCriteria(OpdTestOrder.class);
         String startDate = formatterExt.format(fromDate);
         String endDate = formatterExt.format(toDate);
@@ -685,6 +686,7 @@ public class HibernateHospitalCoreDAO implements HospitalCoreDAO {
         }
         return criteria.list();
     }
+
 
     public  void setAllPatientServiceBillItemsByDateCriteria(Criteria criteria, String fromDate,String toDate){
         try {

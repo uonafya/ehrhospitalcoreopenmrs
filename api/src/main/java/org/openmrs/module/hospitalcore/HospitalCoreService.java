@@ -242,7 +242,10 @@ public interface HospitalCoreService extends OpenmrsService {
 	//Additional methods to help pull information for the revenue summaries
 	public List<OpdTestOrder> getAllOpdOrdersByDateRange(boolean today,String fromDate,String toDate);
 	public List<PatientServiceBillItem> getAllPatientServiceBillItemsByDate(boolean today, String fromDate, String toDate);
+	//sdded to hsndlr financials
 	public List<PatientServiceBill> getAllNhifPatientServiceBillByDateRange(Date fromDate, Date toDate) throws APIException;
-	public List<OpdTestOrder> getAllPatientPayedopdOrdersByDateRange(List<String> department, Date fromDate, Date toDate) throws APIException;
 	public List<OpdTestOrder> getAllPaymentsFromRegistrationDesk(Date fromDate, Date toDate) throws APIException;
+
+	public List<OpdTestOrder> getAllPatientPayedOpdOrdersByDateRange(List<Concept> department, Date fromDate, Date toDate) throws APIException;
+
 }

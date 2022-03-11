@@ -139,6 +139,6 @@ public interface HospitalCoreDAO {
 	public List<OpdTestOrder> getAllOpdOrdersByDateRange(boolean today,String fromDate,String toDate);
 	public List<PatientServiceBillItem> getAllPatientServiceBillItemsByDate(boolean today,String fromDate,String toDate);
 	public List<PatientServiceBill> getAllNhifPatientServiceBillByDateRange(Date fromDate, Date toDate) throws DAOException;
-	public List<OpdTestOrder> getAllPatientPayedopdOrdersByDateRange(List<String> department, Date fromDate, Date toDate) throws DAOException;
+	public List<OpdTestOrder> getAllPatientPayedopdOrdersByDateRange(List<Concept> department, Date fromDate, Date toDate) throws DAOException;
 	public List<OpdTestOrder> getAllPaymentsFromRegistrationDesk(Date fromDate, Date toDate) throws DAOException;
 }

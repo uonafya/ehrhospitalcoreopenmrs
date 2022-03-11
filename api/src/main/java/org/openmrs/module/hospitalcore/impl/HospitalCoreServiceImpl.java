@@ -801,7 +801,7 @@ public class HospitalCoreServiceImpl extends BaseOpenmrsService implements
 	}
 
 	@Override
-	public List<OpdTestOrder> getAllPatientPayedopdOrdersByDateRange(List<String> department, Date fromDate, Date toDate) throws APIException {
+	public List<OpdTestOrder> getAllPatientPayedOpdOrdersByDateRange(List<Concept> department, Date fromDate, Date toDate) throws APIException {
 		return dao.getAllPatientPayedopdOrdersByDateRange(department, fromDate, toDate);
 	}
 
