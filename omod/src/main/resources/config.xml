@@ -170,6 +170,7 @@
 		Question.hbm.xml
 		Answer.hbm.xml
 		InventoryStoreRoleRelation.hbm.xml
+		PatientCategoryDetails.hbm.xml
 
     </mappingFiles>
 </module>
