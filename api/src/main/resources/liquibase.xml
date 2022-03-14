@@ -1529,4 +1529,41 @@
             ADD COLUMN `voided` int(11) DEFAULT NULL;
         </sql>
     </changeSet>
+    <changeSet id="F519341D-889B-434A-9A2D-8E301A5BF284" author="ningosi">
+        <preConditions onFail="MARK_RAN" onError="WARN">
+            <dbms type="mysql"/>
+        </preConditions>
+        <comment>Adding patient_category_details table</comment>
+        <sql>
+            CREATE TABLE IF NOT EXISTS `patient_category_details` (
+            `patient_category_id` int(11) NOT NULL AUTO_INCREMENT,
+            `patient_id` int(11) DEFAULT NULL,
+            `patient_category` varchar(50) DEFAULT NULL,
+            `paying_category` varchar(100) DEFAULT NULL,
+            `insurance_details` varchar(100) DEFAULT NULL,
+            `waiver_number` varchar(50) DEFAULT NULL,
+            `student_number` varchar(50) DEFAULT NULL,
+            `nhif_number` varchar(50) DEFAULT NULL,
+            `visit_type` varchar(100) DEFAULT NULL,
+            `visited_room` varchar(100) DEFAULT NULL,
+            `room_type_visited` varchar(100) DEFAULT NULL,
+            `file_number` varchar(100) DEFAULT NULL,
+            `legal_case` varchar(100) DEFAULT NULL,
+            `creator` int(11) NOT NULL DEFAULT '0',
+            `date_created` datetime NOT NULL,
+            `retired` tinyint(1) NOT NULL DEFAULT '0',
+            `retired_by` int(11) DEFAULT NULL,
+            `date_retired` datetime DEFAULT NULL,
+            `retire_reason` varchar(255) DEFAULT NULL,
+            `uuid` char(38) NOT NULL,
+            UNIQUE KEY `patient_category_uuid_index` (`uuid`),
+            KEY `patient_category_retired_status` (`retired`),
+            KEY `user_who_created_patient_category` (`creator`),
+            KEY `user_who_retired_patient_category` (`retired_by`),
+            PRIMARY KEY (`patient_category_id`),
+            CONSTRAINT `user_who_created_patient_category` FOREIGN KEY (`creator`) REFERENCES `users` (`user_id`),
+            CONSTRAINT `user_who_retired_patient_category` FOREIGN KEY (`retired_by`) REFERENCES `users` (`user_id`)
+            ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+        </sql>
+    </changeSet>
 </databaseChangeLog>
