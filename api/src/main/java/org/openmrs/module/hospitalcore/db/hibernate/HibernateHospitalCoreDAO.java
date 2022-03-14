@@ -33,6 +33,7 @@ import org.openmrs.PersonAddress;
 import org.openmrs.PersonAttribute;
 import org.openmrs.PersonAttributeType;
 import org.openmrs.PersonName;
+import org.openmrs.api.APIException;
 import org.openmrs.api.context.Context;
 import org.openmrs.api.db.DAOException;
 import org.openmrs.module.hospitalcore.HospitalCoreService;
@@ -43,6 +44,7 @@ import org.openmrs.module.hospitalcore.model.CoreForm;
 import org.openmrs.module.hospitalcore.model.IpdPatientAdmitted;
 import org.openmrs.module.hospitalcore.model.OpdTestOrder;
 import org.openmrs.module.hospitalcore.model.PatientSearch;
+import org.openmrs.module.hospitalcore.model.PatientServiceBill;
 import org.openmrs.module.hospitalcore.model.PatientServiceBillItem;
 import org.openmrs.module.hospitalcore.util.DateUtils;
 import org.openmrs.module.hospitalcore.util.HospitalCoreConstants;
@@ -598,6 +600,7 @@ public class HibernateHospitalCoreDAO implements HospitalCoreDAO {
     }
 
     @Override
+    @SuppressWarnings("unchecked")
     public List<PatientServiceBillItem> getAllPatientServiceBillItemsByDate(boolean today, String fromDate, String toDate) {
         Criteria criteria = sessionFactory.getCurrentSession().createCriteria
                 (PatientServiceBillItem.class);
@@ -611,6 +614,80 @@ public class HibernateHospitalCoreDAO implements HospitalCoreDAO {
         return criteria.list();
     }
 
+    @Override
+    @SuppressWarnings("unchecked")
+    public List<PatientServiceBill> getAllNhifPatientServiceBillByDateRange(Date fromDate, Date toDate) throws DAOException {
+        Criteria criteria = sessionFactory.getCurrentSession().createCriteria(PatientServiceBill.class);
+        String startDate = formatterExt.format(fromDate);
+        String endDate = formatterExt.format(toDate);
+        String startFromDate = startDate + " 00:00:00";
+        String endFromDate = endDate + " 23:59:59";
+        if(StringUtils.isNotBlank(startFromDate) && StringUtils.isNotBlank(endFromDate)) {
+            try {
+                criteria.add(Restrictions.and(Restrictions.ge(
+                        "createdDate", formatter.parse(startDate)), Restrictions.le(
+                        "createdDate", formatter.parse(endDate))));
+                criteria.add(Restrictions.or(Restrictions.like(
+                        "comment", "%nhif%"),Restrictions.like(
+                                "patientSubCategory", "%nhif%")));
+            } catch (Exception e) {
+                // TODO: handle exception
+                System.out.println("Error convert date: " + e.toString());
+                e.printStackTrace();
+            }
+        }
+        return criteria.list();
+    }
+
+    @Override
+    @SuppressWarnings("unchecked")
+    public List<OpdTestOrder> getAllPatientPayedopdOrdersByDateRange(List<Concept> department, Date fromDate, Date toDate) throws DAOException {
+        Criteria criteria = sessionFactory.getCurrentSession().createCriteria(OpdTestOrder.class);
+        String startDate = formatterExt.format(fromDate);
+        String endDate = formatterExt.format(toDate);
+        String startFromDate = startDate + " 00:00:00";
+        String endFromDate = endDate + " 23:59:59";
+        criteria.add(Restrictions.eq("billingStatus", 1));
+        criteria.add(Restrictions.in("billableService", department));
+        if(StringUtils.isNotBlank(startFromDate) && StringUtils.isNotBlank(endFromDate)) {
+            try {
+                criteria.add(Restrictions.and(Restrictions.ge(
+                        "createdOn", formatter.parse(startDate)), Restrictions.le(
+                        "createdOn", formatter.parse(endDate))));
+            } catch (Exception e) {
+                // TODO: handle exception
+                System.out.println("Error convert date: " + e.toString());
+                e.printStackTrace();
+            }
+        }
+        return criteria.list();
+    }
+
+    @Override
+    @SuppressWarnings("unchecked")
+    public List<OpdTestOrder> getAllPaymentsFromRegistrationDesk(Date fromDate, Date toDate) throws DAOException {
+        Criteria criteria = sessionFactory.getCurrentSession().createCriteria(OpdTestOrder.class);
+        String startDate = formatterExt.format(fromDate);
+        String endDate = formatterExt.format(toDate);
+        String startFromDate = startDate + " 00:00:00";
+        String endFromDate = endDate + " 23:59:59";
+        criteria.add(Restrictions.eq("fromDept", "Registration"));
+        criteria.add(Restrictions.eq("billingStatus", 1));
+        if(StringUtils.isNotBlank(startFromDate) && StringUtils.isNotBlank(endFromDate)) {
+            try {
+                criteria.add(Restrictions.and(Restrictions.ge(
+                        "createdOn", formatter.parse(startDate)), Restrictions.le(
+                        "createdOn", formatter.parse(endDate))));
+            } catch (Exception e) {
+                // TODO: handle exception
+                System.out.println("Error convert date: " + e.toString());
+                e.printStackTrace();
+            }
+        }
+        return criteria.list();
+    }
+
+
     public  void setAllPatientServiceBillItemsByDateCriteria(Criteria criteria, String fromDate,String toDate){
         try {
             criteria.add(Restrictions.and(Restrictions.ge("createdDate", formatterDateTime.parse(fromDate)),
@@ -623,3 +700,4 @@ public class HibernateHospitalCoreDAO implements HospitalCoreDAO {
         }
     }
 }
+
