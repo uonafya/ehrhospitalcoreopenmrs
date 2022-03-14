@@ -102,6 +102,7 @@ public interface PatientDashboardService {
 	public List<Concept> searchDifferentialDiagnosis(String text)throws APIException;
 	//Working Diagnosis
 	public List<Concept> searchWorkingDiagnosis(String text)throws APIException;
+
 	
 	
 
