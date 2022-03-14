@@ -4,6 +4,8 @@ import org.openmrs.BaseChangeableOpenmrsData;
 import org.openmrs.BaseChangeableOpenmrsMetadata;
 import org.openmrs.Patient;
 
+import java.util.Date;
+
 public class PatientCategoryDetails extends BaseChangeableOpenmrsMetadata {
   private Integer patientCategoryId;
   private Patient patient;
@@ -123,6 +125,16 @@ public class PatientCategoryDetails extends BaseChangeableOpenmrsMetadata {
   private String roomTypeVisited;
   private String fileNumber;
   private String legalCase;
+
+  public Date getCreatedOn() {
+    return createdOn;
+  }
+
+  public void setCreatedOn(Date createdOn) {
+    this.createdOn = createdOn;
+  }
+
+  private Date createdOn;
 
   @Override
   public Integer getId() {

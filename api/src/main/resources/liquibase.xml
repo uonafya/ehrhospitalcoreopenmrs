@@ -1551,6 +1551,7 @@
             `legal_case` varchar(100) DEFAULT NULL,
             `creator` int(11) NOT NULL DEFAULT '0',
             `date_created` datetime NOT NULL,
+            `created_on` datetime NOT NULL,
             `retired` tinyint(1) NOT NULL DEFAULT '0',
             `retired_by` int(11) DEFAULT NULL,
             `date_retired` datetime DEFAULT NULL,

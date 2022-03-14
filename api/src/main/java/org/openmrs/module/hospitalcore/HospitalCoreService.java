@@ -18,6 +18,7 @@ package org.openmrs.module.hospitalcore;
 import java.io.IOException;
 import java.io.InputStream;
 import java.math.BigInteger;
+import java.util.Date;
 import java.util.List;
 
 import javax.xml.parsers.ParserConfigurationException;
@@ -39,6 +40,7 @@ import org.openmrs.api.ConceptService;
 import org.openmrs.api.OpenmrsService;
 import org.openmrs.module.hospitalcore.model.CoreForm;
 import org.openmrs.module.hospitalcore.model.OpdTestOrder;
+import org.openmrs.module.hospitalcore.model.PatientCategoryDetails;
 import org.openmrs.module.hospitalcore.model.PatientSearch;
 import org.openmrs.module.hospitalcore.model.PatientServiceBillItem;
 import org.springframework.transaction.annotation.Transactional;
@@ -240,4 +242,10 @@ public interface HospitalCoreService extends OpenmrsService {
 	//Additional methods to help pull information for the revenue summaries
 	public List<OpdTestOrder> getAllOpdOrdersByDateRange(boolean today,String fromDate,String toDate);
 	public List<PatientServiceBillItem> getAllPatientServiceBillItemsByDate(boolean today, String fromDate, String toDate);
+
+	//adding convenient methods to cater for the patient category details
+	public PatientCategoryDetails savePatientCategoryDetails(PatientCategoryDetails patientCategoryDetails) throws APIException;
+	public PatientCategoryDetails getPatientCategoryDetailsById(Integer patientDetailsId) throws APIException;
+	public PatientCategoryDetails getPatientCategoryDetailsByPatient(Patient patient) throws APIException;
+	public List<PatientCategoryDetails> getAllPatientCategoryDetails(String property, String value, Date startDate, Date endDate) throws APIException;
 }

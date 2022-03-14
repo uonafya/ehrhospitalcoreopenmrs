@@ -22,6 +22,7 @@
         <property name="fileNumber" column="file_number" />
         <property name="legalCase" column="legal_case" />
         <property name="dateCreated" type="java.util.Date" column="date_created" not-null="true" length="19" />
+        <property name="createdOn" column="created_on" type="java.util.Date" not-null="true" length="19" />
         <many-to-one name="creator" class="org.openmrs.User" not-null="true" />
         <property name="uuid" type="java.lang.String" column="uuid" length="38" unique="true" />
         <many-to-one name="retiredBy" class="org.openmrs.User"  column="retired_by" />

@@ -68,6 +68,7 @@ import org.openmrs.module.hospitalcore.concept.Synonym;
 import org.openmrs.module.hospitalcore.db.HospitalCoreDAO;
 import org.openmrs.module.hospitalcore.model.CoreForm;
 import org.openmrs.module.hospitalcore.model.OpdTestOrder;
+import org.openmrs.module.hospitalcore.model.PatientCategoryDetails;
 import org.openmrs.module.hospitalcore.model.PatientSearch;
 import org.openmrs.module.hospitalcore.model.PatientServiceBillItem;
 import org.openmrs.module.hospitalcore.util.HospitalCoreConstants;
@@ -792,6 +793,26 @@ public class HospitalCoreServiceImpl extends BaseOpenmrsService implements
 	@Override
 	public List<PatientServiceBillItem> getAllPatientServiceBillItemsByDate(boolean today,String fromDate, String toDate) {
 		return dao.getAllPatientServiceBillItemsByDate(today,fromDate,toDate);
+	}
+
+	@Override
+	public PatientCategoryDetails savePatientCategoryDetails(PatientCategoryDetails patientCategoryDetails) throws APIException {
+		return dao.savePatientCategoryDetails(patientCategoryDetails);
+	}
+
+	@Override
+	public PatientCategoryDetails getPatientCategoryDetailsById(Integer patientDetailsId) throws APIException {
+		return dao.getPatientCategoryDetailsById(patientDetailsId);
+	}
+
+	@Override
+	public PatientCategoryDetails getPatientCategoryDetailsByPatient(Patient patient) throws APIException {
+		return dao.getPatientCategoryDetailsByPatient(patient);
+	}
+
+	@Override
+	public List<PatientCategoryDetails> getAllPatientCategoryDetails(String property, String value, Date startDate, Date endDate) throws APIException {
+		return dao.getAllPatientCategoryDetails(property, value, startDate, endDate);
 	}
 
 }

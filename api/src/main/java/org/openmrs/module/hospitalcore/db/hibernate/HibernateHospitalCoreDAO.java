@@ -51,6 +51,7 @@ import org.openmrs.module.hospitalcore.db.HospitalCoreDAO;
 import org.openmrs.module.hospitalcore.model.CoreForm;
 import org.openmrs.module.hospitalcore.model.IpdPatientAdmitted;
 import org.openmrs.module.hospitalcore.model.OpdTestOrder;
+import org.openmrs.module.hospitalcore.model.PatientCategoryDetails;
 import org.openmrs.module.hospitalcore.model.PatientSearch;
 import org.openmrs.module.hospitalcore.model.PatientServiceBillItem;
 import org.openmrs.module.hospitalcore.util.DateUtils;
@@ -607,6 +608,38 @@ public class HibernateHospitalCoreDAO implements HospitalCoreDAO {
             setAllPatientServiceBillItemsByDateCriteria(criteria,date,date);
         }else if ((!StringUtils.isBlank(fromDate)) && (!StringUtils.isBlank(toDate))){
             setAllPatientServiceBillItemsByDateCriteria(criteria,fromDate,toDate);
+        }
+        return criteria.list();
+    }
+
+    @Override
+    public PatientCategoryDetails savePatientCategoryDetails(PatientCategoryDetails patientCategoryDetails) throws DAOException {
+        sessionFactory.getCurrentSession().saveOrUpdate(patientCategoryDetails);
+        return patientCategoryDetails;
+    }
+
+    @Override
+    public PatientCategoryDetails getPatientCategoryDetailsById(Integer patientDetailsId) throws DAOException {
+        return (PatientCategoryDetails) sessionFactory.getCurrentSession().get(PatientCategoryDetails.class, patientDetailsId);
+    }
+
+    @Override
+    public PatientCategoryDetails getPatientCategoryDetailsByPatient(Patient patient) throws DAOException {
+        return (PatientCategoryDetails) sessionFactory.getCurrentSession().get(PatientCategoryDetails.class, patient);
+    }
+
+    @Override
+    @SuppressWarnings("unchecked")
+    public List<PatientCategoryDetails> getAllPatientCategoryDetails(String property, String value, Date startDate, Date endDate) throws DAOException {
+        Criteria criteria = sessionFactory.getCurrentSession().createCriteria(PatientCategoryDetails.class);
+        if(StringUtils.isNotBlank(property)){
+            criteria.add(Restrictions.eq(property, value));
+        }
+        if(startDate != null) {
+            criteria.add(Restrictions.ge("createdOn", startDate));
+        }
+        if(endDate != null){
+            criteria.add(Restrictions.le("createdOn", endDate));
         }
         return criteria.list();
     }
