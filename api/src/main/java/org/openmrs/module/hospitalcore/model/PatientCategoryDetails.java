@@ -1,9 +1,10 @@
 package org.openmrs.module.hospitalcore.model;
 
 import org.openmrs.BaseChangeableOpenmrsData;
+import org.openmrs.BaseChangeableOpenmrsMetadata;
 import org.openmrs.Patient;
 
-public class PatientCategoryDetails extends BaseChangeableOpenmrsData {
+public class PatientCategoryDetails extends BaseChangeableOpenmrsMetadata {
   private Integer patientCategoryId;
   private Patient patient;
   private String patientCategory;
