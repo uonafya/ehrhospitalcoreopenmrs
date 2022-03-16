@@ -58,6 +58,7 @@ import org.openmrs.module.hospitalcore.model.RadiologyDepartment;
 import org.openmrs.module.hospitalcore.model.Receipt;
 import org.openmrs.module.hospitalcore.model.Tender;
 import org.openmrs.module.hospitalcore.model.TenderBill;
+import org.openmrs.module.hospitalcore.model.WaiverType;
 import org.openmrs.module.hospitalcore.util.ConceptAnswerComparator;
 import org.openmrs.module.hospitalcore.util.ConceptSetComparator;
 import org.openmrs.module.hospitalcore.util.GlobalPropertyUtil;
@@ -1296,6 +1297,18 @@ public class BillingServiceImpl extends BaseOpenmrsService implements BillingSer
 			provider = providerList.get(0);
 		}
 		return provider;
+	}
+	@Override
+	public List<WaiverType> getWaiverTypes() {
+
+		return dao.getWaiverTypes();
+	}
+
+
+	@Override
+	public WaiverType saveWaiverType(WaiverType waiverType)
+			throws APIException {
+		return dao.saveWaiverType(waiverType);
 	}
 	
 }

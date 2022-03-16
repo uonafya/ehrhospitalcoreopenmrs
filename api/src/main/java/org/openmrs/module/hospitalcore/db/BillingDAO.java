@@ -36,6 +36,7 @@ import org.openmrs.module.hospitalcore.model.PatientServiceBillItem;
 import org.openmrs.module.hospitalcore.model.Receipt;
 import org.openmrs.module.hospitalcore.model.Tender;
 import org.openmrs.module.hospitalcore.model.TenderBill;
+import org.openmrs.module.hospitalcore.model.WaiverType;
 
 /**
  *
@@ -268,4 +269,8 @@ public interface BillingDAO {
         
         public List<IndoorPatientServiceBill> getSelectedCategory(Encounter encounter,Patient patient) throws DAOException;
 	public List<PatientServiceBillItem> getPatientBillableServicesByPatientServiceBill(PatientServiceBill patientServiceBill);
+
+    public List<WaiverType> getWaiverTypes();
+
+	public WaiverType saveWaiverType(WaiverType waiverType) throws DAOException;
 }

@@ -52,6 +52,7 @@ import org.openmrs.module.hospitalcore.model.PatientServiceBillItem;
 import org.openmrs.module.hospitalcore.model.Receipt;
 import org.openmrs.module.hospitalcore.model.Tender;
 import org.openmrs.module.hospitalcore.model.TenderBill;
+import org.openmrs.module.hospitalcore.model.WaiverType;
 import org.openmrs.module.hospitalcore.util.PatientUtils;
 
 /**
@@ -1186,5 +1187,20 @@ public class HibernateBillingDAO implements BillingDAO {
 		criteria.add(Restrictions.eq("patientServiceBill", patientServiceBill));
 		return criteria.list();
 	}
+	@Override
+   public List<WaiverType> getWaiverTypes() {
+		        String hql = "FROM waiver_type";
+
+		        Session session = sessionFactory.getCurrentSession();
+		       Query q = session.createQuery(hql);
+		        List<WaiverType> list = q.list();
+		      return list;
+		    }
+
+		    public WaiverType saveWaiverType(WaiverType waiverType)
+            throws DAOException {
+		        return (WaiverType) sessionFactory.getCurrentSession().merge(waiverType);
+		    }
+
 
 }
