@@ -167,6 +167,9 @@
 		Question.hbm.xml
 		Answer.hbm.xml
 		InventoryStoreRoleRelation.hbm.xml
+		WaiverType.hbm.xml
+		WaiverTypeRole.hbm.xml
+
 
     </mappingFiles>
 </module>
