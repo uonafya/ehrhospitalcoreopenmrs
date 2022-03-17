@@ -1189,7 +1189,7 @@ public class HibernateBillingDAO implements BillingDAO {
 	}
 	@Override
    public List<WaiverType> getWaiverTypes() {
-		        String hql = "FROM waiver_type";
+		        String hql = "FROM WaiverType";
 
 		        Session session = sessionFactory.getCurrentSession();
 		       Query q = session.createQuery(hql);
