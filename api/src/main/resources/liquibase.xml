@@ -1567,4 +1567,20 @@
             ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
         </sql>
     </changeSet>
+    <changeSet id="49188028-1763-41E8-BE50-B3BC4A2C9B8A" author="ningosi">
+        <preConditions onFail="MARK_RAN" onError="WARN">
+            <dbms type="mysql"/>
+        </preConditions>
+        <comment>Adding patient_category_detail changed_by and when changed</comment>
+        <sql>
+            ALTER TABLE  patient_category_details
+            ADD COLUMN `changed_by` int(11) DEFAULT NULL;
+
+            ALTER TABLE  patient_category_details
+            ADD COLUMN `date_changed` int(11) DEFAULT NULL;
+
+            ALTER TABLE patient_category_details
+            ADD FOREIGN KEY (`changed_by`) REFERENCES `users` (`user_id`);
+        </sql>
+    </changeSet>
 </databaseChangeLog>
