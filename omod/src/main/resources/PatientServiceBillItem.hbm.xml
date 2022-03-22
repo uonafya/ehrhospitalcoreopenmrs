@@ -22,6 +22,7 @@
 		<property name="voided" column="voided"  />
 		<property name="voidedDate" column="voided_date"  />
         <property name="voidedby" column="voided_by"  />
-		<property name="actualAmount" column="actual_amount"  />			
+		<property name="actualAmount" column="actual_amount"  />
+		<many-to-one name="department" column="department_id" class="org.openmrs.module.hospitalcore.model.Department" />
 	</class>
 </hibernate-mapping>

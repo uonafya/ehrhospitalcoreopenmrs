@@ -1583,4 +1583,18 @@
             ADD FOREIGN KEY (`changed_by`) REFERENCES `users` (`user_id`);
         </sql>
     </changeSet>
+
+    <changeSet id="D66549BE-0FDE-4D81-842E-446685BCC1CB" author="ningosi">
+        <preConditions onFail="MARK_RAN" onError="WARN">
+            <dbms type="mysql"/>
+        </preConditions>
+        <comment>Adding department column on the billing_patient_service_bill_item table</comment>
+        <sql>
+            ALTER TABLE  billing_patient_service_bill_item
+            ADD COLUMN `department_id` int(11) DEFAULT NULL;
+
+            ALTER TABLE billing_patient_service_bill_item
+            ADD FOREIGN KEY (`department_id`) REFERENCES `department` (`id`);
+        </sql>
+    </changeSet>
 </databaseChangeLog>
