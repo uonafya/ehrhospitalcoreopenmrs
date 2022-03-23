@@ -171,6 +171,7 @@
 		Answer.hbm.xml
 		InventoryStoreRoleRelation.hbm.xml
 		PatientCategoryDetails.hbm.xml
+		EhrDepartment.hbm.xml
 
     </mappingFiles>
 </module>
