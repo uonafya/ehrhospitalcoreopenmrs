@@ -49,6 +49,7 @@ import org.openmrs.module.hospitalcore.concept.ConceptModel;
 import org.openmrs.module.hospitalcore.concept.Mapping;
 import org.openmrs.module.hospitalcore.db.HospitalCoreDAO;
 import org.openmrs.module.hospitalcore.model.CoreForm;
+import org.openmrs.module.hospitalcore.model.EhrDepartment;
 import org.openmrs.module.hospitalcore.model.IpdPatientAdmitted;
 import org.openmrs.module.hospitalcore.model.OpdTestOrder;
 import org.openmrs.module.hospitalcore.model.PatientCategoryDetails;
@@ -641,6 +642,34 @@ public class HibernateHospitalCoreDAO implements HospitalCoreDAO {
         if(endDate != null){
             criteria.add(Restrictions.le("createdOn", endDate));
         }
+        return criteria.list();
+    }
+
+    @Override
+    public EhrDepartment saveDepartment(EhrDepartment ehrDepartment) throws DAOException {
+        sessionFactory.getCurrentSession().saveOrUpdate(ehrDepartment);
+        return ehrDepartment;
+    }
+
+    @Override
+    public EhrDepartment getDepartmentById(Integer departmentId) throws DAOException {
+        return (EhrDepartment) sessionFactory.getCurrentSession().get(PatientCategoryDetails.class, departmentId);
+    }
+
+    @Override
+    @SuppressWarnings("unchecked")
+    public List<EhrDepartment> getAllDepartment() throws DAOException {
+        Criteria criteria = sessionFactory.getCurrentSession().createCriteria
+                (EhrDepartment.class);
+        return criteria.list();
+    }
+
+    @Override
+    @SuppressWarnings("unchecked")
+    public List<PatientServiceBillItem> getPatientServiceBillByDepartment(EhrDepartment ehrDepartment) throws DAOException {
+        Criteria criteria = sessionFactory.getCurrentSession().createCriteria
+                (PatientServiceBillItem.class);
+        criteria.add(Restrictions.eq("department", ehrDepartment));
         return criteria.list();
     }
 

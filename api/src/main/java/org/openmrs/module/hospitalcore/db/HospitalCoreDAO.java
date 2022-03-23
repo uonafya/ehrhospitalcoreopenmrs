@@ -33,6 +33,7 @@ import org.openmrs.api.APIException;
 import org.openmrs.api.db.DAOException;
 import org.openmrs.module.hospitalcore.concept.ConceptModel;
 import org.openmrs.module.hospitalcore.model.CoreForm;
+import org.openmrs.module.hospitalcore.model.EhrDepartment;
 import org.openmrs.module.hospitalcore.model.OpdTestOrder;
 import org.openmrs.module.hospitalcore.model.PatientCategoryDetails;
 import org.openmrs.module.hospitalcore.model.PatientSearch;
@@ -143,4 +144,12 @@ public interface HospitalCoreDAO {
 	public PatientCategoryDetails getPatientCategoryDetailsById(Integer patientDetailsId) throws DAOException;
 	public PatientCategoryDetails getPatientCategoryDetailsByPatient(Patient patient) throws DAOException;
 	public List<PatientCategoryDetails> getAllPatientCategoryDetails(String property, String value, Date startDate, Date endDate) throws DAOException;
+
+	//provide several interfaces to handle departmental services
+	public EhrDepartment saveDepartment(EhrDepartment ehrDepartment) throws DAOException;
+	public EhrDepartment getDepartmentById(Integer departmentId) throws DAOException;
+	public List<EhrDepartment> getAllDepartment() throws DAOException;
+
+	//provide mechanisms to filter payments
+	public List<PatientServiceBillItem> getPatientServiceBillByDepartment(EhrDepartment ehrDepartment) throws DAOException;
 }

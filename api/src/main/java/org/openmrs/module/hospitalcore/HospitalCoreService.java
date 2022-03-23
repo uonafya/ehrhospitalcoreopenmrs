@@ -39,6 +39,7 @@ import org.openmrs.api.APIException;
 import org.openmrs.api.ConceptService;
 import org.openmrs.api.OpenmrsService;
 import org.openmrs.module.hospitalcore.model.CoreForm;
+import org.openmrs.module.hospitalcore.model.EhrDepartment;
 import org.openmrs.module.hospitalcore.model.OpdTestOrder;
 import org.openmrs.module.hospitalcore.model.PatientCategoryDetails;
 import org.openmrs.module.hospitalcore.model.PatientSearch;
@@ -248,4 +249,13 @@ public interface HospitalCoreService extends OpenmrsService {
 	public PatientCategoryDetails getPatientCategoryDetailsById(Integer patientDetailsId) throws APIException;
 	public PatientCategoryDetails getPatientCategoryDetailsByPatient(Patient patient) throws APIException;
 	public List<PatientCategoryDetails> getAllPatientCategoryDetails(String property, String value, Date startDate, Date endDate) throws APIException;
+
+	//provide several interfaces to handle departmental services
+	public EhrDepartment saveDepartment(EhrDepartment ehrDepartment) throws APIException;
+	public EhrDepartment getDepartmentById(Integer departmentId) throws APIException;
+	public List<EhrDepartment> getAllDepartment() throws APIException;
+
+	//provide mechanisms to filter payments
+	public List<PatientServiceBillItem> getPatientServiceBillByDepartment(EhrDepartment ehrDepartment) throws APIException;
+
 }

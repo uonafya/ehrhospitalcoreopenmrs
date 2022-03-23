@@ -67,6 +67,7 @@ import org.openmrs.module.hospitalcore.concept.Mapping;
 import org.openmrs.module.hospitalcore.concept.Synonym;
 import org.openmrs.module.hospitalcore.db.HospitalCoreDAO;
 import org.openmrs.module.hospitalcore.model.CoreForm;
+import org.openmrs.module.hospitalcore.model.EhrDepartment;
 import org.openmrs.module.hospitalcore.model.OpdTestOrder;
 import org.openmrs.module.hospitalcore.model.PatientCategoryDetails;
 import org.openmrs.module.hospitalcore.model.PatientSearch;
@@ -813,6 +814,26 @@ public class HospitalCoreServiceImpl extends BaseOpenmrsService implements
 	@Override
 	public List<PatientCategoryDetails> getAllPatientCategoryDetails(String property, String value, Date startDate, Date endDate) throws APIException {
 		return dao.getAllPatientCategoryDetails(property, value, startDate, endDate);
+	}
+
+	@Override
+	public EhrDepartment saveDepartment(EhrDepartment ehrDepartment) throws APIException {
+		return dao.saveDepartment(ehrDepartment);
+	}
+
+	@Override
+	public EhrDepartment getDepartmentById(Integer departmentId) throws APIException {
+		return dao.getDepartmentById(departmentId);
+	}
+
+	@Override
+	public List<EhrDepartment> getAllDepartment() throws APIException {
+		return dao.getAllDepartment();
+	}
+
+	@Override
+	public List<PatientServiceBillItem> getPatientServiceBillByDepartment(EhrDepartment ehrDepartment) throws APIException {
+		return dao.getPatientServiceBillByDepartment(ehrDepartment);
 	}
 
 }
