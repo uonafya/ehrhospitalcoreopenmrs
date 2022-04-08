@@ -1613,4 +1613,11 @@
             ADD FOREIGN KEY (`department_id`) REFERENCES `ehr_department` (`id`);
         </sql>
     </changeSet>
+    <changeSet id="81347759-704A-48BF-814C-20845948D727" author="ningosi">
+        <preConditions onFail="MARK_RAN" onError="WARN">
+            <dbms type="mysql"/>
+        </preConditions>
+        <comment>Adding columns to the ehr department table</comment>
+        <sqlFile path="sql/department.sql" />
+    </changeSet>
 </databaseChangeLog>
