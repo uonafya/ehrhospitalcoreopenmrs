@@ -253,6 +253,7 @@ public interface HospitalCoreService extends OpenmrsService {
 	//provide several interfaces to handle departmental services
 	public EhrDepartment saveDepartment(EhrDepartment ehrDepartment) throws APIException;
 	public EhrDepartment getDepartmentById(Integer departmentId) throws APIException;
+	public EhrDepartment getDepartmentByName(String departmentName) throws APIException;
 	public List<EhrDepartment> getAllDepartment() throws APIException;
 
 	//provide mechanisms to filter payments

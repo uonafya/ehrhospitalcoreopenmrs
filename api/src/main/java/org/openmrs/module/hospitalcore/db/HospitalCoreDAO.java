@@ -149,6 +149,7 @@ public interface HospitalCoreDAO {
 	public EhrDepartment saveDepartment(EhrDepartment ehrDepartment) throws DAOException;
 	public EhrDepartment getDepartmentById(Integer departmentId) throws DAOException;
 	public List<EhrDepartment> getAllDepartment() throws DAOException;
+	public EhrDepartment getDepartmentByName(String departmentName) throws DAOException;
 
 	//provide mechanisms to filter payments
 	public List<PatientServiceBillItem> getPatientServiceBillByDepartment(EhrDepartment ehrDepartment) throws DAOException;

@@ -267,5 +267,6 @@ public interface BillingDAO {
         public void updatePatientCategory(Integer selectedCategory,Encounter encounter,Patient patient);
         
         public List<IndoorPatientServiceBill> getSelectedCategory(Encounter encounter,Patient patient) throws DAOException;
-	public List<PatientServiceBillItem> getPatientBillableServicesByPatientServiceBill(PatientServiceBill patientServiceBill);
+	public List<PatientServiceBillItem> getPatientBillableServicesByPatientServiceBill(PatientServiceBill patientServiceBill) throws DAOException;
+	public List<PatientServiceBillItem> getPatientBillableServicesItemsWithNoDepartment() throws DAOException;
 }

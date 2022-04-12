@@ -1289,6 +1289,11 @@ public class BillingServiceImpl extends BaseOpenmrsService implements BillingSer
 		return dao.getPatientBillableServicesByPatientServiceBill(patientServiceBill);
 	}
 
+	@Override
+	public List<PatientServiceBillItem> getPatientBillableServicesItemsWithNoDepartment() {
+		return dao.getPatientBillableServicesItemsWithNoDepartment();
+	}
+
 	private Provider getProvider(Person person) {
 		Provider provider = null;
 		ProviderService providerService = Context.getProviderService();

@@ -827,6 +827,11 @@ public class HospitalCoreServiceImpl extends BaseOpenmrsService implements
 	}
 
 	@Override
+	public EhrDepartment getDepartmentByName(String departmentName) throws APIException {
+		return dao.getDepartmentByName(departmentName);
+	}
+
+	@Override
 	public List<EhrDepartment> getAllDepartment() throws APIException {
 		return dao.getAllDepartment();
 	}

@@ -378,4 +378,5 @@ public interface BillingService extends OpenmrsService {
         
         public List<IndoorPatientServiceBill> getSelectedCategory(Encounter encounter,Patient patient);
         public List<PatientServiceBillItem> getPatientBillableServicesByPatientServiceBill(PatientServiceBill patientServiceBill);
+        public List<PatientServiceBillItem> getPatientBillableServicesItemsWithNoDepartment();
 }

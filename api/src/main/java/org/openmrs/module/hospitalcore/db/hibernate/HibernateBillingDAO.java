@@ -1174,7 +1174,7 @@ public class HibernateBillingDAO implements BillingDAO {
             query.setParameter("patient", patient);
             query.executeUpdate();            
         }
-               
+	@SuppressWarnings("unchecked")
         public List<IndoorPatientServiceBill> getSelectedCategory(Encounter encounter,Patient patient) throws DAOException {
 		Criteria criteria = sessionFactory.getCurrentSession().createCriteria(IndoorPatientServiceBill.class);		
                 criteria.add(Restrictions.eq("encounter", encounter));
@@ -1184,9 +1184,18 @@ public class HibernateBillingDAO implements BillingDAO {
 	}
 
 	@Override
-	public List<PatientServiceBillItem> getPatientBillableServicesByPatientServiceBill(PatientServiceBill patientServiceBill) {
+	@SuppressWarnings("unchecked")
+	public List<PatientServiceBillItem> getPatientBillableServicesByPatientServiceBill(PatientServiceBill patientServiceBill) throws DAOException{
 		Criteria criteria = sessionFactory.getCurrentSession().createCriteria(PatientServiceBillItem.class);
 		criteria.add(Restrictions.eq("patientServiceBill", patientServiceBill));
+		return criteria.list();
+	}
+
+	@Override
+	@SuppressWarnings("unchecked")
+	public List<PatientServiceBillItem> getPatientBillableServicesItemsWithNoDepartment() throws DAOException {
+		Criteria criteria = sessionFactory.getCurrentSession().createCriteria(PatientServiceBillItem.class);
+		criteria.add(Restrictions.isNull("department"));
 		return criteria.list();
 	}
 
