@@ -1303,5 +1303,8 @@ public class BillingServiceImpl extends BaseOpenmrsService implements BillingSer
 		}
 		return provider;
 	}
+	public PatientServiceBillItem updateBillItems(PatientServiceBillItem item) throws APIException {
+		return dao.updateBillItems(item);
+	}
 	
 }

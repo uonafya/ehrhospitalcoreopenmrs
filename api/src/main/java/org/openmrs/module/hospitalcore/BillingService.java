@@ -25,6 +25,7 @@ import org.openmrs.Patient;
 import org.openmrs.annotation.Authorized;
 import org.openmrs.api.APIException;
 import org.openmrs.api.OpenmrsService;
+import org.openmrs.api.db.DAOException;
 import org.openmrs.module.hospitalcore.model.Ambulance;
 import org.openmrs.module.hospitalcore.model.AmbulanceBill;
 import org.openmrs.module.hospitalcore.model.BillableService;
@@ -379,4 +380,5 @@ public interface BillingService extends OpenmrsService {
         public List<IndoorPatientServiceBill> getSelectedCategory(Encounter encounter,Patient patient);
         public List<PatientServiceBillItem> getPatientBillableServicesByPatientServiceBill(PatientServiceBill patientServiceBill);
         public List<PatientServiceBillItem> getPatientBillableServicesItemsWithNoDepartment();
+	public PatientServiceBillItem updateBillItems(PatientServiceBillItem item) throws APIException;
 }

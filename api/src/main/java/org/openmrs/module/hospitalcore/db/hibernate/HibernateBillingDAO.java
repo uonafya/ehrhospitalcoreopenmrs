@@ -1199,4 +1199,10 @@ public class HibernateBillingDAO implements BillingDAO {
 		return criteria.list();
 	}
 
+	@Override
+	public PatientServiceBillItem updateBillItems(PatientServiceBillItem item) throws DAOException {
+		sessionFactory.getCurrentSession().saveOrUpdate(item);
+		return item;
+	}
+
 }
