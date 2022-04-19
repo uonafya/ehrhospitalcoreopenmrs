@@ -74,7 +74,10 @@ public class TriagePatientData implements Serializable {
 	private Date createdOn;
 	private Integer encounterOpd;
     private Double oxygenSaturation;
-	
+
+    private String  pregnancyStatus;
+    private String travelHistory;
+
 	public Integer getEncounterOpd() {
 		return encounterOpd;
 	}
@@ -208,7 +211,23 @@ public class TriagePatientData implements Serializable {
         return oxygenSaturation;
     }
 
-    public void setOxygenSaturation(Double oxygenSaturation) {
+	public String getPregnancyStatus() {
+		return pregnancyStatus;
+	}
+
+	public void setPregnancyStatus(String pregnancyStatus) {
+		this.pregnancyStatus = pregnancyStatus;
+	}
+
+	public String getTravelHistory() {
+		return travelHistory;
+	}
+
+	public void setTravelHistory(String travelHistory) {
+		this.travelHistory = travelHistory;
+	}
+
+	public void setOxygenSaturation(Double oxygenSaturation) {
         this.oxygenSaturation = oxygenSaturation;
     }
 }
