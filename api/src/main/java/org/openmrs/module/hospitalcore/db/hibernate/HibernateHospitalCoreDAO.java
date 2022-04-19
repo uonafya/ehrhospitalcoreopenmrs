@@ -28,7 +28,7 @@ import org.apache.commons.lang.StringUtils;
 import org.hibernate.Criteria;
 import org.hibernate.Query;
 import org.hibernate.SessionFactory;
-import org.hibernate.classic.Session;
+import org.hibernate.Session;
 import org.hibernate.criterion.Order;
 import org.hibernate.criterion.Restrictions;
 import org.openmrs.Concept;
@@ -42,7 +42,6 @@ import org.openmrs.PersonAddress;
 import org.openmrs.PersonAttribute;
 import org.openmrs.PersonAttributeType;
 import org.openmrs.PersonName;
-import org.openmrs.api.APIException;
 import org.openmrs.api.context.Context;
 import org.openmrs.api.db.DAOException;
 import org.openmrs.module.hospitalcore.HospitalCoreService;
@@ -50,10 +49,11 @@ import org.openmrs.module.hospitalcore.concept.ConceptModel;
 import org.openmrs.module.hospitalcore.concept.Mapping;
 import org.openmrs.module.hospitalcore.db.HospitalCoreDAO;
 import org.openmrs.module.hospitalcore.model.CoreForm;
+import org.openmrs.module.hospitalcore.model.EhrDepartment;
 import org.openmrs.module.hospitalcore.model.IpdPatientAdmitted;
 import org.openmrs.module.hospitalcore.model.OpdTestOrder;
+import org.openmrs.module.hospitalcore.model.PatientCategoryDetails;
 import org.openmrs.module.hospitalcore.model.PatientSearch;
-import org.openmrs.module.hospitalcore.model.PatientServiceBill;
 import org.openmrs.module.hospitalcore.model.PatientServiceBillItem;
 import org.openmrs.module.hospitalcore.util.DateUtils;
 import org.openmrs.module.hospitalcore.util.HospitalCoreConstants;
@@ -600,7 +600,6 @@ public class HibernateHospitalCoreDAO implements HospitalCoreDAO {
     }
 
     @Override
-    @SuppressWarnings("unchecked")
     public List<PatientServiceBillItem> getAllPatientServiceBillItemsByDate(boolean today, String fromDate, String toDate) {
         Criteria criteria = sessionFactory.getCurrentSession().createCriteria
                 (PatientServiceBillItem.class);
@@ -615,78 +614,69 @@ public class HibernateHospitalCoreDAO implements HospitalCoreDAO {
     }
 
     @Override
+    public PatientCategoryDetails savePatientCategoryDetails(PatientCategoryDetails patientCategoryDetails) throws DAOException {
+        sessionFactory.getCurrentSession().saveOrUpdate(patientCategoryDetails);
+        return patientCategoryDetails;
+    }
+
+    @Override
+    public PatientCategoryDetails getPatientCategoryDetailsById(Integer patientDetailsId) throws DAOException {
+        return (PatientCategoryDetails) sessionFactory.getCurrentSession().get(PatientCategoryDetails.class, patientDetailsId);
+    }
+
+    @Override
+    public PatientCategoryDetails getPatientCategoryDetailsByPatient(Patient patient) throws DAOException {
+        return (PatientCategoryDetails) sessionFactory.getCurrentSession().get(PatientCategoryDetails.class, patient);
+    }
+
+    @Override
     @SuppressWarnings("unchecked")
-    public List<PatientServiceBill> getAllNhifPatientServiceBillByDateRange(Date fromDate, Date toDate) throws DAOException {
-        Criteria criteria = sessionFactory.getCurrentSession().createCriteria(PatientServiceBill.class);
-        String startDate = formatterExt.format(fromDate);
-        String endDate = formatterExt.format(toDate);
-        String startFromDate = startDate + " 00:00:00";
-        String endFromDate = endDate + " 23:59:59";
-        if(StringUtils.isNotBlank(startFromDate) && StringUtils.isNotBlank(endFromDate)) {
-            try {
-                criteria.add(Restrictions.and(Restrictions.ge(
-                        "createdDate", formatter.parse(startDate)), Restrictions.le(
-                        "createdDate", formatter.parse(endDate))));
-                criteria.add(Restrictions.or(Restrictions.like(
-                        "comment", "%nhif%"),Restrictions.like(
-                                "patientSubCategory", "%nhif%")));
-            } catch (Exception e) {
-                // TODO: handle exception
-                System.out.println("Error convert date: " + e.toString());
-                e.printStackTrace();
-            }
+    public List<PatientCategoryDetails> getAllPatientCategoryDetails(String property, String value, Date startDate, Date endDate) throws DAOException {
+        Criteria criteria = sessionFactory.getCurrentSession().createCriteria(PatientCategoryDetails.class);
+        if(StringUtils.isNotBlank(property)){
+            criteria.add(Restrictions.eq(property, value));
+        }
+        if(startDate != null) {
+            criteria.add(Restrictions.ge("createdOn", startDate));
+        }
+        if(endDate != null){
+            criteria.add(Restrictions.le("createdOn", endDate));
         }
         return criteria.list();
     }
 
     @Override
-    @SuppressWarnings("unchecked")
-    public List<OpdTestOrder> getAllPatientPayedopdOrdersByDateRange(List<Concept> department, Date fromDate, Date toDate) throws DAOException {
-        Criteria criteria = sessionFactory.getCurrentSession().createCriteria(OpdTestOrder.class);
-        String startDate = formatterExt.format(fromDate);
-        String endDate = formatterExt.format(toDate);
-        String startFromDate = startDate + " 00:00:00";
-        String endFromDate = endDate + " 23:59:59";
-        criteria.add(Restrictions.eq("billingStatus", 1));
-        criteria.add(Restrictions.in("billableService", department));
-        if(StringUtils.isNotBlank(startFromDate) && StringUtils.isNotBlank(endFromDate)) {
-            try {
-                criteria.add(Restrictions.and(Restrictions.ge(
-                        "createdOn", formatter.parse(startDate)), Restrictions.le(
-                        "createdOn", formatter.parse(endDate))));
-            } catch (Exception e) {
-                // TODO: handle exception
-                System.out.println("Error convert date: " + e.toString());
-                e.printStackTrace();
-            }
-        }
-        return criteria.list();
+    public EhrDepartment saveDepartment(EhrDepartment ehrDepartment) throws DAOException {
+        sessionFactory.getCurrentSession().saveOrUpdate(ehrDepartment);
+        return ehrDepartment;
+    }
+
+    @Override
+    public EhrDepartment getDepartmentById(Integer departmentId) throws DAOException {
+        return (EhrDepartment) sessionFactory.getCurrentSession().get(PatientCategoryDetails.class, departmentId);
     }
 
     @Override
     @SuppressWarnings("unchecked")
-    public List<OpdTestOrder> getAllPaymentsFromRegistrationDesk(Date fromDate, Date toDate) throws DAOException {
-        Criteria criteria = sessionFactory.getCurrentSession().createCriteria(OpdTestOrder.class);
-        String startDate = formatterExt.format(fromDate);
-        String endDate = formatterExt.format(toDate);
-        String startFromDate = startDate + " 00:00:00";
-        String endFromDate = endDate + " 23:59:59";
-        criteria.add(Restrictions.eq("fromDept", "Registration"));
-        criteria.add(Restrictions.eq("billingStatus", 1));
-        if(StringUtils.isNotBlank(startFromDate) && StringUtils.isNotBlank(endFromDate)) {
-            try {
-                criteria.add(Restrictions.and(Restrictions.ge(
-                        "createdOn", formatter.parse(startDate)), Restrictions.le(
-                        "createdOn", formatter.parse(endDate))));
-            } catch (Exception e) {
-                // TODO: handle exception
-                System.out.println("Error convert date: " + e.toString());
-                e.printStackTrace();
-            }
-        }
+    public List<EhrDepartment> getAllDepartment() throws DAOException {
+        Criteria criteria = sessionFactory.getCurrentSession().createCriteria
+                (EhrDepartment.class);
         return criteria.list();
     }
 
+    @Override
+    public EhrDepartment getDepartmentByName(String departmentName) throws DAOException {
+        return (EhrDepartment) sessionFactory.getCurrentSession().get(PatientCategoryDetails.class, departmentName);
+    }
+
+    @Override
+    @SuppressWarnings("unchecked")
+    public List<PatientServiceBillItem> getPatientServiceBillByDepartment(EhrDepartment ehrDepartment) throws DAOException {
+        Criteria criteria = sessionFactory.getCurrentSession().createCriteria
+                (PatientServiceBillItem.class);
+        criteria.add(Restrictions.eq("department", ehrDepartment));
+        return criteria.list();
+    }
 
     public  void setAllPatientServiceBillItemsByDateCriteria(Criteria criteria, String fromDate,String toDate){
         try {
@@ -700,4 +690,3 @@ public class HibernateHospitalCoreDAO implements HospitalCoreDAO {
         }
     }
 }
-

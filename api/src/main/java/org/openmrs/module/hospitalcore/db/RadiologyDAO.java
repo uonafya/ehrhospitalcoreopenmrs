@@ -51,7 +51,7 @@ public interface RadiologyDAO {
 	/**
 	 * Get radiology form be concept name
 	 * 
-	 * @param concept
+	 * @param conceptName
 	 * @return
 	 */
 	public List<RadiologyForm> getRadiologyForms(String conceptName);
@@ -126,7 +126,7 @@ public interface RadiologyDAO {
 	 * @param orderType
 	 * @param tests
 	 * @param patients
-	 * @param page
+	 *
 	 * @return
 	 * @throws ParseException
 	 */
@@ -250,7 +250,7 @@ public interface RadiologyDAO {
 	
 	/**
 	 * Get radiology test by encounter
-	 * @param ecnounter
+	 * @param encounter
 	 * @return
 	 */
 	public RadiologyTest getRadiologyTest(Encounter encounter);

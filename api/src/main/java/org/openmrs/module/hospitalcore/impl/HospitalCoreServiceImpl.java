@@ -67,9 +67,10 @@ import org.openmrs.module.hospitalcore.concept.Mapping;
 import org.openmrs.module.hospitalcore.concept.Synonym;
 import org.openmrs.module.hospitalcore.db.HospitalCoreDAO;
 import org.openmrs.module.hospitalcore.model.CoreForm;
+import org.openmrs.module.hospitalcore.model.EhrDepartment;
 import org.openmrs.module.hospitalcore.model.OpdTestOrder;
+import org.openmrs.module.hospitalcore.model.PatientCategoryDetails;
 import org.openmrs.module.hospitalcore.model.PatientSearch;
-import org.openmrs.module.hospitalcore.model.PatientServiceBill;
 import org.openmrs.module.hospitalcore.model.PatientServiceBillItem;
 import org.openmrs.module.hospitalcore.util.HospitalCoreConstants;
 import org.w3c.dom.Document;
@@ -323,7 +324,7 @@ public class HospitalCoreServiceImpl extends BaseOpenmrsService implements
 			Concept concept = insertConceptUnlessExist("N/A", "Misc",
 					opdVisitConceptName);
 			Obs obs = new Obs();
-			obs.setPatient(patient);
+			obs.setPerson(patient);
 			obs.setConcept(concept);
 			obs.setDateCreated(new Date());
 			obs.setObsDatetime(new Date());
@@ -406,8 +407,8 @@ public class HospitalCoreServiceImpl extends BaseOpenmrsService implements
 
 		boolean found = false;
 		for (ConceptMap cm : concept.getConceptMappings()) {
-			if (cm.getSource().equals(conceptSource))
-				if (cm.getSourceCode().equalsIgnoreCase(sourceCode)) {
+			if (cm.getConceptReferenceTerm().getConceptSource().equals(conceptSource))
+				if (cm.getConceptReferenceTerm().getCode().equalsIgnoreCase(sourceCode)) {
 					found = true;
 					break;
 				}
@@ -416,8 +417,8 @@ public class HospitalCoreServiceImpl extends BaseOpenmrsService implements
 		if (!found) {
 			ConceptMap conceptMap = new ConceptMap();
 			conceptMap.setConcept(concept);
-			conceptMap.setSource(conceptSource);
-			conceptMap.setSourceCode(sourceCode);
+			conceptMap.getConceptReferenceTerm().setConceptSource(conceptSource);
+			conceptMap.getConceptReferenceTerm().setCode(sourceCode);
 			conceptMap.setDateCreated(new Date());
 			conceptMap.setCreator(Context.getAuthenticatedUser());
 			concept.addConceptMapping(conceptMap);
@@ -796,18 +797,48 @@ public class HospitalCoreServiceImpl extends BaseOpenmrsService implements
 	}
 
 	@Override
-	public List<PatientServiceBill> getAllNhifPatientServiceBillByDateRange(Date fromDate, Date toDate) throws APIException {
-		return dao.getAllNhifPatientServiceBillByDateRange(fromDate, toDate);
+	public PatientCategoryDetails savePatientCategoryDetails(PatientCategoryDetails patientCategoryDetails) throws APIException {
+		return dao.savePatientCategoryDetails(patientCategoryDetails);
 	}
 
 	@Override
-	public List<OpdTestOrder> getAllPatientPayedOpdOrdersByDateRange(List<Concept> department, Date fromDate, Date toDate) throws APIException {
-		return dao.getAllPatientPayedopdOrdersByDateRange(department, fromDate, toDate);
+	public PatientCategoryDetails getPatientCategoryDetailsById(Integer patientDetailsId) throws APIException {
+		return dao.getPatientCategoryDetailsById(patientDetailsId);
 	}
 
 	@Override
-	public List<OpdTestOrder> getAllPaymentsFromRegistrationDesk(Date fromDate, Date toDate) throws APIException {
-		return dao.getAllPaymentsFromRegistrationDesk(fromDate, toDate);
+	public PatientCategoryDetails getPatientCategoryDetailsByPatient(Patient patient) throws APIException {
+		return dao.getPatientCategoryDetailsByPatient(patient);
+	}
+
+	@Override
+	public List<PatientCategoryDetails> getAllPatientCategoryDetails(String property, String value, Date startDate, Date endDate) throws APIException {
+		return dao.getAllPatientCategoryDetails(property, value, startDate, endDate);
+	}
+
+	@Override
+	public EhrDepartment saveDepartment(EhrDepartment ehrDepartment) throws APIException {
+		return dao.saveDepartment(ehrDepartment);
+	}
+
+	@Override
+	public EhrDepartment getDepartmentById(Integer departmentId) throws APIException {
+		return dao.getDepartmentById(departmentId);
+	}
+
+	@Override
+	public EhrDepartment getDepartmentByName(String departmentName) throws APIException {
+		return dao.getDepartmentByName(departmentName);
+	}
+
+	@Override
+	public List<EhrDepartment> getAllDepartment() throws APIException {
+		return dao.getAllDepartment();
+	}
+
+	@Override
+	public List<PatientServiceBillItem> getPatientServiceBillByDepartment(EhrDepartment ehrDepartment) throws APIException {
+		return dao.getPatientServiceBillByDepartment(ehrDepartment);
 	}
 
 }

@@ -451,7 +451,7 @@ public class HibernatePatientQueueDAO implements PatientQueueDAO {
 		criteria.add(Restrictions.eq(
 				"obs.personId",personId));
 		criteria.add(Restrictions.eq(
-				"obs.concept",Context.getConceptService().getConcept("SYMPTOM")));
+				"obs.concept",Context.getConceptService().getConceptByUuid("c91a7e0e-4622-4eeb-9edc-00f8ececf428")));
 
 		return criteria.list();
 	}

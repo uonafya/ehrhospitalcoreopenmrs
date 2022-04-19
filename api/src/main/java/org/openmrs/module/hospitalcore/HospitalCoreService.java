@@ -39,9 +39,10 @@ import org.openmrs.api.APIException;
 import org.openmrs.api.ConceptService;
 import org.openmrs.api.OpenmrsService;
 import org.openmrs.module.hospitalcore.model.CoreForm;
+import org.openmrs.module.hospitalcore.model.EhrDepartment;
 import org.openmrs.module.hospitalcore.model.OpdTestOrder;
+import org.openmrs.module.hospitalcore.model.PatientCategoryDetails;
 import org.openmrs.module.hospitalcore.model.PatientSearch;
-import org.openmrs.module.hospitalcore.model.PatientServiceBill;
 import org.openmrs.module.hospitalcore.model.PatientServiceBillItem;
 import org.springframework.transaction.annotation.Transactional;
 import org.xml.sax.SAXException;
@@ -242,10 +243,20 @@ public interface HospitalCoreService extends OpenmrsService {
 	//Additional methods to help pull information for the revenue summaries
 	public List<OpdTestOrder> getAllOpdOrdersByDateRange(boolean today,String fromDate,String toDate);
 	public List<PatientServiceBillItem> getAllPatientServiceBillItemsByDate(boolean today, String fromDate, String toDate);
-	//sdded to hsndlr financials
-	public List<PatientServiceBill> getAllNhifPatientServiceBillByDateRange(Date fromDate, Date toDate) throws APIException;
-	public List<OpdTestOrder> getAllPaymentsFromRegistrationDesk(Date fromDate, Date toDate) throws APIException;
 
-	public List<OpdTestOrder> getAllPatientPayedOpdOrdersByDateRange(List<Concept> department, Date fromDate, Date toDate) throws APIException;
+	//adding convenient methods to cater for the patient category details
+	public PatientCategoryDetails savePatientCategoryDetails(PatientCategoryDetails patientCategoryDetails) throws APIException;
+	public PatientCategoryDetails getPatientCategoryDetailsById(Integer patientDetailsId) throws APIException;
+	public PatientCategoryDetails getPatientCategoryDetailsByPatient(Patient patient) throws APIException;
+	public List<PatientCategoryDetails> getAllPatientCategoryDetails(String property, String value, Date startDate, Date endDate) throws APIException;
+
+	//provide several interfaces to handle departmental services
+	public EhrDepartment saveDepartment(EhrDepartment ehrDepartment) throws APIException;
+	public EhrDepartment getDepartmentById(Integer departmentId) throws APIException;
+	public EhrDepartment getDepartmentByName(String departmentName) throws APIException;
+	public List<EhrDepartment> getAllDepartment() throws APIException;
+
+	//provide mechanisms to filter payments
+	public List<PatientServiceBillItem> getPatientServiceBillByDepartment(EhrDepartment ehrDepartment) throws APIException;
 
 }

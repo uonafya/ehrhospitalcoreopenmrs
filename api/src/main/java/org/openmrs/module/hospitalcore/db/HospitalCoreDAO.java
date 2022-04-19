@@ -33,9 +33,10 @@ import org.openmrs.api.APIException;
 import org.openmrs.api.db.DAOException;
 import org.openmrs.module.hospitalcore.concept.ConceptModel;
 import org.openmrs.module.hospitalcore.model.CoreForm;
+import org.openmrs.module.hospitalcore.model.EhrDepartment;
 import org.openmrs.module.hospitalcore.model.OpdTestOrder;
+import org.openmrs.module.hospitalcore.model.PatientCategoryDetails;
 import org.openmrs.module.hospitalcore.model.PatientSearch;
-import org.openmrs.module.hospitalcore.model.PatientServiceBill;
 import org.openmrs.module.hospitalcore.model.PatientServiceBillItem;
 
 public interface HospitalCoreDAO {
@@ -138,7 +139,18 @@ public interface HospitalCoreDAO {
 	public List<Obs> getObsInstanceForDiagnosis(Encounter encounter,Concept concept) throws DAOException;
 	public List<OpdTestOrder> getAllOpdOrdersByDateRange(boolean today,String fromDate,String toDate);
 	public List<PatientServiceBillItem> getAllPatientServiceBillItemsByDate(boolean today,String fromDate,String toDate);
-	public List<PatientServiceBill> getAllNhifPatientServiceBillByDateRange(Date fromDate, Date toDate) throws DAOException;
-	public List<OpdTestOrder> getAllPatientPayedopdOrdersByDateRange(List<Concept> department, Date fromDate, Date toDate) throws DAOException;
-	public List<OpdTestOrder> getAllPaymentsFromRegistrationDesk(Date fromDate, Date toDate) throws DAOException;
+
+	public PatientCategoryDetails savePatientCategoryDetails(PatientCategoryDetails patientCategoryDetails) throws DAOException;
+	public PatientCategoryDetails getPatientCategoryDetailsById(Integer patientDetailsId) throws DAOException;
+	public PatientCategoryDetails getPatientCategoryDetailsByPatient(Patient patient) throws DAOException;
+	public List<PatientCategoryDetails> getAllPatientCategoryDetails(String property, String value, Date startDate, Date endDate) throws DAOException;
+
+	//provide several interfaces to handle departmental services
+	public EhrDepartment saveDepartment(EhrDepartment ehrDepartment) throws DAOException;
+	public EhrDepartment getDepartmentById(Integer departmentId) throws DAOException;
+	public List<EhrDepartment> getAllDepartment() throws DAOException;
+	public EhrDepartment getDepartmentByName(String departmentName) throws DAOException;
+
+	//provide mechanisms to filter payments
+	public List<PatientServiceBillItem> getPatientServiceBillByDepartment(EhrDepartment ehrDepartment) throws DAOException;
 }

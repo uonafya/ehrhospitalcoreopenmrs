@@ -26,8 +26,11 @@ import org.hibernate.Criteria;
 import org.hibernate.Query;
 import org.hibernate.SessionFactory;
 import org.hibernate.Transaction;
-import org.hibernate.classic.Session;
-import org.hibernate.criterion.*;
+import org.hibernate.Session;
+import org.hibernate.criterion.MatchMode;
+import org.hibernate.criterion.Order;
+import org.hibernate.criterion.Projections;
+import org.hibernate.criterion.Restrictions;
 import org.openmrs.Encounter;
 import org.openmrs.GlobalProperty;
 import org.openmrs.Patient;
@@ -1172,7 +1175,7 @@ public class HibernateBillingDAO implements BillingDAO {
             query.setParameter("patient", patient);
             query.executeUpdate();            
         }
-               
+	@SuppressWarnings("unchecked")
         public List<IndoorPatientServiceBill> getSelectedCategory(Encounter encounter,Patient patient) throws DAOException {
 		Criteria criteria = sessionFactory.getCurrentSession().createCriteria(IndoorPatientServiceBill.class);		
                 criteria.add(Restrictions.eq("encounter", encounter));
@@ -1182,7 +1185,8 @@ public class HibernateBillingDAO implements BillingDAO {
 	}
 
 	@Override
-	public List<PatientServiceBillItem> getPatientBillableServicesByPatientServiceBill(PatientServiceBill patientServiceBill) {
+	@SuppressWarnings("unchecked")
+	public List<PatientServiceBillItem> getPatientBillableServicesByPatientServiceBill(PatientServiceBill patientServiceBill) throws DAOException{
 		Criteria criteria = sessionFactory.getCurrentSession().createCriteria(PatientServiceBillItem.class);
 		criteria.add(Restrictions.eq("patientServiceBill", patientServiceBill));
 		return criteria.list();
@@ -1202,5 +1206,19 @@ public class HibernateBillingDAO implements BillingDAO {
 		        return (WaiverType) sessionFactory.getCurrentSession().merge(waiverType);
 		    }
 
+
+	@Override
+	@SuppressWarnings("unchecked")
+	public List<PatientServiceBillItem> getPatientBillableServicesItemsWithNoDepartment() throws DAOException {
+		Criteria criteria = sessionFactory.getCurrentSession().createCriteria(PatientServiceBillItem.class);
+		criteria.add(Restrictions.isNull("department"));
+		return criteria.list();
+	}
+
+	@Override
+	public PatientServiceBillItem updateBillItems(PatientServiceBillItem item) throws DAOException {
+		sessionFactory.getCurrentSession().saveOrUpdate(item);
+		return item;
+	}
 
 }

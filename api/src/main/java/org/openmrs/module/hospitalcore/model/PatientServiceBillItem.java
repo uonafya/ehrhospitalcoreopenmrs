@@ -55,7 +55,17 @@ public class PatientServiceBillItem implements Serializable {
 	
 	private Date voidedDate;
         
-        private String voidedby;
+	private String voidedby;
+
+	public EhrDepartment getDepartment() {
+		return department;
+	}
+
+	public void setDepartment(EhrDepartment department) {
+		this.department = department;
+	}
+
+	private EhrDepartment department;
 	
 	public BillableService getService() {
 		return service;

@@ -58,11 +58,11 @@ import org.openmrs.module.hospitalcore.model.RadiologyDepartment;
 import org.openmrs.module.hospitalcore.model.Receipt;
 import org.openmrs.module.hospitalcore.model.Tender;
 import org.openmrs.module.hospitalcore.model.TenderBill;
-import org.openmrs.module.hospitalcore.model.WaiverType;
 import org.openmrs.module.hospitalcore.util.ConceptAnswerComparator;
 import org.openmrs.module.hospitalcore.util.ConceptSetComparator;
 import org.openmrs.module.hospitalcore.util.GlobalPropertyUtil;
 import org.openmrs.module.hospitalcore.util.HospitalCoreConstants;
+import org.openmrs.module.hospitalcore.util.HospitalCoreUtils;
 
 import java.util.ArrayList;
 import java.util.Collection;
@@ -412,7 +412,7 @@ public class BillingServiceImpl extends BaseOpenmrsService implements BillingSer
 						rs += "<input id='" + id + "_name'      name='" + id + "_name'      type='hidden' value='"
 						        + tmpAnswerConcept.getName() + "'>";
 						rs += "<input id='" + id + "_shortname' name='" + id + "_shortname' type='hidden' value='"
-						        + tmpAnswerConcept.getName().getShortName() + "'>";
+						        + tmpAnswerConcept.getName().getName() + "'>";
 						BillableService s = services.get(id);
 						if (s != null) {
 							rs += "<span style='vertical-align:middle;'>";
@@ -431,7 +431,7 @@ public class BillingServiceImpl extends BaseOpenmrsService implements BillingSer
 						rs += "<input id='" + id + "_name'      name='" + id + "_name'      type='hidden' value='"
 						        + tmpAnswerConcept.getName() + "'>";
 						rs += "<input id='" + id + "_shortname' name='" + id + "_shortname' type='hidden' value='"
-						        + tmpAnswerConcept.getName().getShortName() + "'>";
+						        + tmpAnswerConcept.getName().getName() + "'>";
 						
 					}
 				}
@@ -463,7 +463,7 @@ public class BillingServiceImpl extends BaseOpenmrsService implements BillingSer
 						rs += "<input id='" + id + "_name' name='" + id + "_name' type='hidden' value='"
 						        + ca.getConcept().getName() + "'>";
 						rs += "<input id='" + id + "_shortname'    name='" + id + "_shortname'    type='hidden' value='"
-						        + ca.getConcept().getName().getShortName() + "'>";
+						        + ca.getConcept().getName().getName() + "'>";
 						BillableService s = services.get(id);
 						if (s != null) {
 							rs += "<input onblure='updatePrice(this)'  type='text' class='priceField' id='" + id
@@ -480,7 +480,7 @@ public class BillingServiceImpl extends BaseOpenmrsService implements BillingSer
 						rs += "<input id='" + id + "_name' name='" + id + "_name' type='hidden' value='"
 						        + ca.getConcept().getName() + "'>";
 						rs += "<input id='" + id + "_shortname'    name='" + id + "_shortname'    type='hidden' value='"
-						        + ca.getConcept().getName().getShortName() + "'>";
+						        + ca.getConcept().getName().getName() + "'>";
 					}
 				}
 				child = traversServices(ca.getConcept(), services);
@@ -574,8 +574,8 @@ public class BillingServiceImpl extends BaseOpenmrsService implements BillingSer
 						        || tmpConceptClass.getName().equalsIgnoreCase("Procedure")) {
 							noChild.add(ca);
 						} else {
-							String name = StringUtils.isBlank(tmpAnswerConcept.getName().getShortName()) ? tmpAnswerConcept
-							        .getName().getName() : tmpAnswerConcept.getName().getShortName();
+							String name = StringUtils.isBlank(tmpAnswerConcept.getName().getName()) ? tmpAnswerConcept
+							        .getName().getName() : tmpAnswerConcept.getName().getName();
 							tabsLi += "<li><a title='" + tmpAnswerConcept.getName().getName() + "' href='#fragment-"
 							        + tmpAnswerConcept.getConceptId() + "'><span>" + name + "</span></a></li>";
 						}
@@ -646,8 +646,8 @@ public class BillingServiceImpl extends BaseOpenmrsService implements BillingSer
 						        || tmpConceptClass.getName().equalsIgnoreCase("Procedure")) {
 							noChild.add(ca);
 						} else {
-							String name = StringUtils.isBlank(tmpConceptSet.getName().getShortName()) ? tmpConceptSet
-							        .getName().getName() : tmpConceptSet.getName().getShortName();
+							String name = StringUtils.isBlank(tmpConceptSet.getName().getName()) ? tmpConceptSet
+							        .getName().getName() : tmpConceptSet.getName().getName();
 							tabsLi += "<li><a title='" + tmpConceptSet.getName().getName() + "' href='#fragment-"
 							        + tmpConceptSet.getConceptId() + "'><span>" + name + "</span></a></li>";
 						}
@@ -1064,7 +1064,7 @@ public class BillingServiceImpl extends BaseOpenmrsService implements BillingSer
 			enc.setLocation(location);
 			enc.setDateCreated(new Date());
 			enc.setEncounterDatetime(new Date());
-			enc.setProvider(bill.getCreator());
+			enc.setProvider(HospitalCoreUtils.getDefaultEncounterRole(), HospitalCoreUtils.getProvider(bill.getCreator().getPerson()));
 			enc.setEncounterType(encounterType);
 			enc.setPatient(bill.getPatient());
 			Context.getEncounterService().saveEncounter(enc);
@@ -1082,7 +1082,7 @@ public class BillingServiceImpl extends BaseOpenmrsService implements BillingSer
 			enc.setLocation(location);
 			enc.setDateCreated(new Date());
 			enc.setEncounterDatetime(new Date());
-			enc.setProvider(bill.getCreator());
+			enc.setProvider(HospitalCoreUtils.getDefaultEncounterRole(), HospitalCoreUtils.getProvider(bill.getCreator().getPerson()));
 			enc.setEncounterType(encounterType);
 			enc.setPatient(bill.getPatient());
 			Context.getEncounterService().saveEncounter(enc);
@@ -1289,6 +1289,11 @@ public class BillingServiceImpl extends BaseOpenmrsService implements BillingSer
 		return dao.getPatientBillableServicesByPatientServiceBill(patientServiceBill);
 	}
 
+	@Override
+	public List<PatientServiceBillItem> getPatientBillableServicesItemsWithNoDepartment() {
+		return dao.getPatientBillableServicesItemsWithNoDepartment();
+	}
+
 	private Provider getProvider(Person person) {
 		Provider provider = null;
 		ProviderService providerService = Context.getProviderService();
@@ -1298,17 +1303,8 @@ public class BillingServiceImpl extends BaseOpenmrsService implements BillingSer
 		}
 		return provider;
 	}
-	@Override
-	public List<WaiverType> getWaiverTypes() {
-
-		return dao.getWaiverTypes();
-	}
-
-
-	@Override
-	public WaiverType saveWaiverType(WaiverType waiverType)
-			throws APIException {
-		return dao.saveWaiverType(waiverType);
+	public PatientServiceBillItem updateBillItems(PatientServiceBillItem item) throws APIException {
+		return dao.updateBillItems(item);
 	}
 	
 }
