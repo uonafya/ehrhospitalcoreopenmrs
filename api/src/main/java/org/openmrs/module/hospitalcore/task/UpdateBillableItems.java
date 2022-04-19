@@ -44,7 +44,9 @@ public class UpdateBillableItems extends AbstractTask {
     BillingService billingService = Context.getService(BillingService.class);
     List<PatientServiceBillItem> emptyDepartmentItems = billingService.getPatientBillableServicesItemsWithNoDepartment();
     for(PatientServiceBillItem item :emptyDepartmentItems ) {
-      billingService.updateBillItems(updatePatientServiceBillItem(item));
+      if(item.getDepartment() == null) {
+        billingService.updateBillItems(updatePatientServiceBillItem(item));
+      }
     }
   }
 
