@@ -42,6 +42,7 @@ import org.openmrs.module.hospitalcore.model.PatientServiceBillItem;
 import org.openmrs.module.hospitalcore.model.Receipt;
 import org.openmrs.module.hospitalcore.model.Tender;
 import org.openmrs.module.hospitalcore.model.TenderBill;
+import org.openmrs.module.hospitalcore.model.WaiverType;
 import org.springframework.transaction.annotation.Transactional;
 
 /**
@@ -381,4 +382,7 @@ public interface BillingService extends OpenmrsService {
         public List<PatientServiceBillItem> getPatientBillableServicesByPatientServiceBill(PatientServiceBill patientServiceBill);
         public List<PatientServiceBillItem> getPatientBillableServicesItemsWithNoDepartment();
 	public PatientServiceBillItem updateBillItems(PatientServiceBillItem item) throws APIException;
+
+	public List<WaiverType> getWaiverTypes() throws DAOException;
+	public WaiverType saveWaiverType(WaiverType waiverType) throws DAOException;
 }

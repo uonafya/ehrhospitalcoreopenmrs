@@ -1191,20 +1191,20 @@ public class HibernateBillingDAO implements BillingDAO {
 		criteria.add(Restrictions.eq("patientServiceBill", patientServiceBill));
 		return criteria.list();
 	}
-	@Override
-   public List<WaiverType> getWaiverTypes() {
-		        String hql = "FROM WaiverType";
 
-		        Session session = sessionFactory.getCurrentSession();
-		       Query q = session.createQuery(hql);
-		        List<WaiverType> list = q.list();
-		      return list;
-		    }
+   public List<WaiverType> getWaiverTypes() throws DAOException {
+		String hql = "FROM WaiverType";
 
-		    public WaiverType saveWaiverType(WaiverType waiverType)
-            throws DAOException {
-		        return (WaiverType) sessionFactory.getCurrentSession().merge(waiverType);
-		    }
+		Session session = sessionFactory.getCurrentSession();
+	   Query q = session.createQuery(hql);
+		List<WaiverType> list = q.list();
+	  return list;
+	}
+
+	public WaiverType saveWaiverType(WaiverType waiverType)
+	throws DAOException {
+		return (WaiverType) sessionFactory.getCurrentSession().merge(waiverType);
+	}
 
 
 	@Override

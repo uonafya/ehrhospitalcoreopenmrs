@@ -33,6 +33,7 @@ import org.openmrs.TestOrder;
 import org.openmrs.api.APIException;
 import org.openmrs.api.ProviderService;
 import org.openmrs.api.context.Context;
+import org.openmrs.api.db.DAOException;
 import org.openmrs.api.impl.BaseOpenmrsService;
 import org.openmrs.module.hospitalcore.BillingConstants;
 import org.openmrs.module.hospitalcore.BillingService;
@@ -58,6 +59,7 @@ import org.openmrs.module.hospitalcore.model.RadiologyDepartment;
 import org.openmrs.module.hospitalcore.model.Receipt;
 import org.openmrs.module.hospitalcore.model.Tender;
 import org.openmrs.module.hospitalcore.model.TenderBill;
+import org.openmrs.module.hospitalcore.model.WaiverType;
 import org.openmrs.module.hospitalcore.util.ConceptAnswerComparator;
 import org.openmrs.module.hospitalcore.util.ConceptSetComparator;
 import org.openmrs.module.hospitalcore.util.GlobalPropertyUtil;
@@ -1306,5 +1308,15 @@ public class BillingServiceImpl extends BaseOpenmrsService implements BillingSer
 	public PatientServiceBillItem updateBillItems(PatientServiceBillItem item) throws APIException {
 		return dao.updateBillItems(item);
 	}
-	
+
+	@Override
+	public List<WaiverType> getWaiverTypes() throws DAOException {
+		return dao.getWaiverTypes();
+	}
+
+	@Override
+	public WaiverType saveWaiverType(WaiverType waiverType) throws DAOException {
+		return dao.saveWaiverType(waiverType);
+	}
+
 }
