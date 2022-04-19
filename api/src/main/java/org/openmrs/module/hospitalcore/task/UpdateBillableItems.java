@@ -5,7 +5,6 @@ import org.openmrs.api.ConceptService;
 import org.openmrs.api.context.Context;
 import org.openmrs.module.hospitalcore.BillingService;
 import org.openmrs.module.hospitalcore.HospitalCoreService;
-import org.openmrs.module.hospitalcore.model.Department;
 import org.openmrs.module.hospitalcore.model.EhrDepartment;
 import org.openmrs.module.hospitalcore.model.PatientServiceBillItem;
 import org.openmrs.scheduler.tasks.AbstractTask;
