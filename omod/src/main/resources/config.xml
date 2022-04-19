@@ -173,6 +173,9 @@
 		PatientCategoryDetails.hbm.xml
 		EhrDepartment.hbm.xml
 
+		WaiverType.hbm.xml
+		WaiverTypeRole.hbm.xml
+
     </mappingFiles>
 </module>
 

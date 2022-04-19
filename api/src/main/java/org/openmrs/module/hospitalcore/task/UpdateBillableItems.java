@@ -42,7 +42,6 @@ public class UpdateBillableItems extends AbstractTask {
 
   private void performBillableItemsUpdate() {
     BillingService billingService = Context.getService(BillingService.class);
-    HospitalCoreService hospitalCoreService = Context.getService(HospitalCoreService.class);
     List<PatientServiceBillItem> emptyDepartmentItems = billingService.getPatientBillableServicesItemsWithNoDepartment();
     for(PatientServiceBillItem item :emptyDepartmentItems ) {
       billingService.updateBillItems(updatePatientServiceBillItem(item));
@@ -59,7 +58,6 @@ public class UpdateBillableItems extends AbstractTask {
     ConceptService conceptService = Context.getConceptService();
    if(patientServiceBillItem != null && patientServiceBillItem.getService() != null) {
      conceptWithService = conceptService.getConcept(patientServiceBillItem.getService().getConceptId());
-     System.out.println("The value of the service is >>"+patientServiceBillItem.getService().getConceptId());
      //check which class or category this concept belong to, if it gets the required point it return its department
      if(conceptWithService != null) {
        if(conceptWithService.getConceptClass().equals(conceptService.getConceptClassByUuid("8d4907b2-c2cc-11de-8d13-0010c6dffd0f"))) {
