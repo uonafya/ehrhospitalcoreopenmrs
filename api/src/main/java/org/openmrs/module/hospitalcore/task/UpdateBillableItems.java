@@ -58,8 +58,9 @@ public class UpdateBillableItems extends AbstractTask {
     Concept conceptWithService = null;
     EhrDepartment ehrDepartment = null;
     ConceptService conceptService = Context.getConceptService();
-   if(patientServiceBillItem.getService() != null && patientServiceBillItem.getService().getConceptId() != null) {
+   if(patientServiceBillItem != null && patientServiceBillItem.getService() != null) {
      conceptWithService = conceptService.getConcept(patientServiceBillItem.getService().getConceptId());
+     System.out.println("The value of the service is >>"+patientServiceBillItem.getService().getConceptId());
      //check which class or category this concept belong to, if it gets the required point it return its department
      if(conceptWithService != null) {
        if(conceptWithService.getConceptClass().equals(conceptService.getConceptClassByUuid("8d4907b2-c2cc-11de-8d13-0010c6dffd0f"))) {
