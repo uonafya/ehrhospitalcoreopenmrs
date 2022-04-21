@@ -152,5 +152,5 @@ public interface HospitalCoreDAO {
 	public EhrDepartment getDepartmentByName(String departmentName) throws DAOException;
 
 	//provide mechanisms to filter payments
-	public List<PatientServiceBillItem> getPatientServiceBillByDepartment(EhrDepartment ehrDepartment) throws DAOException;
+	public List<PatientServiceBillItem> getPatientServiceBillByDepartment(EhrDepartment ehrDepartment, Date startDate, Date endDate) throws DAOException;
 }

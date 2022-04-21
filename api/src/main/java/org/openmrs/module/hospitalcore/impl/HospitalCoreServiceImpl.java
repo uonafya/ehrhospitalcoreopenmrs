@@ -837,8 +837,8 @@ public class HospitalCoreServiceImpl extends BaseOpenmrsService implements
 	}
 
 	@Override
-	public List<PatientServiceBillItem> getPatientServiceBillByDepartment(EhrDepartment ehrDepartment) throws APIException {
-		return dao.getPatientServiceBillByDepartment(ehrDepartment);
+	public List<PatientServiceBillItem> getPatientServiceBillByDepartment(EhrDepartment ehrDepartment, Date startDate, Date endDate) throws APIException {
+		return dao.getPatientServiceBillByDepartment(ehrDepartment, startDate, endDate);
 	}
 
 }

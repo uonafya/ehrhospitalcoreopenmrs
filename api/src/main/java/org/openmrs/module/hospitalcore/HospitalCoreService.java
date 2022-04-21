@@ -257,6 +257,6 @@ public interface HospitalCoreService extends OpenmrsService {
 	public List<EhrDepartment> getAllDepartment() throws APIException;
 
 	//provide mechanisms to filter payments
-	public List<PatientServiceBillItem> getPatientServiceBillByDepartment(EhrDepartment ehrDepartment) throws APIException;
+	public List<PatientServiceBillItem> getPatientServiceBillByDepartment(EhrDepartment ehrDepartment, Date startDate, Date endDate) throws APIException;
 
 }

@@ -672,10 +672,16 @@ public class HibernateHospitalCoreDAO implements HospitalCoreDAO {
 
     @Override
     @SuppressWarnings("unchecked")
-    public List<PatientServiceBillItem> getPatientServiceBillByDepartment(EhrDepartment ehrDepartment) throws DAOException {
+    public List<PatientServiceBillItem> getPatientServiceBillByDepartment(EhrDepartment ehrDepartment, Date startDate, Date endDate) throws DAOException {
         Criteria criteria = sessionFactory.getCurrentSession().createCriteria
                 (PatientServiceBillItem.class);
         criteria.add(Restrictions.eq("department", ehrDepartment));
+        if(startDate != null) {
+            criteria.add(Restrictions.ge("createdDate", startDate));
+        }
+        if(endDate != null){
+            criteria.add(Restrictions.le("createdDate", endDate));
+        }
         return criteria.list();
     }
 
