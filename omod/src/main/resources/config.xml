@@ -175,6 +175,7 @@
 
 		WaiverType.hbm.xml
 		WaiverTypeRole.hbm.xml
+		EhrHospitalWaiver.hbm.xml
 
     </mappingFiles>
 </module>

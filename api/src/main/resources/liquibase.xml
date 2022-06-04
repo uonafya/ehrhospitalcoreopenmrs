@@ -1642,4 +1642,37 @@
             <column name="uuid" value="95A4BE03-60E9-4D5F-958C-89E0E1FBB27F" />
         </insert>
     </changeSet>
+    <changeSet id="100249EB-68B6-4C57-9BBD-DB546C578200" author="ningosi">
+        <preConditions onFail="MARK_RAN" onError="WARN">
+            <dbms type="mysql"/>
+        </preConditions>
+        <comment>creating ehr_hospital_waiver table</comment>
+        <sql>
+            CREATE TABLE IF NOT EXISTS `ehr_hospital_waiver` (
+            `id` int(11) NOT NULL AUTO_INCREMENT,
+            `patient_id` int(11) DEFAULT NULL,
+            `gender` varchar(50) DEFAULT '',
+            `birthdate` date DEFAULT NULL,
+            `name` varchar(255) DEFAULT NULL,
+            `status` tinyint(1) NOT NULL DEFAULT '0',
+            `creator` int(11) NOT NULL DEFAULT '0',
+            `date_created` datetime NOT NULL,
+            `retired` tinyint(1) NOT NULL DEFAULT '0',
+            `retired_by` int(11) DEFAULT NULL,
+            `date_retired` datetime DEFAULT NULL,
+            `retire_reason` varchar(255) DEFAULT NULL,
+            `uuid` char(38) NOT NULL,
+            `changed_by` int(11) DEFAULT NULL,
+            `date_changed` int(11) DEFAULT NULL,
+            UNIQUE KEY `patient_waiver_uuid_index` (`uuid`),
+            KEY `patient_waiver_retired_status` (`retired`),
+            KEY `user_who_created_patient_waiver` (`creator`),
+            KEY `user_who_retired_patient_waiver` (`retired_by`),
+            PRIMARY KEY (`id`),
+            CONSTRAINT `user_who_created_patient_waiver` FOREIGN KEY (`creator`) REFERENCES `users` (`user_id`),
+            CONSTRAINT `user_who_retired_patient_waiver` FOREIGN KEY (`retired_by`) REFERENCES `users` (`user_id`),
+            CONSTRAINT `patient_changed_waiver` FOREIGN KEY (`changed_by`) REFERENCES `users` (`user_id`),
+            ) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8;
+        </sql>
+    </changeSet>
 </databaseChangeLog>

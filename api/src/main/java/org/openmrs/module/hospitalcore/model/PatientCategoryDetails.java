@@ -1,6 +1,5 @@
 package org.openmrs.module.hospitalcore.model;
 
-import org.openmrs.BaseChangeableOpenmrsData;
 import org.openmrs.BaseChangeableOpenmrsMetadata;
 import org.openmrs.Patient;
 
