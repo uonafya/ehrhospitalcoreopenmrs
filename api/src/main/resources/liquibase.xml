@@ -1671,7 +1671,7 @@
             PRIMARY KEY (`id`),
             CONSTRAINT `user_who_created_patient_waiver` FOREIGN KEY (`creator`) REFERENCES `users` (`user_id`),
             CONSTRAINT `user_who_retired_patient_waiver` FOREIGN KEY (`retired_by`) REFERENCES `users` (`user_id`),
-            CONSTRAINT `patient_changed_waiver` FOREIGN KEY (`changed_by`) REFERENCES `users` (`user_id`),
+            CONSTRAINT `patient_changed_waiver` FOREIGN KEY (`changed_by`) REFERENCES `users` (`user_id`)
             ) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8;
         </sql>
     </changeSet>
