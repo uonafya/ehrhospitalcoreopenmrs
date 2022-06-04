@@ -40,6 +40,7 @@ import org.openmrs.Encounter;
 import org.openmrs.Obs;
 import org.openmrs.Patient;
 import org.openmrs.Person;
+import org.openmrs.User;
 import org.openmrs.api.APIException;
 import org.openmrs.api.OpenmrsService;
 import org.openmrs.module.hospitalcore.model.OpdPatientQueue;
@@ -53,6 +54,7 @@ import org.openmrs.module.hospitalcore.model.TriagePatientQueue;
 import org.openmrs.module.hospitalcore.model.TriagePatientQueueLog;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.Date;
 import java.util.List;
 
 /**
@@ -124,4 +126,7 @@ public interface PatientQueueService extends OpenmrsService {
 	//additional methods to pick the the triage information
 	List<TriagePatientData> getPatientTriageData(Patient patient);
 	TriagePatientData getPatientTriageData(Integer id);
+
+	public List<TriagePatientQueue> getAllTriagePatientQueueWithinDatePerUser(Date startDate, Date endDate, User user) throws APIException;
+	public List<OpdPatientQueue> getAllOpdPatientQueueWithinDatePerUser(Date startDate, Date endDate, User user) throws APIException;
 }

@@ -68,6 +68,7 @@ import org.openmrs.module.hospitalcore.concept.Synonym;
 import org.openmrs.module.hospitalcore.db.HospitalCoreDAO;
 import org.openmrs.module.hospitalcore.model.CoreForm;
 import org.openmrs.module.hospitalcore.model.EhrDepartment;
+import org.openmrs.module.hospitalcore.model.EhrHospitalWaiver;
 import org.openmrs.module.hospitalcore.model.OpdTestOrder;
 import org.openmrs.module.hospitalcore.model.PatientCategoryDetails;
 import org.openmrs.module.hospitalcore.model.PatientSearch;
@@ -839,6 +840,21 @@ public class HospitalCoreServiceImpl extends BaseOpenmrsService implements
 	@Override
 	public List<PatientServiceBillItem> getPatientServiceBillByDepartment(EhrDepartment ehrDepartment, Date startDate, Date endDate) throws APIException {
 		return dao.getPatientServiceBillByDepartment(ehrDepartment, startDate, endDate);
+	}
+
+	@Override
+	public EhrHospitalWaiver saveEhrHospitalWaiver(EhrHospitalWaiver ehrHospitalWaiver) throws APIException {
+		return dao.saveEhrHospitalWaiver(ehrHospitalWaiver);
+	}
+
+	@Override
+	public EhrHospitalWaiver getEhrHospitalWaiverById(Integer waiverId) throws APIException {
+		return dao.getEhrHospitalWaiverById(waiverId);
+	}
+
+	@Override
+	public List<EhrHospitalWaiver> getAllEhrHospitalWaiver(Date startDate, Date endDate) throws APIException {
+		return dao.getAllEhrHospitalWaiver(startDate, endDate);
 	}
 
 }

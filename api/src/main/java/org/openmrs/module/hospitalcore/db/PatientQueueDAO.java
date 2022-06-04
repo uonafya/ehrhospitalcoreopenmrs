@@ -34,6 +34,7 @@
 
 package org.openmrs.module.hospitalcore.db;
 
+import java.util.Date;
 import java.util.List;
 
 import org.openmrs.Concept;
@@ -42,6 +43,7 @@ import org.openmrs.Encounter;
 import org.openmrs.Obs;
 import org.openmrs.Patient;
 import org.openmrs.Person;
+import org.openmrs.User;
 import org.openmrs.api.APIException;
 import org.openmrs.api.db.DAOException;
 import org.openmrs.module.hospitalcore.model.OpdPatientQueue;
@@ -118,6 +120,8 @@ public interface PatientQueueDAO {
 //get all the latest triage information
 	List<TriagePatientData> getPatientTriageData(Patient patient);
 	TriagePatientData getPatientTriageData(Integer id);
+	public List<TriagePatientQueue> getAllTriagePatientQueueWithinDatePerUser(Date startDate, Date endDate, User user) throws DAOException;
+	public List<OpdPatientQueue> getAllOpdPatientQueueWithinDatePerUser(Date startDate, Date endDate, User user) throws DAOException;
 
 }
 

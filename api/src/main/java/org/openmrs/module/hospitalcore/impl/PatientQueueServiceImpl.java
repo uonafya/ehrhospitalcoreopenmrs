@@ -34,6 +34,7 @@
 
 package org.openmrs.module.hospitalcore.impl;
 
+import java.util.Date;
 import java.util.List;
 
 import org.openmrs.Concept;
@@ -42,6 +43,7 @@ import org.openmrs.Encounter;
 import org.openmrs.Obs;
 import org.openmrs.Patient;
 import org.openmrs.Person;
+import org.openmrs.User;
 import org.openmrs.api.APIException;
 import org.openmrs.api.impl.BaseOpenmrsService;
 import org.openmrs.module.hospitalcore.PatientQueueService;
@@ -338,6 +340,16 @@ public class PatientQueueServiceImpl  extends BaseOpenmrsService implements Pati
 	}
 	public TriagePatientData getPatientTriageData(Integer id) {
 		return dao.getPatientTriageData(id);
+	}
+
+	@Override
+	public List<TriagePatientQueue> getAllTriagePatientQueueWithinDatePerUser(Date startDate, Date endDate, User user) throws APIException {
+		return dao.getAllTriagePatientQueueWithinDatePerUser(startDate, endDate, user);
+	}
+
+	@Override
+	public List<OpdPatientQueue> getAllOpdPatientQueueWithinDatePerUser(Date startDate, Date endDate, User user) throws APIException {
+		return dao.getAllOpdPatientQueueWithinDatePerUser(startDate, endDate, user);
 	}
 
 }

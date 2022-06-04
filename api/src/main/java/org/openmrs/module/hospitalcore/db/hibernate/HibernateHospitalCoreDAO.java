@@ -50,6 +50,7 @@ import org.openmrs.module.hospitalcore.concept.Mapping;
 import org.openmrs.module.hospitalcore.db.HospitalCoreDAO;
 import org.openmrs.module.hospitalcore.model.CoreForm;
 import org.openmrs.module.hospitalcore.model.EhrDepartment;
+import org.openmrs.module.hospitalcore.model.EhrHospitalWaiver;
 import org.openmrs.module.hospitalcore.model.IpdPatientAdmitted;
 import org.openmrs.module.hospitalcore.model.OpdTestOrder;
 import org.openmrs.module.hospitalcore.model.PatientCategoryDetails;
@@ -681,6 +682,32 @@ public class HibernateHospitalCoreDAO implements HospitalCoreDAO {
         }
         if(endDate != null){
             criteria.add(Restrictions.le("createdDate", endDate));
+        }
+        return criteria.list();
+    }
+
+    @Override
+    public EhrHospitalWaiver saveEhrHospitalWaiver(EhrHospitalWaiver ehrHospitalWaiver) throws DAOException {
+        sessionFactory.getCurrentSession().saveOrUpdate(ehrHospitalWaiver);
+        return ehrHospitalWaiver;
+    }
+
+    @Override
+    public EhrHospitalWaiver getEhrHospitalWaiverById(Integer waiverId) throws DAOException {
+        return (EhrHospitalWaiver) sessionFactory.getCurrentSession().get(EhrHospitalWaiver.class, waiverId);
+    }
+
+    @Override
+    @SuppressWarnings("unchecked")
+    public List<EhrHospitalWaiver> getAllEhrHospitalWaiver(Date startDate, Date endDate) throws DAOException {
+        Criteria criteria = sessionFactory.getCurrentSession().createCriteria
+                (EhrHospitalWaiver.class);
+
+        if(startDate != null) {
+            criteria.add(Restrictions.ge("dateCreated", startDate));
+        }
+        if(endDate != null){
+            criteria.add(Restrictions.le("dateCreated", endDate));
         }
         return criteria.list();
     }

@@ -15,11 +15,6 @@
 
 package org.openmrs.module.hospitalcore.db.hibernate;
 
-import java.text.SimpleDateFormat;
-import java.util.Date;
-import java.util.List;
-import java.util.concurrent.TimeUnit;
-
 import org.apache.commons.collections.CollectionUtils;
 import org.apache.commons.lang.StringUtils;
 import org.hibernate.Criteria;
@@ -33,6 +28,7 @@ import org.openmrs.Encounter;
 import org.openmrs.Obs;
 import org.openmrs.Patient;
 import org.openmrs.Person;
+import org.openmrs.User;
 import org.openmrs.api.context.Context;
 import org.openmrs.api.db.DAOException;
 import org.openmrs.module.hospitalcore.db.PatientQueueDAO;
@@ -45,6 +41,11 @@ import org.openmrs.module.hospitalcore.model.PatientPersonalHistory;
 import org.openmrs.module.hospitalcore.model.TriagePatientData;
 import org.openmrs.module.hospitalcore.model.TriagePatientQueue;
 import org.openmrs.module.hospitalcore.model.TriagePatientQueueLog;
+
+import java.text.SimpleDateFormat;
+import java.util.Date;
+import java.util.List;
+import java.util.concurrent.TimeUnit;
 
 public class HibernatePatientQueueDAO implements PatientQueueDAO {
 	SimpleDateFormat formatter = new SimpleDateFormat("dd/MM/yyyy HH:mm:ss");
@@ -632,5 +633,41 @@ public class HibernatePatientQueueDAO implements PatientQueueDAO {
 		criteria.add(Restrictions.eq("id", id));
 		return (TriagePatientData) criteria.list().get(0);
 	}
-	
+
+	@Override
+	@SuppressWarnings("unchecked")
+	public List<TriagePatientQueue> getAllTriagePatientQueueWithinDatePerUser(Date startDate, Date endDate, User user) throws DAOException {
+		Criteria criteria = sessionFactory.getCurrentSession().createCriteria
+						(TriagePatientQueue.class);
+
+		if(startDate != null) {
+			criteria.add(Restrictions.ge("createdOn", startDate));
+		}
+		if(endDate != null){
+			criteria.add(Restrictions.le("createdOn", endDate));
+		}
+		if(user != null){
+			criteria.add(Restrictions.le("user", user));
+		}
+		return criteria.list();
+	}
+
+	@Override
+	@SuppressWarnings("unchecked")
+	public List<OpdPatientQueue> getAllOpdPatientQueueWithinDatePerUser(Date startDate, Date endDate, User user) throws DAOException {
+		Criteria criteria = sessionFactory.getCurrentSession().createCriteria
+						(OpdPatientQueue.class);
+
+		if(startDate != null) {
+			criteria.add(Restrictions.ge("createdOn", startDate));
+		}
+		if(endDate != null){
+			criteria.add(Restrictions.le("createdOn", endDate));
+		}
+		if(user != null){
+			criteria.add(Restrictions.le("user", user));
+		}
+		return criteria.list();
+	}
+
 }
