@@ -66,6 +66,8 @@ import org.openmrs.module.hospitalcore.util.PatientUtils;
 public class HibernateBillingDAO implements BillingDAO {
 
 	protected final Log log = LogFactory.getLog(getClass());
+	SimpleDateFormat formatterDate = new SimpleDateFormat("yyyy-MM-dd");
+	SimpleDateFormat formatterDateTime = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
 
 	/**
 	 * Hibernate session factory
@@ -1212,8 +1214,18 @@ public class HibernateBillingDAO implements BillingDAO {
 	@SuppressWarnings("unchecked")
 	public List<PatientServiceBill> getPatientBillsPerDateRange(Patient patient, Date startDate, Date endDate) throws DAOException {
 		Criteria criteria = sessionFactory.getCurrentSession().createCriteria(PatientServiceBill.class);
-		criteria.add(Restrictions.ge("createdDate", DateUtils.getStartOfDay(new Date())));
-		criteria.add(Restrictions.ge("createdDate", DateUtils.getEndOfDay(new Date())));
+
+		String date = formatterDate.format(new Date());
+		String startFromDate = date + " 00:00:00";
+		String endFromDate = date + " 23:59:59";
+		try {
+			criteria.add((Restrictions.and(Restrictions.ge("createdDate", formatterDateTime.parse(startFromDate)),
+							Restrictions.le("createdDate", formatterDateTime.parse(endFromDate)))));;
+		}
+		catch (Exception e){
+			System.out.println("Error convert date: " + e.toString());
+			e.printStackTrace();
+		}
 		if(patient != null) {
 			criteria.add(Restrictions.eq("patient", patient));
 		}
