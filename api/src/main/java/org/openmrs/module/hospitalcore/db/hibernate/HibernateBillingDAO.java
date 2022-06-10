@@ -1226,7 +1226,7 @@ public class HibernateBillingDAO implements BillingDAO {
 			System.out.println("Error convert date: " + e.toString());
 			e.printStackTrace();
 		}
-		if(patient != null) {
+		if(patient != null && patient.getPatientId() != null) {
 			criteria.add(Restrictions.eq("patient", patient));
 		}
 		if(startDate != null) {
