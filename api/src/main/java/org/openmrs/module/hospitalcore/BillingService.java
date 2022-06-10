@@ -383,6 +383,9 @@ public interface BillingService extends OpenmrsService {
         public List<PatientServiceBillItem> getPatientBillableServicesItemsWithNoDepartment();
 	public PatientServiceBillItem updateBillItems(PatientServiceBillItem item) throws APIException;
 
-	public List<WaiverType> getWaiverTypes() throws DAOException;
-	public WaiverType saveWaiverType(WaiverType waiverType) throws DAOException;
+	public List<WaiverType> getWaiverTypes() throws APIException;
+	public WaiverType saveWaiverType(WaiverType waiverType) throws APIException;
+	//add a method to help filter out patients with their respective bills
+	@Transactional(readOnly = true)
+	public List<PatientServiceBill> getPatientBillsPerDateRange(Patient patient, Date startDate, Date endDate) throws APIException;
 }

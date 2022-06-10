@@ -24,6 +24,7 @@ import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.hibernate.Criteria;
 import org.hibernate.Query;
+import org.hibernate.SQLQuery;
 import org.hibernate.SessionFactory;
 import org.hibernate.Transaction;
 import org.hibernate.Session;
@@ -56,6 +57,7 @@ import org.openmrs.module.hospitalcore.model.Receipt;
 import org.openmrs.module.hospitalcore.model.Tender;
 import org.openmrs.module.hospitalcore.model.TenderBill;
 import org.openmrs.module.hospitalcore.model.WaiverType;
+import org.openmrs.module.hospitalcore.util.DateUtils;
 import org.openmrs.module.hospitalcore.util.PatientUtils;
 
 /**
@@ -1204,6 +1206,25 @@ public class HibernateBillingDAO implements BillingDAO {
 	public WaiverType saveWaiverType(WaiverType waiverType)
 	throws DAOException {
 		return (WaiverType) sessionFactory.getCurrentSession().merge(waiverType);
+	}
+
+	@Override
+	@SuppressWarnings("unchecked")
+	public List<PatientServiceBill> getPatientBillsPerDateRange(Patient patient, Date startDate, Date endDate) throws DAOException {
+		Criteria criteria = sessionFactory.getCurrentSession().createCriteria(PatientServiceBill.class);
+		criteria.add(Restrictions.ge("createdDate", DateUtils.getStartOfDay(new Date())));
+		criteria.add(Restrictions.ge("createdDate", DateUtils.getEndOfDay(new Date())));
+		if(patient != null) {
+			criteria.add(Restrictions.eq("patient", patient));
+		}
+		if(startDate != null) {
+			criteria.add(Restrictions.ge("createdDate", DateUtils.getStartOfDay(startDate)));
+		}
+		if(endDate != null) {
+			criteria.add(Restrictions.le("createdDate", DateUtils.getEndOfDay(endDate)));
+		}
+
+		return criteria.list();
 	}
 
 

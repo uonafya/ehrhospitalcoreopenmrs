@@ -19,6 +19,7 @@ import java.util.List;
 import org.hibernate.SessionFactory;
 import org.openmrs.Encounter;
 import org.openmrs.Patient;
+import org.openmrs.api.APIException;
 import org.openmrs.api.db.DAOException;
 import org.openmrs.module.hospitalcore.model.Ambulance;
 import org.openmrs.module.hospitalcore.model.AmbulanceBill;
@@ -274,4 +275,5 @@ public interface BillingDAO {
 
 	public List<WaiverType> getWaiverTypes() throws DAOException;
 	public WaiverType saveWaiverType(WaiverType waiverType) throws DAOException;
+	public List<PatientServiceBill> getPatientBillsPerDateRange(Patient patient, Date startDate, Date endDate) throws DAOException;
 }

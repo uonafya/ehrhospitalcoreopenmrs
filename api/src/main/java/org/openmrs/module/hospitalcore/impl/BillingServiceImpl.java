@@ -1319,4 +1319,9 @@ public class BillingServiceImpl extends BaseOpenmrsService implements BillingSer
 		return dao.saveWaiverType(waiverType);
 	}
 
+	@Override
+	public List<PatientServiceBill> getPatientBillsPerDateRange(Patient patient, Date startDate, Date endDate) throws APIException {
+		return dao.getPatientBillsPerDateRange(patient, startDate, endDate);
+	}
+
 }

@@ -658,6 +658,32 @@ public class DateUtils {
 
     return d2 - d1;
     }
+  /**
+   * Returns the passed date, at the specified time
+   */
+  public static Date getDateTime(Date d, int hour, int minute, int second, int millisecond) {
+    Calendar c = Calendar.getInstance();
+    c.setTime(d);
+    c.set(Calendar.HOUR_OF_DAY, hour);
+    c.set(Calendar.MINUTE, minute);
+    c.set(Calendar.SECOND, second);
+    c.set(Calendar.MILLISECOND, millisecond);
+    return c.getTime();
+  }
+
+  /**
+   * Returns a date that represents the very beginning of the passed date
+   */
+  public static Date getStartOfDay(Date d) {
+    return getDateTime(d, 0, 0, 0, 0);
+  }
+
+  /**
+   * Returns the last second of the day
+   */
+  public static Date getEndOfDay(Date d) {
+    return getDateTime(d, 23, 59, 59, 999);
+  }
 	
    
 }
