@@ -1216,24 +1216,41 @@ public class HibernateBillingDAO implements BillingDAO {
 		Criteria criteria = sessionFactory.getCurrentSession().createCriteria(PatientServiceBill.class);
 
 		String date = formatterDate.format(new Date());
-		String startFromDate = date + " 00:00:00";
-		String endFromDate = date + " 23:59:59";
-		try {
-			criteria.add((Restrictions.and(Restrictions.ge("createdDate", formatterDateTime.parse(startFromDate)),
-							Restrictions.le("createdDate", formatterDateTime.parse(endFromDate)))));;
-		}
-		catch (Exception e){
-			System.out.println("Error convert date: " + e.toString());
-			e.printStackTrace();
+		String startFromDateToday = date + " 00:00:00";
+		String endFromDateToday = date + " 23:59:59";
+
+		if(startDate == null && endDate == null) {
+			try {
+				criteria.add((Restrictions.and(Restrictions.ge("createdDate", formatterDateTime.parse(startFromDateToday)),
+								Restrictions.le("createdDate", formatterDateTime.parse(endFromDateToday)))));
+				;
+			} catch (Exception e) {
+				System.out.println("Error convert date: " + e.toString());
+				e.printStackTrace();
+			}
 		}
 		if(patient != null && patient.getPatientId() != null) {
 			criteria.add(Restrictions.eq("patient", patient));
 		}
 		if(startDate != null) {
-			criteria.add(Restrictions.ge("createdDate", DateUtils.getStartOfDay(startDate)));
+			String startDateOfDate = formatterDate.format(startDate) + " 00:00:00";
+			try {
+				criteria.add(Restrictions.ge("createdDate", formatterDateTime.parse(startDateOfDate)));
+			}
+			catch (Exception e) {
+				System.out.println("Error convert date: " + e.toString());
+				e.printStackTrace();
+			}
 		}
 		if(endDate != null) {
-			criteria.add(Restrictions.le("createdDate", DateUtils.getEndOfDay(endDate)));
+			String endDateOfDate = formatterDate.format(endDate) + " 23:59:59";
+			try {
+				criteria.add(Restrictions.le("createdDate", formatterDateTime.parse(endDateOfDate)));
+			}
+			catch (Exception e) {
+				System.out.println("Error convert date: " + e.toString());
+				e.printStackTrace();
+			}
 		}
 
 		return criteria.list();
