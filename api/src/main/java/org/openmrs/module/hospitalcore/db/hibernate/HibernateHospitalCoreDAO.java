@@ -676,12 +676,40 @@ public class HibernateHospitalCoreDAO implements HospitalCoreDAO {
     public List<PatientServiceBillItem> getPatientServiceBillByDepartment(EhrDepartment ehrDepartment, Date startDate, Date endDate) throws DAOException {
         Criteria criteria = sessionFactory.getCurrentSession().createCriteria
                 (PatientServiceBillItem.class);
-        criteria.add(Restrictions.eq("department", ehrDepartment));
+        String date = formatterExt.format(new Date());
+        String startFromDate = date + " 00:00:00";
+        String endFromDate = date + " 23:59:59";
+        try {
+            criteria.add(Restrictions.and(Restrictions.ge("createdDate", formatterDateTime.parse(startFromDate)),
+                    Restrictions.le("createdDate", formatterDateTime.parse(endFromDate))));
+        }
+        catch (Exception e) {
+            // TODO: handle exception
+            System.out.println("Error convert date: " + e);
+            e.printStackTrace();
+        }
+        if(ehrDepartment != null) {
+            criteria.add(Restrictions.eq("department", ehrDepartment));
+        }
         if(startDate != null) {
-            criteria.add(Restrictions.ge("createdDate", startDate));
+            try {
+                criteria.add(Restrictions.ge("createdDate", formatterDateTime.parse(formatterExt.format(startDate))));
+            }
+            catch (Exception e) {
+                // TODO: handle exception
+                System.out.println("Error convert date: " + e);
+                e.printStackTrace();
+            }
         }
         if(endDate != null){
-            criteria.add(Restrictions.le("createdDate", endDate));
+            try {
+                criteria.add(Restrictions.le("createdDate", formatterDateTime.parse(formatterExt.format(endDate))));
+            }
+            catch (Exception e) {
+                // TODO: handle exception
+                System.out.println("Error convert date: " + e);
+                e.printStackTrace();
+            }
         }
         return criteria.list();
     }

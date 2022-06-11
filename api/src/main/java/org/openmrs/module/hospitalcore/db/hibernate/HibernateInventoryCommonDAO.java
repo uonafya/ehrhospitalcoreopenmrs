@@ -95,7 +95,9 @@ public class HibernateInventoryCommonDAO implements InventoryCommonDAO {
 			InventoryStoreDrugPatient isdpd) throws DAOException {
 		Criteria criteria = sessionFactory.getCurrentSession().createCriteria(
 				InventoryStoreDrugPatientDetail.class);
-		criteria.add(Restrictions.eq("storeDrugPatient", isdpd));
+		if(isdpd != null) {
+			criteria.add(Restrictions.eq("storeDrugPatient", isdpd));
+		}
 
 		return criteria.list();
 	}
