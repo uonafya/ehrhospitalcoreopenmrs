@@ -676,24 +676,26 @@ public class HibernateHospitalCoreDAO implements HospitalCoreDAO {
     public List<PatientServiceBillItem> getPatientServiceBillByDepartment(EhrDepartment ehrDepartment, Date startDate, Date endDate) throws DAOException {
         Criteria criteria = sessionFactory.getCurrentSession().createCriteria
                 (PatientServiceBillItem.class);
-        String date = formatterExt.format(new Date());
-        String startFromDate = date + " 00:00:00";
-        String endFromDate = date + " 23:59:59";
-        try {
-            criteria.add(Restrictions.and(Restrictions.ge("createdDate", formatterDateTime.parse(startFromDate)),
-                    Restrictions.le("createdDate", formatterDateTime.parse(endFromDate))));
-        }
-        catch (Exception e) {
-            // TODO: handle exception
-            System.out.println("Error convert date: " + e);
-            e.printStackTrace();
-        }
-        if(ehrDepartment != null) {
-            criteria.add(Restrictions.eq("department", ehrDepartment));
-        }
-        if(startDate != null) {
+        criteria.add(Restrictions.eq("department", ehrDepartment));
+
+        String date = formatterDate.format(new Date());
+        String startFromDateToday = date + " 00:00:00";
+        String endFromDateToday = date + " 23:59:59";
+        if(startDate == null && endDate == null) {
             try {
-                criteria.add(Restrictions.ge("createdDate", formatterDateTime.parse(formatterExt.format(startDate))));
+                criteria.add((Restrictions.and(Restrictions.ge("createdDate", formatterDateTime.parse(startFromDateToday)),
+                        Restrictions.le("createdDate", formatterDateTime.parse(endFromDateToday)))));
+                ;
+            } catch (Exception e) {
+                System.out.println("Error convert date: ");
+                e.printStackTrace();
+            }
+        }
+
+        if(startDate != null) {
+            String startDateOfDate = formatterDate.format(startDate) + " 00:00:00";
+            try {
+                criteria.add(Restrictions.ge("createdDate", formatterDateTime.parse(startDateOfDate)));
             }
             catch (Exception e) {
                 // TODO: handle exception
@@ -702,8 +704,9 @@ public class HibernateHospitalCoreDAO implements HospitalCoreDAO {
             }
         }
         if(endDate != null){
+            String endDateOfDate = formatterDate.format(endDate) + " 23:59:59";
             try {
-                criteria.add(Restrictions.le("createdDate", formatterDateTime.parse(formatterExt.format(endDate))));
+                criteria.add(Restrictions.le("createdDate", formatterDateTime.parse(endDateOfDate)));
             }
             catch (Exception e) {
                 // TODO: handle exception
