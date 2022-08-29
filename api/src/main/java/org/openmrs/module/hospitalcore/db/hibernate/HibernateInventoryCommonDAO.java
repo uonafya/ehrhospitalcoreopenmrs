@@ -165,4 +165,43 @@ public class HibernateInventoryCommonDAO implements InventoryCommonDAO {
 
 		return inventoryStoreDrugPatients;
 	}
+
+	@Override
+	@SuppressWarnings("unchecked")
+	public List<InventoryStoreDrugPatientDetail> getDrugDetailOfPatientPerDateAndStatus(String startDate, String endDate, Integer status) throws DAOException {
+		List<InventoryStoreDrugPatientDetail> inventoryStoreDrugPatientDetailList = new ArrayList<InventoryStoreDrugPatientDetail>();
+		Criteria criteria = sessionFactory.getCurrentSession().createCriteria(InventoryStoreDrugPatientDetail.class);
+		String today = formatterExt.format(new Date());
+		if(status != null) {
+			criteria.add(Restrictions.eq("storeDrugPatient.statuss", status));
+		}
+		if (!StringUtils.isBlank(startDate) && !StringUtils.isBlank(endDate)){
+			String startFromDate = startDate + " 00:00:00";
+			String endAtDate = endDate + " 23:59:59";
+			try {
+				criteria.add(Restrictions.and(
+								Restrictions.ge("storeDrugPatient.createdOn",formatter.parse(startFromDate)),
+								Restrictions.le("storeDrugPatient.createdOn",formatter.parse(endAtDate))
+				));
+				inventoryStoreDrugPatientDetailList.addAll(criteria.list());
+			} catch (Exception e) {
+				e.printStackTrace();
+			}
+		}
+		else {
+			String startFromDate = today + " 00:00:00";
+			String endAtDate = today + " 23:59:59";
+			try {
+				criteria.add(Restrictions.and(
+								Restrictions.ge("storeDrugPatient.createdOn",formatter.parse(startFromDate)),
+								Restrictions.le("storeDrugPatient.createdOn",formatter.parse(endAtDate))
+				));
+				inventoryStoreDrugPatientDetailList.addAll(criteria.list());
+			} catch (Exception e) {
+				e.printStackTrace();
+			}
+
+		}
+		return inventoryStoreDrugPatientDetailList;
+	}
 }

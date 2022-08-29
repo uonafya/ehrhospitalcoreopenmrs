@@ -51,4 +51,6 @@ public interface InventoryCommonService extends OpenmrsService{
 	public List<InventoryStoreDrugPatient> getAllIssueByDateRange(String startDate, String endDate) throws APIException;
 	//get transactionDetails for each of the iss apiuings done => getDrugDetailOfPatient
 
+	public List<InventoryStoreDrugPatientDetail> getDrugDetailOfPatientPerDateAndStatus(String startDate, String endDate, Integer status) throws APIException;
+
 }
