@@ -16,6 +16,7 @@
 package org.openmrs.module.hospitalcore;
 
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 import org.openmrs.Concept;
@@ -127,7 +128,14 @@ public interface IpdService extends OpenmrsService{
 	@Transactional(readOnly = true)
 	public IpdPatientAdmission getIpdPatientAdmissionByPatient(Patient patient) throws APIException;
 
+	@Transactional(readOnly = true)
 	public List<IpdPatientAdmitted> getBedAvailability(Concept wardId,String bedNo);
+
+	@Transactional(readOnly = true)
+	public List<IpdPatientAdmitted> getAdmittedPatientsByDateRange(Date startDate, Date endDate) throws APIException;
+
+	@Transactional(readOnly = true)
+	public List<IpdPatientAdmitted> getAdmittedPatientsByDateRange(Date startDate, Date endDate, Concept ward) throws APIException;
 
 
 }

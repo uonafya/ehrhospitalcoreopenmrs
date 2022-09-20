@@ -249,7 +249,7 @@ public interface HospitalCoreService extends OpenmrsService {
 	public PatientCategoryDetails savePatientCategoryDetails(PatientCategoryDetails patientCategoryDetails) throws APIException;
 	public PatientCategoryDetails getPatientCategoryDetailsById(Integer patientDetailsId) throws APIException;
 	public PatientCategoryDetails getPatientCategoryDetailsByPatient(Patient patient) throws APIException;
-	public List<PatientCategoryDetails> getAllPatientCategoryDetails(String property, String value, Date startDate, Date endDate) throws APIException;
+	public List<PatientCategoryDetails> getAllPatientCategoryDetails(String property, String value, String startDate, String endDate) throws APIException;
 
 	//provide several interfaces to handle departmental services
 	public EhrDepartment saveDepartment(EhrDepartment ehrDepartment) throws APIException;

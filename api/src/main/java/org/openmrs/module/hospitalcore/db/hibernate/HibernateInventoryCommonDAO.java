@@ -125,7 +125,7 @@ public class HibernateInventoryCommonDAO implements InventoryCommonDAO {
 		        .add(Restrictions.eq("drugFormulation.id", id));
 		return (InventoryDrugFormulation) criteria.uniqueResult();
 	}
-
+	@SuppressWarnings("unchecked")
 	public List<InventoryStoreDrugPatient> getAllIssueByDateRange(String startDate, String endDate) {
 		List<InventoryStoreDrugPatient> inventoryStoreDrugPatients= new ArrayList<InventoryStoreDrugPatient>();
 		Criteria criteria = sessionFactory.getCurrentSession()
@@ -133,7 +133,7 @@ public class HibernateInventoryCommonDAO implements InventoryCommonDAO {
 
 		String today = formatterExt.format(new Date());
 
-		if (!StringUtils.isBlank(startDate) && !StringUtils.isBlank(endDate)){
+		if (StringUtils.isNotBlank(startDate) && StringUtils.isNotBlank(endDate)){
 			String startFromDate = startDate + " 00:00:00";
 			String endAtDate = endDate + " 23:59:59";
 			try {

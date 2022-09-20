@@ -16,6 +16,7 @@ package org.openmrs.module.hospitalcore.db.hibernate;
 
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 import org.apache.commons.collections.CollectionUtils;
@@ -43,6 +44,7 @@ import org.openmrs.module.hospitalcore.model.IpdPatientAdmittedLog;
 import org.openmrs.module.hospitalcore.model.IpdPatientVitalStatistics;
 import org.openmrs.module.hospitalcore.model.OpdPatientQueueLog;
 import org.openmrs.module.hospitalcore.model.WardBedStrength;
+import org.openmrs.module.hospitalcore.util.DateUtils;
 
 public class HibernateIpdDAO implements IpdDAO {
 	SimpleDateFormat formatter = new SimpleDateFormat("dd/MM/yyyy HH:mm:ss");
@@ -522,6 +524,41 @@ public class HibernateIpdDAO implements IpdDAO {
 				IpdPatientAdmitted.class);
 		criteria.add(Restrictions.eq("admittedWard", wardId));
 		criteria.add(Restrictions.eq("bed", bedNo));
+		return criteria.list();
+	}
+
+	@Override
+	@SuppressWarnings("unchecked")
+	public List<IpdPatientAdmitted> getAdmittedPatientsByDateRange(Date startDate, Date endDate) throws DAOException {
+		Date startOfDay = DateUtils.getStartOfDay(new Date());
+		Date endOfDay = DateUtils.getEndOfDay(new Date());
+
+		Criteria criteria = sessionFactory.getCurrentSession().createCriteria(
+						IpdPatientAdmitted.class);
+		if(startDate != null && endDate != null) {
+			startOfDay = DateUtils.getStartOfDay(startDate);
+			endOfDay = DateUtils.getEndOfDay(endDate);
+		}
+		criteria.add(Restrictions.and(Restrictions.ge("admissionDate", startOfDay),Restrictions.le("admissionDate", endOfDay)));
+
+		return criteria.list();
+	}
+
+	@Override
+	@SuppressWarnings("unchecked")
+	public List<IpdPatientAdmitted> getAdmittedPatientsByDateRange(Date startDate, Date endDate, Concept ward) throws DAOException {
+		Date startOfDay = DateUtils.getStartOfDay(new Date());
+		Date endOfDay = DateUtils.getEndOfDay(new Date());
+
+		Criteria criteria = sessionFactory.getCurrentSession().createCriteria(
+						IpdPatientAdmitted.class);
+		criteria.add(Restrictions.eq("admittedWard", ward));
+		if(startDate != null && endDate != null) {
+			startOfDay = DateUtils.getStartOfDay(startDate);
+			endOfDay = DateUtils.getEndOfDay(endDate);
+		}
+		criteria.add(Restrictions.and(Restrictions.ge("admissionDate", startOfDay),Restrictions.le("admissionDate", endOfDay)));
+
 		return criteria.list();
 	}
 

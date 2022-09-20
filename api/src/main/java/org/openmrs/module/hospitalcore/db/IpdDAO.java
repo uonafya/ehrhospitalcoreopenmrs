@@ -16,6 +16,7 @@
 package org.openmrs.module.hospitalcore.db;
 
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 import org.openmrs.Concept;
@@ -83,6 +84,10 @@ public interface IpdDAO {
 
 	public IpdPatientAdmission getIpdPatientAdmissionByPatient(Patient patient) throws DAOException;
 	public List<IpdPatientAdmitted> getBedAvailability(Concept wardId,String bedNo);
+
+	public List<IpdPatientAdmitted> getAdmittedPatientsByDateRange(Date startDate, Date endDate) throws DAOException;
+
+	public List<IpdPatientAdmitted> getAdmittedPatientsByDateRange(Date startDate, Date endDate, Concept ward) throws DAOException;
 
 	
 }

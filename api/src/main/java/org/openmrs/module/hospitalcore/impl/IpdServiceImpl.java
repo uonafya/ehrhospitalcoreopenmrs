@@ -503,5 +503,15 @@ public class IpdServiceImpl extends BaseOpenmrsService implements IpdService {
 	public List<IpdPatientAdmitted> getBedAvailability(Concept wardId,String bedNo) throws APIException {
 		return dao.getBedAvailability(wardId,bedNo);
 	}
-	
+
+	@Override
+	public List<IpdPatientAdmitted> getAdmittedPatientsByDateRange(Date startDate, Date endDate) throws APIException {
+		return dao.getAdmittedPatientsByDateRange(startDate, endDate);
+	}
+
+	@Override
+	public List<IpdPatientAdmitted> getAdmittedPatientsByDateRange(Date startDate, Date endDate, Concept ward) throws APIException {
+		return dao.getAdmittedPatientsByDateRange(startDate, endDate, ward);
+	}
+
 }

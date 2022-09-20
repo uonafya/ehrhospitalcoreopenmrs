@@ -813,7 +813,7 @@ public class HospitalCoreServiceImpl extends BaseOpenmrsService implements
 	}
 
 	@Override
-	public List<PatientCategoryDetails> getAllPatientCategoryDetails(String property, String value, Date startDate, Date endDate) throws APIException {
+	public List<PatientCategoryDetails> getAllPatientCategoryDetails(String property, String value, String startDate, String endDate) throws APIException {
 		return dao.getAllPatientCategoryDetails(property, value, startDate, endDate);
 	}
 

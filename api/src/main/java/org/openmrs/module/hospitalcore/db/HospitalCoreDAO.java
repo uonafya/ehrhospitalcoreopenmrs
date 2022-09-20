@@ -144,7 +144,7 @@ public interface HospitalCoreDAO {
 	public PatientCategoryDetails savePatientCategoryDetails(PatientCategoryDetails patientCategoryDetails) throws DAOException;
 	public PatientCategoryDetails getPatientCategoryDetailsById(Integer patientDetailsId) throws DAOException;
 	public PatientCategoryDetails getPatientCategoryDetailsByPatient(Patient patient) throws DAOException;
-	public List<PatientCategoryDetails> getAllPatientCategoryDetails(String property, String value, Date startDate, Date endDate) throws DAOException;
+	public List<PatientCategoryDetails> getAllPatientCategoryDetails(String property, String value, String startDate, String endDate) throws DAOException;
 
 	//provide several interfaces to handle departmental services
 	public EhrDepartment saveDepartment(EhrDepartment ehrDepartment) throws DAOException;

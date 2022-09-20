@@ -51,6 +51,7 @@ import org.openmrs.module.hospitalcore.db.HospitalCoreDAO;
 import org.openmrs.module.hospitalcore.model.CoreForm;
 import org.openmrs.module.hospitalcore.model.EhrDepartment;
 import org.openmrs.module.hospitalcore.model.EhrHospitalWaiver;
+import org.openmrs.module.hospitalcore.model.InventoryStoreDrugPatient;
 import org.openmrs.module.hospitalcore.model.IpdPatientAdmitted;
 import org.openmrs.module.hospitalcore.model.OpdTestOrder;
 import org.openmrs.module.hospitalcore.model.PatientCategoryDetails;
@@ -632,18 +633,45 @@ public class HibernateHospitalCoreDAO implements HospitalCoreDAO {
 
     @Override
     @SuppressWarnings("unchecked")
-    public List<PatientCategoryDetails> getAllPatientCategoryDetails(String property, String value, Date startDate, Date endDate) throws DAOException {
+    public List<PatientCategoryDetails> getAllPatientCategoryDetails(String property, String value, String startDate, String endDate) throws DAOException {
+        List<PatientCategoryDetails> patientCategoryDetailsList= new ArrayList<PatientCategoryDetails>();
         Criteria criteria = sessionFactory.getCurrentSession().createCriteria(PatientCategoryDetails.class);
         if(StringUtils.isNotBlank(property)){
             criteria.add(Restrictions.eq(property, value));
         }
-        if(startDate != null) {
-            criteria.add(Restrictions.ge("createdOn", startDate));
+        String today = formatterExt.format(new Date());
+        if (StringUtils.isNotBlank(startDate) && StringUtils.isNotBlank(endDate)){
+            String startFromDate = startDate + " 00:00:00";
+            String endAtDate = endDate + " 23:59:59";
+            try {
+                criteria.add(Restrictions.and(
+                        Restrictions.ge("createdOn", formatter.parse(startFromDate)),
+                        Restrictions.le("createdOn", formatter.parse(endAtDate))
+                ));
+                patientCategoryDetailsList.addAll(criteria.list());
+            }
+            catch (Exception e) {
+                e.printStackTrace();
+            }
+
         }
-        if(endDate != null){
-            criteria.add(Restrictions.le("createdOn", endDate));
+        else {
+
+
+            String startFromDate = today + " 00:00:00";
+            String endAtDate = today + " 23:59:59";
+            try {
+                criteria.add(Restrictions.and(
+                        Restrictions.ge("createdOn",formatter.parse(startFromDate)),
+                        Restrictions.le("createdOn",formatter.parse(endAtDate))
+                ));
+                patientCategoryDetailsList.addAll(criteria.list());
+
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
         }
-        return criteria.list();
+        return patientCategoryDetailsList;
     }
 
     @Override
