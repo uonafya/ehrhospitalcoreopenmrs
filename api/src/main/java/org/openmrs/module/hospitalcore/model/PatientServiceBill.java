@@ -275,4 +275,14 @@ public class PatientServiceBill implements Serializable {
 	public void setDischargeStatus(int dischargeStatus) {
 		this.dischargeStatus = dischargeStatus;
 	}
+
+	public String getTransactionCode() {
+		return transactionCode;
+	}
+
+	public void setTransactionCode(String transactionCode) {
+		this.transactionCode = transactionCode;
+	}
+
+	private String transactionCode;
 }

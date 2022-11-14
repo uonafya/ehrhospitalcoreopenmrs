@@ -1675,4 +1675,14 @@
             ) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8;
         </sql>
     </changeSet>
+    <changeSet id="3945f5ae-6402-11ed-86e2-c3fc2ea1b685" author="ningosi">
+        <preConditions onFail="MARK_RAN" onError="WARN">
+            <dbms type="mysql"/>
+        </preConditions>
+        <comment>Adding transaction_code column on the billing_patient_service_bill table</comment>
+        <sql>
+            ALTER TABLE  billing_patient_service_bill
+            ADD COLUMN `transaction_code` varchar(255) DEFAULT NULL;
+        </sql>
+    </changeSet>
 </databaseChangeLog>
