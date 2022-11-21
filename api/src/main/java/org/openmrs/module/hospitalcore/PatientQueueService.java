@@ -129,4 +129,5 @@ public interface PatientQueueService extends OpenmrsService {
 
 	public List<TriagePatientQueue> getAllTriagePatientQueueWithinDatePerUser(Date startDate, Date endDate, User user) throws APIException;
 	public List<OpdPatientQueue> getAllOpdPatientQueueWithinDatePerUser(Date startDate, Date endDate, User user) throws APIException;
+	Long getPatientQueueLogCounts(Date paramDate1, Date paramDate2, Concept paramConcept) throws APIException;
 }

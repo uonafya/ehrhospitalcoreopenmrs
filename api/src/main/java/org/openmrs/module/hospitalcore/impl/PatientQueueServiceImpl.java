@@ -351,5 +351,8 @@ public class PatientQueueServiceImpl  extends BaseOpenmrsService implements Pati
 	public List<OpdPatientQueue> getAllOpdPatientQueueWithinDatePerUser(Date startDate, Date endDate, User user) throws APIException {
 		return dao.getAllOpdPatientQueueWithinDatePerUser(startDate, endDate, user);
 	}
+	public Long getPatientQueueLogCounts(Date startDate, Date endDate, Concept opdConcept) throws APIException {
+		return this.dao.getPatientQueueLogCounts(startDate, endDate, opdConcept);
+	}
 
 }

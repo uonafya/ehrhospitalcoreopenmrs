@@ -41,6 +41,7 @@ import org.openmrs.module.hospitalcore.model.PatientPersonalHistory;
 import org.openmrs.module.hospitalcore.model.TriagePatientData;
 import org.openmrs.module.hospitalcore.model.TriagePatientQueue;
 import org.openmrs.module.hospitalcore.model.TriagePatientQueueLog;
+import org.openmrs.module.hospitalcore.util.DateUtils;
 
 import java.text.SimpleDateFormat;
 import java.util.Date;
@@ -668,6 +669,21 @@ public class HibernatePatientQueueDAO implements PatientQueueDAO {
 			criteria.add(Restrictions.le("user", user));
 		}
 		return criteria.list();
+	}
+
+	public Long getPatientQueueLogCounts(Date startDate, Date endDate, Concept opdConcept) throws DAOException {
+		Date startOfDay = DateUtils.getStartOfDay(new Date());
+		Date endOfDay = DateUtils.getEndOfDay(new Date());
+		Criteria criteria = this.sessionFactory.getCurrentSession().createCriteria(OpdPatientQueueLog.class);
+		if (startDate != null && endDate != null) {
+			startOfDay = startDate;
+			endOfDay = endDate;
+		}
+		criteria.add(Restrictions.ge("createdOn", startOfDay));
+		criteria.add(Restrictions.le("createdOn", endOfDay));
+		if (opdConcept != null)
+			criteria.add(Restrictions.eq("opdConcept", opdConcept));
+		return (long) criteria.list().size();
 	}
 
 }
