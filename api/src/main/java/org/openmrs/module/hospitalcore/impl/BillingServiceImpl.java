@@ -17,19 +17,7 @@ package org.openmrs.module.hospitalcore.impl;
 import org.apache.commons.lang.StringUtils;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
-import org.openmrs.Concept;
-import org.openmrs.ConceptAnswer;
-import org.openmrs.ConceptClass;
-import org.openmrs.ConceptSet;
-import org.openmrs.Encounter;
-import org.openmrs.EncounterType;
-import org.openmrs.Location;
-import org.openmrs.Order;
-import org.openmrs.OrderType;
-import org.openmrs.Patient;
-import org.openmrs.Person;
-import org.openmrs.Provider;
-import org.openmrs.TestOrder;
+import org.openmrs.*;
 import org.openmrs.api.APIException;
 import org.openmrs.api.ProviderService;
 import org.openmrs.api.context.Context;
@@ -1323,5 +1311,11 @@ public class BillingServiceImpl extends BaseOpenmrsService implements BillingSer
 	public List<PatientServiceBill> getPatientBillsPerDateRange(Patient patient, Date startDate, Date endDate) throws APIException {
 		return dao.getPatientBillsPerDateRange(patient, startDate, endDate);
 	}
+
+	@Override
+	public List<PatientServiceBill> getPatientBillsPerUserAndDateRange(User user, Date startDate, Date endDate) throws APIException {
+		return null;
+	}
+
 
 }

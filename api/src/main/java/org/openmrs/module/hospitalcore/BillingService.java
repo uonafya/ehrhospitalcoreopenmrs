@@ -22,6 +22,7 @@ import java.util.Map;
 import org.openmrs.Concept;
 import org.openmrs.Encounter;
 import org.openmrs.Patient;
+import org.openmrs.User;
 import org.openmrs.annotation.Authorized;
 import org.openmrs.api.APIException;
 import org.openmrs.api.OpenmrsService;
@@ -388,4 +389,7 @@ public interface BillingService extends OpenmrsService {
 	//add a method to help filter out patients with their respective bills
 	@Transactional(readOnly = true)
 	public List<PatientServiceBill> getPatientBillsPerDateRange(Patient patient, Date startDate, Date endDate) throws APIException;
+
+	@Transactional(readOnly = true)
+	public List<PatientServiceBill> getPatientBillsPerUserAndDateRange(User user, Date startDate, Date endDate) throws APIException;
 }

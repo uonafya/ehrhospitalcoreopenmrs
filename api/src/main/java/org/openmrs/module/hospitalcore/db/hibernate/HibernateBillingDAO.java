@@ -35,6 +35,7 @@ import org.hibernate.criterion.Restrictions;
 import org.openmrs.Encounter;
 import org.openmrs.GlobalProperty;
 import org.openmrs.Patient;
+import org.openmrs.User;
 import org.openmrs.api.context.Context;
 import org.openmrs.api.db.DAOException;
 import org.openmrs.module.hospitalcore.BillingConstants;
@@ -1256,6 +1257,42 @@ public class HibernateBillingDAO implements BillingDAO {
 		return criteria.list();
 	}
 
+	@Override
+	@SuppressWarnings("unchecked")
+	public List<PatientServiceBill> getPatientBillsPerUserAndDateRange(User user, Date startDate, Date endDate) throws DAOException {
+		Criteria criteria = sessionFactory.getCurrentSession().createCriteria(PatientServiceBill.class);
+		String date = formatterDate.format(new Date());
+		String startFromDateToday = date + " 00:00:00";
+		String endFromDateToday = date + " 23:59:59";
+
+		if(startDate == null && endDate == null) {
+			try {
+				criteria.add((Restrictions.and(Restrictions.ge("createdDate", formatterDateTime.parse(startFromDateToday)),
+						Restrictions.le("createdDate", formatterDateTime.parse(endFromDateToday)))));
+				;
+			} catch (Exception e) {
+				System.out.println("Error convert date: " + e.toString());
+				e.printStackTrace();
+			}
+		}
+		if(startDate != null && endDate != null) {
+			String startDateOfDate = formatterDate.format(startDate) + " 00:00:00";
+			String endDateOfDate = formatterDate.format(endDate) + " 23:59:59";
+			try {
+				criteria.add((Restrictions.and(Restrictions.ge("createdDate", formatterDateTime.parse(startDateOfDate)),
+						Restrictions.le("createdDate", formatterDateTime.parse(endDateOfDate)))));
+			}
+			catch (Exception e) {
+				System.out.println("Error convert date: " + e.toString());
+				e.printStackTrace();
+			}
+		}
+		if(user != null) {
+			criteria.add(Restrictions.eq("creator", user));
+		}
+		return criteria.list();
+	}
+
 
 	@Override
 	@SuppressWarnings("unchecked")
@@ -1270,5 +1307,6 @@ public class HibernateBillingDAO implements BillingDAO {
 		sessionFactory.getCurrentSession().saveOrUpdate(item);
 		return item;
 	}
+
 
 }
