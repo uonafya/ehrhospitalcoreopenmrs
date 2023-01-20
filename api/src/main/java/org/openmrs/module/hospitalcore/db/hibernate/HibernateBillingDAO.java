@@ -522,6 +522,7 @@ public class HibernateBillingDAO implements BillingDAO {
 		Criteria criteria = sessionFactory.getCurrentSession().createCriteria(
 				BillableService.class);
 		criteria.add(Restrictions.eq("disable", false));
+		criteria.add(Restrictions.isNotNull("price"));
 		if (StringUtils.isNotBlank(name)) {
 			criteria.add(Restrictions
 					.like("name", name, MatchMode.ANYWHERE));
