@@ -1685,4 +1685,24 @@
             ADD COLUMN `transaction_code` varchar(255) DEFAULT NULL;
         </sql>
     </changeSet>
+    <changeSet id="b0137b34-a223-11ed-9393-d39b5e47055a" author="ningosi">
+        <preConditions onFail="MARK_RAN" onError="WARN">
+            <dbms type="mysql"/>
+        </preConditions>
+        <comment>Creating a sick off relation to hold information related</comment>
+        <sql>
+            CREATE TABLE IF NOT EXISTS `ehr_sick_off` (
+            `id` int(11) NOT NULL AUTO_INCREMENT,
+            `patient_id` int(11) DEFAULT NULL,
+            `creator` int(11) NOT NULL DEFAULT '0',
+            `clinician_notes` varchar(255) DEFAULT NULL,
+            `created_on` datetime NOT NULL,
+            `date_started` datetime NOT NULL,
+            `date_ended` datetime NOT NULL,
+            PRIMARY KEY (`id`),
+            KEY `user_who_created_sick_off` (`creator`),
+            CONSTRAINT `user_who_created_sick_off` FOREIGN KEY (`creator`) REFERENCES `users` (`user_id`),
+            ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+        </sql>
+    </changeSet>
 </databaseChangeLog>

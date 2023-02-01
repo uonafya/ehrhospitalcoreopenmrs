@@ -49,14 +49,6 @@ public class SickOff implements Serializable {
         this.clinicianNotes = clinicianNotes;
     }
 
-    public Provider getProvider() {
-        return provider;
-    }
-
-    public void setProvider(Provider provider) {
-        this.provider = provider;
-    }
-
     public Date getCreatedOn() {
         return createdOn;
     }
@@ -80,8 +72,6 @@ public class SickOff implements Serializable {
     public void setSickOffEndDate(Date sickOffEndDate) {
         this.sickOffEndDate = sickOffEndDate;
     }
-
-    private Provider provider;
 
     private Date createdOn;
 
