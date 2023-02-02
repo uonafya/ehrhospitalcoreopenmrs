@@ -38,13 +38,7 @@ import org.openmrs.User;
 import org.openmrs.api.APIException;
 import org.openmrs.api.ConceptService;
 import org.openmrs.api.OpenmrsService;
-import org.openmrs.module.hospitalcore.model.CoreForm;
-import org.openmrs.module.hospitalcore.model.EhrDepartment;
-import org.openmrs.module.hospitalcore.model.EhrHospitalWaiver;
-import org.openmrs.module.hospitalcore.model.OpdTestOrder;
-import org.openmrs.module.hospitalcore.model.PatientCategoryDetails;
-import org.openmrs.module.hospitalcore.model.PatientSearch;
-import org.openmrs.module.hospitalcore.model.PatientServiceBillItem;
+import org.openmrs.module.hospitalcore.model.*;
 import org.springframework.transaction.annotation.Transactional;
 import org.xml.sax.SAXException;
 
@@ -264,5 +258,11 @@ public interface HospitalCoreService extends OpenmrsService {
 	public EhrHospitalWaiver saveEhrHospitalWaiver(EhrHospitalWaiver ehrHospitalWaiver) throws APIException;
 	public EhrHospitalWaiver getEhrHospitalWaiverById(Integer waiverId) throws APIException;
 	public List<EhrHospitalWaiver> getAllEhrHospitalWaiver(Date startDate, Date endDate) throws APIException;
+
+	//Patient sickOff utility methods
+	public SickOff getPatientSickOffById(Integer sickOffId) throws APIException;
+	public List<SickOff> getPatientSickOffs(Patient patient, Date startDate, Date endDate) throws APIException;
+	public SickOff savePatientSickOff(SickOff sickOff) throws APIException;
+	public List<SickOff> getPatientSickOffsCreated(Date startDate, Date endDate) throws APIException;
 
 }

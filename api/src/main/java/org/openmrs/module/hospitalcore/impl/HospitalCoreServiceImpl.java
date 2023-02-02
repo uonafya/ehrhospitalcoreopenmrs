@@ -66,13 +66,7 @@ import org.openmrs.module.hospitalcore.concept.ConceptModel;
 import org.openmrs.module.hospitalcore.concept.Mapping;
 import org.openmrs.module.hospitalcore.concept.Synonym;
 import org.openmrs.module.hospitalcore.db.HospitalCoreDAO;
-import org.openmrs.module.hospitalcore.model.CoreForm;
-import org.openmrs.module.hospitalcore.model.EhrDepartment;
-import org.openmrs.module.hospitalcore.model.EhrHospitalWaiver;
-import org.openmrs.module.hospitalcore.model.OpdTestOrder;
-import org.openmrs.module.hospitalcore.model.PatientCategoryDetails;
-import org.openmrs.module.hospitalcore.model.PatientSearch;
-import org.openmrs.module.hospitalcore.model.PatientServiceBillItem;
+import org.openmrs.module.hospitalcore.model.*;
 import org.openmrs.module.hospitalcore.util.HospitalCoreConstants;
 import org.w3c.dom.Document;
 import org.w3c.dom.NamedNodeMap;
@@ -855,6 +849,26 @@ public class HospitalCoreServiceImpl extends BaseOpenmrsService implements
 	@Override
 	public List<EhrHospitalWaiver> getAllEhrHospitalWaiver(Date startDate, Date endDate) throws APIException {
 		return dao.getAllEhrHospitalWaiver(startDate, endDate);
+	}
+
+	@Override
+	public SickOff getPatientSickOffById(Integer sickOffId) throws APIException {
+		return dao.getPatientSickOffById(sickOffId);
+	}
+
+	@Override
+	public List<SickOff> getPatientSickOffs(Patient patient, Date startDate, Date endDate) throws APIException {
+		return dao.getPatientSickOffs(patient, startDate, endDate);
+	}
+
+	@Override
+	public SickOff savePatientSickOff(SickOff sickOff) throws APIException {
+		return dao.savePatientSickOff(sickOff);
+	}
+
+	@Override
+	public List<SickOff> getPatientSickOffsCreated(Date startDate, Date endDate) throws APIException {
+		return dao.getPatientSickOffsCreated(startDate, endDate);
 	}
 
 }

@@ -48,15 +48,7 @@ import org.openmrs.module.hospitalcore.HospitalCoreService;
 import org.openmrs.module.hospitalcore.concept.ConceptModel;
 import org.openmrs.module.hospitalcore.concept.Mapping;
 import org.openmrs.module.hospitalcore.db.HospitalCoreDAO;
-import org.openmrs.module.hospitalcore.model.CoreForm;
-import org.openmrs.module.hospitalcore.model.EhrDepartment;
-import org.openmrs.module.hospitalcore.model.EhrHospitalWaiver;
-import org.openmrs.module.hospitalcore.model.InventoryStoreDrugPatient;
-import org.openmrs.module.hospitalcore.model.IpdPatientAdmitted;
-import org.openmrs.module.hospitalcore.model.OpdTestOrder;
-import org.openmrs.module.hospitalcore.model.PatientCategoryDetails;
-import org.openmrs.module.hospitalcore.model.PatientSearch;
-import org.openmrs.module.hospitalcore.model.PatientServiceBillItem;
+import org.openmrs.module.hospitalcore.model.*;
 import org.openmrs.module.hospitalcore.util.DateUtils;
 import org.openmrs.module.hospitalcore.util.HospitalCoreConstants;
 
@@ -767,6 +759,48 @@ public class HibernateHospitalCoreDAO implements HospitalCoreDAO {
         }
         if(endDate != null){
             criteria.add(Restrictions.le("dateCreated", endDate));
+        }
+        return criteria.list();
+    }
+
+    @Override
+    public SickOff getPatientSickOffById(Integer sickOffId) throws DAOException {
+        return (SickOff) sessionFactory.getCurrentSession().get(SickOff.class, sickOffId);
+    }
+
+    @Override
+    @SuppressWarnings("unchecked")
+    public List<SickOff> getPatientSickOffs(Patient patient, Date startDate, Date endDate) throws DAOException {
+        Criteria criteria = sessionFactory.getCurrentSession().createCriteria
+                (SickOff.class);
+        if(patient != null) {
+            criteria.add(Restrictions.ge("patient", patient));
+        }
+        if(startDate != null) {
+            criteria.add(Restrictions.ge("sickOffStartDate", DateUtils.getStartOfDay(startDate)));
+        }
+        if(endDate != null){
+            criteria.add(Restrictions.le("sickOffEndDate", DateUtils.getEndOfDay(endDate)));
+        }
+        return criteria.list();
+    }
+
+    @Override
+    public SickOff savePatientSickOff(SickOff sickOff) throws DAOException {
+        sessionFactory.getCurrentSession().saveOrUpdate(sickOff);
+        return sickOff;
+    }
+
+    @Override
+    @SuppressWarnings("unchecked")
+    public List<SickOff> getPatientSickOffsCreated(Date startDate, Date endDate) throws DAOException {
+        Criteria criteria = sessionFactory.getCurrentSession().createCriteria
+                (SickOff.class);
+        if(startDate != null) {
+            criteria.add(Restrictions.ge("createdOn", DateUtils.getStartOfDay(startDate)));
+        }
+        if(endDate != null){
+            criteria.add(Restrictions.le("createdOn", DateUtils.getEndOfDay(endDate)));
         }
         return criteria.list();
     }

@@ -32,13 +32,7 @@ import org.openmrs.PersonAttributeType;
 import org.openmrs.api.APIException;
 import org.openmrs.api.db.DAOException;
 import org.openmrs.module.hospitalcore.concept.ConceptModel;
-import org.openmrs.module.hospitalcore.model.CoreForm;
-import org.openmrs.module.hospitalcore.model.EhrDepartment;
-import org.openmrs.module.hospitalcore.model.EhrHospitalWaiver;
-import org.openmrs.module.hospitalcore.model.OpdTestOrder;
-import org.openmrs.module.hospitalcore.model.PatientCategoryDetails;
-import org.openmrs.module.hospitalcore.model.PatientSearch;
-import org.openmrs.module.hospitalcore.model.PatientServiceBillItem;
+import org.openmrs.module.hospitalcore.model.*;
 
 public interface HospitalCoreDAO {
 
@@ -157,4 +151,10 @@ public interface HospitalCoreDAO {
 	public EhrHospitalWaiver saveEhrHospitalWaiver(EhrHospitalWaiver ehrHospitalWaiver) throws DAOException;
 	public EhrHospitalWaiver getEhrHospitalWaiverById(Integer waiverId) throws DAOException;
 	public List<EhrHospitalWaiver> getAllEhrHospitalWaiver(Date startDate, Date endDate) throws DAOException;
+
+	//Provide patient sickOff utility methods
+	public SickOff getPatientSickOffById(Integer sickOffId) throws DAOException;
+	public List<SickOff> getPatientSickOffs(Patient patient, Date startDate, Date endDate) throws DAOException;
+	public SickOff savePatientSickOff(SickOff sickOff) throws DAOException;
+	public List<SickOff> getPatientSickOffsCreated(Date startDate, Date endDate) throws DAOException;
 }
