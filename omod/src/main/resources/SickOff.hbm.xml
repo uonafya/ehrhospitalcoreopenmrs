@@ -1,0 +1,24 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC
+        "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+        "http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd" >
+
+<hibernate-mapping package="org.openmrs.module.hospitalcore.model">
+
+    <class name="SickOff" table="ehr_sick_off"
+           batch-size="500">
+
+        <id name="sickOffId" type="int" column="id"
+            unsaved-value="0">
+            <generator class="native" />
+        </id>
+        <many-to-one name="patient" column="patient_id" class="org.openmrs.Patient"
+                     lazy="false" foreign-key="fk_ehrSickOff_patient" />
+        <many-to-one name="creator" column="creator" class="org.openmrs.User"
+                     foreign-key="fk_user_who_created_sick_off" />
+        <property name="clinicianNotes" column="clinician_notes" />
+        <property name="createdOn" column="created_on" />
+        <property name="sickOffStartDate" column="date_started" />
+        <property name="sickOffEndDate" column="date_ended" />
+    </class>
+</hibernate-mapping>

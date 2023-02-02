@@ -1,7 +1,6 @@
 package org.openmrs.module.hospitalcore.model;
 
 import org.openmrs.Patient;
-import org.openmrs.Provider;
 import org.openmrs.User;
 
 import java.io.Serializable;

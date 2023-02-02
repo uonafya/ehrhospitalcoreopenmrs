@@ -76,8 +76,6 @@
 
 	<globalProperty>
 		<property>@MODULE_ID@.ageCategory</property>
-		<!-- ghanshyam 26-02-2013 Support #967[Registration]change the age name 
-			from ADLOSCENT to ADOLESCENT for Bangladesh module -->
 		<defaultValue>0-12:CHILD;13-19:ADOLESCENT;20-59:ADULT;60-120:SENIOR
 			CITIZEN</defaultValue>
 		<description>Age categories for patient and its ranges</description>
@@ -149,11 +147,8 @@
         InventoryStoreDrugPatientDetail.hbm.xml
         InventoryStoreDrugTransaction.hbm.xml
         InventoryStoreDrugTransactionDetail.hbm.xml
-		<!-- ghanshyam 1-june-2013 New Requirement #1633 User must be able to send investigation orders from dashboard to billing -->
 		OpdTestOrder.hbm.xml
-		<!-- ghanshyam 10-june-2013 New Requirement #1847 Capture Vital statistics for admitted patient in ipd -->
 		IpdPatientVitalStatistics.hbm.xml
-		<!-- ghanshyam 12-june-2013 New Requirement #1635 User should be able to send pharmacy orders to issue drugs to a patient from dashboard -->
 		OpdDrugOrder.hbm.xml
 		WardBedStrength.hbm.xml
 		TriagePatientQueue.hbm.xml
@@ -172,10 +167,10 @@
 		InventoryStoreRoleRelation.hbm.xml
 		PatientCategoryDetails.hbm.xml
 		EhrDepartment.hbm.xml
-
 		WaiverType.hbm.xml
 		WaiverTypeRole.hbm.xml
 		EhrHospitalWaiver.hbm.xml
+		SickOff.hbm.xml
 
     </mappingFiles>
 </module>
