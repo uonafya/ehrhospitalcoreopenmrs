@@ -1,0 +1,46 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC
+        "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+        "http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd" >
+
+<hibernate-mapping package="org.openmrs.module.hospitalcore.model">
+
+    <class name="MonthlySummaryReport" table="monthly_summary_report" batch-size="500">
+
+    <id name="monthlySummaryReportId" type="int" column="monthly_summary_report_id"
+        unsaved-value="0">
+        <generator class="native" />
+    </id>
+    <property name="totalSales" column="total_sales" type="int" />
+        <property name="ipCash" column="ip_cash" type="int" />
+        <property name="maternity" column="maternity" type="int" />
+        <property name="xray" column="xray" type="int" />
+        <property name="lab" column="lab" type="int" />
+        <property name="theatre" column="theatre" type="int" />
+        <property name="mortuary" column="mortuary" type="int" />
+        <property name="opTreatment" column="op_treatment" type="int" />
+        <property name="pharmacy" column="pharmacy" type="int" />
+        <property name="medicalExam" column="medical_exam" type="int" />
+        <property name="medicalReportsIncludingP3" column="medical_reports_including_P3" type="int" />
+        <property name="dental" column="dental" type="int" />
+        <property name="physioTherapy" column="physio_therapy" type="int" />
+        <property name="occupationalTherapy" column="occupational_therapy" type="int" />
+        <property name="medicalRecordsCardsAndFiles" column="medical_records_cards_and_files" type="int" />
+        <property name="bookingFees" column="booking_fees" type="int" />
+        <property name="rentalServices" column="rental_services" type="int" />
+        <property name="ambulance" column="ambulance" type="int" />
+        <property name="publicHealthServices" column="public_health_services" type="int" />
+        <property name="entAndOtherClinics" column="ent_and_other_clinics" type="int" />
+        <property name="other" column="other" type="int" />
+        <property name="transactionDate" column="transaction_date" type="int" />
+        <property name="cashReceiptsCashFromDailyServices" column="cash_receipt_nhif_receipt" type="int" />
+        <property name="cashReceiptNhifReceipt" column="cash_receipt_nhif_receipt" type="int" />
+        <property name="cashReceiptOtherDebtorsReceipt" column="cash_receipt_other_debtors_receipt" type="int" />
+        <property name="revenueNotCollectedPatientNotYetPaidNhifPatients" column="revenue_not_collected_patient_not_yet_paid_nhif_patients" type="int" />
+        <property name="revenueNotCollectedPatientNotYetPaidOtherDebtors" column="revenue_not_collected_patient_not_yet_paid_other_debtors" type="int" />
+        <property name="revenueNotCollectedPatientNotYetPaidWaivers" column="revenue_not_collected_patient_not_yet_paid_waivers" type="int" />
+        <property name="revenueNotCollectedWriteOffsExemptions" column="revenue_not_collected_write_offs_exemptions" type="int" />
+        <property name="revenueNotCollectedWriteOffsAbsconders" column="revenue_not_collected_write_offs_absconders" type="int" />
+        <property name="transactionDate" column="transaction_date" type="date" />
+    </class>
+</hibernate-mapping>

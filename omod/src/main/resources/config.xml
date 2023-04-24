@@ -171,6 +171,7 @@
 		WaiverTypeRole.hbm.xml
 		EhrHospitalWaiver.hbm.xml
 		SickOff.hbm.xml
+		MonthlySummaryReport.hbm.xml
 
     </mappingFiles>
 </module>

@@ -1707,4 +1707,48 @@
             ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
         </sql>
     </changeSet>
+    
+    <changeSet id="A61CAFD4-3451-456F-A9E7-3360BA053731" author="ningosi">
+        <preConditions onFail="MARK_RAN" onError="WARN">
+            <dbms type="mysql"/>
+        </preConditions>
+        <comment>Creating the monthly_summary_report table</comment>
+
+    <sql>
+        CREATE TABLE IF NOT EXISTS `monthly_summary_report` (
+                        monthlySummaryReportId;
+                        totalSales;
+                        ipCash;
+                        maternity;
+                        xray;
+                        lab;
+                        theatre;
+                        mortuary;
+                        opTreatment;
+                        pharmacy;
+                        medicalExam;
+                        medicalReportsIncludingP3;
+                        dental;
+                        physioTherapy;
+                        occupationalTherapy;
+                        medicalRecordsCardsAndFiles;
+                        bookingFees;
+                        rentalServices;
+                        ambulance;
+                        publicHealthServices;
+                        entAndOtherClinics;
+                        other;
+                        transactionDate;
+                        cashReceiptsCashFromDailyServices;
+                        cashReceiptNhifReceipt;
+                        cashReceiptOtherDebtorsReceipt;
+                        revenueNotCollectedPatientNotYetPaidNhifPatients;
+                        revenueNotCollectedPatientNotYetPaidOtherDebtors;
+                        revenueNotCollectedPatientNotYetPaidWaivers;
+                        revenueNotCollectedWriteOffsExemptions;
+                        revenueNotCollectedWriteOffsAbsconders;
+                        transactionDate
+        ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+    </sql>
+    </changeSet>
 </databaseChangeLog>
