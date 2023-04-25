@@ -1716,39 +1716,63 @@
 
     <sql>
         CREATE TABLE IF NOT EXISTS `monthly_summary_report` (
-                        monthlySummaryReportId;
-                        totalSales;
-                        ipCash;
-                        maternity;
-                        xray;
-                        lab;
-                        theatre;
-                        mortuary;
-                        opTreatment;
-                        pharmacy;
-                        medicalExam;
-                        medicalReportsIncludingP3;
-                        dental;
-                        physioTherapy;
-                        occupationalTherapy;
-                        medicalRecordsCardsAndFiles;
-                        bookingFees;
-                        rentalServices;
-                        ambulance;
-                        publicHealthServices;
-                        entAndOtherClinics;
-                        other;
-                        transactionDate;
-                        cashReceiptsCashFromDailyServices;
-                        cashReceiptNhifReceipt;
-                        cashReceiptOtherDebtorsReceipt;
-                        revenueNotCollectedPatientNotYetPaidNhifPatients;
-                        revenueNotCollectedPatientNotYetPaidOtherDebtors;
-                        revenueNotCollectedPatientNotYetPaidWaivers;
-                        revenueNotCollectedWriteOffsExemptions;
-                        revenueNotCollectedWriteOffsAbsconders;
-                        transactionDate
+        `monthly_summary_report_id` int(11) NOT NULL AUTO_INCREMENT,
+        `totalSales` int(11) DEFAULT NULL,
+        `ip_cash` int(11) DEFAULT NULL,
+        `maternity` int(11) DEFAULT NULL,
+        `xray` int(11) DEFAULT NULL,
+        `lab` int(11) DEFAULT NULL,
+        `theatre` int(11) DEFAULT NULL,
+        `mortuary` int(11) DEFAULT NULL,
+        `op_treatment` int(11) DEFAULT NULL,
+        `pharmacy` int(11) DEFAULT NULL,
+        `medical_exam` int(11) DEFAULT NULL,
+        `medical_reports_including_P3` int(11) DEFAULT NULL,
+        `dental` int(11) DEFAULT NULL,
+        `physio_therapy` int(11) DEFAULT NULL,
+        `occupational_therapy` int(11) DEFAULT NULL,
+        `medical_records_cards_and_files` int(11) DEFAULT NULL,
+        `booking_fees` int(11) DEFAULT NULL,
+        `rental_services` int(11) DEFAULT NULL,
+        `ambulance` int(11) DEFAULT NULL,
+        `public_health_services` int(11) DEFAULT NULL,
+        `ent_and_other_clinics` int(11) DEFAULT NULL,
+        `other` int(11) DEFAULT NULL,
+        `transactionDate` int(11) DEFAULT NULL,
+        `cash_receipts_cash_from_daily_services` int(11) DEFAULT NULL,
+        `cash_receipt_nhif_receipt` int(11) DEFAULT NULL,
+        `cash_receipt_other_debtors_receipt` int(11) DEFAULT NULL,
+        `revenue_not_collected_patient_not_yet_paid_nhif_patients` int(11) DEFAULT NULL,
+        `revenue_not_collected_patient_not_yet_paid_other_debtors` int(11) DEFAULT NULL,
+        `revenue_not_collected_patient_not_yet_paid_waivers` int(11) DEFAULT NULL,
+        `revenue_not_collected_write_offs_exemptions` int(11) DEFAULT NULL,
+        `revenue_not_collected_write_offs_absconders` int(11) DEFAULT NULL,
+        `transaction_date` datetime  NULL
         ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
     </sql>
+    </changeSet>
+
+    <changeSet id="06C6F696-7836-48C0-ACF4-061942772CA4" author="ningosi" dbms="mysql">
+        <preConditions onFail="MARK_RAN">
+            <sqlCheck expectedResult="0">
+                SELECT COUNT(*) FROM scheduler_task_config
+                WHERE schedulable_class = 'org.openmrs.module.hospitalcore.task.UpdateMonthlyTransactions'
+                  And name = 'Monthly Summary Reports Generator'
+            </sqlCheck>
+        </preConditions>
+        <comment>Inserting monthly reports generation Task into 'schedule_task_config' table</comment>
+        <insert tableName="scheduler_task_config">
+            <column name="name" value="Monthly Summary Reports Generator" />
+            <column name="description" value="Monthly Summary Reports Generator" />
+            <column name="schedulable_class" value="org.openmrs.module.hospitalcore.task.UpdateMonthlyTransactions" />
+            <column name="start_time_pattern" value="MM/dd/yyyy HH:mm:ss" />
+            <column name="start_time" valueDate="2023-03-21T23:59:59" />
+            <column name="repeat_interval" value="86400" />
+            <column name="date_created" valueDate="CURRENT_TIMESTAMP" />
+            <column name="created_by" value="1" />
+            <column name="start_on_startup" value="1"/>
+            <column name="started" value="0"/>
+            <column name="uuid" value="D083DD9F-83AE-4DB5-9FBE-8E34E6B3485A" />
+        </insert>
     </changeSet>
 </databaseChangeLog>
