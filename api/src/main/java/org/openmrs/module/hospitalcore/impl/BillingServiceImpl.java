@@ -39,6 +39,7 @@ import org.openmrs.module.hospitalcore.model.IndoorPatientServiceBillItem;
 import org.openmrs.module.hospitalcore.model.Lab;
 import org.openmrs.module.hospitalcore.model.MiscellaneousService;
 import org.openmrs.module.hospitalcore.model.MiscellaneousServiceBill;
+import org.openmrs.module.hospitalcore.model.MonthlySummaryReport;
 import org.openmrs.module.hospitalcore.model.OpdTestOrder;
 import org.openmrs.module.hospitalcore.model.PatientSearch;
 import org.openmrs.module.hospitalcore.model.PatientServiceBill;
@@ -1314,7 +1315,11 @@ public class BillingServiceImpl extends BaseOpenmrsService implements BillingSer
 
 	@Override
 	public List<PatientServiceBill> getPatientBillsPerUserAndDateRange(User user, Date startDate, Date endDate) throws APIException {
-		return null;
+		return dao.getPatientBillsPerUserAndDateRange(user, startDate, endDate);
+	}
+
+	public MonthlySummaryReport saveMonthlySummaryReport(MonthlySummaryReport summary) throws APIException {
+		return dao.saveMonthlySummaryReport(summary);
 	}
 
 

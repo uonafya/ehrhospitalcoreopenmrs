@@ -36,6 +36,7 @@ import org.openmrs.module.hospitalcore.model.IndoorPatientServiceBill;
 import org.openmrs.module.hospitalcore.model.IndoorPatientServiceBillItem;
 import org.openmrs.module.hospitalcore.model.MiscellaneousService;
 import org.openmrs.module.hospitalcore.model.MiscellaneousServiceBill;
+import org.openmrs.module.hospitalcore.model.MonthlySummaryReport;
 import org.openmrs.module.hospitalcore.model.OpdTestOrder;
 import org.openmrs.module.hospitalcore.model.PatientSearch;
 import org.openmrs.module.hospitalcore.model.PatientServiceBill;
@@ -392,4 +393,6 @@ public interface BillingService extends OpenmrsService {
 
 	@Transactional(readOnly = true)
 	public List<PatientServiceBill> getPatientBillsPerUserAndDateRange(User user, Date startDate, Date endDate) throws APIException;
+
+	public MonthlySummaryReport saveMonthlySummaryReport(MonthlySummaryReport summary) throws APIException;
 }

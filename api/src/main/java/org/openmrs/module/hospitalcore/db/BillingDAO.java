@@ -31,6 +31,7 @@ import org.openmrs.module.hospitalcore.model.IndoorPatientServiceBill;
 import org.openmrs.module.hospitalcore.model.IndoorPatientServiceBillItem;
 import org.openmrs.module.hospitalcore.model.MiscellaneousService;
 import org.openmrs.module.hospitalcore.model.MiscellaneousServiceBill;
+import org.openmrs.module.hospitalcore.model.MonthlySummaryReport;
 import org.openmrs.module.hospitalcore.model.OpdTestOrder;
 import org.openmrs.module.hospitalcore.model.PatientSearch;
 import org.openmrs.module.hospitalcore.model.PatientServiceBill;
@@ -278,4 +279,6 @@ public interface BillingDAO {
 	public WaiverType saveWaiverType(WaiverType waiverType) throws DAOException;
 	public List<PatientServiceBill> getPatientBillsPerDateRange(Patient patient, Date startDate, Date endDate) throws DAOException;
 	public List<PatientServiceBill> getPatientBillsPerUserAndDateRange(User user, Date startDate, Date endDate) throws DAOException;
+
+	public MonthlySummaryReport saveMonthlySummaryReport(MonthlySummaryReport summary) throws DAOException;
 }

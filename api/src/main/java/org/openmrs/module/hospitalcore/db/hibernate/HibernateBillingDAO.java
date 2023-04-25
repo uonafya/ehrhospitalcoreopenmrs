@@ -50,6 +50,7 @@ import org.openmrs.module.hospitalcore.model.IndoorPatientServiceBill;
 import org.openmrs.module.hospitalcore.model.IndoorPatientServiceBillItem;
 import org.openmrs.module.hospitalcore.model.MiscellaneousService;
 import org.openmrs.module.hospitalcore.model.MiscellaneousServiceBill;
+import org.openmrs.module.hospitalcore.model.MonthlySummaryReport;
 import org.openmrs.module.hospitalcore.model.OpdTestOrder;
 import org.openmrs.module.hospitalcore.model.PatientSearch;
 import org.openmrs.module.hospitalcore.model.PatientServiceBill;
@@ -1307,6 +1308,11 @@ public class HibernateBillingDAO implements BillingDAO {
 	public PatientServiceBillItem updateBillItems(PatientServiceBillItem item) throws DAOException {
 		sessionFactory.getCurrentSession().saveOrUpdate(item);
 		return item;
+	}
+
+	public MonthlySummaryReport saveMonthlySummaryReport(MonthlySummaryReport summary) throws DAOException{
+		sessionFactory.getCurrentSession().saveOrUpdate(summary);
+		return summary;
 	}
 
 
