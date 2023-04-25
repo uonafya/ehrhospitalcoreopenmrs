@@ -1738,7 +1738,6 @@
         `public_health_services` int(11) DEFAULT NULL,
         `ent_and_other_clinics` int(11) DEFAULT NULL,
         `other` int(11) DEFAULT NULL,
-        `transactionDate` int(11) DEFAULT NULL,
         `cash_receipts_cash_from_daily_services` int(11) DEFAULT NULL,
         `cash_receipt_nhif_receipt` int(11) DEFAULT NULL,
         `cash_receipt_other_debtors_receipt` int(11) DEFAULT NULL,
@@ -1747,7 +1746,8 @@
         `revenue_not_collected_patient_not_yet_paid_waivers` int(11) DEFAULT NULL,
         `revenue_not_collected_write_offs_exemptions` int(11) DEFAULT NULL,
         `revenue_not_collected_write_offs_absconders` int(11) DEFAULT NULL,
-        `transaction_date` datetime  NULL
+        `transaction_date` datetime  NULL,
+        PRIMARY KEY (`monthly_summary_report_id`)
         ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
     </sql>
     </changeSet>

@@ -11,7 +11,7 @@
         unsaved-value="0">
         <generator class="native" />
     </id>
-    <property name="totalSales" column="total_sales" type="int" />
+        <property name="totalSales" column="total_sales" type="int" />
         <property name="ipCash" column="ip_cash" type="int" />
         <property name="maternity" column="maternity" type="int" />
         <property name="xray" column="xray" type="int" />
@@ -32,8 +32,7 @@
         <property name="publicHealthServices" column="public_health_services" type="int" />
         <property name="entAndOtherClinics" column="ent_and_other_clinics" type="int" />
         <property name="other" column="other" type="int" />
-        <property name="transactionDate" column="transaction_date" type="int" />
-        <property name="cashReceiptsCashFromDailyServices" column="cash_receipt_nhif_receipt" type="int" />
+        <property name="cashReceiptsCashFromDailyServices" column="cash_receipts_cash_from_daily_services" type="int" />
         <property name="cashReceiptNhifReceipt" column="cash_receipt_nhif_receipt" type="int" />
         <property name="cashReceiptOtherDebtorsReceipt" column="cash_receipt_other_debtors_receipt" type="int" />
         <property name="revenueNotCollectedPatientNotYetPaidNhifPatients" column="revenue_not_collected_patient_not_yet_paid_nhif_patients" type="int" />
