@@ -1322,5 +1322,9 @@ public class BillingServiceImpl extends BaseOpenmrsService implements BillingSer
 		return dao.saveMonthlySummaryReport(summary);
 	}
 
+	public List<PatientServiceBill> getAllPatientServiceBillByDate(Date startDate, Date endDate) throws APIException {
+		return dao.getAllPatientServiceBillByDate(startDate, endDate);
+	}
+
 
 }

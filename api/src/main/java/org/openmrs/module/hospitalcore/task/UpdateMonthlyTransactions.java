@@ -3,11 +3,13 @@ package org.openmrs.module.hospitalcore.task;
 import org.openmrs.api.context.Context;
 import org.openmrs.module.hospitalcore.BillingService;
 import org.openmrs.module.hospitalcore.model.MonthlySummaryReport;
+import org.openmrs.module.hospitalcore.model.PatientServiceBill;
 import org.openmrs.scheduler.tasks.AbstractTask;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import java.util.Date;
+import java.util.List;
 
 public class UpdateMonthlyTransactions extends AbstractTask {
 
@@ -40,7 +42,7 @@ public class UpdateMonthlyTransactions extends AbstractTask {
         BillingService billingService = Context.getService(BillingService.class);
         //create the monthly summary object with the corresponding values
         MonthlySummaryReport monthlySummaryReport = new MonthlySummaryReport();
-        monthlySummaryReport.setTotalSales(getSalesTotalsPerDay());
+        monthlySummaryReport.setTotalSales(getSalesTotalsPerDay(billingService));
         monthlySummaryReport.setIpCash(0);
         monthlySummaryReport.setMaternity(0);
         monthlySummaryReport.setXray(0);
@@ -75,8 +77,13 @@ public class UpdateMonthlyTransactions extends AbstractTask {
         billingService.saveMonthlySummaryReport(monthlySummaryReport);
     }
 
-    Integer getSalesTotalsPerDay() {
+    Integer getSalesTotalsPerDay(BillingService billingService) {
         int totals = 0;
+        List<PatientServiceBill> patientServiceBillList = billingService.getAllPatientServiceBillByDate(null, null);
+        //loop through all that were done today and save to the database
+        for(PatientServiceBill patientServiceBill : patientServiceBillList) {
+            totals = totals +  patientServiceBill.getActualAmount().intValue();
+        }
 
         return totals;
     }
