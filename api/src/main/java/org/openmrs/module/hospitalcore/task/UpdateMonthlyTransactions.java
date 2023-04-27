@@ -1,8 +1,13 @@
 package org.openmrs.module.hospitalcore.task;
 
+import org.openmrs.api.context.Context;
+import org.openmrs.module.hospitalcore.BillingService;
+import org.openmrs.module.hospitalcore.model.MonthlySummaryReport;
 import org.openmrs.scheduler.tasks.AbstractTask;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+
+import java.util.Date;
 
 public class UpdateMonthlyTransactions extends AbstractTask {
 
@@ -32,6 +37,47 @@ public class UpdateMonthlyTransactions extends AbstractTask {
 
     }
     private void performMonthlySummary() {
-        log.info("The system logic for updating the table will be put here");
+        BillingService billingService = Context.getService(BillingService.class);
+        //create the monthly summary object with the corresponding values
+        MonthlySummaryReport monthlySummaryReport = new MonthlySummaryReport();
+        monthlySummaryReport.setTotalSales(getSalesTotalsPerDay());
+        monthlySummaryReport.setIpCash(0);
+        monthlySummaryReport.setMaternity(0);
+        monthlySummaryReport.setXray(0);
+        monthlySummaryReport.setLab(0);
+        monthlySummaryReport.setTheatre(0);
+        monthlySummaryReport.setMortuary(0);
+        monthlySummaryReport.setOpTreatment(0);
+        monthlySummaryReport.setPharmacy(0);
+        monthlySummaryReport.setMedicalExam(0);
+        monthlySummaryReport.setMedicalReportsIncludingP3(0);
+        monthlySummaryReport.setDental(0);
+        monthlySummaryReport.setPhysioTherapy(0);
+        monthlySummaryReport.setOccupationalTherapy(0);
+        monthlySummaryReport.setMedicalRecordsCardsAndFiles(0);
+        monthlySummaryReport.setBookingFees(0);
+        monthlySummaryReport.setRentalServices(0);
+        monthlySummaryReport.setAmbulance(0);
+        monthlySummaryReport.setPublicHealthServices(0);
+        monthlySummaryReport.setEntAndOtherClinics(0);
+        monthlySummaryReport.setOther(0);
+        monthlySummaryReport.setCashReceiptsCashFromDailyServices(0);
+        monthlySummaryReport.setCashReceiptNhifReceipt(0);
+        monthlySummaryReport.setCashReceiptOtherDebtorsReceipt(0);
+        monthlySummaryReport.setRevenueNotCollectedPatientNotYetPaidNhifPatients(0);
+        monthlySummaryReport.setRevenueNotCollectedPatientNotYetPaidOtherDebtors(0);
+        monthlySummaryReport.setRevenueNotCollectedPatientNotYetPaidWaivers(0);
+        monthlySummaryReport.setRevenueNotCollectedWriteOffsExemptions(0);
+        monthlySummaryReport.setRevenueNotCollectedWriteOffsAbsconders(0);
+        monthlySummaryReport.setTransactionDate(new Date());
+
+        //Save the object in the database after, to persist for future use
+        billingService.saveMonthlySummaryReport(monthlySummaryReport);
+    }
+
+    Integer getSalesTotalsPerDay() {
+        int totals = 0;
+
+        return totals;
     }
 }
