@@ -597,10 +597,11 @@ public class HibernateHospitalCoreDAO implements HospitalCoreDAO {
     public List<PatientServiceBillItem> getAllPatientServiceBillItemsByDate(boolean today, String fromDate, String toDate) {
         Criteria criteria = sessionFactory.getCurrentSession().createCriteria
                 (PatientServiceBillItem.class);
-        String date = formatterDate.format(new Date());
+        String startOfDay = formatterDate.format(DateUtils.getStartOfDay(new Date()));
+        String ehdOfDay = formatterDate.format(DateUtils.getEndOfDay(new Date()));
 
         if(today) {
-            setAllPatientServiceBillItemsByDateCriteria(criteria,date,date);
+            setAllPatientServiceBillItemsByDateCriteria(criteria,startOfDay,ehdOfDay);
         }else if ((!StringUtils.isBlank(fromDate)) && (!StringUtils.isBlank(toDate))){
             setAllPatientServiceBillItemsByDateCriteria(criteria,fromDate,toDate);
         }

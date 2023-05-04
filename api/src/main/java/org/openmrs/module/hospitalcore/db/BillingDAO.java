@@ -283,4 +283,6 @@ public interface BillingDAO {
 	public MonthlySummaryReport saveMonthlySummaryReport(MonthlySummaryReport summary) throws DAOException;
 
 	public List<PatientServiceBill> getAllPatientServiceBillByDate(Date startDate, Date endDate) throws DAOException;
+
+	public MonthlySummaryReport getLatestTransactionDate() throws DAOException;
 }

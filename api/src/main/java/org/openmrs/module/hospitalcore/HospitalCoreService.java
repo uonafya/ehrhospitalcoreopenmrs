@@ -265,4 +265,9 @@ public interface HospitalCoreService extends OpenmrsService {
 	public SickOff savePatientSickOff(SickOff sickOff) throws APIException;
 	public List<SickOff> getPatientSickOffsCreated(Date startDate, Date endDate) throws APIException;
 
+	public List<PatientServiceBillItem> getBillableItemsBasedOnListOfItemsPassed(List<Concept> listOfConcepts) throws APIException;
+
+
+
+
 }

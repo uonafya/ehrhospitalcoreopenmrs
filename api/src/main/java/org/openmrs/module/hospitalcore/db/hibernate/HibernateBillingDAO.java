@@ -1346,6 +1346,12 @@ public class HibernateBillingDAO implements BillingDAO {
 		}
 		return criteria.list();
 	}
-
+	public MonthlySummaryReport getLatestTransactionDate() throws DAOException {
+		Criteria criteria = sessionFactory.getCurrentSession().createCriteria(MonthlySummaryReport.class);
+		criteria.addOrder(Order.desc("transactionDate"));
+		criteria.setFirstResult(0);
+		criteria.setMaxResults(1);
+		return (MonthlySummaryReport) criteria.uniqueResult();
+	}
 
 }

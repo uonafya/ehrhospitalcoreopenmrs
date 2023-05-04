@@ -871,4 +871,16 @@ public class HospitalCoreServiceImpl extends BaseOpenmrsService implements
 		return dao.getPatientSickOffsCreated(startDate, endDate);
 	}
 
+	public List<PatientServiceBillItem> getBillableItemsBasedOnListOfItemsPassed(List<Concept> listOfConcepts) throws APIException {
+		List<PatientServiceBillItem> itemsForToday = getAllPatientServiceBillItemsByDate(true, null, null);
+		List<PatientServiceBillItem> requiredListForToday = new ArrayList<PatientServiceBillItem>();
+		for(PatientServiceBillItem patientServiceBillItem: itemsForToday) {
+			if(listOfConcepts.contains(Context.getConceptService().getConcept(patientServiceBillItem.getService().getConceptId()))) {
+				requiredListForToday.add(patientServiceBillItem);
+			}
+		}
+
+		return requiredListForToday;
+	}
+
 }

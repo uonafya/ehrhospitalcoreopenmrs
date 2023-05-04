@@ -397,6 +397,9 @@ public interface BillingService extends OpenmrsService {
 	public MonthlySummaryReport saveMonthlySummaryReport(MonthlySummaryReport summary) throws APIException;
 
 	@Transactional(readOnly = true)
-	@Authorized({ BillingConstants.PRIV_VIEW_BILL })
+	//@Authorized({ BillingConstants.PRIV_VIEW_BILL })
 	public List<PatientServiceBill> getAllPatientServiceBillByDate(Date startDate, Date endDate) throws APIException;
+
+	public MonthlySummaryReport getLatestTransactionDate() throws APIException;
+
 }

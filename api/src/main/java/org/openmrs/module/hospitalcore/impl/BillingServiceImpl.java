@@ -1326,5 +1326,9 @@ public class BillingServiceImpl extends BaseOpenmrsService implements BillingSer
 		return dao.getAllPatientServiceBillByDate(startDate, endDate);
 	}
 
+	public MonthlySummaryReport getLatestTransactionDate() throws APIException {
+		return dao.getLatestTransactionDate();
+	}
+
 
 }
