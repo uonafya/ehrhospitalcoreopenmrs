@@ -1,6 +1,7 @@
 package org.openmrs.module.hospitalcore.task;
 
 import org.openmrs.Concept;
+import org.openmrs.ConceptAnswer;
 import org.openmrs.api.ConceptService;
 import org.openmrs.api.context.Context;
 import org.openmrs.module.hospitalcore.BillingService;
@@ -37,7 +38,12 @@ public class UpdateMonthlyTransactions extends AbstractTask {
             startExecuting();
             try {
                 //do all the work here
-                performMonthlySummary();
+                Date today30MinutesBeforeMidNight = DateUtils.getDateTime(new Date(), 23, 30, 0, 0);
+                Date todayEndOfDay = DateUtils.getEndOfDay(new Date());
+                Date dateAndTimeNow = new Date();
+                if(dateAndTimeNow.compareTo(today30MinutesBeforeMidNight) > 0 && dateAndTimeNow.compareTo(todayEndOfDay) < 0) {
+                    performMonthlySummary();
+                }
 
             }
             catch (Exception e) {
@@ -55,11 +61,6 @@ public class UpdateMonthlyTransactions extends AbstractTask {
         MonthlySummaryReport lastMonthlySummary = billingService.getLatestTransactionDate();
         MonthlySummaryReport monthlySummaryReport = null;
         Date todaysDate = DateUtils.getStartOfDay(new Date());
-        Date today30MinutesBeforeMidNight = DateUtils.getDateTime(new Date(), 23, 30, 0, 0);
-        Date todayEndOfDay = DateUtils.getEndOfDay(new Date());
-        Date dateAndTimeNow = new Date();
-
-        if(dateAndTimeNow.compareTo(today30MinutesBeforeMidNight) > 0 && dateAndTimeNow.compareTo(todayEndOfDay) < 0) {
 
             //run the summary slightly after 11PM EAT, just run when the current time is past 11PM and less than 12 AM
             if (lastMonthlySummary != null) {
@@ -77,15 +78,15 @@ public class UpdateMonthlyTransactions extends AbstractTask {
                     monthlySummaryReport.setPharmacy(getPharmacySales());
                     monthlySummaryReport.setMedicalExam(getCumulativeProcedureTotals(getMedicalExaminationConcepts()));
                     monthlySummaryReport.setMedicalReportsIncludingP3(0);
-                    monthlySummaryReport.setDental(0);
-                    monthlySummaryReport.setPhysioTherapy(0);
-                    monthlySummaryReport.setOccupationalTherapy(0);
+                    monthlySummaryReport.setDental(getCumulativeProcedureTotals(getDentalConcepts()));
+                    monthlySummaryReport.setPhysioTherapy(getCumulativeProcedureTotals(getPhysioTherapyConcepts()));
+                    monthlySummaryReport.setOccupationalTherapy(getCumulativeProcedureTotals(getOccupationalTherapyConcepts()));
                     monthlySummaryReport.setMedicalRecordsCardsAndFiles(0);
                     monthlySummaryReport.setBookingFees(0);
                     monthlySummaryReport.setRentalServices(0);
                     monthlySummaryReport.setAmbulance(0);
                     monthlySummaryReport.setPublicHealthServices(0);
-                    monthlySummaryReport.setEntAndOtherClinics(0);
+                    monthlySummaryReport.setEntAndOtherClinics(getCumulativeProcedureTotals(getEntAndOtherClinicConcepts()));
                     monthlySummaryReport.setOther(0);
                     monthlySummaryReport.setCashReceiptsCashFromDailyServices(0);
                     monthlySummaryReport.setCashReceiptNhifReceipt(0);
@@ -111,15 +112,15 @@ public class UpdateMonthlyTransactions extends AbstractTask {
                 monthlySummaryReport.setPharmacy(getPharmacySales());
                 monthlySummaryReport.setMedicalExam(getCumulativeProcedureTotals(getMedicalExaminationConcepts()));
                 monthlySummaryReport.setMedicalReportsIncludingP3(0);
-                monthlySummaryReport.setDental(0);
-                monthlySummaryReport.setPhysioTherapy(0);
-                monthlySummaryReport.setOccupationalTherapy(0);
+                monthlySummaryReport.setDental(getCumulativeProcedureTotals(getDentalConcepts()));
+                monthlySummaryReport.setPhysioTherapy(getCumulativeProcedureTotals(getPhysioTherapyConcepts()));
+                monthlySummaryReport.setOccupationalTherapy(getCumulativeProcedureTotals(getOccupationalTherapyConcepts()));
                 monthlySummaryReport.setMedicalRecordsCardsAndFiles(0);
                 monthlySummaryReport.setBookingFees(0);
                 monthlySummaryReport.setRentalServices(0);
                 monthlySummaryReport.setAmbulance(0);
                 monthlySummaryReport.setPublicHealthServices(0);
-                monthlySummaryReport.setEntAndOtherClinics(0);
+                monthlySummaryReport.setEntAndOtherClinics(getCumulativeProcedureTotals(getEntAndOtherClinicConcepts()));
                 monthlySummaryReport.setOther(0);
                 monthlySummaryReport.setCashReceiptsCashFromDailyServices(0);
                 monthlySummaryReport.setCashReceiptNhifReceipt(0);
@@ -131,7 +132,6 @@ public class UpdateMonthlyTransactions extends AbstractTask {
                 monthlySummaryReport.setRevenueNotCollectedWriteOffsAbsconders(0);
                 monthlySummaryReport.setTransactionDate(todaysDate);
             }
-        }
 
         //Save the object in the database after, to persist for future use
         if(monthlySummaryReport != null) {
@@ -213,4 +213,46 @@ public class UpdateMonthlyTransactions extends AbstractTask {
                 conceptService.getConceptByUuid("367a3526-4a8b-4704-a686-a746e74032f3")
                 );
     }
+
+    private List<Concept> getDentalConcepts() {
+        ConceptService conceptService = Context.getConceptService();
+        List<Concept> allowedConcepts = new ArrayList<Concept>();
+        allowedConcepts.add(conceptService.getConceptByUuid("30aff715-92de-4662-aa33-fa6b6179fed0"));
+        Concept dentalOverallConcept = conceptService.getConceptByUuid("a59d59b9-f77f-4de0-bdb7-a942284718f2");
+        for(ConceptAnswer parts:dentalOverallConcept.getAnswers()) {
+            allowedConcepts.add(parts.getAnswerConcept());
+        }
+        return allowedConcepts;
+    }
+
+    private List<Concept> getOccupationalTherapyConcepts() {
+        ConceptService conceptService = Context.getConceptService();
+        return Arrays.asList(
+                conceptService.getConceptByUuid("c2f85aed-695f-49b1-973e-002c37cbdebf")
+        );
+    }
+
+    private List<Concept> getPhysioTherapyConcepts() {
+        ConceptService conceptService = Context.getConceptService();
+        return Arrays.asList(
+                conceptService.getConceptByUuid("66b6e478-8f00-4344-adb6-851f23c4a5a7")
+        );
+    }
+
+    private List<Concept> getEntAndOtherClinicConcepts() {
+        ConceptService conceptService = Context.getConceptService();
+        List<Concept> allowedConcepts = new ArrayList<Concept>();
+        Concept specialClinicConcept = conceptService.getConceptByUuid("b5e0cfd3-1009-4527-8e36-83b5e902b3ea");
+        Concept dentalOverallConcept = conceptService.getConceptByUuid("30aff715-92de-4662-aa33-fa6b6179fed0");
+        Concept occupationalOverallConcept = conceptService.getConceptByUuid("c2f85aed-695f-49b1-973e-002c37cbdebf");
+        Concept physioOverallConcept = conceptService.getConceptByUuid("66b6e478-8f00-4344-adb6-851f23c4a5a7");
+        for(ConceptAnswer parts:specialClinicConcept.getAnswers()) {
+            allowedConcepts.add(parts.getAnswerConcept());
+        }
+        allowedConcepts.remove(dentalOverallConcept);
+        allowedConcepts.remove(occupationalOverallConcept);
+        allowedConcepts.remove(physioOverallConcept);
+        return allowedConcepts;
+    }
+
 }

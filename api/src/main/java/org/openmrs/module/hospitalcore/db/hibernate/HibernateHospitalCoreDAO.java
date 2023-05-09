@@ -807,9 +807,11 @@ public class HibernateHospitalCoreDAO implements HospitalCoreDAO {
     }
 
     public  void setAllPatientServiceBillItemsByDateCriteria(Criteria criteria, String fromDate,String toDate){
+        String fromDateWithTime = fromDate+" 00:00:00";
+        String endDateWithTime = toDate+" 23:59:59";
         try {
-            criteria.add(Restrictions.and(Restrictions.ge("createdDate", formatterDateTime.parse(fromDate)),
-                    Restrictions.le("createdDate", formatterDateTime.parse(toDate))));
+            criteria.add(Restrictions.and(Restrictions.ge("createdDate", formatterDateTime.parse(fromDateWithTime)),
+                    Restrictions.le("createdDate", formatterDateTime.parse(endDateWithTime))));
         }
         catch (Exception e) {
             // TODO: handle exception
