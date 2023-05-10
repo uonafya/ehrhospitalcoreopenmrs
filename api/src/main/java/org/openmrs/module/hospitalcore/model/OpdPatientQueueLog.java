@@ -18,10 +18,7 @@ package org.openmrs.module.hospitalcore.model;
 import java.io.Serializable;
 import java.util.Date;
 
-import org.openmrs.Concept;
-import org.openmrs.Encounter;
-import org.openmrs.Patient;
-import org.openmrs.User;
+import org.openmrs.*;
 
 public class OpdPatientQueueLog implements  Serializable {
 
@@ -47,6 +44,16 @@ public class OpdPatientQueueLog implements  Serializable {
 	 private String visitOutCome;
 	 private String category;
 	 private String visitStatus;
+
+	public String getProvider() {
+		return provider;
+	}
+
+	public void setProvider(String provider) {
+		this.provider = provider;
+	}
+
+	private String provider;
 	 
 	 
 	@Override
@@ -58,7 +65,7 @@ public class OpdPatientQueueLog implements  Serializable {
 				+ opdConcept + ", opdConceptName=" + opdConceptName
 				+ ", status=" + status + ", user=" + user + ", createdOn="
 				+ createdOn + ",encounter=" + encounter + ",visitOutCome="
-				+ visitOutCome + " ,category=" + category + ",visitStatus=" + visitStatus + "]";
+				+ visitOutCome + " ,category=" + category + ",visitStatus=" + visitStatus +",provider="+provider+ "]";
 	}
 	public Integer getId() {
 		return id;

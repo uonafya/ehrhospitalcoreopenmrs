@@ -1775,4 +1775,46 @@
             <column name="uuid" value="D083DD9F-83AE-4DB5-9FBE-8E34E6B3485A" />
         </insert>
     </changeSet>
+    <changeSet id="hospital-core:2023-05-10-16:24" author="ningosi">
+        <preConditions onFail="MARK_RAN" onError="WARN">
+            <dbms type="mysql"/>
+        </preConditions>
+        <comment>Add provider columns to opd_patient_queue</comment>
+        <sql>
+            ALTER TABLE  opd_patient_queue
+            ADD COLUMN `provider` varchar(11) DEFAULT NULL;
+        </sql>
+    </changeSet>
+
+    <changeSet id="hospital-core:2023-05-10-16:31" author="ningosi">
+        <preConditions onFail="MARK_RAN" onError="WARN">
+            <dbms type="mysql"/>
+        </preConditions>
+        <comment>Add provider columns to opd_patient_queue_log</comment>
+        <sql>
+            ALTER TABLE  opd_patient_queue_log
+            ADD COLUMN `provider` varchar(11) DEFAULT NULL;
+        </sql>
+    </changeSet>
+    <changeSet id="hospital-core:2023-05-10-16:32" author="ningosi">
+        <preConditions onFail="MARK_RAN" onError="WARN">
+            <dbms type="mysql"/>
+        </preConditions>
+        <comment>Add provider columns to triage_patient_queue</comment>
+        <sql>
+            ALTER TABLE  triage_patient_queue
+            ADD COLUMN `provider` varchar(11) DEFAULT NULL;
+        </sql>
+    </changeSet>
+
+    <changeSet id="hospital-core:2023-05-10-16:33" author="ningosi">
+        <preConditions onFail="MARK_RAN" onError="WARN">
+            <dbms type="mysql"/>
+        </preConditions>
+        <comment>Add provider columns to triage_patient_queue_log</comment>
+        <sql>
+            ALTER TABLE  triage_patient_queue_log
+            ADD COLUMN `provider` varchar(11) DEFAULT NULL;
+        </sql>
+    </changeSet>
 </databaseChangeLog>

@@ -45,7 +45,16 @@ public class TriagePatientQueueLog implements  Serializable {
 	 private Encounter encounter;
 	 private String category;
 	 private String visitStatus;
-	 
+
+	public String getProvider() {
+		return provider;
+	}
+
+	public void setProvider(String provider) {
+		this.provider = provider;
+	}
+
+	private String provider;
 	@Override
 	public String toString() {
 		return "TriagePatientQueueLog [id=" + id + ", patient=" + patient
@@ -54,7 +63,7 @@ public class TriagePatientQueueLog implements  Serializable {
 				+ ", referralConcept=" + referralConcept + ", opdConcept="
 				+ triageConcept + ", triageConceptName=" + triageConceptName
 				+ ", status=" + status + ", user=" + user + ", createdOn="
-				+ createdOn + " ,category=" + ",visitStatus=" + visitStatus + "]";
+				+ createdOn + " ,category=" + ",visitStatus=" + visitStatus +",provider="+provider+ "]";
 	}
 	public Integer getId() {
 		return id;

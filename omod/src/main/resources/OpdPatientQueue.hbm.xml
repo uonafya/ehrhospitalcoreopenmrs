@@ -26,5 +26,6 @@
 		<many-to-one name="triageDataId" column="triage_data_id"  class="org.openmrs.module.hospitalcore.model.TriagePatientData" />
 		<property name="category" column="category" />
 		<property name="visitStatus" column="visit_status" />
+		<property name="provider" column="provider" />
 	</class>
 </hibernate-mapping>

@@ -26,5 +26,6 @@
 		<property name="patientIdentifier" column="patient_identifier" />
 		<property name="category" column="category" />
 		<property name="visitStatus" column="visit_status" />
+		<property name="provider" column="provider" />
 	</class>
 </hibernate-mapping>

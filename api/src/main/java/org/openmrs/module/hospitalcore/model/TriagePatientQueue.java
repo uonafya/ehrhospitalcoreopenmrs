@@ -44,6 +44,16 @@ public class TriagePatientQueue implements  Serializable {
 	 private Date createdOn;
 	 private String category;
 	 private String visitStatus;
+
+	public String getProvider() {
+		return provider;
+	}
+
+	public void setProvider(String provider) {
+		this.provider = provider;
+	}
+
+	private String provider;
 	
 	@Override
 	public String toString() {
@@ -53,7 +63,7 @@ public class TriagePatientQueue implements  Serializable {
 				+ ", referralConcept=" + referralConcept + ", opdConcept="
 				+ triageConcept + ", triageConceptName=" + triageConceptName
 				+ ", status=" + status + ", user=" + user + ", createdOn="
-				+ createdOn + " ,category=" + category + ",visitStatus=" + visitStatus + "]";
+				+ createdOn + " ,category=" + category + ",visitStatus=" + visitStatus +",provider="+provider+ "]";
 	}
 	public Integer getId() {
 		return id;
