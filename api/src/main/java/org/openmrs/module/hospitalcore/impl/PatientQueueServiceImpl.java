@@ -131,10 +131,10 @@ public class PatientQueueServiceImpl  extends BaseOpenmrsService implements Pati
 	}
 
 	public List<OpdPatientQueue> listOpdPatientQueue(String patientName,
-			Integer referralConceptId, String status, int min, int max)
+			Integer referralConceptId, String status, int min, int max, String providerIdentifier)
 			throws APIException {
 		// TODO Auto-generated method stub
-		return dao.listOpdPatientQueue(patientName, referralConceptId, status, min, max);
+		return dao.listOpdPatientQueue(patientName, referralConceptId, status, min, max, providerIdentifier);
 	}
 	
 	public List<TriagePatientQueue> listTriagePatientQueue(String patientName,

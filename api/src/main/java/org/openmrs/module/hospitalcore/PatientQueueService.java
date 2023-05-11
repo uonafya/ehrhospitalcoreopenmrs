@@ -77,7 +77,7 @@ public interface PatientQueueService extends OpenmrsService {
 	public PatientFamilyHistory getPatientFamilyHistoryByPatientId (Integer id) throws APIException;
 	public PatientPersonalHistory getPatientPersonalHistoryByPatientId (Integer id) throws APIException;
 	public void deleteOpdPatientQueue(OpdPatientQueue opdPatientQueue) throws APIException;
-	public List<OpdPatientQueue> listOpdPatientQueue(String patientName ,Integer referralConceptId,String status, int min, int max) throws APIException;
+	public List<OpdPatientQueue> listOpdPatientQueue(String patientName ,Integer referralConceptId,String status, int min, int max, String providerIdentifier) throws APIException;
 	public List<TriagePatientQueue> listTriagePatientQueue(String patientName ,Integer referralConceptId,String status, int min, int max) throws APIException;
 	public Integer countOpdPatientQueue(String patientName , String searchType,Integer referralConceptId,String status) throws APIException;
 	//opd patient queue log

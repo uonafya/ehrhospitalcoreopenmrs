@@ -141,8 +141,12 @@ public class HibernatePatientQueueDAO implements PatientQueueDAO {
 	}
 	
 	@SuppressWarnings("unchecked")
-	public List<OpdPatientQueue> listOpdPatientQueue(String searchText ,  Integer conceptId,String status, int min, int max) throws DAOException{
+	public List<OpdPatientQueue> listOpdPatientQueue(String searchText ,  Integer conceptId,String status, int min, int max, String providerIdentifier) throws DAOException{
 		Criteria criteria = sessionFactory.getCurrentSession().createCriteria(OpdPatientQueue.class,"opdPatientQueue");
+		String toLinkToProvider = Context.getAdministrationService().getGlobalProperty("hospitalcore.determineIfPatientShouldBeAssociatedWithProviders");
+		if(!StringUtils.isBlank(providerIdentifier) && Integer.parseInt(toLinkToProvider) == 1 ) {
+			criteria.add(Restrictions.eq("opdPatientQueue.provider", providerIdentifier));
+		}
 		if(!StringUtils.isBlank(searchText)){
 	    	criteria.add(Restrictions.or(Restrictions.like("opdPatientQueue.patientIdentifier",  "%"+searchText+"%"),Restrictions.like("opdPatientQueue.patientName",  "%"+searchText+"%")));
 		}

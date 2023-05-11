@@ -89,6 +89,13 @@
 			examination.
 		</description>
 	</globalProperty>
+	<globalProperty>
+		<property>@MODULE_ID@.determineIfPatientShouldBeAssociatedWithProviders</property>
+		<defaultValue>0</defaultValue>
+		<description>
+			Determination whether a patient should be associated with a doctor on the queue at OPD 0-get all, 1-get only assigned
+		</description>
+	</globalProperty>
 
 	<!-- Internationalization -->
 	<!-- All message codes should start with @MODULE_ID@.* -->

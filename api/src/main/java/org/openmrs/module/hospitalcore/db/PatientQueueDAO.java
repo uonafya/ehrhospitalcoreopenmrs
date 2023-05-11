@@ -74,7 +74,7 @@ public interface PatientQueueDAO {
 	public PatientPersonalHistory getPatientPersonalHistoryByPatientId(Integer id) throws DAOException;
 	public OpdPatientQueue getOpdPatientQueueById(Integer id) throws DAOException;
 	public void deleteOpdPatientQueue(OpdPatientQueue opdPatientQueue) throws DAOException;
-	public List<OpdPatientQueue> listOpdPatientQueue(String patientName ,  Integer referralConceptId,String status, int min, int max) throws DAOException;
+	public List<OpdPatientQueue> listOpdPatientQueue(String patientName ,  Integer referralConceptId,String status, int min, int max, String providerIdentifier) throws DAOException;
 	public List<TriagePatientQueue> listTriagePatientQueue(String patientName ,  Integer referralConceptId,String status, int min, int max) throws DAOException;
 	public Integer countOpdPatientQueue(String patientName , String searchType,Integer referralConceptId,String status) throws DAOException;
 	//opd patient queue log
