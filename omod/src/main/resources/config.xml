@@ -180,6 +180,15 @@
 		SickOff.hbm.xml
 		MonthlySummaryReport.hbm.xml
 
-    </mappingFiles>
+		<!--appointment module hbm-->
+		EhrAppointment.hbm.xml
+		EhrAppointmentBlock.hbm.xml
+		EhrAppointmentType.hbm.xml
+		EhrTimeSlot.hbm.xml
+		EhrAppointmentStatusHistory.hbm.xml
+		EhrAppointmentRequest.hbm.xml
+		EhrProviderSchedule.hbm.xml
+
+	</mappingFiles>
 </module>
 
