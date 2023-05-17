@@ -5,13 +5,13 @@
 
 <hibernate-mapping package="org.openmrs.module.hospitalcore.model">
 
-	<class name="EhrAppointmentBlock" table="${project.parent.artifactId}_appointment_block">
+	<class name="EhrAppointmentBlock" table="hospitalcore_appointment_block">
 		<id name="appointmentBlockId" type="int" column="appointment_block_id" unsaved-value="0">
 			<generator class="native">
 				<!-- Due to limit on max length of sequence on PostgreSQL, the table name gets sliced from the end
-				Original Sequence Name as Expected - appointmentscheduling_appointment_block_appointment_block_id_seq
-				Current Sequence Name for PostgreSQL - appointmentscheduling_appointment_bloc_appointment_block_id_seq -->
-				<param name="sequence">appointmentscheduling_appointment_bloc_appointment_block_id_seq</param>
+				Original Sequence Name as Expected - ahospitalcore_appointment_block_appointment_block_id_seq
+				Current Sequence Name for PostgreSQL - hospitalcore_appointment_bloc_appointment_block_id_seq -->
+				<param name="sequence">hospitalcore_appointment_bloc_appointment_block_id_seq</param>
 			</generator>
 		</id>
 
@@ -20,9 +20,9 @@
 		<property name="endDate" type="java.util.Date" column="end_date" not-null="true" length="19" />
 		<many-to-one name="provider" column="provider_id" class="org.openmrs.Provider" />
 		<many-to-one name="location" column="location_id" class="org.openmrs.Location" not-null="true" />
-		<set name="types" table="appointmentscheduling_block_type_map" cascade="save-update">
+		<set name="types" table="hospitalcore_block_type_map" cascade="save-update">
 			<key column="appointment_block_id"/>
-			<many-to-many class="AppointmentType" column="appointment_type_id"/>
+			<many-to-many class="EhrAppointmentType" column="appointment_type_id"/>
 		</set>
 
 		<property name="uuid" type="java.lang.String" column="uuid" length="38" unique="true" />

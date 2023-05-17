@@ -29,11 +29,11 @@ public class EhrAppointmentRequest extends BaseOpenmrsData {
 
     private Integer minTimeFrameValue;
 
-    private EhrTimeFrameUnits minEhrTimeFrameUnits;
+    private EhrTimeFrameUnits minTimeFrameUnits;
 
     private Integer maxTimeFrameValue;
 
-    private EhrTimeFrameUnits maxEhrTimeFrameUnits;
+    private EhrTimeFrameUnits maxTimeFrameUnits;
 
     // TODO Do we want tio link to the created appointment somehow?
 
@@ -119,12 +119,12 @@ public class EhrAppointmentRequest extends BaseOpenmrsData {
         this.minTimeFrameValue = minTimeFrameValue;
     }
 
-    public EhrTimeFrameUnits getMinEhrTimeFrameUnits() {
-        return minEhrTimeFrameUnits;
+    public EhrTimeFrameUnits getMinTimeFrameUnits() {
+        return minTimeFrameUnits;
     }
 
-    public void setMinEhrTimeFrameUnits(EhrTimeFrameUnits minEhrTimeFrameUnits) {
-        this.minEhrTimeFrameUnits = minEhrTimeFrameUnits;
+    public void setMinTimeFrameUnits(EhrTimeFrameUnits minTimeFrameUnits) {
+        this.minTimeFrameUnits = minTimeFrameUnits;
     }
 
     public Integer getMaxTimeFrameValue() {
@@ -135,11 +135,11 @@ public class EhrAppointmentRequest extends BaseOpenmrsData {
         this.maxTimeFrameValue = maxTimeFrameValue;
     }
 
-    public EhrTimeFrameUnits getMaxEhrTimeFrameUnits() {
-        return maxEhrTimeFrameUnits;
+    public EhrTimeFrameUnits getMaxTimeFrameUnits() {
+        return maxTimeFrameUnits;
     }
 
-    public void setMaxEhrTimeFrameUnits(EhrTimeFrameUnits maxEhrTimeFrameUnits) {
-        this.maxEhrTimeFrameUnits = maxEhrTimeFrameUnits;
+    public void setMaxTimeFrameUnits(EhrTimeFrameUnits maxTimeFrameUnits) {
+        this.maxTimeFrameUnits = maxTimeFrameUnits;
     }
 }
