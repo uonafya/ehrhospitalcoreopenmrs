@@ -1817,4 +1817,49 @@
             ADD COLUMN `provider` varchar(11) DEFAULT NULL;
         </sql>
     </changeSet>
+    
+    <changeSet id="C4F23B0B-269F-43BF-9F25-C4C448085738" author="ningosi">
+        <preConditions onFail="MARK_RAN" onError="WARN">
+            <dbms type="mysql"/>
+        </preConditions>
+        <comment>Creating the EHR appointment table</comment>
+        <sql>
+            CREATE TABLE IF NOT EXISTS `hospitalcore_appointment` (
+            `appointment_id` int NOT NULL AUTO_INCREMENT,
+            `time_slot_id` int NOT NULL,
+            `visit_id` int DEFAULT NULL,
+            `patient_id` int NOT NULL,
+            `appointment_type_id` int NOT NULL,
+            `status` varchar(255) NOT NULL,
+            `reason` varchar(1024) DEFAULT NULL,
+            `uuid` char(38) NOT NULL,
+            `creator` int NOT NULL,
+            `date_created` datetime NOT NULL,
+            `changed_by` int DEFAULT NULL,
+            `date_changed` datetime DEFAULT NULL,
+            `voided` tinyint NOT NULL DEFAULT '0',
+            `voided_by` int DEFAULT NULL,
+            `date_voided` datetime DEFAULT NULL,
+            `void_reason` varchar(255) DEFAULT NULL,
+            `cancel_reason` varchar(1024) DEFAULT NULL,
+            PRIMARY KEY (`appointment_id`),
+            UNIQUE KEY `uuid` (`uuid`),
+            KEY `ehr_appointment_creator` (`creator`),
+            KEY `ehr_appointment_changed_by` (`changed_by`),
+            KEY `ehr_appointment_voided_by` (`voided_by`),
+            KEY `ehr_appointment_time_slot_id` (`time_slot_id`),
+            KEY `ehr_appointment_appointment_type_id` (`appointment_type_id`),
+            KEY `ehr_appointment_visit_id` (`visit_id`),
+            KEY `ehr_appointment_patient_id` (`patient_id`),
+            CONSTRAINT `ehr_appointment_appointment_type_id` FOREIGN KEY (`appointment_type_id`) REFERENCES `hospitalcore_appointment_type` (`appointment_type_id`),
+            CONSTRAINT `ehr_appointment_changed_by` FOREIGN KEY (`changed_by`) REFERENCES `users` (`user_id`),
+            CONSTRAINT `ehr_appointment_creator` FOREIGN KEY (`creator`) REFERENCES `users` (`user_id`),
+            CONSTRAINT `ehr_appointment_patient_id` FOREIGN KEY (`patient_id`) REFERENCES `patient` (`patient_id`),
+            CONSTRAINT `ehr_appointment_time_slot_id` FOREIGN KEY (`time_slot_id`) REFERENCES `hospitalcore_time_slot` (`time_slot_id`),
+            CONSTRAINT `ehr_appointment_visit_id` FOREIGN KEY (`visit_id`) REFERENCES `visit` (`visit_id`),
+            CONSTRAINT `ehr_appointment_voided_by` FOREIGN KEY (`voided_by`) REFERENCES `users` (`user_id`)
+            ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+        </sql>
+    </changeSet>
+
 </databaseChangeLog>

@@ -112,11 +112,11 @@ public class EhrAppointment extends BaseOpenmrsData implements Serializable {
 
     public EhrAppointment(EhrTimeSlot timeSlot, Visit visit, Patient patient,
                        EhrAppointmentType appointmentType, EhrAppointmentStatus status) {
-        setEhrTimeSlot(timeSlot);
+        setTimeSlot(timeSlot);
         setVisit(visit);
         setPatient(patient);
         setStatus(status);
-        setEhrAppointmentType(appointmentType);
+        setAppointmentType(appointmentType);
     }
 
     public Integer getAppointmentId() {
@@ -143,11 +143,11 @@ public class EhrAppointment extends BaseOpenmrsData implements Serializable {
         setAppointmentId(id);
     }
 
-    public EhrTimeSlot getEhrTimeSlot() {
+    public EhrTimeSlot getTimeSlot() {
         return timeSlot;
     }
 
-    public void setEhrTimeSlot(EhrTimeSlot timeSlot) {
+    public void setTimeSlot(EhrTimeSlot timeSlot) {
         this.timeSlot = timeSlot;
     }
 
@@ -191,11 +191,11 @@ public class EhrAppointment extends BaseOpenmrsData implements Serializable {
         this.cancelReason = cancelReason;
     }
 
-    public EhrAppointmentType getEhrAppointmentType() {
+    public EhrAppointmentType getAppointmentType() {
         return appointmentType;
     }
 
-    public void setEhrAppointmentType(EhrAppointmentType appointmentType) {
+    public void setAppointmentType(EhrAppointmentType appointmentType) {
         this.appointmentType = appointmentType;
     }
 }

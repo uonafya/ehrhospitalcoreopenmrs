@@ -666,8 +666,8 @@ public class EhrAppointmentServiceImpl extends BaseOpenmrsService implements Ehr
         // generate the set of time slots to exclude that the specified patient already has an appointment for of the specified type
         if (excludeTimeSlotsWithPatient != null) {
             for (EhrAppointment appointment: getEhrAppointmentsOfPatient(excludeTimeSlotsWithPatient)) {
-                if (appointment.getEhrAppointmentType() == appointmentType && appointment.getStatus().getType() != EhrAppointment.EhrAppointmentStatusType.CANCELLED) {
-                    timeSlotsToExclude.add(appointment.getEhrTimeSlot());
+                if (appointment.getAppointmentType() == appointmentType && appointment.getStatus().getType() != EhrAppointment.EhrAppointmentStatusType.CANCELLED) {
+                    timeSlotsToExclude.add(appointment.getTimeSlot());
                 }
             }
         }
@@ -725,7 +725,7 @@ public class EhrAppointmentServiceImpl extends BaseOpenmrsService implements Ehr
         for (EhrAppointment appointment : Context.getService(
                         EhrAppointmentService.class)
                 .getEhrAppointmentsInTimeSlotThatAreNotCancelled(timeSlot)) {
-            minutes = minutes - appointment.getEhrAppointmentType().getDuration();
+            minutes = minutes - appointment.getAppointmentType().getDuration();
         }
 
         return minutes;
@@ -799,7 +799,7 @@ public class EhrAppointmentServiceImpl extends BaseOpenmrsService implements Ehr
 
             // Filter by location
             if (location != null) {
-                if (relevantLocations.contains(appointment.getEhrTimeSlot()
+                if (relevantLocations.contains(appointment.getTimeSlot()
                         .getEhrAppointmentBlock().getLocation()))
                     appointmentsInLocation.add(appointment);
             } else
@@ -946,7 +946,7 @@ public class EhrAppointmentServiceImpl extends BaseOpenmrsService implements Ehr
         while (iter.hasNext()) {
             EhrAppointment appointment = iter.next();
             // Check if past appointment
-            if (appointment.getEhrTimeSlot().getEndDate().before(endOfYesterday)) {
+            if (appointment.getTimeSlot().getEndDate().before(endOfYesterday)) {
                 EhrAppointment.EhrAppointmentStatus status = appointment.getStatus();
                 switch (status) {
                     case SCHEDULED :
@@ -1031,7 +1031,7 @@ public class EhrAppointmentServiceImpl extends BaseOpenmrsService implements Ehr
         for (Map.Entry<EhrAppointmentStatusHistory, Double> entry : durations
                 .entrySet()) {
             EhrAppointmentType type = entry.getKey().getEhrAppointment()
-                    .getEhrAppointmentType();
+                    .getAppointmentType();
             Double duration = entry.getValue();
 
             // Added Math.sqrt in order to lower the mean and variance
@@ -1096,7 +1096,7 @@ public class EhrAppointmentServiceImpl extends BaseOpenmrsService implements Ehr
         // sum up the durations by type
         for (Map.Entry<EhrAppointmentStatusHistory, Double> entry : durations
                 .entrySet()) {
-            Provider provider = entry.getKey().getEhrAppointment().getEhrTimeSlot()
+            Provider provider = entry.getKey().getEhrAppointment().getTimeSlot()
                     .getEhrAppointmentBlock().getProvider();
             Double duration = entry.getValue();
 
@@ -1167,8 +1167,8 @@ public class EhrAppointmentServiceImpl extends BaseOpenmrsService implements Ehr
         ValidateUtil.validate(appointment);
 
         if (!allowOverbook) {
-            if (getEhrTimeLeftInTimeSlot(appointment.getEhrTimeSlot()) < appointment
-                    .getEhrAppointmentType().getDuration()) {
+            if (getEhrTimeLeftInTimeSlot(appointment.getTimeSlot()) < appointment
+                    .getAppointmentType().getDuration()) {
                 throw new EhrTimeSlotFullException();
             }
         }
@@ -1306,7 +1306,7 @@ public class EhrAppointmentServiceImpl extends BaseOpenmrsService implements Ehr
 
         List<EhrAppointment> earlyAppointments = new ArrayList<EhrAppointment>();
         for (EhrAppointment ap : allCompletedAppointments) {
-            if (ap.getVisit().getStartDatetime().before(ap.getEhrTimeSlot().getEndDate())) {
+            if (ap.getVisit().getStartDatetime().before(ap.getTimeSlot().getEndDate())) {
                 earlyAppointments.add(ap);
             }
         }
@@ -1325,7 +1325,7 @@ public class EhrAppointmentServiceImpl extends BaseOpenmrsService implements Ehr
 
         List<EhrAppointment> lateAppointments = new ArrayList<EhrAppointment>();
         for (EhrAppointment ap : allCompletedAppointments) {
-            if (ap.getVisit().getStartDatetime().after(ap.getEhrTimeSlot().getEndDate())) {
+            if (ap.getVisit().getStartDatetime().after(ap.getTimeSlot().getEndDate())) {
                 lateAppointments.add(ap);
             }
         }
