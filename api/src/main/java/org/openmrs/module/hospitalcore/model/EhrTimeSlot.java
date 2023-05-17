@@ -40,7 +40,7 @@ public class EhrTimeSlot extends BaseOpenmrsData {
     }
 
     public EhrTimeSlot(EhrAppointmentBlock appointmentBlock, Date startDate, Date endDate) {
-        setEhrAppointmentBlock(appointmentBlock);
+        setAppointmentBlock(appointmentBlock);
         setStartDate(startDate);
         setEndDate(endDate);
     }
@@ -69,11 +69,11 @@ public class EhrTimeSlot extends BaseOpenmrsData {
         setEhrTimeSlotId(id);
     }
 
-    public EhrAppointmentBlock getEhrAppointmentBlock() {
+    public EhrAppointmentBlock getAppointmentBlock() {
         return appointmentBlock;
     }
 
-    public void setEhrAppointmentBlock(EhrAppointmentBlock appointmentBlock) {
+    public void setAppointmentBlock(EhrAppointmentBlock appointmentBlock) {
         this.appointmentBlock = appointmentBlock;
     }
 

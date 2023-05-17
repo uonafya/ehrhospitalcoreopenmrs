@@ -676,7 +676,7 @@ public class EhrAppointmentServiceImpl extends BaseOpenmrsService implements Ehr
         for (EhrTimeSlot slot : suitableTimeSlots) {
 
             // Filter by based on the locations and excluded time slots
-            if ( (location == null || relevantLocations.contains(slot.getEhrAppointmentBlock().getLocation()))
+            if ( (location == null || relevantLocations.contains(slot.getAppointmentBlock().getLocation()))
                     && !timeSlotsToExclude.contains(slot) ) {
                 availableTimeSlots.add(slot);
             }
@@ -800,7 +800,7 @@ public class EhrAppointmentServiceImpl extends BaseOpenmrsService implements Ehr
             // Filter by location
             if (location != null) {
                 if (relevantLocations.contains(appointment.getTimeSlot()
-                        .getEhrAppointmentBlock().getLocation()))
+                        .getAppointmentBlock().getLocation()))
                     appointmentsInLocation.add(appointment);
             } else
                 appointmentsInLocation.add(appointment);
@@ -850,7 +850,7 @@ public class EhrAppointmentServiceImpl extends BaseOpenmrsService implements Ehr
                 // we need to still handle legacy code that may not have been migrated, and create an entry in the history table
                 if (appointmentStatusHistory.getEndDate() != null) {
                     EhrAppointmentStatusHistory history = new EhrAppointmentStatusHistory();
-                    history.setEhrAppointment(appointment);
+                    history.setAppointment(appointment);
                     history.setEndDate(currentDate);
                     history.setStartDate(getEhrAppointmentCurrentStatusStartDate(appointment));
                     history.setStatus(appointment.getStatus());
@@ -869,7 +869,7 @@ public class EhrAppointmentServiceImpl extends BaseOpenmrsService implements Ehr
 
             // create an entry for the new status
             EhrAppointmentStatusHistory history = new EhrAppointmentStatusHistory();
-            history.setEhrAppointment(appointment);
+            history.setAppointment(appointment);
             history.setStartDate(currentDate);
             history.setStatus(appointment.getStatus());
 
@@ -1030,7 +1030,7 @@ public class EhrAppointmentServiceImpl extends BaseOpenmrsService implements Ehr
         // sum up the durations by type
         for (Map.Entry<EhrAppointmentStatusHistory, Double> entry : durations
                 .entrySet()) {
-            EhrAppointmentType type = entry.getKey().getEhrAppointment()
+            EhrAppointmentType type = entry.getKey().getAppointment()
                     .getAppointmentType();
             Double duration = entry.getValue();
 
@@ -1096,8 +1096,8 @@ public class EhrAppointmentServiceImpl extends BaseOpenmrsService implements Ehr
         // sum up the durations by type
         for (Map.Entry<EhrAppointmentStatusHistory, Double> entry : durations
                 .entrySet()) {
-            Provider provider = entry.getKey().getEhrAppointment().getTimeSlot()
-                    .getEhrAppointmentBlock().getProvider();
+            Provider provider = entry.getKey().getAppointment().getTimeSlot()
+                    .getAppointmentBlock().getProvider();
             Double duration = entry.getValue();
 
             // Added Math.sqrt in order to lower the mean and variance
@@ -1275,7 +1275,7 @@ public class EhrAppointmentServiceImpl extends BaseOpenmrsService implements Ehr
             EhrAppointmentBlock appointmentBlock = new EhrAppointmentBlock(startDate, endDate, providerSchedule.getProvider(), providerSchedule.getLocation(), types);
             EhrAppointmentBlock block = (EhrAppointmentBlock) getAppointmentBlockDAO().saveOrUpdate(appointmentBlock);
 
-            timeSlot.setEhrAppointmentBlock(block);
+            timeSlot.setAppointmentBlock(block);
             timeSlot.setStartDate(block.getStartDate());
             timeSlot.setEndDate(block.getEndDate());
 

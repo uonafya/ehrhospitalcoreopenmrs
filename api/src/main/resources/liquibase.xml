@@ -1944,5 +1944,165 @@
             ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
         </sql>
     </changeSet>
+    <changeSet id="96D018DC-E585-40EB-A29A-669B53D1D549" author="ningosi">
+    <preConditions onFail="MARK_RAN" onError="WARN">
+        <dbms type="mysql"/>
+    </preConditions>
+    <comment>Creating the EHR appointment_status_history table</comment>
+        <sql>
+            CREATE TABLE IF NOT EXISTS `hospitalcore_appointment_status_history` (
+            `appointment_status_history_id` int NOT NULL AUTO_INCREMENT,
+            `appointment_id` int NOT NULL,
+            `status` varchar(255) NOT NULL,
+            `start_date` datetime NOT NULL,
+            `end_date` datetime DEFAULT NULL,
+            PRIMARY KEY (`appointment_status_history_id`),
+            KEY `ehr_appointment_status_history_appointment` (`appointment_id`),
+            CONSTRAINT `ehr_appointment_status_history_appointment` FOREIGN KEY (`appointment_id`) REFERENCES `hospitalcore_appointment` (`appointment_id`)
+            ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+        </sql>
+    </changeSet>
+    <changeSet id="8D46DA4A-9D31-4090-B468-51010CE51D04" author="ningosi">
+        <preConditions onFail="MARK_RAN" onError="WARN">
+            <dbms type="mysql"/>
+        </preConditions>
+    <comment>Creating the EHR appointment_type table</comment>
+    <sql>
+        CREATE TABLE IF NOT EXISTS `hospitalcore_appointment_type` (
+        `appointment_type_id` int NOT NULL AUTO_INCREMENT,
+        `name` varchar(255) NOT NULL,
+        `description` varchar(1024) DEFAULT NULL,
+        `duration` int NOT NULL,
+        `uuid` char(38) NOT NULL,
+        `creator` int NOT NULL,
+        `date_created` datetime NOT NULL,
+        `changed_by` int DEFAULT NULL,
+        `date_changed` datetime DEFAULT NULL,
+        `retired` tinyint NOT NULL DEFAULT '0',
+        `retired_by` int DEFAULT NULL,
+        `date_retired` datetime DEFAULT NULL,
+        `retire_reason` varchar(255) DEFAULT NULL,
+        `confidential` tinyint NOT NULL DEFAULT '0',
+        `visit_type_id` int DEFAULT NULL,
+        PRIMARY KEY (`appointment_type_id`),
+        UNIQUE KEY `uuid` (`uuid`),
+        KEY `ehr_appointment_type_creator` (`creator`),
+        KEY `ehr_appointment_type_changed_by` (`changed_by`),
+        KEY `ehr_appointment_type_retired_by` (`retired_by`),
+        KEY `ehr_appointment_type_visit_type_id` (`visit_type_id`),
+        CONSTRAINT `ehr_appointment_type_changed_by` FOREIGN KEY (`changed_by`) REFERENCES `users` (`user_id`),
+        CONSTRAINT `ehr_appointment_type_creator` FOREIGN KEY (`creator`) REFERENCES `users` (`user_id`),
+        CONSTRAINT `ehr_appointment_type_retired_by` FOREIGN KEY (`retired_by`) REFERENCES `users` (`user_id`),
+        CONSTRAINT `ehr_appointment_type_visit_type_id` FOREIGN KEY (`visit_type_id`) REFERENCES `visit_type` (`visit_type_id`)
+        ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+    </sql>
+    </changeSet>
+
+    <changeSet id="E25056F0-E501-4403-93CA-AA99DEC555E6" author="ningosi">
+    <preConditions onFail="MARK_RAN" onError="WARN">
+        <dbms type="mysql"/>
+    </preConditions>
+    <comment>Creating the EHR block_type_map table</comment>
+    <sql>
+        CREATE TABLE IF NOT EXISTS `hospitalcore_block_type_map` (
+        `appointment_type_id` int NOT NULL,
+        `appointment_block_id` int NOT NULL,
+        PRIMARY KEY (`appointment_type_id`,`appointment_block_id`),
+        KEY `ehr_appointment_block_type_map_appointment_block_id` (`appointment_block_id`),
+        CONSTRAINT `ehr_appointment_block_type_map_appointment_block_id` FOREIGN KEY (`appointment_block_id`) REFERENCES `hospitalcore_appointment_block` (`appointment_block_id`),
+        CONSTRAINT `ehr_appointment_block_type_map_appointment_type_id` FOREIGN KEY (`appointment_type_id`) REFERENCES `hospitalcore_appointment_type` (`appointment_type_id`)
+        ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+    </sql>
+    </changeSet>
+    <changeSet id="65343C96-9C9D-467E-A47C-D82EF403703C" author="ningosi">
+        <preConditions onFail="MARK_RAN" onError="WARN">
+            <dbms type="mysql"/>
+        </preConditions>
+        <comment>Creating the EHR provider_schedule table</comment>
+    <sql>
+        CREATE TABLE IF NOT EXISTS `hospitalcore_provider_schedule` (
+        `provider_schedule_id` int NOT NULL AUTO_INCREMENT,
+        `location_id` int NOT NULL,
+        `provider_id` int DEFAULT NULL,
+        `start_date` datetime DEFAULT NULL,
+        `end_date` datetime DEFAULT NULL,
+        `start_time` time NOT NULL,
+        `end_time` time NOT NULL,
+        `uuid` char(38) NOT NULL,
+        `creator` int NOT NULL,
+        `date_created` datetime NOT NULL,
+        `changed_by` int DEFAULT NULL,
+        `date_changed` datetime DEFAULT NULL,
+        `voided` tinyint(1) NOT NULL DEFAULT '1',
+        `voided_by` int DEFAULT NULL,
+        `date_voided` datetime DEFAULT NULL,
+        `void_reason` varchar(255) DEFAULT NULL,
+        PRIMARY KEY (`provider_schedule_id`),
+        UNIQUE KEY `uuid` (`uuid`),
+        KEY `ehr_provider_schedule_creator` (`creator`),
+        KEY `ehr_provider_schedule_changed_by` (`changed_by`),
+        KEY `ehr_provider_schedule_voided_by` (`voided_by`),
+        KEY `ehr_provider_schedule_location_id` (`location_id`),
+        KEY `ehr_provider_schedule_provider_id` (`provider_id`),
+        CONSTRAINT `ehr_provider_schedule_changed_by` FOREIGN KEY (`changed_by`) REFERENCES `users` (`user_id`),
+        CONSTRAINT `ehr_provider_schedule_creator` FOREIGN KEY (`creator`) REFERENCES `users` (`user_id`),
+        CONSTRAINT `ehr_provider_schedule_location_id` FOREIGN KEY (`location_id`) REFERENCES `location` (`location_id`),
+        CONSTRAINT `ehr_provider_schedule_provider_id` FOREIGN KEY (`provider_id`) REFERENCES `provider` (`provider_id`),
+        CONSTRAINT `ehr_provider_schedule_voided_by` FOREIGN KEY (`voided_by`) REFERENCES `users` (`user_id`)
+        ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+    </sql>
+    </changeSet>
+
+    <changeSet id="7426B2F4-1129-437D-9CEE-7E8E10F3738C" author="ningosi">
+    <preConditions onFail="MARK_RAN" onError="WARN">
+        <dbms type="mysql"/>
+    </preConditions>
+    <comment>Creating the EHR provider_type_map table</comment>
+        <sql>
+            CREATE TABLE IF NOT EXISTS `hospitalcore_provider_type_map` (
+            `appointment_type_id` int NOT NULL,
+            `provider_schedule_id` int NOT NULL,
+            PRIMARY KEY (`appointment_type_id`,`provider_schedule_id`),
+            KEY `ehr_hospitalcore_provider_type_map_provider_schedule_id` (`provider_schedule_id`),
+            CONSTRAINT `ehr_hospitalcore_provider_type_map_appointment_type_id` FOREIGN KEY (`appointment_type_id`) REFERENCES `hospitalcore_appointment_type` (`appointment_type_id`),
+            CONSTRAINT `ehr_hospitalcore_provider_type_map_provider_schedule_id` FOREIGN KEY (`provider_schedule_id`) REFERENCES `hospitalcore_provider_schedule` (`provider_schedule_id`)
+            ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+        </sql>
+    </changeSet>
+
+    <changeSet id="31F74A09-CA4F-4953-B13B-BCB0AEC82680" author="ningosi">
+    <preConditions onFail="MARK_RAN" onError="WARN">
+        <dbms type="mysql"/>
+    </preConditions>
+    <comment>Creating the EHR time_slot table</comment>
+        <sql>
+            CREATE TABLE `hospitalcore_time_slot` (
+            `time_slot_id` int NOT NULL AUTO_INCREMENT,
+            `appointment_block_id` int NOT NULL,
+            `start_date` datetime NOT NULL,
+            `end_date` datetime NOT NULL,
+            `uuid` char(38) NOT NULL,
+            `creator` int NOT NULL,
+            `date_created` datetime NOT NULL,
+            `changed_by` int DEFAULT NULL,
+            `date_changed` datetime DEFAULT NULL,
+            `voided` tinyint NOT NULL DEFAULT '0',
+            `voided_by` int DEFAULT NULL,
+            `date_voided` datetime DEFAULT NULL,
+            `void_reason` varchar(255) DEFAULT NULL,
+            PRIMARY KEY (`time_slot_id`),
+            UNIQUE KEY `uuid` (`uuid`),
+            KEY `ehr_appointment_slot_creator` (`creator`),
+            KEY `ehr_appointment_slot__changed_by` (`changed_by`),
+            KEY `ehr_appointment_slot_voided_by` (`voided_by`),
+            KEY `ehr_appointment_slot_appointment_block_id` (`appointment_block_id`),
+            CONSTRAINT `ehr_appointment_slot__changed_by` FOREIGN KEY (`changed_by`) REFERENCES `users` (`user_id`),
+            CONSTRAINT `ehr_appointment_slot_appointment_block_id` FOREIGN KEY (`appointment_block_id`) REFERENCES `hospitalcore_appointment_block` (`appointment_block_id`),
+            CONSTRAINT `ehr_appointment_slot_creator` FOREIGN KEY (`creator`) REFERENCES `users` (`user_id`),
+            CONSTRAINT `ehr_appointment_slot_voided_by` FOREIGN KEY (`voided_by`) REFERENCES `users` (`user_id`)
+            ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+        </sql>
+    </changeSet>
 
 </databaseChangeLog>

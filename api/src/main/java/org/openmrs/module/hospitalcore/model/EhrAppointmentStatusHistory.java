@@ -36,7 +36,7 @@ public class EhrAppointmentStatusHistory extends BaseOpenmrsData {
     }
 
     public EhrAppointmentStatusHistory(EhrAppointment appointment, EhrAppointment.EhrAppointmentStatus status, Date startDate, Date endDate) {
-        setEhrAppointment(appointment);
+        setAppointment(appointment);
         setStatus(status);
         setStartDate(startDate);
         setEndDate(endDate);
@@ -90,11 +90,11 @@ public class EhrAppointmentStatusHistory extends BaseOpenmrsData {
         this.endDate = endDate;
     }
 
-    public EhrAppointment getEhrAppointment() {
+    public EhrAppointment getAppointment() {
         return appointment;
     }
 
-    public void setEhrAppointment(EhrAppointment appointment) {
+    public void setAppointment(EhrAppointment appointment) {
         this.appointment = appointment;
     }
 }
