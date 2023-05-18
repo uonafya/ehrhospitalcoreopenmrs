@@ -52,79 +52,79 @@ public class EhrAppointmentServiceImpl extends BaseOpenmrsService implements Ehr
 
     protected final Log log = LogFactory.getLog(this.getClass());
 
-    private EhrAppointmentTypeDAO appointmentTypeDAO;
+    private EhrAppointmentTypeDAO ehrAppointmentTypeDAO;
 
-    private EhrAppointmentBlockDAO appointmentBlockDAO;
+    private EhrAppointmentBlockDAO ehrAppointmentBlockDAO;
 
-    private EhrAppointmentDAO appointmentDAO;
+    private EhrAppointmentDAO ehrAppointmentDAO;
 
-    private EhrTimeSlotDAO timeSlotDAO;
+    private EhrTimeSlotDAO ehrTimeSlotDAO;
 
-    private EhrAppointmentStatusHistoryDAO appointmentStatusHistoryDAO;
+    private EhrAppointmentStatusHistoryDAO ehrAppointmentStatusHistoryDAO;
 
-    private EhrAppointmentRequestDAO appointmentRequestDAO;
+    private EhrAppointmentRequestDAO ehrAppointmentRequestDAO;
 
-    private EhrProviderScheduleDAO providerScheduleDAO;
+    private EhrProviderScheduleDAO ehrProviderScheduleDAO;
 
     /**
      * Getters and Setters
      */
 
-    public void setAppointmentTypeDAO(EhrAppointmentTypeDAO appointmentTypeDAO) {
-        this.appointmentTypeDAO = appointmentTypeDAO;
+    public void setEhrAppointmentTypeDAO(EhrAppointmentTypeDAO ehrAppointmentTypeDAO) {
+        this.ehrAppointmentTypeDAO = ehrAppointmentTypeDAO;
     }
 
-    public EhrAppointmentTypeDAO getAppointmentTypeDAO() {
-        return appointmentTypeDAO;
+    public EhrAppointmentTypeDAO getEhrAppointmentTypeDAO() {
+        return ehrAppointmentTypeDAO;
     }
 
-    public void setAppointmentDAO(EhrAppointmentDAO appointmentDAO) {
-        this.appointmentDAO = appointmentDAO;
+    public void setEhrAppointmentDAO(EhrAppointmentDAO ehrAppointmentDAO) {
+        this.ehrAppointmentDAO = ehrAppointmentDAO;
     }
 
-    public EhrAppointmentDAO getAppointmentDAO() {
-        return appointmentDAO;
+    public EhrAppointmentDAO getEhrAppointmentDAO() {
+        return ehrAppointmentDAO;
     }
 
-    public void setAppointmentBlockDAO(EhrAppointmentBlockDAO appointmentBlockDAO) {
-        this.appointmentBlockDAO = appointmentBlockDAO;
+    public void setEhrAppointmentBlockDAO(EhrAppointmentBlockDAO ehrAppointmentBlockDAO) {
+        this.ehrAppointmentBlockDAO = ehrAppointmentBlockDAO;
     }
 
-    public EhrAppointmentBlockDAO getAppointmentBlockDAO() {
-        return appointmentBlockDAO;
+    public EhrAppointmentBlockDAO getEhrAppointmentBlockDAO() {
+        return ehrAppointmentBlockDAO;
     }
 
-    public void setTimeSlotDAO(EhrTimeSlotDAO timeSlotDAO) {
-        this.timeSlotDAO = timeSlotDAO;
+    public void setEhrTimeSlotDAO(EhrTimeSlotDAO ehrTimeSlotDAO) {
+        this.ehrTimeSlotDAO = ehrTimeSlotDAO;
     }
 
-    public EhrTimeSlotDAO getTimeSlotDAO() {
-        return timeSlotDAO;
+    public EhrTimeSlotDAO getEhrTimeSlotDAO() {
+        return ehrTimeSlotDAO;
     }
 
-    public void setAppointmentStatusHistoryDAO(
-            EhrAppointmentStatusHistoryDAO appointmentStatusHistoryDAO) {
-        this.appointmentStatusHistoryDAO = appointmentStatusHistoryDAO;
+    public void setEhrAppointmentStatusHistoryDAO(
+            EhrAppointmentStatusHistoryDAO ehrAppointmentStatusHistoryDAO) {
+        this.ehrAppointmentStatusHistoryDAO = ehrAppointmentStatusHistoryDAO;
     }
 
-    public EhrAppointmentStatusHistoryDAO getAppointmentStatusHistoryDAO() {
-        return appointmentStatusHistoryDAO;
+    public EhrAppointmentStatusHistoryDAO getEhrAppointmentStatusHistoryDAO() {
+        return ehrAppointmentStatusHistoryDAO;
     }
 
-    public EhrAppointmentRequestDAO getAppointmentRequestDAO() {
-        return appointmentRequestDAO;
+    public EhrAppointmentRequestDAO getEhrAppointmentRequestDAO() {
+        return ehrAppointmentRequestDAO;
     }
 
-    public void setAppointmentRequestDAO(EhrAppointmentRequestDAO appointmentRequestDAO) {
-        this.appointmentRequestDAO = appointmentRequestDAO;
+    public void setEhrAppointmentRequestDAO(EhrAppointmentRequestDAO ehrAppointmentRequestDAO) {
+        this.ehrAppointmentRequestDAO = ehrAppointmentRequestDAO;
     }
 
-    public EhrProviderScheduleDAO getProviderScheduleDAO() {
-        return providerScheduleDAO;
+    public EhrProviderScheduleDAO getEhrProviderScheduleDAO() {
+        return ehrProviderScheduleDAO;
     }
 
-    public void setProviderScheduleDAO(EhrProviderScheduleDAO providerScheduleDAO) {
-        this.providerScheduleDAO = providerScheduleDAO;
+    public void setEhrProviderScheduleDAO(EhrProviderScheduleDAO ehrProviderScheduleDAO) {
+        this.ehrProviderScheduleDAO = ehrProviderScheduleDAO;
     }
 
     /**
@@ -134,7 +134,7 @@ public class EhrAppointmentServiceImpl extends BaseOpenmrsService implements Ehr
     @Transactional(readOnly = true)
     public Set<EhrAppointmentType> getAllEhrAppointmentTypes() {
         HashSet set = new HashSet();
-        set.addAll(getAppointmentTypeDAO().getAll());
+        set.addAll(getEhrAppointmentTypeDAO().getAll());
         return set;
     }
 
@@ -144,7 +144,7 @@ public class EhrAppointmentServiceImpl extends BaseOpenmrsService implements Ehr
     @Override
     @Transactional(readOnly = true)
     public List<EhrAppointmentType> getAllEhrAppointmentTypes(boolean includeRetired) {
-        return getAppointmentTypeDAO().getAll(includeRetired);
+        return getEhrAppointmentTypeDAO().getAll(includeRetired);
     }
 
     /**
@@ -153,7 +153,7 @@ public class EhrAppointmentServiceImpl extends BaseOpenmrsService implements Ehr
     @Override
     @Transactional(readOnly = true)
     public EhrAppointmentType getEhrAppointmentType(Integer appointmentTypeId) {
-        return (EhrAppointmentType) getAppointmentTypeDAO().getById(
+        return (EhrAppointmentType) getEhrAppointmentTypeDAO().getById(
                 appointmentTypeId);
     }
 
@@ -163,7 +163,7 @@ public class EhrAppointmentServiceImpl extends BaseOpenmrsService implements Ehr
     @Override
     @Transactional(readOnly = true)
     public EhrAppointmentType getEhrAppointmentTypeByUuid(String uuid) {
-        return (EhrAppointmentType) getAppointmentTypeDAO().getByUuid(uuid);
+        return (EhrAppointmentType) getEhrAppointmentTypeDAO().getByUuid(uuid);
     }
 
     /**
@@ -173,7 +173,7 @@ public class EhrAppointmentServiceImpl extends BaseOpenmrsService implements Ehr
     @Transactional(readOnly = true)
     public List<EhrAppointmentType> getEhrAppointmentTypes(String fuzzySearchPhrase,
                                                      boolean includeRetired) {
-        return getAppointmentTypeDAO().getEhrAppointmentTypes(fuzzySearchPhrase,
+        return getEhrAppointmentTypeDAO().getEhrAppointmentTypes(fuzzySearchPhrase,
                 includeRetired);
     }
 
@@ -191,7 +191,7 @@ public class EhrAppointmentServiceImpl extends BaseOpenmrsService implements Ehr
     public EhrAppointmentType saveEhrAppointmentType(EhrAppointmentType appointmentType)
             throws APIException {
         ValidateUtil.validate(appointmentType);
-        return (EhrAppointmentType) getAppointmentTypeDAO().saveOrUpdate(
+        return (EhrAppointmentType) getEhrAppointmentTypeDAO().saveOrUpdate(
                 appointmentType);
     }
 
@@ -222,7 +222,7 @@ public class EhrAppointmentServiceImpl extends BaseOpenmrsService implements Ehr
     @Override
     @Transactional
     public void purgeEhrAppointmentType(EhrAppointmentType appointmentType) {
-        getAppointmentTypeDAO().delete(appointmentType);
+        getEhrAppointmentTypeDAO().delete(appointmentType);
     }
 
     // Appointment Block
@@ -233,7 +233,7 @@ public class EhrAppointmentServiceImpl extends BaseOpenmrsService implements Ehr
     @Override
     @Transactional(readOnly = true)
     public List<EhrAppointmentBlock> getAllEhrAppointmentBlocks() {
-        return getAppointmentBlockDAO().getAll();
+        return getEhrAppointmentBlockDAO().getAll();
     }
 
     /**
@@ -242,7 +242,7 @@ public class EhrAppointmentServiceImpl extends BaseOpenmrsService implements Ehr
     @Override
     @Transactional(readOnly = true)
     public List<EhrAppointmentBlock> getAllEhrAppointmentBlocks(boolean includeVoided) {
-        return getAppointmentBlockDAO().getAllData(includeVoided);
+        return getEhrAppointmentBlockDAO().getAllData(includeVoided);
     }
 
     /**
@@ -251,7 +251,7 @@ public class EhrAppointmentServiceImpl extends BaseOpenmrsService implements Ehr
     @Override
     @Transactional(readOnly = true)
     public EhrAppointmentBlock getEhrAppointmentBlock(Integer appointmentBlockId) {
-        return (EhrAppointmentBlock) getAppointmentBlockDAO().getById(
+        return (EhrAppointmentBlock) getEhrAppointmentBlockDAO().getById(
                 appointmentBlockId);
     }
 
@@ -261,7 +261,7 @@ public class EhrAppointmentServiceImpl extends BaseOpenmrsService implements Ehr
     @Override
     @Transactional(readOnly = true)
     public EhrAppointmentBlock getEhrAppointmentBlockByUuid(String uuid) {
-        return (EhrAppointmentBlock) getAppointmentBlockDAO().getByUuid(uuid);
+        return (EhrAppointmentBlock) getEhrAppointmentBlockDAO().getByUuid(uuid);
     }
 
     /**
@@ -272,7 +272,7 @@ public class EhrAppointmentServiceImpl extends BaseOpenmrsService implements Ehr
     public EhrAppointmentBlock saveEhrAppointmentBlock(
             EhrAppointmentBlock appointmentBlock) throws APIException {
         ValidateUtil.validate(appointmentBlock);
-        return (EhrAppointmentBlock) getAppointmentBlockDAO().saveOrUpdate(
+        return (EhrAppointmentBlock) getEhrAppointmentBlockDAO().saveOrUpdate(
                 appointmentBlock);
     }
 
@@ -312,7 +312,7 @@ public class EhrAppointmentServiceImpl extends BaseOpenmrsService implements Ehr
     @Override
     @Transactional
     public void purgeEhrAppointmentBlock(EhrAppointmentBlock appointmentBlock) {
-        getAppointmentBlockDAO().delete(appointmentBlock);
+        getEhrAppointmentBlockDAO().delete(appointmentBlock);
     }
 
     /**
@@ -337,7 +337,7 @@ public class EhrAppointmentServiceImpl extends BaseOpenmrsService implements Ehr
     public List<EhrAppointmentBlock> getEhrAppointmentBlocksByTypes(Date fromDate,
                                                               Date toDate, String locations, Provider provider,
                                                               List<EhrAppointmentType> appointmentTypes) {
-        return getAppointmentBlockDAO().getEhrAppointmentBlocks(fromDate, toDate,
+        return getEhrAppointmentBlockDAO().getEhrAppointmentBlocks(fromDate, toDate,
                 locations, provider, appointmentTypes);
     }
 
@@ -349,32 +349,32 @@ public class EhrAppointmentServiceImpl extends BaseOpenmrsService implements Ehr
     @Transactional(readOnly = true)
     public List<EhrAppointmentBlock> getOverlappingEhrAppointmentBlocks(
             EhrAppointmentBlock appointmentBlock) {
-        return getAppointmentBlockDAO().getOverlappingEhrAppointmentBlocks(
+        return getEhrAppointmentBlockDAO().getOverlappingEhrAppointmentBlocks(
                 appointmentBlock);
     }
 
     @Override
     @Transactional(readOnly = true)
     public List<EhrAppointment> getAllEhrAppointments() {
-        return getAppointmentDAO().getAll();
+        return getEhrAppointmentDAO().getAll();
     }
 
     @Override
     @Transactional(readOnly = true)
     public List<EhrAppointment> getAllEhrAppointments(boolean includeVoided) {
-        return getAppointmentDAO().getAllData(includeVoided);
+        return getEhrAppointmentDAO().getAllData(includeVoided);
     }
 
     @Override
     @Transactional(readOnly = true)
     public EhrAppointment getEhrAppointment(Integer appointmentId) {
-        return (EhrAppointment) getAppointmentDAO().getById(appointmentId);
+        return (EhrAppointment) getEhrAppointmentDAO().getById(appointmentId);
     }
 
     @Override
     @Transactional(readOnly = true)
     public EhrAppointment getEhrAppointmentByUuid(String uuid) {
-        return (EhrAppointment) getAppointmentDAO().getByUuid(uuid);
+        return (EhrAppointment) getEhrAppointmentDAO().getByUuid(uuid);
     }
 
     @Override
@@ -382,7 +382,7 @@ public class EhrAppointmentServiceImpl extends BaseOpenmrsService implements Ehr
     public EhrAppointment saveEhrAppointment(EhrAppointment appointment)
             throws APIException {
         ValidateUtil.validate(appointment);
-        return (EhrAppointment) getAppointmentDAO().saveOrUpdate(appointment);
+        return (EhrAppointment) getEhrAppointmentDAO().saveOrUpdate(appointment);
     }
 
     @Override
@@ -400,20 +400,20 @@ public class EhrAppointmentServiceImpl extends BaseOpenmrsService implements Ehr
     @Override
     @Transactional
     public void purgeEhrAppointment(EhrAppointment appointment) {
-        getAppointmentStatusHistoryDAO().purgeHistoryBy(appointment);
-        getAppointmentDAO().delete(appointment);
+        getEhrAppointmentStatusHistoryDAO().purgeHistoryBy(appointment);
+        getEhrAppointmentDAO().delete(appointment);
     }
 
     @Override
     @Transactional(readOnly = true)
     public List<EhrAppointment> getEhrAppointmentsOfPatient(Patient patient) {
-        return getAppointmentDAO().getEhrAppointmentsByPatient(patient);
+        return getEhrAppointmentDAO().getEhrAppointmentsByPatient(patient);
     }
 
     @Override
     @Transactional(readOnly = true)
     public EhrAppointment getEhrAppointmentByVisit(Visit visit) {
-        return getAppointmentDAO().getEhrAppointmentByVisit(visit);
+        return getEhrAppointmentDAO().getEhrAppointmentByVisit(visit);
     }
 
     // TimeSlot
@@ -422,31 +422,31 @@ public class EhrAppointmentServiceImpl extends BaseOpenmrsService implements Ehr
     @Transactional
     public EhrTimeSlot saveEhrTimeSlot(EhrTimeSlot timeSlot) throws APIException {
         ValidateUtil.validate(timeSlot);
-        return (EhrTimeSlot) getTimeSlotDAO().saveOrUpdate(timeSlot);
+        return (EhrTimeSlot) getEhrTimeSlotDAO().saveOrUpdate(timeSlot);
     }
 
     @Override
     @Transactional(readOnly = true)
     public List<EhrTimeSlot> getAllEhrTimeSlots() {
-        return getTimeSlotDAO().getAll();
+        return getEhrTimeSlotDAO().getAll();
     }
 
     @Override
     @Transactional(readOnly = true)
     public List<EhrTimeSlot> getAllEhrTimeSlots(boolean includeVoided) {
-        return getTimeSlotDAO().getAllData(includeVoided);
+        return getEhrTimeSlotDAO().getAllData(includeVoided);
     }
 
     @Override
     @Transactional(readOnly = true)
     public EhrTimeSlot getEhrTimeSlot(Integer timeSlotId) {
-        return (EhrTimeSlot) getTimeSlotDAO().getById(timeSlotId);
+        return (EhrTimeSlot) getEhrTimeSlotDAO().getById(timeSlotId);
     }
 
     @Override
     @Transactional(readOnly = true)
     public EhrTimeSlot getEhrTimeSlotByUuid(String uuid) {
-        return (EhrTimeSlot) getTimeSlotDAO().getByUuid(uuid);
+        return (EhrTimeSlot) getEhrTimeSlotDAO().getByUuid(uuid);
     }
 
     @Override
@@ -464,34 +464,34 @@ public class EhrAppointmentServiceImpl extends BaseOpenmrsService implements Ehr
     @Override
     @Transactional
     public void purgeEhrTimeSlot(EhrTimeSlot timeSlot) {
-        getTimeSlotDAO().delete(timeSlot);
+        getEhrTimeSlotDAO().delete(timeSlot);
     }
 
     @Override
     @Transactional(readOnly = true)
     public List<EhrAppointment> getEhrAppointmentsInTimeSlot(EhrTimeSlot timeSlot) {
-        return getAppointmentDAO().getEhrAppointmentsInTimeSlot(timeSlot);
+        return getEhrAppointmentDAO().getEhrAppointmentsInTimeSlot(timeSlot);
     }
 
     @Override
     @Transactional(readOnly = true)
     public List<EhrAppointment> getEhrAppointmentsInTimeSlotThatAreNotCancelled(
             EhrTimeSlot timeSlot) {
-        return getAppointmentDAO().getEhrAppointmentsInTimeSlotByStatus(timeSlot,
+        return getEhrAppointmentDAO().getEhrAppointmentsInTimeSlotByStatus(timeSlot,
                 EhrAppointment.EhrAppointmentStatus.getNotCancelledAppointmentStatuses());
     }
 
     @Override
     @Transactional(readOnly = true)
     public Integer getCountOfEhrAppointmentsInTimeSlot(EhrTimeSlot timeSlot) {
-        return getAppointmentDAO().getCountOfEhrAppointmentsInTimeSlot(timeSlot);
+        return getEhrAppointmentDAO().getCountOfEhrAppointmentsInTimeSlot(timeSlot);
     }
 
     @Override
     @Transactional(readOnly = true)
     public Integer getCountOfEhrAppointmentsInTimeSlotThatAreNotCancelled(
             EhrTimeSlot timeSlot) {
-        return getAppointmentDAO().getCountOfEhrAppointmentsInTimeSlotByStatus(
+        return getEhrAppointmentDAO().getCountOfEhrAppointmentsInTimeSlotByStatus(
                 timeSlot,
                 EhrAppointment.EhrAppointmentStatus.getNotCancelledAppointmentStatuses());
     }
@@ -500,7 +500,7 @@ public class EhrAppointmentServiceImpl extends BaseOpenmrsService implements Ehr
     @Transactional(readOnly = true)
     public List<EhrTimeSlot> getEhrTimeSlotsInAppointmentBlock(
             EhrAppointmentBlock appointmentBlock) {
-        return getTimeSlotDAO()
+        return getEhrTimeSlotDAO()
                 .getEhrTimeSlotsByAppointmentBlock(appointmentBlock);
     }
 
@@ -512,7 +512,7 @@ public class EhrAppointmentServiceImpl extends BaseOpenmrsService implements Ehr
     @Override
     @Transactional(readOnly = true)
     public List<EhrAppointmentStatusHistory> getAllEhrAppointmentStatusHistories() {
-        return getAppointmentStatusHistoryDAO().getAll();
+        return getEhrAppointmentStatusHistoryDAO().getAll();
     }
 
     /**
@@ -522,7 +522,7 @@ public class EhrAppointmentServiceImpl extends BaseOpenmrsService implements Ehr
     @Transactional(readOnly = true)
     public EhrAppointmentStatusHistory getEhrAppointmentStatusHistory(
             Integer appointmentStatusHistoryId) {
-        return (EhrAppointmentStatusHistory) getAppointmentStatusHistoryDAO()
+        return (EhrAppointmentStatusHistory) getEhrAppointmentStatusHistoryDAO()
                 .getById(appointmentStatusHistoryId);
     }
 
@@ -533,7 +533,7 @@ public class EhrAppointmentServiceImpl extends BaseOpenmrsService implements Ehr
     @Transactional(readOnly = true)
     public List<EhrAppointmentStatusHistory> getEhrAppointmentStatusHistories(
             EhrAppointment.EhrAppointmentStatus status) {
-        return getAppointmentStatusHistoryDAO().getAll(status);
+        return getEhrAppointmentStatusHistoryDAO().getAll(status);
     }
 
     /**
@@ -545,68 +545,68 @@ public class EhrAppointmentServiceImpl extends BaseOpenmrsService implements Ehr
             EhrAppointmentStatusHistory appointmentStatusHistory)
             throws APIException {
         ValidateUtil.validate(appointmentStatusHistory);
-        return (EhrAppointmentStatusHistory) getAppointmentStatusHistoryDAO()
+        return (EhrAppointmentStatusHistory) getEhrAppointmentStatusHistoryDAO()
                 .saveOrUpdate(appointmentStatusHistory);
     }
 
     @Override
     @Transactional(readOnly = true)
     public List<EhrAppointmentRequest> getAllEhrAppointmentRequests() {
-        return appointmentRequestDAO.getAll();
+        return ehrAppointmentRequestDAO.getAll();
     }
 
     @Override
     @Transactional(readOnly = true)
     public List<EhrAppointmentRequest> getAllEhrAppointmentRequests(boolean includeVoided) {
-        return appointmentRequestDAO.getAllData(includeVoided);
+        return ehrAppointmentRequestDAO.getAllData(includeVoided);
     }
 
     @Override
     @Transactional(readOnly = true)
     public EhrAppointmentRequest getEhrAppointmentRequest(Integer appointmentRequestId) {
-        return appointmentRequestDAO.getById(appointmentRequestId);
+        return ehrAppointmentRequestDAO.getById(appointmentRequestId);
     }
 
     @Override
     @Transactional(readOnly = true)
     public EhrAppointmentRequest getEhrAppointmentRequestByUuid(String uuid) {
-        return appointmentRequestDAO.getByUuid(uuid);
+        return ehrAppointmentRequestDAO.getByUuid(uuid);
     }
 
     @Override
     public List<EhrAppointmentRequest> getEhrAppointmentRequestsByConstraints(Patient patient, EhrAppointmentType type, Provider provider,
                                                                         EhrAppointmentRequest.EhrAppointmentRequestStatus status) throws APIException {
-        return appointmentRequestDAO.getEhrAppointmentRequestsByConstraints(patient, type, provider, status);
+        return ehrAppointmentRequestDAO.getEhrAppointmentRequestsByConstraints(patient, type, provider, status);
     }
 
     @Override
     @Transactional
     public EhrAppointmentRequest saveEhrAppointmentRequest(EhrAppointmentRequest appointmentRequest) throws APIException {
-        return appointmentRequestDAO.saveOrUpdate(appointmentRequest);
+        return ehrAppointmentRequestDAO.saveOrUpdate(appointmentRequest);
     }
 
     @Override
     @Transactional
     public EhrAppointmentRequest voidEhrAppointmentRequest(EhrAppointmentRequest appointmentRequest, String reason) {
-        return appointmentRequestDAO.saveOrUpdate(appointmentRequest);
+        return ehrAppointmentRequestDAO.saveOrUpdate(appointmentRequest);
     }
 
     @Override
     @Transactional
     public EhrAppointmentRequest unvoidEhrAppointmentRequest(EhrAppointmentRequest appointmentRequest) {
-        return appointmentRequestDAO.saveOrUpdate(appointmentRequest);
+        return ehrAppointmentRequestDAO.saveOrUpdate(appointmentRequest);
     }
 
     @Override
     @Transactional
     public void purgeEhrAppointmentRequest(EhrAppointmentRequest appointmentRequest) {
-        appointmentRequestDAO.delete(appointmentRequest);
+        ehrAppointmentRequestDAO.delete(appointmentRequest);
     }
 
     @Override
     @Transactional(readOnly = true)
     public EhrAppointment getLastEhrAppointment(Patient patient) {
-        return getAppointmentDAO().getLastEhrAppointment(patient);
+        return getEhrAppointmentDAO().getLastEhrAppointment(patient);
     }
 
     @Override
@@ -647,7 +647,7 @@ public class EhrAppointmentServiceImpl extends BaseOpenmrsService implements Ehr
                                                                  Date toDate, Provider provider, Location location,
                                                                  Patient excludeTimeSlotsWithPatient) throws APIException {
 
-        List<EhrTimeSlot> suitableTimeSlots = getTimeSlotDAO().getEhrTimeSlotsByConstraints(appointmentType, fromDate, toDate, provider);
+        List<EhrTimeSlot> suitableTimeSlots = getEhrTimeSlotDAO().getEhrTimeSlotsByConstraints(appointmentType, fromDate, toDate, provider);
 
         List<EhrTimeSlot> availableTimeSlots = new LinkedList<EhrTimeSlot>();
 
@@ -779,7 +779,7 @@ public class EhrAppointmentServiceImpl extends BaseOpenmrsService implements Ehr
                                                           EhrAppointmentType type, Patient patient, List<EhrAppointment.EhrAppointmentStatus> statuses,
                                                           VisitType visitType, Visit visit) throws APIException{
 
-        List<EhrAppointment> appointments = appointmentDAO
+        List<EhrAppointment> appointments = ehrAppointmentDAO
                 .getEhrAppointmentsByConstraints(fromDate, toDate, provider, type,
                         statuses, patient, visitType, visit);
 
@@ -830,7 +830,7 @@ public class EhrAppointmentServiceImpl extends BaseOpenmrsService implements Ehr
     @Override
     @Transactional(readOnly = true)
     public Date getEhrAppointmentCurrentStatusStartDate(EhrAppointment appointment) {
-        return appointmentStatusHistoryDAO
+        return ehrAppointmentStatusHistoryDAO
                 .getStartDateOfCurrentStatus(appointment);
     }
 
@@ -924,7 +924,7 @@ public class EhrAppointmentServiceImpl extends BaseOpenmrsService implements Ehr
     @Transactional(readOnly = true)
     public List<EhrAppointment> getEhrAppointmentsByStatus(
             List<EhrAppointment.EhrAppointmentStatus> states) {
-        return appointmentDAO.getEhrAppointmentsByStates(states);
+        return ehrAppointmentDAO.getEhrAppointmentsByStates(states);
     }
 
     @Override
@@ -938,7 +938,7 @@ public class EhrAppointmentServiceImpl extends BaseOpenmrsService implements Ehr
 
         Date endOfYesterday = new DateTime().withTime(23, 59, 59, 999).minusDays(1).toDate();
 
-        List<EhrAppointment> appointmentsInStates = appointmentDAO
+        List<EhrAppointment> appointmentsInStates = ehrAppointmentDAO
                 .getPastEhrAppointmentsByStates(states);
         if (appointmentsInStates == null)
             return new LinkedList<EhrAppointment>();
@@ -976,15 +976,15 @@ public class EhrAppointmentServiceImpl extends BaseOpenmrsService implements Ehr
     @Override
     @Transactional(readOnly = true)
     public boolean verifyDuplicatedEhrAppointmentTypeName(
-            EhrAppointmentType appointmentTypeName) {
-        return appointmentTypeDAO
-                .verifyDuplicatedEhrAppointmentTypeName(appointmentTypeName);
+            EhrAppointmentType ehrAppointmentTypeName) {
+        return ehrAppointmentTypeDAO
+                .verifyDuplicatedEhrAppointmentTypeName(ehrAppointmentTypeName);
     }
 
     @Override
     @Transactional(readOnly = true)
     public List<EhrAppointment> getScheduledEhrAppointmentsForPatient(Patient patient) {
-        return appointmentDAO.getScheduledEhrAppointmentsForPatient(patient);
+        return ehrAppointmentDAO.getScheduledEhrAppointmentsForPatient(patient);
     }
 
     @Override
@@ -994,7 +994,7 @@ public class EhrAppointmentServiceImpl extends BaseOpenmrsService implements Ehr
         Map<EhrAppointmentType, Double> averages = new HashMap<EhrAppointmentType, Double>();
         Map<EhrAppointmentType, Integer> counters = new HashMap<EhrAppointmentType, Integer>();
 
-        List<EhrAppointmentStatusHistory> histories = appointmentStatusHistoryDAO
+        List<EhrAppointmentStatusHistory> histories = ehrAppointmentStatusHistoryDAO
                 .getHistoriesByInterval(fromDate, endDate, status);
 
         // Clean Not-Reasonable Durations
@@ -1061,7 +1061,7 @@ public class EhrAppointmentServiceImpl extends BaseOpenmrsService implements Ehr
         Map<Provider, Double> averages = new HashMap<Provider, Double>();
         Map<Provider, Integer> counters = new HashMap<Provider, Integer>();
 
-        List<EhrAppointmentStatusHistory> histories = appointmentStatusHistoryDAO
+        List<EhrAppointmentStatusHistory> histories = ehrAppointmentStatusHistoryDAO
                 .getHistoriesByInterval(fromDate, endDate, status);
 
         // Clean Not-Reasonable Durations
@@ -1124,7 +1124,7 @@ public class EhrAppointmentServiceImpl extends BaseOpenmrsService implements Ehr
     @Transactional(readOnly = true)
     public Integer getEhrHistoryCountByConditions(Date fromDate, Date endDate,
                                                EhrAppointment.EhrAppointmentStatus status) {
-        List<EhrAppointmentStatusHistory> histories = appointmentStatusHistoryDAO
+        List<EhrAppointmentStatusHistory> histories = ehrAppointmentStatusHistoryDAO
                 .getHistoriesByInterval(fromDate, endDate, status);
 
         return histories.size();
@@ -1139,7 +1139,7 @@ public class EhrAppointmentServiceImpl extends BaseOpenmrsService implements Ehr
         Map<EhrAppointmentType, Integer> distribution = new HashMap<EhrAppointmentType, Integer>();
 
         for (EhrAppointmentType type : unretiredTypes) {
-            Integer countOfType = appointmentTypeDAO.getEhrAppointmentTypeCount(
+            Integer countOfType = ehrAppointmentTypeDAO.getEhrAppointmentTypeCount(
                     fromDate, toDate, type);
             if (countOfType > 0)
                 distribution.put(type, countOfType);
@@ -1187,57 +1187,57 @@ public class EhrAppointmentServiceImpl extends BaseOpenmrsService implements Ehr
     @Override
     @Transactional
     public List<EhrAppointmentStatusHistory> getEhrAppointmentStatusHistories(EhrAppointment appointment) {
-        return getAppointmentStatusHistoryDAO().getEhrAppointmentStatusHistories(appointment);
+        return getEhrAppointmentStatusHistoryDAO().getEhrAppointmentStatusHistories(appointment);
     }
 
     @Override
     public EhrAppointmentStatusHistory getMostRecentEhrAppointmentStatusHistory(EhrAppointment appointment) {
-        return getAppointmentStatusHistoryDAO().getMostRecentEhrAppointmentStatusHistory(appointment);
+        return getEhrAppointmentStatusHistoryDAO().getMostRecentEhrAppointmentStatusHistory(appointment);
     }
 
     //provider schedules
 
     @Override
     public List<EhrProviderSchedule> getAllEhrProviderSchedules() {
-        return getProviderScheduleDAO().getAll();
+        return getEhrProviderScheduleDAO().getAll();
     }
 
     @Override
     public List<EhrProviderSchedule> getAllEhrProviderSchedules(boolean includeVoided) {
-        return getProviderScheduleDAO().getAllData(includeVoided);
+        return getEhrProviderScheduleDAO().getAllData(includeVoided);
     }
 
     @Override
     public EhrProviderSchedule getEhrProviderSchedule(Integer ProviderScheduleId) {
-        return (EhrProviderSchedule) getProviderScheduleDAO().getById(ProviderScheduleId);
+        return (EhrProviderSchedule) getEhrProviderScheduleDAO().getById(ProviderScheduleId);
     }
 
     @Override
     public EhrProviderSchedule getEhrProviderScheduleByUuid(String uuid) {
-        return (EhrProviderSchedule) getProviderScheduleDAO().getByUuid(uuid);
+        return (EhrProviderSchedule) getEhrProviderScheduleDAO().getByUuid(uuid);
     }
 
     @Override
     public EhrProviderSchedule saveEhrProviderSchedule(EhrProviderSchedule providerSchedule) throws APIException {
         ValidateUtil.validate(providerSchedule);
-        return (EhrProviderSchedule) getProviderScheduleDAO().saveOrUpdate(providerSchedule);
+        return (EhrProviderSchedule) getEhrProviderScheduleDAO().saveOrUpdate(providerSchedule);
     }
 
     @Override
     public EhrProviderSchedule voidEhrProviderSchedule(EhrProviderSchedule providerSchedule, String reason) {
         providerSchedule.setVoided(true);
         providerSchedule.setVoidReason(reason);
-        return (EhrProviderSchedule) getProviderScheduleDAO().saveOrUpdate(providerSchedule);
+        return (EhrProviderSchedule) getEhrProviderScheduleDAO().saveOrUpdate(providerSchedule);
     }
 
     @Override
     public void purgeEhrProviderSchedule(EhrProviderSchedule providerSchedule) {
-        getProviderScheduleDAO().delete(providerSchedule);
+        getEhrProviderScheduleDAO().delete(providerSchedule);
     }
 
     @Override
     public List<EhrProviderSchedule> getEhrProviderSchedulesByConstraints(Location location, Provider provider, List<EhrAppointmentType> appointmentTypes) {
-        return getProviderScheduleDAO().getEhrProviderScheduleByConstraints(location, provider,null);
+        return getEhrProviderScheduleDAO().getEhrProviderScheduleByConstraints(location, provider,null);
     }
 
     @Override
@@ -1259,7 +1259,7 @@ public class EhrAppointmentServiceImpl extends BaseOpenmrsService implements Ehr
     @Override
     public EhrTimeSlot createEhrTimeSlotUsingProviderSchedule(Date appointmentDate, Provider provider, Location location) {
 
-        List<EhrProviderSchedule> ar = getProviderScheduleDAO().getEhrProviderScheduleByConstraints(location, provider, appointmentDate);
+        List<EhrProviderSchedule> ar = getEhrProviderScheduleDAO().getEhrProviderScheduleByConstraints(location, provider, appointmentDate);
         if (ar.size() > 0) {
             EhrTimeSlot timeSlot = new EhrTimeSlot();
             EhrProviderSchedule providerSchedule = ar.get(0);
@@ -1273,13 +1273,13 @@ public class EhrAppointmentServiceImpl extends BaseOpenmrsService implements Ehr
             }
 
             EhrAppointmentBlock appointmentBlock = new EhrAppointmentBlock(startDate, endDate, providerSchedule.getProvider(), providerSchedule.getLocation(), types);
-            EhrAppointmentBlock block = (EhrAppointmentBlock) getAppointmentBlockDAO().saveOrUpdate(appointmentBlock);
+            EhrAppointmentBlock block = (EhrAppointmentBlock) getEhrAppointmentBlockDAO().saveOrUpdate(appointmentBlock);
 
             timeSlot.setAppointmentBlock(block);
             timeSlot.setStartDate(block.getStartDate());
             timeSlot.setEndDate(block.getEndDate());
 
-            return (EhrTimeSlot) getTimeSlotDAO().saveOrUpdate(timeSlot);
+            return (EhrTimeSlot) getEhrTimeSlotDAO().saveOrUpdate(timeSlot);
         } else {
             throw new APIException("Appointment cannot be booked, Schedule does not exist");
         }
@@ -1336,7 +1336,7 @@ public class EhrAppointmentServiceImpl extends BaseOpenmrsService implements Ehr
     @Override
     public List<EhrAppointmentDailyCount> getEhrAppointmentDailyCount(String fromDate, String toDate, Location location,
                                                                    Provider provider, EhrAppointment.EhrAppointmentStatus status) throws APIException {
-        return appointmentDAO.getEhrAppointmentDailyCount(fromDate, toDate, location, provider, status);
+        return ehrAppointmentDAO.getEhrAppointmentDailyCount(fromDate, toDate, location, provider, status);
     }
 
     private List<EhrAppointmentBlock> getEhrAppointmentBlockList(Location location,

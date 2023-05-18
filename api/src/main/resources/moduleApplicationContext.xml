@@ -450,34 +450,74 @@
 		<property name="moduleService">
 			<list>
 				<value>org.openmrs.module.hospitalcore.EhrAppointmentService</value>
-				<bean
-						class="org.springframework.transaction.interceptor.TransactionProxyFactoryBean">
-					<property name="transactionManager">
-						<ref bean="transactionManager" />
-					</property>
-					<property name="target">
-						<bean class="org.openmrs.module.hospitalcore.impl.EhrAppointmentServiceImpl">
-							<property name="dao">
-								<bean
-										class="org.openmrs.module.hospitalcore.db.hibernate.HibernateEhrAppointmentDAO">
-									<property name="sessionFactory">
-										<ref bean="sessionFactory" />
-									</property>
-								</bean>
-							</property>
-						</bean>
-					</property>
-					<property name="preInterceptors">
-						<list>
-							<ref bean="authorizationInterceptor" />
-						</list>
-					</property>
-					<property name="transactionAttributeSource">
-						<bean
-								class="org.springframework.transaction.annotation.AnnotationTransactionAttributeSource" />
-					</property>
-				</bean>
+				<ref bean="ehrAppointmentService" />
 			</list>
+		</property>
+	</bean>
+
+	<bean id="ehrAppointmentService"
+		  class="org.springframework.transaction.interceptor.TransactionProxyFactoryBean">
+		<property name="transactionManager">
+			<ref bean="transactionManager" />
+		</property>
+		<property name="target">
+			<bean class="org.openmrs.module.hospitalcore.impl.EhrAppointmentServiceImpl">
+				<property name="ehrAppointmentTypeDAO">
+					<bean class="org.openmrs.module.hospitalcore.db.hibernate.HibernateEhrAppointmentTypeDAO">
+						<property name="sessionFactory">
+							<ref bean="dbSessionFactory" />
+						</property>
+					</bean>
+				</property>
+				<property name="ehrAppointmentBlockDAO">
+					<bean class="org.openmrs.module.hospitalcore.db.hibernate.HibernateEhrAppointmentBlockDAO">
+						<property name="sessionFactory">
+							<ref bean="dbSessionFactory" />
+						</property>
+					</bean>
+				</property>
+				<property name="ehrAppointmentDAO">
+					<bean class="org.openmrs.module.hospitalcore.db.hibernate.HibernateEhrAppointmentDAO">
+						<property name="sessionFactory">
+							<ref bean="dbSessionFactory" />
+						</property>
+					</bean>
+				</property>
+				<property name="ehrTimeSlotDAO">
+					<bean class="org.openmrs.module.hospitalcore.db.hibernate.HibernateEhrTimeSlotDAO">
+						<property name="sessionFactory">
+							<ref bean="dbSessionFactory" />
+						</property>
+					</bean>
+				</property>
+				<property name="ehrAppointmentStatusHistoryDAO">
+					<bean class="org.openmrs.module.hospitalcore.db.hibernate.HibernateEhrAppointmentStatusHistoryDAO">
+						<property name="sessionFactory">
+							<ref bean="dbSessionFactory" />
+						</property>
+					</bean>
+				</property>
+				<property name="ehrAppointmentRequestDAO">
+					<bean class="org.openmrs.module.hospitalcore.db.hibernate.HibernateEhrAppointmentRequestDAO">
+						<property name="sessionFactory">
+							<ref bean="dbSessionFactory" />
+						</property>
+					</bean>
+				</property>
+				<property name="ehrProviderScheduleDAO">
+					<bean class="org.openmrs.module.hospitalcore.db.hibernate.HibernateEhrProviderScheduleDAO">
+						<property name="sessionFactory">
+							<ref bean="dbSessionFactory" />
+						</property>
+					</bean>
+				</property>
+			</bean>
+		</property>
+		<property name="preInterceptors">
+			<ref bean="serviceInterceptors" />
+		</property>
+		<property name="transactionAttributeSource">
+			<ref bean="transactionAttributeSource" />
 		</property>
 	</bean>
 	

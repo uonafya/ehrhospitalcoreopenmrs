@@ -45,11 +45,11 @@ public class EhrTimeSlot extends BaseOpenmrsData {
         setEndDate(endDate);
     }
 
-    public Integer getEhrTimeSlotId() {
+    public Integer getTimeSlotId() {
         return timeSlotId;
     }
 
-    public void setEhrTimeSlotId(Integer timeSlotId) {
+    public void setTimeSlotId(Integer timeSlotId) {
         this.timeSlotId = timeSlotId;
     }
 
@@ -58,7 +58,7 @@ public class EhrTimeSlot extends BaseOpenmrsData {
      */
     @Override
     public Integer getId() {
-        return getEhrTimeSlotId();
+        return getTimeSlotId();
     }
 
     /**
@@ -66,7 +66,7 @@ public class EhrTimeSlot extends BaseOpenmrsData {
      */
     @Override
     public void setId(Integer id) {
-        setEhrTimeSlotId(id);
+        setTimeSlotId(id);
     }
 
     public EhrAppointmentBlock getAppointmentBlock() {

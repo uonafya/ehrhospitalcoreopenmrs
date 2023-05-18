@@ -5,7 +5,7 @@
 
 <hibernate-mapping package="org.openmrs.module.hospitalcore.model">
 
-    <class name="EhrAppointmentRequest" table="${project.parent.artifactId}_appointment_request">
+    <class name="EhrAppointmentRequest" table="hospitalcore_appointment_request">
         <id name="appointmentRequestId" type="int" column="appointment_request_id" unsaved-value="0">
 			<generator class="native">
 			<!-- Due to limit on max length of sequence on PostgreSQL, the table name gets sliced from the end

@@ -13,7 +13,7 @@
 		</id>
 
 		<discriminator column="appointment_id" insert="false" />
-		<many-to-one name="timeSlot" column="time_slot_id" class="TimeSlot" not-null="true" />
+		<many-to-one name="timeSlot" column="time_slot_id" class="EhrTimeSlot" not-null="true" />
 		<many-to-one name="visit" column="visit_id" class="org.openmrs.Visit" not-null="false" />
 		<many-to-one name="patient" column="patient_id" class="org.openmrs.Patient" not-null="true" />
 
