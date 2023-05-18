@@ -31,7 +31,7 @@ public class HibernateEhrAppointmentTypeDAO extends HibernateEhrSingleClassDAO i
     }
 
     public Integer getEhrAppointmentTypeCount(Date fromDate, Date endDate, EhrAppointmentType type) {
-        String stringQuery = "SELECT count(*) As counter FROM Appointment AS appointment"
+        String stringQuery = "SELECT count(*) As counter FROM EhrAppointment AS appointment"
                 + " WHERE appointment.voided = false "
                 + "AND appointment.timeSlot.startDate >= :fromDate " + "AND appointment.timeSlot.endDate <= :endDate "
                 + "AND appointment.appointmentType=:appointmentType";

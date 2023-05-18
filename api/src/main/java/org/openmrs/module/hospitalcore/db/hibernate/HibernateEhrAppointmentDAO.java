@@ -60,7 +60,7 @@ public class HibernateEhrAppointmentDAO extends HibernateEhrSingleClassDAO imple
     public EhrAppointment getLastEhrAppointment(Patient patient) {
         String query = "select appointment from EhrAppointment as appointment"
                 + " where appointment.patient = :patient and appointment.timeSlot.startDate ="
-                + " (select max(ap.timeSlot.startDate) from Appointment as ap inner join ap.timeSlot"
+                + " (select max(ap.timeSlot.startDate) from EhrAppointment as ap inner join ap.timeSlot"
                 + " where ap.patient = :patient)";
 
         List<EhrAppointment> appointment = super.sessionFactory
@@ -83,7 +83,7 @@ public class HibernateEhrAppointmentDAO extends HibernateEhrSingleClassDAO imple
             throw new APIException("fromDate can not be later than toDate");
 
         else {
-            String stringQuery = "SELECT appointment FROM Appointment AS appointment WHERE appointment.voided = false";
+            String stringQuery = "SELECT appointment FROM EhrAppointment AS appointment WHERE appointment.voided = false";
 
             if (fromDate != null)
                 stringQuery += " AND appointment.timeSlot.startDate >= :fromDate";
@@ -142,7 +142,7 @@ public class HibernateEhrAppointmentDAO extends HibernateEhrSingleClassDAO imple
     @Transactional(readOnly = true)
     public List<EhrAppointment> getEhrAppointmentsByStates(
             List<EhrAppointment.EhrAppointmentStatus> states) {
-        String sQuery = "from Appointment as appointment where appointment.voided = false and appointment.status in (:states)";
+        String sQuery = "from EhrAppointment as appointment where appointment.voided = false and appointment.status in (:states)";
 
         Query query = super.sessionFactory.getCurrentSession().createQuery(
                 sQuery);

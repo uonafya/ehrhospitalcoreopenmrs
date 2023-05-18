@@ -34,7 +34,7 @@ public class HibernateEhrTimeSlotDAO extends HibernateEhrSingleClassDAO implemen
         else {
             Date startDate = (fromDate == null) ? new Date() : fromDate;
 
-            String stringQuery = "SELECT ehrTimeSlot FROM EhrTimeSlot AS timeSlot WHERE ehrTimeSlot.ehrAppointmentBlock IN("
+            String stringQuery = "SELECT ehrTimeSlot FROM EhrTimeSlot AS timeSlot WHERE timeSlot.ehrAppointmentBlock IN("
                     + " FROM EhrAppointmentBlock WHERE :appointmentType IN elements(types)) AND voided = false AND endDate > :startDate";
 
             if (toDate != null) {
@@ -42,7 +42,7 @@ public class HibernateEhrTimeSlotDAO extends HibernateEhrSingleClassDAO implemen
             }
 
             if (provider != null) {
-                stringQuery += " AND ehrTimeSlot.ehrAppointmentBlock.provider = :provider";
+                stringQuery += " AND timeSlot.ehrAppointmentBlock.provider = :provider";
             }
 
             stringQuery += " ORDER BY startDate";

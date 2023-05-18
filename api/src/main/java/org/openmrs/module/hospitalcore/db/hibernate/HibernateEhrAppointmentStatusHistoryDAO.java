@@ -31,7 +31,7 @@ public class HibernateEhrAppointmentStatusHistoryDAO extends HibernateEhrSingleC
     @Override
     @Transactional(readOnly = true)
     public Date getStartDateOfCurrentStatus(EhrAppointment appointment) {
-        String query = "Select Max(endDate) from AppointmentStatusHistory where appointment=:appointment";
+        String query = "Select Max(endDate) from EhrAppointmentStatusHistory where appointment=:appointment";
         Date endDate = (Date) super.sessionFactory.getCurrentSession().createQuery(query)
                 .setParameter("appointment", appointment).uniqueResult();
         endDate = (endDate == null && appointment != null) ? appointment.getDateCreated() : endDate;
@@ -46,7 +46,7 @@ public class HibernateEhrAppointmentStatusHistoryDAO extends HibernateEhrSingleC
         if (fromDate == null || endDate == null || status == null)
             return histories;
 
-        String stringQuery = "Select history from AppointmentStatusHistory AS history WHERE history.startDate >= :fromDate AND history.endDate <= :endDate AND history.status = :status";
+        String stringQuery = "Select history from EhrAppointmentStatusHistory AS history WHERE history.startDate >= :fromDate AND history.endDate <= :endDate AND history.status = :status";
         Query query = super.sessionFactory.getCurrentSession().createQuery(stringQuery);
 
         query.setParameter("fromDate", fromDate).setParameter("endDate", endDate).setParameter("status", status);

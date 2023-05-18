@@ -56,4 +56,14 @@ public class HospitalCoreUtils {
 	public static EncounterRole getDefaultEncounterRole()  {
 		return Context.getEncounterService().getEncounterRoleByUuid("a0b03050-c99b-11e0-9572-0800200c9a66");
 	}
+
+	public static String getProviderNames(String identifier) {
+		String names = "";
+		ProviderService providerService = Context.getProviderService();
+		Provider provider = providerService.getProviderByIdentifier(identifier);
+		if(provider != null){
+			names = provider.getPerson().getGivenName()+" "+provider.getPerson().getFamilyName();
+		}
+		return names;
+	}
 }
