@@ -120,8 +120,8 @@ public interface PatientQueueDAO {
 //get all the latest triage information
 	List<TriagePatientData> getPatientTriageData(Patient patient);
 	TriagePatientData getPatientTriageData(Integer id);
-	public List<TriagePatientQueue> getAllTriagePatientQueueWithinDatePerUser(Date startDate, Date endDate, User user) throws DAOException;
-	public List<OpdPatientQueue> getAllOpdPatientQueueWithinDatePerUser(Date startDate, Date endDate, User user) throws DAOException;
+	public List<TriagePatientQueue> getAllTriagePatientQueueWithinDatePerUser(Date startDate, Date endDate, User user, String status) throws DAOException;
+	public List<OpdPatientQueue> getAllOpdPatientQueueWithinDatePerUser(Date startDate, Date endDate, User user, String status) throws DAOException;
 	Long getPatientQueueLogCounts(Date paramDate1, Date paramDate2, Concept paramConcept) throws DAOException;
 
 }

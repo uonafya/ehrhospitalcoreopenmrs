@@ -641,7 +641,7 @@ public class HibernatePatientQueueDAO implements PatientQueueDAO {
 
 	@Override
 	@SuppressWarnings("unchecked")
-	public List<TriagePatientQueue> getAllTriagePatientQueueWithinDatePerUser(Date startDate, Date endDate, User user) throws DAOException {
+	public List<TriagePatientQueue> getAllTriagePatientQueueWithinDatePerUser(Date startDate, Date endDate, User user, String status) throws DAOException {
 		Criteria criteria = sessionFactory.getCurrentSession().createCriteria
 						(TriagePatientQueue.class);
 
@@ -652,14 +652,17 @@ public class HibernatePatientQueueDAO implements PatientQueueDAO {
 			criteria.add(Restrictions.le("createdOn", endDate));
 		}
 		if(user != null){
-			criteria.add(Restrictions.le("user", user));
+			criteria.add(Restrictions.eq("user", user));
+		}
+		if(StringUtils.isNotBlank(status)) {
+			criteria.add(Restrictions.eq("status", status));
 		}
 		return criteria.list();
 	}
 
 	@Override
 	@SuppressWarnings("unchecked")
-	public List<OpdPatientQueue> getAllOpdPatientQueueWithinDatePerUser(Date startDate, Date endDate, User user) throws DAOException {
+	public List<OpdPatientQueue> getAllOpdPatientQueueWithinDatePerUser(Date startDate, Date endDate, User user, String status) throws DAOException {
 		Criteria criteria = sessionFactory.getCurrentSession().createCriteria
 						(OpdPatientQueue.class);
 
@@ -670,7 +673,10 @@ public class HibernatePatientQueueDAO implements PatientQueueDAO {
 			criteria.add(Restrictions.le("createdOn", endDate));
 		}
 		if(user != null){
-			criteria.add(Restrictions.le("user", user));
+			criteria.add(Restrictions.eq("user", user));
+		}
+		if(StringUtils.isNotBlank(status)) {
+			criteria.add(Restrictions.eq("status", status));
 		}
 		return criteria.list();
 	}
