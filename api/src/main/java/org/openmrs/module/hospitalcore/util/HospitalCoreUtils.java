@@ -15,6 +15,7 @@
 
 package org.openmrs.module.hospitalcore.util;
 
+import org.apache.commons.lang3.StringUtils;
 import org.openmrs.EncounterRole;
 import org.openmrs.Person;
 import org.openmrs.Provider;
@@ -60,9 +61,11 @@ public class HospitalCoreUtils {
 	public static String getProviderNames(String identifier) {
 		String names = "";
 		ProviderService providerService = Context.getProviderService();
-		Provider provider = providerService.getProviderByIdentifier(identifier);
-		if(provider != null){
-			names = provider.getPerson().getGivenName()+" "+provider.getPerson().getFamilyName();
+		if(StringUtils.isNotBlank(identifier)) {
+			Provider provider = providerService.getProviderByIdentifier(identifier);
+			if (provider != null) {
+				names = provider.getPerson().getGivenName() + " " + provider.getPerson().getFamilyName();
+			}
 		}
 		return names;
 	}
