@@ -18,6 +18,8 @@ import org.openmrs.module.hospitalcore.model.EhrAppointmentBlock;
 import org.openmrs.module.hospitalcore.model.EhrAppointmentDailyCount;
 import org.openmrs.module.hospitalcore.model.EhrAppointmentType;
 import org.openmrs.module.hospitalcore.model.EhrTimeSlot;
+import org.openmrs.module.hospitalcore.util.DateUtils;
+import org.openmrs.module.hospitalcore.util.HospitalCoreUtils;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.math.BigInteger;
@@ -79,6 +81,10 @@ public class HibernateEhrAppointmentDAO extends HibernateEhrSingleClassDAO imple
                                                                 Date toDate, Provider provider, EhrAppointmentType appointmentType,
                                                                 List<EhrAppointment.EhrAppointmentStatus> statuses, Patient patient, VisitType visitType, Visit visit)
             throws APIException {
+        if(fromDate == null && toDate == null ) {
+            fromDate = DateUtils.getStartOfDay(new Date());
+            toDate = DateUtils.getEndOfDay(new Date());
+        }
         if (fromDate != null && toDate != null && !fromDate.before(toDate))
             throw new APIException("fromDate can not be later than toDate");
 

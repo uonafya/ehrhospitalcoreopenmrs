@@ -753,6 +753,7 @@ public class EhrAppointmentServiceImpl extends BaseOpenmrsService implements Ehr
     public List<EhrAppointment> getEhrAppointmentsByConstraints(Date fromDate,
                                                           Date toDate, Location location, Provider provider,
                                                           EhrAppointmentType type, EhrAppointment.EhrAppointmentStatus status) throws APIException {
+        System.out.println("The dates are as follows>>"+fromDate+" and >>"+toDate);
         return getEhrAppointmentsByConstraints(fromDate, toDate, location,
                 provider, type, null, status);
     }

@@ -28,7 +28,7 @@ public interface EhrAppointmentService extends OpenmrsService {
          * @return a list of appointment type objects.
          * <strong>Should</strong> get all appointment types
          */
-        @Authorized(EhrAppointmentUtils.PRIV_VIEW_APPOINTMENT_TYPES)
+        //@Authorized(EhrAppointmentUtils.PRIV_VIEW_APPOINTMENT_TYPES)
         Set<EhrAppointmentType> getAllEhrAppointmentTypes();
 
         /**
@@ -38,7 +38,7 @@ public interface EhrAppointmentService extends OpenmrsService {
          * @return List of all appointment types
          * <strong>Should</strong> get all appointment types based on include retired flag.
          */
-        @Authorized(EhrAppointmentUtils.PRIV_VIEW_APPOINTMENT_TYPES)
+        //@Authorized(EhrAppointmentUtils.PRIV_VIEW_APPOINTMENT_TYPES)
         List<EhrAppointmentType> getAllEhrAppointmentTypes(boolean includeRetired);
 
         /**
@@ -48,7 +48,7 @@ public interface EhrAppointmentService extends OpenmrsService {
          * @return the appointment type object found with the given id, else null.
          * <strong>Should</strong> get correct appointment type
          */
-        @Authorized(EhrAppointmentUtils.PRIV_VIEW_APPOINTMENT_TYPES)
+       // @Authorized(EhrAppointmentUtils.PRIV_VIEW_APPOINTMENT_TYPES)
         EhrAppointmentType getEhrAppointmentType(Integer EhrAppointmentTypeId);
 
         /**
@@ -58,7 +58,7 @@ public interface EhrAppointmentService extends OpenmrsService {
          * @return the appointment type object found with the given uuid, else null.
          * <strong>Should</strong> get correct appointment type
          */
-        @Authorized(EhrAppointmentUtils.PRIV_VIEW_APPOINTMENT_TYPES)
+        //@Authorized(EhrAppointmentUtils.PRIV_VIEW_APPOINTMENT_TYPES)
         EhrAppointmentType getEhrAppointmentTypeByUuid(String uuid);
 
         /**
@@ -70,7 +70,7 @@ public interface EhrAppointmentService extends OpenmrsService {
          * <strong>Should</strong> get correct appointment types
          * <strong>Should</strong> include retired appointment types
          */
-        @Authorized(EhrAppointmentUtils.PRIV_VIEW_APPOINTMENT_TYPES)
+        //@Authorized(EhrAppointmentUtils.PRIV_VIEW_APPOINTMENT_TYPES)
         List<EhrAppointmentType> getEhrAppointmentTypes(String fuzzySearchPhrase);
 
         /**
@@ -81,7 +81,7 @@ public interface EhrAppointmentService extends OpenmrsService {
          * @return a list of all appointment types with names similar to or containing the given phrase
          * <strong>Should</strong> get correct appointment types
          */
-        @Authorized(EhrAppointmentUtils.PRIV_VIEW_APPOINTMENT_TYPES)
+        //@Authorized(EhrAppointmentUtils.PRIV_VIEW_APPOINTMENT_TYPES)
         List<EhrAppointmentType> getEhrAppointmentTypes(String fuzzySearchPhrase,
         boolean includeRetired);
 
@@ -96,7 +96,7 @@ public interface EhrAppointmentService extends OpenmrsService {
          * <strong>Should</strong> throw error when name is null
          * <strong>Should</strong> throw error when name is empty string
          */
-        @Authorized(EhrAppointmentUtils.PRIV_MANAGE_APPOINTMENT_TYPES)
+        //@Authorized(EhrAppointmentUtils.PRIV_MANAGE_APPOINTMENT_TYPES)
         EhrAppointmentType saveEhrAppointmentType(EhrAppointmentType EhrAppointmentType)
 			throws APIException;
 
@@ -108,7 +108,7 @@ public interface EhrAppointmentService extends OpenmrsService {
          * @return the appointment type that has been retired.
          * <strong>Should</strong> retire given appointment type
          */
-        @Authorized(EhrAppointmentUtils.PRIV_MANAGE_APPOINTMENT_TYPES)
+        //@Authorized(EhrAppointmentUtils.PRIV_MANAGE_APPOINTMENT_TYPES)
         EhrAppointmentType retireEhrAppointmentType(EhrAppointmentType EhrAppointmentType,
                 String reason);
 
@@ -119,7 +119,7 @@ public interface EhrAppointmentService extends OpenmrsService {
          * @return the unretired appointment type
          * <strong>Should</strong> unretire given appointment type
          */
-        @Authorized(EhrAppointmentUtils.PRIV_MANAGE_APPOINTMENT_TYPES)
+        //@Authorized(EhrAppointmentUtils.PRIV_MANAGE_APPOINTMENT_TYPES)
         EhrAppointmentType unretireEhrAppointmentType(EhrAppointmentType EhrAppointmentType);
 
         /**
@@ -128,7 +128,7 @@ public interface EhrAppointmentService extends OpenmrsService {
          * @param EhrAppointmentType the appointment type to delete from the database.
          * <strong>Should</strong> delete given appointment type
          */
-        @Authorized(EhrAppointmentUtils.PRIV_MANAGE_APPOINTMENT_TYPES)
+        //@Authorized(EhrAppointmentUtils.PRIV_MANAGE_APPOINTMENT_TYPES)
         void purgeEhrAppointmentType(EhrAppointmentType EhrAppointmentType);
 
         // EhrAppointmentBlock
@@ -138,7 +138,7 @@ public interface EhrAppointmentService extends OpenmrsService {
          * @return a list of appointment block objects.
          * <strong>Should</strong> get all appointment blocks
          */
-        @Authorized(EhrAppointmentUtils.PRIV_VIEW_APPOINTMENT_BLOCKS)
+        //@Authorized(EhrAppointmentUtils.PRIV_VIEW_APPOINTMENT_BLOCKS)
         List<EhrAppointmentBlock> getAllEhrAppointmentBlocks();
 
         /**
@@ -148,7 +148,7 @@ public interface EhrAppointmentService extends OpenmrsService {
          * @return List of all appointment blocks
          * <strong>Should</strong> get all appointment blocks based on include voided flag.
          */
-        @Authorized(EhrAppointmentUtils.PRIV_VIEW_APPOINTMENT_BLOCKS)
+        //@Authorized(EhrAppointmentUtils.PRIV_VIEW_APPOINTMENT_BLOCKS)
         List<EhrAppointmentBlock> getAllEhrAppointmentBlocks(boolean includeVoided);
 
         /**
@@ -158,7 +158,7 @@ public interface EhrAppointmentService extends OpenmrsService {
          * @return the appointment block object found with the given id, else null.
          * <strong>Should</strong> get correct appointment block
          */
-        @Authorized(EhrAppointmentUtils.PRIV_VIEW_APPOINTMENT_BLOCKS)
+        //@Authorized(EhrAppointmentUtils.PRIV_VIEW_APPOINTMENT_BLOCKS)
         EhrAppointmentBlock getEhrAppointmentBlock(Integer EhrAppointmentBlockId);
 
         /**
@@ -168,7 +168,7 @@ public interface EhrAppointmentService extends OpenmrsService {
          * @return the appointment block object found with the given uuid, else null.
          * <strong>Should</strong> get correct appointment block
          */
-        @Authorized(EhrAppointmentUtils.PRIV_VIEW_APPOINTMENT_BLOCKS)
+        //@Authorized(EhrAppointmentUtils.PRIV_VIEW_APPOINTMENT_BLOCKS)
         EhrAppointmentBlock getEhrAppointmentBlockByUuid(String uuid);
 
         /**
@@ -182,7 +182,7 @@ public interface EhrAppointmentService extends OpenmrsService {
          * <strong>Should</strong> throw error when name is null
          * <strong>Should</strong> throw error when name is empty string
          */
-        @Authorized(EhrAppointmentUtils.PRIV_MANAGE_APPOINTMENT_BLOCKS)
+        //@Authorized(EhrAppointmentUtils.PRIV_MANAGE_APPOINTMENT_BLOCKS)
         EhrAppointmentBlock saveEhrAppointmentBlock(EhrAppointmentBlock EhrAppointmentBlock)
 			throws APIException;
 
@@ -195,7 +195,7 @@ public interface EhrAppointmentService extends OpenmrsService {
          * <strong>Should</strong> void given appointment block
          * <strong>Should</strong> void all associated time slots
          */
-        @Authorized(EhrAppointmentUtils.PRIV_MANAGE_APPOINTMENT_BLOCKS)
+        //@Authorized(EhrAppointmentUtils.PRIV_MANAGE_APPOINTMENT_BLOCKS)
         EhrAppointmentBlock voidEhrAppointmentBlock(EhrAppointmentBlock EhrAppointmentBlock,
                 String reason);
 
@@ -206,7 +206,7 @@ public interface EhrAppointmentService extends OpenmrsService {
          * @return the unvoided appointment block
          * <strong>Should</strong> unvoided given appointment block
          */
-        @Authorized(EhrAppointmentUtils.PRIV_MANAGE_APPOINTMENT_BLOCKS)
+        //@Authorized(EhrAppointmentUtils.PRIV_MANAGE_APPOINTMENT_BLOCKS)
         EhrAppointmentBlock unvoidEhrAppointmentBlock(EhrAppointmentBlock EhrAppointmentBlock);
 
         /**
@@ -215,7 +215,7 @@ public interface EhrAppointmentService extends OpenmrsService {
          * @param EhrAppointmentBlock the appointment block to delete from the database.
          * <strong>Should</strong> delete given appointment block
          */
-        @Authorized(EhrAppointmentUtils.PRIV_MANAGE_APPOINTMENT_BLOCKS)
+        //@Authorized(EhrAppointmentUtils.PRIV_MANAGE_APPOINTMENT_BLOCKS)
         void purgeEhrAppointmentBlock(EhrAppointmentBlock EhrAppointmentBlock);
 
         /**
@@ -227,7 +227,7 @@ public interface EhrAppointmentService extends OpenmrsService {
          *         corresponds to a given locations, provider and appointment types.
          * <strong>Should</strong> not return voided appointment blocks
          */
-        @Authorized(EhrAppointmentUtils.PRIV_VIEW_APPOINTMENT_BLOCKS)
+        //@Authorized(EhrAppointmentUtils.PRIV_VIEW_APPOINTMENT_BLOCKS)
         List<EhrAppointmentBlock> getEhrAppointmentBlocksByTypes(Date fromDate,
                                                            Date toDate, String locations, Provider provider,
                                                            List<EhrAppointmentType> EhrAppointmentTypes);
@@ -240,7 +240,7 @@ public interface EhrAppointmentService extends OpenmrsService {
          *         corresponds to a given locations, provider and appointment type.
          * <strong>Should</strong> not return voided appointment blocks
          */
-        @Authorized(EhrAppointmentUtils.PRIV_VIEW_APPOINTMENT_BLOCKS)
+        //@Authorized(EhrAppointmentUtils.PRIV_VIEW_APPOINTMENT_BLOCKS)
         List<EhrAppointmentBlock> getEhrAppointmentBlocks(Date fromDate, Date toDate,
                 String locations, Provider provider, EhrAppointmentType EhrAppointmentType);
 
@@ -251,7 +251,7 @@ public interface EhrAppointmentService extends OpenmrsService {
          * <strong>Should</strong> get all appointment blocks which overlap to the given appointment block
          * <strong>Should</strong> allow overlapping providerless appointment blocks
          */
-        @Authorized(EhrAppointmentUtils.PRIV_VIEW_APPOINTMENT_BLOCKS)
+        //@Authorized(EhrAppointmentUtils.PRIV_VIEW_APPOINTMENT_BLOCKS)
         List<EhrAppointmentBlock> getOverlappingEhrAppointmentBlocks(
                 EhrAppointmentBlock EhrAppointmentBlock);
 
@@ -262,7 +262,7 @@ public interface EhrAppointmentService extends OpenmrsService {
          * @return a list of appointment objects.
          * <strong>Should</strong> get all appointment
          */
-        @Authorized(EhrAppointmentUtils.PRIV_VIEW_APPOINTMENTS)
+        //@Authorized(EhrAppointmentUtils.PRIV_VIEW_APPOINTMENTS)
         List<EhrAppointment> getAllEhrAppointments();
 
         /**
@@ -272,7 +272,7 @@ public interface EhrAppointmentService extends OpenmrsService {
          * @return List of all appointments
          * <strong>Should</strong> get all appointments based on include voided flag.
          */
-        @Authorized(EhrAppointmentUtils.PRIV_VIEW_APPOINTMENTS)
+        //@Authorized(EhrAppointmentUtils.PRIV_VIEW_APPOINTMENTS)
         public List<EhrAppointment> getAllEhrAppointments(boolean includeVoided);
 
         /**
@@ -282,7 +282,7 @@ public interface EhrAppointmentService extends OpenmrsService {
          * @return the appointment object found with the given id, else null.
          * <strong>Should</strong> get correct appointment
          */
-        @Authorized(EhrAppointmentUtils.PRIV_VIEW_APPOINTMENTS)
+        //@Authorized(EhrAppointmentUtils.PRIV_VIEW_APPOINTMENTS)
         EhrAppointment getEhrAppointment(Integer appointmentId);
 
         /**
@@ -292,7 +292,7 @@ public interface EhrAppointmentService extends OpenmrsService {
          * @return the appointment object found with the given uuid, else null.
          * <strong>Should</strong> get correct appointment
          */
-        @Authorized(EhrAppointmentUtils.PRIV_VIEW_APPOINTMENTS)
+        //@Authorized(EhrAppointmentUtils.PRIV_VIEW_APPOINTMENTS)
         EhrAppointment getEhrAppointmentByUuid(String uuid);
 
         /**
@@ -303,7 +303,7 @@ public interface EhrAppointmentService extends OpenmrsService {
          * <strong>Should</strong> save new appointment
          * <strong>Should</strong> save edited appointment
          */
-        @Authorized(EhrAppointmentUtils.PRIV_SCHEDULE_APPOINTMENTS)
+        //@Authorized(EhrAppointmentUtils.PRIV_SCHEDULE_APPOINTMENTS)
         EhrAppointment saveEhrAppointment(EhrAppointment appointment) throws APIException;
 
         /**
@@ -314,7 +314,7 @@ public interface EhrAppointmentService extends OpenmrsService {
          * @return the appointment that has been voided.
          * <strong>Should</strong> void given appointment
          */
-        @Authorized(EhrAppointmentUtils.PRIV_SCHEDULE_APPOINTMENTS)
+        //@Authorized(EhrAppointmentUtils.PRIV_SCHEDULE_APPOINTMENTS)
         EhrAppointment voidEhrAppointment(EhrAppointment appointment, String reason);
 
         /**
@@ -324,7 +324,7 @@ public interface EhrAppointmentService extends OpenmrsService {
          * @return the unvoid appointment
          * <strong>Should</strong> unvoid given appointment
          */
-        @Authorized(EhrAppointmentUtils.PRIV_SCHEDULE_APPOINTMENTS)
+        //@Authorized(EhrAppointmentUtils.PRIV_SCHEDULE_APPOINTMENTS)
         EhrAppointment unvoidEhrAppointment(EhrAppointment appointment);
 
         /**
@@ -333,7 +333,7 @@ public interface EhrAppointmentService extends OpenmrsService {
          * @param appointment the appointment to delete from the database.
          * <strong>Should</strong> delete given appointment
          */
-        @Authorized(EhrAppointmentUtils.PRIV_SCHEDULE_APPOINTMENTS)
+        //@Authorized(EhrAppointmentUtils.PRIV_SCHEDULE_APPOINTMENTS)
         void purgeEhrAppointment(EhrAppointment appointment);
 
         /**
@@ -343,7 +343,7 @@ public interface EhrAppointmentService extends OpenmrsService {
          * @return all the appointments for the given patient id.
          * <strong>Should</strong> return all of the appointments for the given patient.
          */
-        @Authorized(EhrAppointmentUtils.PRIV_VIEW_APPOINTMENTS)
+        //@Authorized(EhrAppointmentUtils.PRIV_VIEW_APPOINTMENTS)
         List<EhrAppointment> getEhrAppointmentsOfPatient(Patient patient);
 
         /**
@@ -352,7 +352,7 @@ public interface EhrAppointmentService extends OpenmrsService {
          * @param visit the visit id to search by.
          * @return the appointment that is related to this visit, null if there isnt any.
          */
-        @Authorized(EhrAppointmentUtils.PRIV_VIEW_APPOINTMENTS)
+       //@Authorized(EhrAppointmentUtils.PRIV_VIEW_APPOINTMENTS)
         EhrAppointment getEhrAppointmentByVisit(Visit visit);
 
         // EhrTimeSlot
@@ -363,7 +363,7 @@ public interface EhrAppointmentService extends OpenmrsService {
          * @return a list of time slot objects.
          * <strong>Should</strong> get all time slots
          */
-        @Authorized(EhrAppointmentUtils.PRIV_VIEW_APPOINTMENT_BLOCKS)
+        //@Authorized(EhrAppointmentUtils.PRIV_VIEW_APPOINTMENT_BLOCKS)
         List<EhrTimeSlot> getAllEhrTimeSlots();
 
         /**
@@ -373,7 +373,7 @@ public interface EhrAppointmentService extends OpenmrsService {
          * @return List of all time slots
          * <strong>Should</strong> get all time slots based on include voided flag.
          */
-        @Authorized(EhrAppointmentUtils.PRIV_VIEW_APPOINTMENT_BLOCKS)
+        //@Authorized(EhrAppointmentUtils.PRIV_VIEW_APPOINTMENT_BLOCKS)
         public List<EhrTimeSlot> getAllEhrTimeSlots(boolean includeVoided);
 
         /**
@@ -384,7 +384,7 @@ public interface EhrAppointmentService extends OpenmrsService {
          * <strong>Should</strong> save new time slot
          * <strong>Should</strong> save edited time slot
          */
-        @Authorized(EhrAppointmentUtils.PRIV_MANAGE_APPOINTMENT_BLOCKS)
+        //@Authorized(EhrAppointmentUtils.PRIV_MANAGE_APPOINTMENT_BLOCKS)
         EhrTimeSlot saveEhrTimeSlot(EhrTimeSlot EhrTimeSlot) throws APIException;
 
         /**
@@ -394,7 +394,7 @@ public interface EhrAppointmentService extends OpenmrsService {
          * @return the time slot object found with the given id, else null.
          * <strong>Should</strong> get correct time slot
          */
-        @Authorized(EhrAppointmentUtils.PRIV_VIEW_APPOINTMENT_BLOCKS)
+        //@Authorized(EhrAppointmentUtils.PRIV_VIEW_APPOINTMENT_BLOCKS)
         EhrTimeSlot getEhrTimeSlot(Integer EhrTimeSlotId);
 
         /**
@@ -404,7 +404,7 @@ public interface EhrAppointmentService extends OpenmrsService {
          * @return the time slot object found with the given uuid, else null.
          * <strong>Should</strong> get correct time slot
          */
-        @Authorized(EhrAppointmentUtils.PRIV_VIEW_APPOINTMENT_BLOCKS)
+        //@Authorized(EhrAppointmentUtils.PRIV_VIEW_APPOINTMENT_BLOCKS)
         EhrTimeSlot getEhrTimeSlotByUuid(String uuid);
 
         /**
@@ -415,7 +415,7 @@ public interface EhrAppointmentService extends OpenmrsService {
          * @return the time slot that has been voided.
          * <strong>Should</strong> void given time slot
          */
-        @Authorized(EhrAppointmentUtils.PRIV_MANAGE_APPOINTMENT_BLOCKS)
+        //@Authorized(EhrAppointmentUtils.PRIV_MANAGE_APPOINTMENT_BLOCKS)
         EhrTimeSlot voidEhrTimeSlot(EhrTimeSlot EhrTimeSlot, String reason);
 
         /**
@@ -425,7 +425,7 @@ public interface EhrAppointmentService extends OpenmrsService {
          * @return the unvoided time slot
          * <strong>Should</strong> unvoid given time slot
          */
-        @Authorized(EhrAppointmentUtils.PRIV_MANAGE_APPOINTMENT_BLOCKS)
+        //@Authorized(EhrAppointmentUtils.PRIV_MANAGE_APPOINTMENT_BLOCKS)
         EhrTimeSlot unvoidEhrTimeSlot(EhrTimeSlot EhrTimeSlot);
 
         /**
@@ -434,7 +434,7 @@ public interface EhrAppointmentService extends OpenmrsService {
          * @param EhrTimeSlot the time slot to delete from the database.
          * <strong>Should</strong> delete given time slot
          */
-        @Authorized(EhrAppointmentUtils.PRIV_MANAGE_APPOINTMENT_BLOCKS)
+        //@Authorized(EhrAppointmentUtils.PRIV_MANAGE_APPOINTMENT_BLOCKS)
         void purgeEhrTimeSlot(EhrTimeSlot EhrTimeSlot);
 
         /**
@@ -444,7 +444,7 @@ public interface EhrAppointmentService extends OpenmrsService {
          * @return the appointments in the given time slot.
          * <strong>Should</strong> not return voided appointments
          */
-        @Authorized(EhrAppointmentUtils.PRIV_VIEW_APPOINTMENTS)
+        //@Authorized(EhrAppointmentUtils.PRIV_VIEW_APPOINTMENTS)
         List<EhrAppointment> getEhrAppointmentsInTimeSlot(EhrTimeSlot EhrTimeSlot);
 
         /**
@@ -456,7 +456,7 @@ public interface EhrAppointmentService extends OpenmrsService {
          * <strong>Should</strong> not return missed, cancelled, and needs_reschedule appointments.
          * <strong>Should</strong> not return voided appointments
          */
-        @Authorized(EhrAppointmentUtils.PRIV_VIEW_APPOINTMENTS)
+        //@Authorized(EhrAppointmentUtils.PRIV_VIEW_APPOINTMENTS)
         List<EhrAppointment> getEhrAppointmentsInTimeSlotThatAreNotCancelled(
                 EhrTimeSlot EhrTimeSlot);
 
@@ -467,7 +467,7 @@ public interface EhrAppointmentService extends OpenmrsService {
          * @return the count of appointments in the given time slot
          * <strong>Should</strong> not count voided appointments
          */
-        @Authorized(EhrAppointmentUtils.PRIV_VIEW_APPOINTMENTS)
+        //@Authorized(EhrAppointmentUtils.PRIV_VIEW_APPOINTMENTS)
         Integer getCountOfEhrAppointmentsInTimeSlot(EhrTimeSlot EhrTimeSlot);
 
         /**
@@ -479,7 +479,7 @@ public interface EhrAppointmentService extends OpenmrsService {
          * <strong>Should</strong> not count missed, cancelled and needs rescheduled appointments.
          * <strong>Should</strong> not count voided appointments
          */
-        @Authorized(EhrAppointmentUtils.PRIV_VIEW_APPOINTMENTS)
+        //@Authorized(EhrAppointmentUtils.PRIV_VIEW_APPOINTMENTS)
         Integer getCountOfEhrAppointmentsInTimeSlotThatAreNotCancelled(
                 EhrTimeSlot EhrTimeSlot);
 
@@ -490,7 +490,7 @@ public interface EhrAppointmentService extends OpenmrsService {
          * @return the time slots in the given appointment block.
          * <strong>Should</strong> not return voided time slots
          */
-        @Authorized(EhrAppointmentUtils.PRIV_VIEW_APPOINTMENT_BLOCKS)
+        //@Authorized(EhrAppointmentUtils.PRIV_VIEW_APPOINTMENT_BLOCKS)
         List<EhrTimeSlot> getEhrTimeSlotsInAppointmentBlock(
                 EhrAppointmentBlock EhrAppointmentBlock);
 
@@ -501,7 +501,7 @@ public interface EhrAppointmentService extends OpenmrsService {
          * @return a list of appointment status history objects.
          * <strong>Should</strong> get all appointment status histories
          */
-        @Authorized(EhrAppointmentUtils.PRIV_VIEW_APPOINTMENTS)
+        //@Authorized(EhrAppointmentUtils.PRIV_VIEW_APPOINTMENTS)
         List<EhrAppointmentStatusHistory> getAllEhrAppointmentStatusHistories();
 
         /**
@@ -511,7 +511,7 @@ public interface EhrAppointmentService extends OpenmrsService {
          * @return the appointment status history object found with the given id, else null.
          * <strong>Should</strong> get correct appointment status history
          */
-        @Authorized(EhrAppointmentUtils.PRIV_VIEW_APPOINTMENTS)
+        //@Authorized(EhrAppointmentUtils.PRIV_VIEW_APPOINTMENTS)
         EhrAppointmentStatusHistory getEhrAppointmentStatusHistory(
                 Integer EhrAppointmentStatusHistoryId);
 
@@ -524,7 +524,7 @@ public interface EhrAppointmentService extends OpenmrsService {
          *         given status
          * <strong>Should</strong> get correct appointment status histories
          */
-        @Authorized(EhrAppointmentUtils.PRIV_VIEW_APPOINTMENTS)
+        //@Authorized(EhrAppointmentUtils.PRIV_VIEW_APPOINTMENTS)
         List<EhrAppointmentStatusHistory> getEhrAppointmentStatusHistories(
                 EhrAppointment.EhrAppointmentStatus status);
 
@@ -536,7 +536,7 @@ public interface EhrAppointmentService extends OpenmrsService {
          * <strong>Should</strong> save new appointment status history
          * <strong>Should</strong> save edited appointment status history
          */
-        @Authorized(EhrAppointmentUtils.PRIV_SCHEDULE_APPOINTMENTS)
+        //@Authorized(EhrAppointmentUtils.PRIV_SCHEDULE_APPOINTMENTS)
         EhrAppointmentStatusHistory saveEhrAppointmentStatusHistory(
                 EhrAppointmentStatusHistory EhrAppointmentStatusHistory)
 			throws APIException;
@@ -547,7 +547,7 @@ public interface EhrAppointmentService extends OpenmrsService {
          * @return a list of appointment requests objects.
          * <strong>Should</strong> get all appointment requests
          */
-        @Authorized(EhrAppointmentUtils.PRIV_REQUEST_APPOINTMENTS)
+        //@Authorized(EhrAppointmentUtils.PRIV_REQUEST_APPOINTMENTS)
         List<EhrAppointmentRequest> getAllEhrAppointmentRequests();
 
         /**
@@ -557,7 +557,7 @@ public interface EhrAppointmentService extends OpenmrsService {
          * @return List of all appointment requests
          * <strong>Should</strong> get all appointment request based on include voided flag.
          */
-        @Authorized(EhrAppointmentUtils.PRIV_REQUEST_APPOINTMENTS)
+        //@Authorized(EhrAppointmentUtils.PRIV_REQUEST_APPOINTMENTS)
         public List<EhrAppointmentRequest> getAllEhrAppointmentRequests(boolean includeVoided);
 
         /**
@@ -567,7 +567,7 @@ public interface EhrAppointmentService extends OpenmrsService {
          * @return the appointment request object found with the given id, else null.
          * <strong>Should</strong> get correct appointment request
          */
-        @Authorized(EhrAppointmentUtils.PRIV_REQUEST_APPOINTMENTS)
+        //@Authorized(EhrAppointmentUtils.PRIV_REQUEST_APPOINTMENTS)
         EhrAppointmentRequest getEhrAppointmentRequest(Integer EhrAppointmentRequestId);
 
         /**
@@ -577,7 +577,7 @@ public interface EhrAppointmentService extends OpenmrsService {
          * @return the appointment request object found with the given uuid, else null.
          * <strong>Should</strong> get correct appointment request
          */
-        @Authorized(EhrAppointmentUtils.PRIV_REQUEST_APPOINTMENTS)
+        //@Authorized(EhrAppointmentUtils.PRIV_REQUEST_APPOINTMENTS)
         EhrAppointmentRequest getEhrAppointmentRequestByUuid(String uuid);
 
         /**
@@ -589,7 +589,7 @@ public interface EhrAppointmentService extends OpenmrsService {
          * @param status - The appointment request status
          * @return a list of appointment requests that satisfy the given constraints
          */
-        @Authorized(EhrAppointmentUtils.PRIV_VIEW_APPOINTMENTS)
+        //@Authorized(EhrAppointmentUtils.PRIV_VIEW_APPOINTMENTS)
         List<EhrAppointmentRequest> getEhrAppointmentRequestsByConstraints(Patient patient, EhrAppointmentType type, Provider provider,
                                                                      EhrAppointmentRequest.EhrAppointmentRequestStatus status) throws APIException;
 
@@ -601,7 +601,7 @@ public interface EhrAppointmentService extends OpenmrsService {
          * <strong>Should</strong> save new appointment request
          * <strong>Should</strong> save edited appointment request
          */
-        @Authorized(EhrAppointmentUtils.PRIV_REQUEST_APPOINTMENTS)
+        //@Authorized(EhrAppointmentUtils.PRIV_REQUEST_APPOINTMENTS)
         EhrAppointmentRequest saveEhrAppointmentRequest(EhrAppointmentRequest EhrAppointmentRequest) throws APIException;
 
         /**
@@ -612,7 +612,7 @@ public interface EhrAppointmentService extends OpenmrsService {
          * @return the appointment request that has been voided.
          * <strong>Should</strong> void given appointment request
          */
-        @Authorized(EhrAppointmentUtils.PRIV_REQUEST_APPOINTMENTS)
+        //@Authorized(EhrAppointmentUtils.PRIV_REQUEST_APPOINTMENTS)
         EhrAppointmentRequest voidEhrAppointmentRequest(EhrAppointmentRequest EhrAppointmentRequest, String reason);
 
         /**
@@ -622,7 +622,7 @@ public interface EhrAppointmentService extends OpenmrsService {
          * @return the unvoid appointment request
          * <strong>Should</strong> unvoid given appointment request
          */
-        @Authorized(EhrAppointmentUtils.PRIV_REQUEST_APPOINTMENTS)
+        //@Authorized(EhrAppointmentUtils.PRIV_REQUEST_APPOINTMENTS)
         EhrAppointmentRequest unvoidEhrAppointmentRequest(EhrAppointmentRequest EhrAppointmentRequest);
 
         /**
@@ -631,7 +631,7 @@ public interface EhrAppointmentService extends OpenmrsService {
          * @param EhrAppointmentRequest the appointment request to delete from the database.
          * <strong>Should</strong> delete given appointment request
          */
-        @Authorized(EhrAppointmentUtils.PRIV_REQUEST_APPOINTMENTS)
+        //@Authorized(EhrAppointmentUtils.PRIV_REQUEST_APPOINTMENTS)
         void purgeEhrAppointmentRequest(EhrAppointmentRequest EhrAppointmentRequest);
 
         /**
@@ -640,7 +640,7 @@ public interface EhrAppointmentService extends OpenmrsService {
          * @param patient the patient for which we are retrieving.
          * @return The most recent appointment for the given patient, null if no appointments were set.
          */
-        @Authorized(EhrAppointmentUtils.PRIV_VIEW_APPOINTMENTS)
+        //@Authorized(EhrAppointmentUtils.PRIV_VIEW_APPOINTMENTS)
         EhrAppointment getLastEhrAppointment(Patient patient);
 
         /**
@@ -654,7 +654,7 @@ public interface EhrAppointmentService extends OpenmrsService {
          * @return List of EhrTimeSlots that stands within the given constraints, null if illegal values
          *         (fromDate>toDate or null EhrAppointmentType)
          */
-        @Authorized(EhrAppointmentUtils.PRIV_VIEW_APPOINTMENT_BLOCKS)
+        //@Authorized(EhrAppointmentUtils.PRIV_VIEW_APPOINTMENT_BLOCKS)
         List<EhrTimeSlot> getEhrTimeSlotsByConstraints(EhrAppointmentType EhrAppointmentType,
                 Date fromDate, Date toDate, Provider provider, Location location)
 			throws APIException;
@@ -673,7 +673,7 @@ public interface EhrAppointmentService extends OpenmrsService {
          * @return List of EhrTimeSlots that stands within the given constraints, null if illegal values
          *         (fromDate>toDate or null EhrAppointmentType)
          */
-        @Authorized(EhrAppointmentUtils.PRIV_VIEW_APPOINTMENT_BLOCKS)
+        //@Authorized(EhrAppointmentUtils.PRIV_VIEW_APPOINTMENT_BLOCKS)
         List<EhrTimeSlot> getEhrTimeSlotsByConstraints(EhrAppointmentType EhrAppointmentType,
                 Date fromDate, Date toDate, Provider provider, Location location,
                 Patient excludeEhrTimeSlotsWithPatient)
@@ -690,7 +690,7 @@ public interface EhrAppointmentService extends OpenmrsService {
          * @return List of EhrTimeSlots that stands within the given constraints, null if illegal values
          *         (fromDate>toDate or null EhrAppointmentType)
          */
-        @Authorized(EhrAppointmentUtils.PRIV_VIEW_APPOINTMENT_BLOCKS)
+        //@Authorized(EhrAppointmentUtils.PRIV_VIEW_APPOINTMENT_BLOCKS)
         List<EhrTimeSlot> getEhrTimeSlotsByConstraintsIncludingFull(
                 EhrAppointmentType EhrAppointmentType, Date fromDate, Date toDate,
                 Provider provider, Location location) throws APIException;
@@ -709,7 +709,7 @@ public interface EhrAppointmentService extends OpenmrsService {
          * @return List of EhrTimeSlots that stands within the given constraints, null if illegal values
          *         (fromDate>toDate or null EhrAppointmentType)
          */
-        @Authorized(EhrAppointmentUtils.PRIV_VIEW_APPOINTMENT_BLOCKS)
+        //@Authorized(EhrAppointmentUtils.PRIV_VIEW_APPOINTMENT_BLOCKS)
         List<EhrTimeSlot> getEhrTimeSlotsByConstraintsIncludingFull(
                 EhrAppointmentType EhrAppointmentType, Date fromDate, Date toDate,
                 Provider provider, Location location, Patient excludeEhrTimeSlotsWithPatient) throws APIException;
@@ -723,7 +723,7 @@ public interface EhrAppointmentService extends OpenmrsService {
          * @param patient the patient.
          * @return a list of strings where each string represents an identifier of the patient.
          */
-        @Authorized(EhrAppointmentUtils.PRIV_VIEW_APPOINTMENTS)
+        //@Authorized(EhrAppointmentUtils.PRIV_VIEW_APPOINTMENTS)
         List<String> getPatientIdentifiersRepresentation(Patient patient);
 
         /**
@@ -734,7 +734,7 @@ public interface EhrAppointmentService extends OpenmrsService {
          *         slot was null;
          * <strong>Should</strong> ignore appointments with statuses that reflect a "cancelled" appointment
          */
-        @Authorized(EhrAppointmentUtils.PRIV_VIEW_APPOINTMENT_BLOCKS)
+        //@Authorized(EhrAppointmentUtils.PRIV_VIEW_APPOINTMENT_BLOCKS)
         Integer getEhrTimeLeftInTimeSlot(EhrTimeSlot EhrTimeSlot);
 
         /**
@@ -745,7 +745,7 @@ public interface EhrAppointmentService extends OpenmrsService {
          * @param descendants the result set which is being built recursively.
          * @return A set that contains all of the descendants of the given location.
          */
-        @Authorized(EhrAppointmentUtils.PRIV_VIEW_APPOINTMENTS)
+        //@Authorized(EhrAppointmentUtils.PRIV_VIEW_APPOINTMENTS)
         Set<Location> getAllLocationDescendants(Location location,
                                                 Set<Location> descendants);
 
@@ -761,7 +761,7 @@ public interface EhrAppointmentService extends OpenmrsService {
          * @return a list of appointments that satisfy the given constraints
          * <strong>Should</strong> sort by associated time slot
          */
-        @Authorized(EhrAppointmentUtils.PRIV_VIEW_APPOINTMENTS)
+        //@Authorized(EhrAppointmentUtils.PRIV_VIEW_APPOINTMENTS)
         List<EhrAppointment> getEhrAppointmentsByConstraints(Date fromDate, Date toDate,
                 Location location, Provider provider, EhrAppointmentType type,
                 EhrAppointment.EhrAppointmentStatus status) throws APIException;
@@ -779,7 +779,7 @@ public interface EhrAppointmentService extends OpenmrsService {
          * @return a list of appointments that satisfy the given constraints
          * <strong>Should</strong> sort by associated time slot
          */
-        @Authorized(EhrAppointmentUtils.PRIV_VIEW_APPOINTMENTS)
+        //@Authorized(EhrAppointmentUtils.PRIV_VIEW_APPOINTMENTS)
         List<EhrAppointment> getEhrAppointmentsByConstraints(Date fromDate, Date toDate,
                 Location location, Provider provider, EhrAppointmentType type,
                 Patient patient, EhrAppointment.EhrAppointmentStatus status) throws APIException;
@@ -797,7 +797,7 @@ public interface EhrAppointmentService extends OpenmrsService {
          * @return a list of appointments that satisfy the given constraints
          * <strong>Should</strong> sort by associated time slot
          */
-        @Authorized(EhrAppointmentUtils.PRIV_VIEW_APPOINTMENTS)
+        //@Authorized(EhrAppointmentUtils.PRIV_VIEW_APPOINTMENTS)
         List<EhrAppointment> getEhrAppointmentsByConstraints(Date fromDate, Date toDate,
                 Location location, Provider provider, EhrAppointmentType type,
                 Patient patient, List<EhrAppointment.EhrAppointmentStatus> appointmentStatuses);
@@ -817,7 +817,7 @@ public interface EhrAppointmentService extends OpenmrsService {
          * @return a list of appointments that satisfy the given constraints
          * <strong>Should</strong> sort by associated time slot
          */
-        @Authorized(EhrAppointmentUtils.PRIV_VIEW_APPOINTMENTS)
+        //@Authorized(EhrAppointmentUtils.PRIV_VIEW_APPOINTMENTS)
         List<EhrAppointment> getEhrAppointmentsByConstraints(Date fromDate, Date toDate,
                                                        Location location, Provider provider, EhrAppointmentType type,
                                                        Patient patient, List<EhrAppointment.EhrAppointmentStatus> appointmentStatuses,
@@ -828,7 +828,7 @@ public interface EhrAppointmentService extends OpenmrsService {
          * @param appointment - The appointment.
          * @return the start date of the current status of a given appointment.
          */
-        @Authorized(EhrAppointmentUtils.PRIV_VIEW_APPOINTMENTS)
+        //@Authorized(EhrAppointmentUtils.PRIV_VIEW_APPOINTMENTS)
         Date getEhrAppointmentCurrentStatusStartDate(EhrAppointment appointment);
 
         /**
@@ -837,7 +837,7 @@ public interface EhrAppointmentService extends OpenmrsService {
          * @param appointment - The appointment
          * @param newStatus - The new status
          */
-        @Authorized(EhrAppointmentUtils.PRIV_SCHEDULE_APPOINTMENTS)
+        //@Authorized(EhrAppointmentUtils.PRIV_SCHEDULE_APPOINTMENTS)
         void changeEhrAppointmentStatus(EhrAppointment appointment,
                 EhrAppointment.EhrAppointmentStatus newStatus);
 
@@ -849,7 +849,7 @@ public interface EhrAppointmentService extends OpenmrsService {
          * @param status The AppointmentStatus status to filter histories by.
          * @return A map of EhrAppointmentType,Average duration pairs.
          */
-        @Authorized(EhrAppointmentUtils.PRIV_VIEW_APPOINTMENTS_STATISTICS)
+        //@Authorized(EhrAppointmentUtils.PRIV_VIEW_APPOINTMENTS_STATISTICS)
         Map<EhrAppointmentType, Double> getAverageEhrHistoryDurationByConditions(
                 Date fromDate, Date endDate, EhrAppointment.EhrAppointmentStatus status);
 
@@ -861,7 +861,7 @@ public interface EhrAppointmentService extends OpenmrsService {
          * @param status The AppointmentStatus status to filter histories by.
          * @return A map of Provider,Average duration pairs.
          */
-        @Authorized(EhrAppointmentUtils.PRIV_VIEW_APPOINTMENTS_STATISTICS)
+        //@Authorized(EhrAppointmentUtils.PRIV_VIEW_APPOINTMENTS_STATISTICS)
         public Map<Provider, Double> getAverageEhrHistoryDurationByConditionsPerProvider(
                 Date fromDate, Date endDate, EhrAppointment.EhrAppointmentStatus status);
 
@@ -873,7 +873,7 @@ public interface EhrAppointmentService extends OpenmrsService {
          * @param status The AppointmentStatus status to filter histories by.
          * @return The amount of status history objects in the given criteria
          */
-        @Authorized(EhrAppointmentUtils.PRIV_VIEW_APPOINTMENTS_STATISTICS)
+        //@Authorized(EhrAppointmentUtils.PRIV_VIEW_APPOINTMENTS_STATISTICS)
         Integer getEhrHistoryCountByConditions(Date fromDate, Date endDate,
                 EhrAppointment.EhrAppointmentStatus status);
 
@@ -885,7 +885,7 @@ public interface EhrAppointmentService extends OpenmrsService {
          * @return Map of <EhrAppointmentType,Integer> that reflects the appointment types distribution in
          *         the given range.
          */
-        @Authorized(EhrAppointmentUtils.PRIV_VIEW_APPOINTMENTS_STATISTICS)
+        //@Authorized(EhrAppointmentUtils.PRIV_VIEW_APPOINTMENTS_STATISTICS)
         public Map<EhrAppointmentType, Integer> getEhrAppointmentTypeDistribution(
                 Date fromDate, Date toDate);
 
@@ -897,7 +897,7 @@ public interface EhrAppointmentService extends OpenmrsService {
          * @param includeRetired whether to include retired providers
          * @return sorted list of providers
          */
-        @Authorized(EhrAppointmentUtils.PRIV_VIEW_APPOINTMENTS)
+        //@Authorized(EhrAppointmentUtils.PRIV_VIEW_APPOINTMENTS)
         List<Provider> getAllEhrProvidersSorted(boolean includeRetired);
 
         /**
@@ -906,7 +906,7 @@ public interface EhrAppointmentService extends OpenmrsService {
          * @param includeRetired whether to include retired appointment types
          * @return sorted list of appointment types
          */
-        @Authorized(EhrAppointmentUtils.PRIV_VIEW_APPOINTMENT_TYPES)
+        //@Authorized(EhrAppointmentUtils.PRIV_VIEW_APPOINTMENT_TYPES)
         List<EhrAppointmentType> getAllEhrAppointmentTypesSorted(boolean includeRetired);
 
         /**
@@ -915,7 +915,7 @@ public interface EhrAppointmentService extends OpenmrsService {
          * @param states List of states to retrieve by.
          * @return list of unvoided appointments that their current status is one of the given states.
          */
-        @Authorized(EhrAppointmentUtils.PRIV_VIEW_APPOINTMENTS)
+        //@Authorized(EhrAppointmentUtils.PRIV_VIEW_APPOINTMENTS)
         List<EhrAppointment> getEhrAppointmentsByStatus(List<EhrAppointment.EhrAppointmentStatus> states);
 
         /**
@@ -925,10 +925,10 @@ public interface EhrAppointmentService extends OpenmrsService {
          *
          * @return List of the updated appointments
          */
-        @Authorized(EhrAppointmentUtils.PRIV_SCHEDULE_APPOINTMENTS)
+        //@Authorized(EhrAppointmentUtils.PRIV_SCHEDULE_APPOINTMENTS)
         List<EhrAppointment> cleanOpenEhrAppointments();
 
-        @Authorized(EhrAppointmentUtils.PRIV_VIEW_APPOINTMENTS)
+        //@Authorized(EhrAppointmentUtils.PRIV_VIEW_APPOINTMENTS)
         boolean verifyDuplicatedEhrAppointmentTypeName(EhrAppointmentType EhrAppointmentType);
 
         /**
@@ -937,7 +937,7 @@ public interface EhrAppointmentService extends OpenmrsService {
          * @param patient
          * @return
          */
-        @Authorized(EhrAppointmentUtils.PRIV_VIEW_APPOINTMENTS)
+        //@Authorized(EhrAppointmentUtils.PRIV_VIEW_APPOINTMENTS)
         List<EhrAppointment> getScheduledEhrAppointmentsForPatient(Patient patient);
 
         /**
@@ -950,7 +950,7 @@ public interface EhrAppointmentService extends OpenmrsService {
          * <strong>Should</strong> throw exception if not enough available time in time slot and
          *         allowOverbook = false
          */
-        @Authorized(EhrAppointmentUtils.PRIV_SCHEDULE_APPOINTMENTS)
+       // @Authorized(EhrAppointmentUtils.PRIV_SCHEDULE_APPOINTMENTS)
         EhrAppointment bookEhrAppointment(EhrAppointment appointment, Boolean allowOverbook)
 			throws EhrTimeSlotFullException;
 
@@ -959,7 +959,7 @@ public interface EhrAppointmentService extends OpenmrsService {
          * @param appointment
          * @return
          */
-        @Authorized
+        //@Authorized
         List<EhrAppointmentStatusHistory> getEhrAppointmentStatusHistories(EhrAppointment appointment);
 
         /**
@@ -967,7 +967,7 @@ public interface EhrAppointmentService extends OpenmrsService {
          * @param appointment
          * @return
          */
-        @Authorized()
+        //@Authorized()
         EhrAppointmentStatusHistory getMostRecentEhrAppointmentStatusHistory(EhrAppointment appointment);
 
         EhrTimeSlot getEhrTimeslotForAppointment(Location location, Provider provider, EhrAppointmentType type, Date appointmentDate);
@@ -975,14 +975,14 @@ public interface EhrAppointmentService extends OpenmrsService {
         /**
          * returns list of early appointments
          */
-        @Authorized(EhrAppointmentUtils.PRIV_VIEW_APPOINTMENTS)
+        //@Authorized(EhrAppointmentUtils.PRIV_VIEW_APPOINTMENTS)
         List<EhrAppointment> getEarlyEhrAppointments(Date fromDate, Date toDate,  Location location,
                 Provider provider, EhrAppointmentType EhrAppointmentType) throws APIException;
 
         /**
          * returns list of late appointments
          */
-        @Authorized(EhrAppointmentUtils.PRIV_VIEW_APPOINTMENTS)
+        //@Authorized(EhrAppointmentUtils.PRIV_VIEW_APPOINTMENTS)
         List<EhrAppointment> getLateEhrAppointments(Date fromDate, Date toDate,  Location location,
                 Provider provider, EhrAppointmentType EhrAppointmentType) throws APIException;
         /** returns list of appointments aggregated by date
@@ -993,7 +993,7 @@ public interface EhrAppointmentService extends OpenmrsService {
          * @param status
          * @return
          */
-        @Authorized(EhrAppointmentUtils.PRIV_VIEW_APPOINTMENTS)
+        //@Authorized(EhrAppointmentUtils.PRIV_VIEW_APPOINTMENTS)
         List<EhrAppointmentDailyCount> getEhrAppointmentDailyCount(String fromDate, String toDate, Location location,
                                                                 Provider provider, EhrAppointment.EhrAppointmentStatus status) throws APIException;
 
@@ -1005,7 +1005,7 @@ public interface EhrAppointmentService extends OpenmrsService {
          * @return a list of provider schedule objects.
          * <strong>Should</strong> get all provider schedule
          */
-        @Authorized()
+        //@Authorized()
         List<EhrProviderSchedule> getAllEhrProviderSchedules();
 
         /**
@@ -1015,7 +1015,7 @@ public interface EhrAppointmentService extends OpenmrsService {
          * @return List of all provider schedule
          * <strong>Should</strong> get all provider schedule based on include voided flag.
          */
-        @Authorized(EhrAppointmentUtils.PRIV_VIEW_PROVIDER_SCHEDULES)
+        //@Authorized(EhrAppointmentUtils.PRIV_VIEW_PROVIDER_SCHEDULES)
         List<EhrProviderSchedule> getAllEhrProviderSchedules(boolean includeVoided);
 
         /**
@@ -1025,7 +1025,7 @@ public interface EhrAppointmentService extends OpenmrsService {
          * @return the provider schedule object found with the given id, else null.
          * <strong>Should</strong> get correct provider schedule
          */
-        @Authorized(EhrAppointmentUtils.PRIV_VIEW_PROVIDER_SCHEDULES)
+        //@Authorized(EhrAppointmentUtils.PRIV_VIEW_PROVIDER_SCHEDULES)
         EhrProviderSchedule getEhrProviderSchedule(Integer EhrProviderScheduleId);
 
         /**
@@ -1035,7 +1035,7 @@ public interface EhrAppointmentService extends OpenmrsService {
          * @return the provider schedule object found with the given uuid, else null.
          * <strong>Should</strong> get correct provider schedule
          */
-        @Authorized()
+        //@Authorized()
         EhrProviderSchedule getEhrProviderScheduleByUuid(String uuid);
 
         /**
@@ -1049,7 +1049,7 @@ public interface EhrAppointmentService extends OpenmrsService {
          * <strong>Should</strong> throw error when name is null
          * <strong>Should</strong> throw error when name is empty string
          */
-        @Authorized(EhrAppointmentUtils.PRIV_MANAGE_PROVIDER_SCHEDULES)
+        //@Authorized(EhrAppointmentUtils.PRIV_MANAGE_PROVIDER_SCHEDULES)
         EhrProviderSchedule saveEhrProviderSchedule(EhrProviderSchedule EhrProviderSchedule)
 			throws APIException;
 
@@ -1062,7 +1062,7 @@ public interface EhrAppointmentService extends OpenmrsService {
          * <strong>Should</strong> void given provider schedule
          * <strong>Should</strong> void all associated time slots
          */
-        @Authorized(EhrAppointmentUtils.PRIV_MANAGE_PROVIDER_SCHEDULES)
+        //@Authorized(EhrAppointmentUtils.PRIV_MANAGE_PROVIDER_SCHEDULES)
         EhrProviderSchedule voidEhrProviderSchedule(EhrProviderSchedule EhrProviderSchedule,
                 String reason);
 
@@ -1072,7 +1072,7 @@ public interface EhrAppointmentService extends OpenmrsService {
          * @param EhrProviderSchedule the provider schedule to delete from the database.
          * <strong>Should</strong> delete given provider schedule
          */
-        @Authorized(EhrAppointmentUtils.PRIV_MANAGE_PROVIDER_SCHEDULES)
+        //@Authorized(EhrAppointmentUtils.PRIV_MANAGE_PROVIDER_SCHEDULES)
         void purgeEhrProviderSchedule(EhrProviderSchedule EhrProviderSchedule);
 
         /**
@@ -1081,10 +1081,10 @@ public interface EhrAppointmentService extends OpenmrsService {
          *
          * @return a list of provider schedule objects.
          */
-        @Authorized(EhrAppointmentUtils.PRIV_VIEW_PROVIDER_SCHEDULES)
+        //@Authorized(EhrAppointmentUtils.PRIV_VIEW_PROVIDER_SCHEDULES)
         List<EhrProviderSchedule> getEhrProviderSchedulesByConstraints(Location locations, Provider provider, List<EhrAppointmentType> EhrAppointmentTypes);
 
-        @Authorized
+        //@Authorized
         EhrTimeSlot createEhrTimeSlotUsingProviderSchedule(Date appointmentDate, Provider provider, Location location);
 
 }
