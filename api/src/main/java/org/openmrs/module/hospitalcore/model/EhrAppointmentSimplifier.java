@@ -69,4 +69,14 @@ public class EhrAppointmentSimplifier {
     private String appointmentReason;
     private String startTime;
     private String endTime;
+
+    public Integer getPatientId() {
+        return patientId;
+    }
+
+    public void setPatientId(Integer patientId) {
+        this.patientId = patientId;
+    }
+
+    private Integer patientId;
 }
