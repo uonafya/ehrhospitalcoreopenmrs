@@ -940,6 +940,8 @@ public interface EhrAppointmentService extends OpenmrsService {
         //@Authorized(EhrAppointmentUtils.PRIV_VIEW_APPOINTMENTS)
         List<EhrAppointment> getScheduledEhrAppointmentsForPatient(Patient patient);
 
+        List<EhrAppointment> getScheduledEhrAppointmentsForPatients() throws APIException;
+
         /**
          * Books a new appointment
          *

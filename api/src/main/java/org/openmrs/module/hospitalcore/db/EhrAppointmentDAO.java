@@ -100,4 +100,7 @@ public interface EhrAppointmentDAO extends EhrSingleClassDAO {
      */
     List<EhrAppointmentDailyCount> getEhrAppointmentDailyCount(String fromDate, String toDate, Location location,
                                                             Provider provider, EhrAppointment.EhrAppointmentStatus status) throws DAOException;
+
+
+    List<EhrAppointment> getScheduledEhrAppointmentsForPatients() throws DAOException;
 }

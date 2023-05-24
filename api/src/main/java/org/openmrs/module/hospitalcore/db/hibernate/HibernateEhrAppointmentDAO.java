@@ -295,4 +295,17 @@ public class HibernateEhrAppointmentDAO extends HibernateEhrSingleClassDAO imple
         return dailyCounts;
 
     }
+
+    @Override
+    public List<EhrAppointment> getScheduledEhrAppointmentsForPatients() throws DAOException {
+        Criteria criteria = sessionFactory.getCurrentSession().createCriteria(
+                EhrAppointment.class);
+        criteria.add(Restrictions.or(Restrictions.eq("status", SCHEDULED),
+                Restrictions.eq("status", RESCHEDULED)));
+        criteria.add(Restrictions.eq("voided", false));
+        criteria.createAlias("timeSlot", "timeSlot");
+        criteria.addOrder(Order.asc("timeSlot.startDate"));
+
+        return criteria.list();
+    }
 }

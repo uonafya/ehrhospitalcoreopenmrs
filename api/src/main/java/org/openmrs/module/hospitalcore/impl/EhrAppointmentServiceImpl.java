@@ -988,6 +988,11 @@ public class EhrAppointmentServiceImpl extends BaseOpenmrsService implements Ehr
     }
 
     @Override
+    public List<EhrAppointment> getScheduledEhrAppointmentsForPatients() throws APIException {
+        return ehrAppointmentDAO.getScheduledEhrAppointmentsForPatients();
+    }
+
+    @Override
     @Transactional(readOnly = true)
     public Map<EhrAppointmentType, Double> getAverageEhrHistoryDurationByConditions(
             Date fromDate, Date endDate, EhrAppointment.EhrAppointmentStatus status) {
