@@ -2100,5 +2100,15 @@
             ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
         </sql>
     </changeSet>
+    <changeSet id="AC8FC06A-6E26-46DA-B515-595AD37FEE77" author="ningosi">
+        <preConditions onFail="MARK_RAN" onError="WARN">
+            <dbms type="mysql"/>
+        </preConditions>
+        <comment>Add provider columns to ehr_sick_off</comment>
+        <sql>
+            ALTER TABLE  ehr_sick_off
+            ADD COLUMN `provider` int(11) DEFAULT NULL;
+        </sql>
+    </changeSet>
 
 </databaseChangeLog>

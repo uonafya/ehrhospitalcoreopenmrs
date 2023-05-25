@@ -1,6 +1,7 @@
 package org.openmrs.module.hospitalcore.model;
 
 import java.io.Serializable;
+import java.util.Date;
 
 public class SickOffSimplifier implements Serializable {
 
@@ -51,13 +52,21 @@ public class SickOffSimplifier implements Serializable {
     }
 
     public SickOffSimplifier(){}
-    public SickOffSimplifier(String patientIdentifier, Integer sickOffId, String provider, String notes, String patientName, String user) {
+    public SickOffSimplifier(String patientIdentifier,
+                             Integer sickOffId,
+                             String provider,
+                             String notes,
+                             String patientName,
+                             String user, String sickOffStartDate, String sickOffEndDate, String createdOn) {
         this.patientIdentifier = patientIdentifier;
         this.sickOffId = sickOffId;
         this.provider = provider;
         this.notes = notes;
         this.patientName = patientName;
         this.user = user;
+        this.sickOffStartDate = sickOffStartDate;
+        this.sickOffEndDate = sickOffEndDate;
+        this.createdOn = createdOn;
     }
 
     private String notes;
@@ -73,4 +82,33 @@ public class SickOffSimplifier implements Serializable {
     }
 
     private String user;
+
+    public String getSickOffStartDate() {
+        return sickOffStartDate;
+    }
+
+    public void setSickOffStartDate(String sickOffStartDate) {
+        this.sickOffStartDate = sickOffStartDate;
+    }
+
+    public String getSickOffEndDate() {
+        return sickOffEndDate;
+    }
+
+    public void setSickOffEndDate(String sickOffEndDate) {
+        this.sickOffEndDate = sickOffEndDate;
+    }
+
+    private String sickOffStartDate;
+    private String sickOffEndDate;
+
+    public String getCreatedOn() {
+        return createdOn;
+    }
+
+    public void setCreatedOn(String createdOn) {
+        this.createdOn = createdOn;
+    }
+
+    private String createdOn;
 }

@@ -20,5 +20,6 @@
         <property name="createdOn" column="created_on" />
         <property name="sickOffStartDate" column="date_started" />
         <property name="sickOffEndDate" column="date_ended" />
+        <many-to-one name="provider" column="provider" class="org.openmrs.Provider" />
     </class>
 </hibernate-mapping>

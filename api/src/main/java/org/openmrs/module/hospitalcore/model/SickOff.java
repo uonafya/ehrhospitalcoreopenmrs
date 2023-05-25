@@ -1,6 +1,7 @@
 package org.openmrs.module.hospitalcore.model;
 
 import org.openmrs.Patient;
+import org.openmrs.Provider;
 import org.openmrs.User;
 
 import java.io.Serializable;
@@ -77,4 +78,14 @@ public class SickOff implements Serializable {
     private Date sickOffStartDate;
 
     private Date sickOffEndDate;
+
+    public Provider getProvider() {
+        return provider;
+    }
+
+    public void setProvider(Provider provider) {
+        this.provider = provider;
+    }
+
+    private Provider provider;
 }
