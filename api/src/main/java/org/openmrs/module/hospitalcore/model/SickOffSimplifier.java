@@ -51,15 +51,26 @@ public class SickOffSimplifier implements Serializable {
     }
 
     public SickOffSimplifier(){}
-    public SickOffSimplifier(String patientIdentifier, Integer sickOffId, String provider, String notes, String patientName) {
+    public SickOffSimplifier(String patientIdentifier, Integer sickOffId, String provider, String notes, String patientName, String user) {
         this.patientIdentifier = patientIdentifier;
         this.sickOffId = sickOffId;
         this.provider = provider;
         this.notes = notes;
         this.patientName = patientName;
+        this.user = user;
     }
 
     private String notes;
 
     private String patientName;
+
+    public String getUser() {
+        return user;
+    }
+
+    public void setUser(String user) {
+        this.user = user;
+    }
+
+    private String user;
 }
