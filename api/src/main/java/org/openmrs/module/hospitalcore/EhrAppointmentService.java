@@ -1,7 +1,10 @@
 package org.openmrs.module.hospitalcore;
 
-import org.openmrs.*;
-import org.openmrs.annotation.Authorized;
+import org.openmrs.Location;
+import org.openmrs.Patient;
+import org.openmrs.Provider;
+import org.openmrs.Visit;
+import org.openmrs.VisitType;
 import org.openmrs.api.APIException;
 import org.openmrs.api.OpenmrsService;
 import org.openmrs.module.hospitalcore.exception.EhrTimeSlotFullException;
@@ -13,7 +16,6 @@ import org.openmrs.module.hospitalcore.model.EhrAppointmentStatusHistory;
 import org.openmrs.module.hospitalcore.model.EhrAppointmentType;
 import org.openmrs.module.hospitalcore.model.EhrProviderSchedule;
 import org.openmrs.module.hospitalcore.model.EhrTimeSlot;
-import org.openmrs.module.hospitalcore.util.EhrAppointmentUtils;
 
 import java.util.Date;
 import java.util.List;
@@ -1088,5 +1090,7 @@ public interface EhrAppointmentService extends OpenmrsService {
 
         //@Authorized
         EhrTimeSlot createEhrTimeSlotUsingProviderSchedule(Date appointmentDate, Provider provider, Location location);
+
+        List<EhrAppointment> getEhrAppointmentsByProvider(Provider provider) throws APIException;
 
 }

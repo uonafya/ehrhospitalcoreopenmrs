@@ -13,13 +13,20 @@
  */
 package org.openmrs.module.hospitalcore.db;
 
-import org.openmrs.*;
+import org.openmrs.Location;
+import org.openmrs.Patient;
+import org.openmrs.Provider;
+import org.openmrs.Visit;
+import org.openmrs.VisitType;
 import org.openmrs.api.APIException;
 import org.openmrs.api.db.DAOException;
 import org.openmrs.module.hospitalcore.EhrAppointmentService;
-import org.openmrs.module.hospitalcore.model.*;
+import org.openmrs.module.hospitalcore.model.EhrAppointment;
+import org.openmrs.module.hospitalcore.model.EhrAppointmentBlock;
+import org.openmrs.module.hospitalcore.model.EhrAppointmentDailyCount;
+import org.openmrs.module.hospitalcore.model.EhrAppointmentType;
+import org.openmrs.module.hospitalcore.model.EhrTimeSlot;
 import org.springframework.transaction.annotation.Transactional;
-
 
 import java.util.Date;
 import java.util.List;
@@ -103,4 +110,6 @@ public interface EhrAppointmentDAO extends EhrSingleClassDAO {
 
 
     List<EhrAppointment> getScheduledEhrAppointmentsForPatients() throws DAOException;
+
+    List<EhrAppointment> getEhrAppointmentsByProvider(Provider provider) throws DAOException;
 }

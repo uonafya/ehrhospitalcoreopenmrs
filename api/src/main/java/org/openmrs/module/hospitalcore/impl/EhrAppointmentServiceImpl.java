@@ -1292,6 +1292,11 @@ public class EhrAppointmentServiceImpl extends BaseOpenmrsService implements Ehr
 
     }
 
+    @Override
+    public List<EhrAppointment> getEhrAppointmentsByProvider(Provider provider) throws APIException {
+        return ehrAppointmentDAO.getEhrAppointmentsByProvider(provider);
+    }
+
     public Date getDateAndTime(Date date, Date time) {
         return new Date(
                 date.getYear(), date.getMonth(), date.getDate(),

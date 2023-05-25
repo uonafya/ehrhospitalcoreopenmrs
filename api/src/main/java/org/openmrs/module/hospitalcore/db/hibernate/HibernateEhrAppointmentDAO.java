@@ -19,7 +19,6 @@ import org.openmrs.module.hospitalcore.model.EhrAppointmentDailyCount;
 import org.openmrs.module.hospitalcore.model.EhrAppointmentType;
 import org.openmrs.module.hospitalcore.model.EhrTimeSlot;
 import org.openmrs.module.hospitalcore.util.DateUtils;
-import org.openmrs.module.hospitalcore.util.HospitalCoreUtils;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.math.BigInteger;
@@ -29,6 +28,7 @@ import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
 
+import static org.openmrs.module.hospitalcore.model.EhrAppointment.EhrAppointmentStatus.INCONSULTATION;
 import static org.openmrs.module.hospitalcore.model.EhrAppointment.EhrAppointmentStatus.RESCHEDULED;
 import static org.openmrs.module.hospitalcore.model.EhrAppointment.EhrAppointmentStatusType.SCHEDULED;
 
@@ -306,6 +306,20 @@ public class HibernateEhrAppointmentDAO extends HibernateEhrSingleClassDAO imple
         criteria.createAlias("timeSlot", "timeSlot");
         criteria.addOrder(Order.asc("timeSlot.startDate"));
 
+        return criteria.list();
+    }
+
+    @Override
+    public List<EhrAppointment> getEhrAppointmentsByProvider(Provider provider) throws DAOException {
+
+        Criteria criteria = sessionFactory.getCurrentSession().createCriteria(
+                mappedClass);
+        criteria.add(Restrictions.or(Restrictions.eq("status", SCHEDULED),
+                Restrictions.eq("status", RESCHEDULED), Restrictions.eq("status", INCONSULTATION)));
+        criteria.add(Restrictions.eq("voided", false));
+        criteria.createAlias("timeSlot", "timeSlot");
+        criteria.add(Restrictions.eq("timeSlot.appointmentBlock.provider", provider));
+        criteria.addOrder(Order.asc("timeSlot.startDate"));
         return criteria.list();
     }
 }
