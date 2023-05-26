@@ -318,7 +318,8 @@ public class HibernateEhrAppointmentDAO extends HibernateEhrSingleClassDAO imple
                 Restrictions.eq("status", RESCHEDULED), Restrictions.eq("status", INCONSULTATION)));
         criteria.add(Restrictions.eq("voided", false));
         criteria.createAlias("timeSlot", "timeSlot");
-        criteria.add(Restrictions.eq("timeSlot.appointmentBlock.provider", provider));
+        criteria.createAlias("timeSlot.appointmentBlock", "appointmentBlock");
+        criteria.add(Restrictions.eq("appointmentBlock.provider", provider));
         criteria.addOrder(Order.asc("timeSlot.startDate"));
         return criteria.list();
     }
