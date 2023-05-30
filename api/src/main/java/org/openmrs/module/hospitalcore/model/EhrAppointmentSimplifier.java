@@ -79,4 +79,14 @@ public class EhrAppointmentSimplifier {
     }
 
     private Integer patientId;
+
+    public Integer getAppointmentId() {
+        return appointmentId;
+    }
+
+    public void setAppointmentId(Integer appointmentId) {
+        this.appointmentId = appointmentId;
+    }
+
+    private Integer appointmentId;
 }
