@@ -1,0 +1,21 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC
+        "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+        "http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd" >
+
+<hibernate-mapping package="org.openmrs.module.hospitalcore.model">
+
+    <class name="FoodHandling" table="ehr_food_handling" batch-size="500">
+
+        <id name="foodHandlingId" type="int" column="food_handling_id"
+            unsaved-value="0">
+            <generator class="native" />
+        </id>
+        <property name="conceptId" column="concept_id" />
+        <property name="description" column="description" length="255" />
+        <property name="retired" column="retired"  />
+        <property name="retiredDate" column="retired_date"  />
+        <property name="createdDate" column="created_date"  />
+        <many-to-one name="creator" column="creator" class="org.openmrs.User" />
+    </class>
+</hibernate-mapping>

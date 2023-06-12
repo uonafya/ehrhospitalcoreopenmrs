@@ -20,7 +20,9 @@ import java.util.List;
 
 import org.openmrs.Order;
 import org.openmrs.Role;
+import org.openmrs.api.APIException;
 import org.openmrs.api.db.DAOException;
+import org.openmrs.module.hospitalcore.model.FoodHandling;
 import org.openmrs.module.hospitalcore.model.Lab;
 import org.openmrs.module.hospitalcore.model.LabTest;
 
@@ -60,4 +62,8 @@ public interface LabDAO {
 	public List<LabTest> getLatestLabTestByDate(Date today,Date nextDay, Lab lab ) throws DAOException;
 	
 	public void deleteLabTest(LabTest labtest) throws DAOException;
+
+	public FoodHandling saveFoodHandlerProfile(FoodHandling foodHandling) throws APIException;
+	public List<FoodHandling> getAllFoodHandlerProfiles() throws APIException;
+	public FoodHandling getFoodHandlerProfileById(Integer foodHandler) throws APIException;
 }

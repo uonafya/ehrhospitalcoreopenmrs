@@ -23,8 +23,10 @@ import org.hibernate.SessionFactory;
 import org.hibernate.criterion.Restrictions;
 import org.openmrs.Order;
 import org.openmrs.Role;
+import org.openmrs.api.APIException;
 import org.openmrs.api.db.DAOException;
 import org.openmrs.module.hospitalcore.db.LabDAO;
+import org.openmrs.module.hospitalcore.model.FoodHandling;
 import org.openmrs.module.hospitalcore.model.Lab;
 import org.openmrs.module.hospitalcore.model.LabTest;
 
@@ -127,5 +129,24 @@ public class HibernateLabDAO implements LabDAO {
 		sessionFactory.getCurrentSession().delete(labtest);
 	}
 
-	
+	@Override
+	public FoodHandling saveFoodHandlerProfile(FoodHandling foodHandling) throws DAOException {
+		return (FoodHandling) sessionFactory.getCurrentSession().merge(foodHandling);
+	}
+
+	@Override
+	@SuppressWarnings("unchecked")
+	public List<FoodHandling> getAllFoodHandlerProfiles() throws DAOException {
+		Criteria criteria = sessionFactory.getCurrentSession().createCriteria(FoodHandling.class);
+		return criteria.list();
+	}
+
+	@Override
+	public FoodHandling getFoodHandlerProfileById(Integer foodHandler) throws DAOException {
+		Criteria criteria = sessionFactory.getCurrentSession().createCriteria(FoodHandling.class);
+		criteria.add(Restrictions.eq("foodHandlingId", foodHandler));
+		return (FoodHandling) criteria.uniqueResult();
+	}
+
+
 }

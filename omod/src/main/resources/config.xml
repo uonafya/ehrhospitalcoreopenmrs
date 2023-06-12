@@ -189,6 +189,8 @@
 		EhrAppointmentRequest.hbm.xml
 		EhrProviderSchedule.hbm.xml
 
+		FoodHandling.hbm.xml
+
 	</mappingFiles>
 </module>
 

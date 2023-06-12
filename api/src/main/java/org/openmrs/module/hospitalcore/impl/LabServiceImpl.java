@@ -32,6 +32,7 @@ import org.openmrs.api.context.Context;
 import org.openmrs.api.impl.BaseOpenmrsService;
 import org.openmrs.module.hospitalcore.LabService;
 import org.openmrs.module.hospitalcore.db.LabDAO;
+import org.openmrs.module.hospitalcore.model.FoodHandling;
 import org.openmrs.module.hospitalcore.model.Lab;
 import org.openmrs.module.hospitalcore.model.LabTest;
 
@@ -169,6 +170,21 @@ public class LabServiceImpl extends BaseOpenmrsService implements LabService {
 		if (labTest != null) {
 			dao.deleteLabTest(labTest);
 		}
+	}
+
+	@Override
+	public FoodHandling saveFoodHandlerProfile(FoodHandling foodHandling) throws APIException {
+		return dao.saveFoodHandlerProfile(foodHandling);
+	}
+
+	@Override
+	public List<FoodHandling> getAllFoodHandlerProfiles() throws APIException {
+		return dao.getAllFoodHandlerProfiles();
+	}
+
+	@Override
+	public FoodHandling getFoodHandlerProfileById(Integer foodHandler) throws APIException {
+		return dao.getFoodHandlerProfileById(foodHandler);
 	}
 
 	public List<Concept> getAnswers(Concept labSet) {

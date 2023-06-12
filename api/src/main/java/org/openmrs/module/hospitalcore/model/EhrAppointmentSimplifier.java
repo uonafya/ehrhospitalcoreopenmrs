@@ -1,5 +1,7 @@
 package org.openmrs.module.hospitalcore.model;
 
+import org.openmrs.Patient;
+
 public class EhrAppointmentSimplifier {
 
     private String appointmentType;
@@ -89,4 +91,14 @@ public class EhrAppointmentSimplifier {
     }
 
     private Integer appointmentId;
+
+    public Patient getPatient() {
+        return patient;
+    }
+
+    public void setPatient(Patient patient) {
+        this.patient = patient;
+    }
+
+    private Patient patient;
 }

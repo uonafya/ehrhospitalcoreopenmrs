@@ -23,6 +23,7 @@ import org.openmrs.Order;
 import org.openmrs.Role;
 import org.openmrs.api.APIException;
 import org.openmrs.api.OpenmrsService;
+import org.openmrs.module.hospitalcore.model.FoodHandling;
 import org.openmrs.module.hospitalcore.model.Lab;
 import org.openmrs.module.hospitalcore.model.LabTest;
 import org.springframework.transaction.annotation.Transactional;
@@ -69,5 +70,15 @@ public interface LabService extends OpenmrsService {
 	
 	public void deleteLabTest(LabTest labtest) throws APIException;
 	
-	public void deleteLabTestByOrder(Order order) throws APIException;	
+	public void deleteLabTestByOrder(Order order) throws APIException;
+
+	/**
+	 * Food handling
+	 */
+	public FoodHandling saveFoodHandlerProfile(FoodHandling foodHandling) throws APIException;
+	public List<FoodHandling> getAllFoodHandlerProfiles() throws APIException;
+	public FoodHandling getFoodHandlerProfileById(Integer foodHandler) throws APIException;
+
+
+
 }
