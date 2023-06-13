@@ -11,6 +11,7 @@
             unsaved-value="0">
             <generator class="native" />
         </id>
+        <property name="name" column="name" />
         <property name="conceptId" column="concept_id" />
         <property name="description" column="description" length="255" />
         <property name="retired" column="retired"  />

@@ -87,7 +87,17 @@ public class FoodHandling implements Serializable {
 
     private Date retiredDate;
 
-    private Concept getFoodHandlerConcept() {
+    public Concept getFoodHandlerConcept() {
         return Context.getConceptService().getConcept(getConceptId());
     }
+
+    public String getName() {
+        return name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
+    }
+
+    private String name;
 }
