@@ -2119,7 +2119,7 @@
         <sql>
             CREATE TABLE IF NOT EXISTS `ehr_food_handling` (
             `food_handling_id` int(11) NOT NULL AUTO_INCREMENT,
-            `name` varchar(225) NOT NULL
+            `name` varchar(225) NOT NULL,
             `creator` int(11) NOT NULL,
             `concept_id` int(11) NOT NULL,
             `created_date` datetime DEFAULT NULL,
