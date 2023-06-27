@@ -697,7 +697,9 @@ public class HibernateHospitalCoreDAO implements HospitalCoreDAO {
     public List<PatientServiceBillItem> getPatientServiceBillByDepartment(EhrDepartment ehrDepartment, Date startDate, Date endDate) throws DAOException {
         Criteria criteria = sessionFactory.getCurrentSession().createCriteria
                 (PatientServiceBillItem.class);
-        criteria.add(Restrictions.eq("department", ehrDepartment));
+        if(ehrDepartment != null) {
+            criteria.add(Restrictions.eq("department", ehrDepartment));
+        }
 
         String date = formatterDate.format(new Date());
         String startFromDateToday = date + " 00:00:00";
