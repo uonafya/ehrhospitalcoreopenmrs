@@ -675,7 +675,7 @@ public class HibernateHospitalCoreDAO implements HospitalCoreDAO {
 
     @Override
     public EhrDepartment getDepartmentById(Integer departmentId) throws DAOException {
-        return (EhrDepartment) sessionFactory.getCurrentSession().get(PatientCategoryDetails.class, departmentId);
+        return (EhrDepartment) sessionFactory.getCurrentSession().get(EhrDepartment.class, departmentId);
     }
 
     @Override
