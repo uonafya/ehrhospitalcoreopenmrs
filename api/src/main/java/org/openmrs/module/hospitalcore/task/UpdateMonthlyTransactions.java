@@ -68,7 +68,7 @@ public class UpdateMonthlyTransactions extends AbstractTask {
                 if (DateUtils.getStartOfDay(lastTransactionDate).compareTo(DateUtils.getStartOfDay(new Date())) < 0) {
                     monthlySummaryReport = new MonthlySummaryReport();
                     monthlySummaryReport.setTotalSales(getTotalCummulativeSalesForTheDay(billingService));
-                    monthlySummaryReport.setIpCash(0);
+                    monthlySummaryReport.setIpCash(getSalesTotalsPerDayByCash(billingService));
                     monthlySummaryReport.setMaternity(0);
                     monthlySummaryReport.setXray(getDepartmentTotalsOnDateRange("Radiology"));
                     monthlySummaryReport.setLab(getDepartmentTotalsOnDateRange("Laboratory"));
@@ -77,19 +77,19 @@ public class UpdateMonthlyTransactions extends AbstractTask {
                     monthlySummaryReport.setOpTreatment(getDepartmentTotalsOnDateRange("Procedure"));
                     monthlySummaryReport.setPharmacy(getPharmacySales());
                     monthlySummaryReport.setMedicalExam(getCumulativeProcedureTotals(getMedicalExaminationConcepts()));
-                    monthlySummaryReport.setMedicalReportsIncludingP3(0);
+                    monthlySummaryReport.setMedicalReportsIncludingP3(getCumulativeProcedureTotals(getMedicalReportsAndP3Concets()));
                     monthlySummaryReport.setDental(getCumulativeProcedureTotals(getDentalConcepts()));
                     monthlySummaryReport.setPhysioTherapy(getCumulativeProcedureTotals(getPhysioTherapyConcepts()));
                     monthlySummaryReport.setOccupationalTherapy(getCumulativeProcedureTotals(getOccupationalTherapyConcepts()));
-                    monthlySummaryReport.setMedicalRecordsCardsAndFiles(0);
+                    monthlySummaryReport.setMedicalRecordsCardsAndFiles(getCumulativeProcedureTotals(getMedicalRecordsAndFilesConceptList()));
                     monthlySummaryReport.setBookingFees(0);
                     monthlySummaryReport.setRentalServices(0);
                     monthlySummaryReport.setAmbulance(0);
                     monthlySummaryReport.setPublicHealthServices(0);
                     monthlySummaryReport.setEntAndOtherClinics(getCumulativeProcedureTotals(getEntAndOtherClinicConcepts()));
                     monthlySummaryReport.setOther(0);
-                    monthlySummaryReport.setCashReceiptsCashFromDailyServices(0);
-                    monthlySummaryReport.setCashReceiptNhifReceipt(0);
+                    monthlySummaryReport.setCashReceiptsCashFromDailyServices(getSalesTotalsPerDayByCash(billingService));
+                    monthlySummaryReport.setCashReceiptNhifReceipt(getDepartmentTotalsOnDateRange("NHIF"));
                     monthlySummaryReport.setCashReceiptOtherDebtorsReceipt(0);
                     monthlySummaryReport.setRevenueNotCollectedPatientNotYetPaidNhifPatients(0);
                     monthlySummaryReport.setRevenueNotCollectedPatientNotYetPaidOtherDebtors(0);
@@ -102,7 +102,7 @@ public class UpdateMonthlyTransactions extends AbstractTask {
                 //create the monthly summary object with the corresponding values
                 monthlySummaryReport = new MonthlySummaryReport();
                 monthlySummaryReport.setTotalSales(getTotalCummulativeSalesForTheDay(billingService));
-                monthlySummaryReport.setIpCash(0);
+                monthlySummaryReport.setIpCash(getSalesTotalsPerDayByCash(billingService));
                 monthlySummaryReport.setMaternity(0);
                 monthlySummaryReport.setXray(getDepartmentTotalsOnDateRange("Radiology"));
                 monthlySummaryReport.setLab(getDepartmentTotalsOnDateRange("Laboratory"));
@@ -115,15 +115,15 @@ public class UpdateMonthlyTransactions extends AbstractTask {
                 monthlySummaryReport.setDental(getCumulativeProcedureTotals(getDentalConcepts()));
                 monthlySummaryReport.setPhysioTherapy(getCumulativeProcedureTotals(getPhysioTherapyConcepts()));
                 monthlySummaryReport.setOccupationalTherapy(getCumulativeProcedureTotals(getOccupationalTherapyConcepts()));
-                monthlySummaryReport.setMedicalRecordsCardsAndFiles(0);
+                monthlySummaryReport.setMedicalRecordsCardsAndFiles(getCumulativeProcedureTotals(getMedicalRecordsAndFilesConceptList()));
                 monthlySummaryReport.setBookingFees(0);
                 monthlySummaryReport.setRentalServices(0);
                 monthlySummaryReport.setAmbulance(0);
                 monthlySummaryReport.setPublicHealthServices(0);
                 monthlySummaryReport.setEntAndOtherClinics(getCumulativeProcedureTotals(getEntAndOtherClinicConcepts()));
                 monthlySummaryReport.setOther(0);
-                monthlySummaryReport.setCashReceiptsCashFromDailyServices(0);
-                monthlySummaryReport.setCashReceiptNhifReceipt(0);
+                monthlySummaryReport.setCashReceiptsCashFromDailyServices(getSalesTotalsPerDayByCash(billingService));
+                monthlySummaryReport.setCashReceiptNhifReceipt(getDepartmentTotalsOnDateRange("NHIF"));
                 monthlySummaryReport.setCashReceiptOtherDebtorsReceipt(0);
                 monthlySummaryReport.setRevenueNotCollectedPatientNotYetPaidNhifPatients(0);
                 monthlySummaryReport.setRevenueNotCollectedPatientNotYetPaidOtherDebtors(0);
@@ -145,6 +145,19 @@ public class UpdateMonthlyTransactions extends AbstractTask {
         //loop through all that were done today and save to the database
         for(PatientServiceBill patientServiceBill : patientServiceBillList) {
             totals = totals +  patientServiceBill.getActualAmount().intValue();
+        }
+
+        return totals;
+    }
+
+    private Integer getSalesTotalsPerDayByCash(BillingService billingService) {
+        int totals = 0;
+        List<PatientServiceBill> patientServiceBillList = billingService.getAllPatientServiceBillByDate(null, null);
+        //loop through all that were done today and save to the database
+        for(PatientServiceBill patientServiceBill : patientServiceBillList) {
+            if(patientServiceBill.getPaymentMode().equals("Cash")) {
+                totals = totals + patientServiceBill.getActualAmount().intValue();
+            }
         }
 
         return totals;
@@ -253,6 +266,20 @@ public class UpdateMonthlyTransactions extends AbstractTask {
         allowedConcepts.remove(occupationalOverallConcept);
         allowedConcepts.remove(physioOverallConcept);
         return allowedConcepts;
+    }
+
+    private List<Concept> getMedicalReportsAndP3Concets() {
+        ConceptService conceptService = Context.getConceptService();
+        return Arrays.asList(
+                conceptService.getConceptByUuid("66483d0c-9f47-4541-9e0f-e4bee8983933")
+        );
+    }
+
+    private List<Concept> getMedicalRecordsAndFilesConceptList() {
+        ConceptService conceptService = Context.getConceptService();
+        return Arrays.asList(
+                conceptService.getConceptByUuid("1238AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA")
+        );
     }
 
 }
