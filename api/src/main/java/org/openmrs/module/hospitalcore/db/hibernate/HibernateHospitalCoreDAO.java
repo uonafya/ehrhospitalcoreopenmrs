@@ -17,6 +17,7 @@ package org.openmrs.module.hospitalcore.db.hibernate;
 import java.math.BigInteger;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Collection;
 import java.util.Date;
 import java.util.HashSet;
 import java.util.List;
@@ -812,7 +813,7 @@ public class HibernateHospitalCoreDAO implements HospitalCoreDAO {
     }
 
     @Override
-    public List<Encounter> getProviderEncounters(Date startDate, Date endDate, Provider provider) throws APIException {
+    public List<Encounter> getProviderEncounters(Date startDate, Date endDate, Provider provider, Collection<EncounterType> encounterTypes) throws APIException {
 
         Criteria criteria = sessionFactory.getCurrentSession().createCriteria(Encounter.class);
         criteria.add(Restrictions.eq("voided", false));
@@ -828,8 +829,11 @@ public class HibernateHospitalCoreDAO implements HospitalCoreDAO {
             criteria.add((Restrictions.and(Restrictions.ge("encounterDatetime", date1),
                     Restrictions.le("encounterDatetime", date2))));
         }
+        if (encounterTypes != null && encounterTypes.size() > 0) {
+            criteria.add(Restrictions.in("encounterType", encounterTypes));
+        }
         if(provider != null){
-            criteria.createAlias("encounterProvider", "ep");
+            criteria.createAlias("encounterProviders", "ep");
             criteria.add(Restrictions.eq("ep.provider", provider));
         }
         criteria.addOrder(Order.desc("encounterDatetime"));

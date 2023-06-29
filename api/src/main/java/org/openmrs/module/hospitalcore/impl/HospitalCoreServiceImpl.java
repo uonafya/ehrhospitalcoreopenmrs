@@ -19,6 +19,7 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.math.BigInteger;
 import java.util.ArrayList;
+import java.util.Collection;
 import java.util.Collections;
 import java.util.Date;
 import java.util.HashSet;
@@ -885,8 +886,8 @@ public class HospitalCoreServiceImpl extends BaseOpenmrsService implements
 	}
 
 	@Override
-	public List<Encounter> getProviderEncounters(Date startDate, Date endDate, Provider provider) throws APIException {
-		return dao.getProviderEncounters(startDate, endDate, provider);
+	public List<Encounter> getProviderEncounters(Date startDate, Date endDate, Provider provider, Collection<EncounterType> encounterTypes) throws APIException {
+		return dao.getProviderEncounters(startDate, endDate, provider, encounterTypes);
 	}
 
 }

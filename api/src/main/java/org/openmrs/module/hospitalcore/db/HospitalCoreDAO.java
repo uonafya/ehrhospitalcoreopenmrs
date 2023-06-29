@@ -16,6 +16,7 @@
 package org.openmrs.module.hospitalcore.db;
 
 import java.math.BigInteger;
+import java.util.Collection;
 import java.util.Date;
 import java.util.List;
 
@@ -160,5 +161,5 @@ public interface HospitalCoreDAO {
 	public SickOff savePatientSickOff(SickOff sickOff) throws DAOException;
 	public List<SickOff> getPatientSickOffsCreated(Date startDate, Date endDate) throws DAOException;
 
-	public List<Encounter> getProviderEncounters(Date startDate, Date endDate, Provider provider) throws APIException;
+	public List<Encounter> getProviderEncounters(Date startDate, Date endDate, Provider provider, Collection<EncounterType> encounterTypes) throws APIException;
 }

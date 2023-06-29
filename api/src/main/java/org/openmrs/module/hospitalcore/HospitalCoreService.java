@@ -45,6 +45,7 @@ import javax.xml.xpath.XPathExpressionException;
 import java.io.IOException;
 import java.io.InputStream;
 import java.math.BigInteger;
+import java.util.Collection;
 import java.util.Date;
 import java.util.List;
 
@@ -272,7 +273,7 @@ public interface HospitalCoreService extends OpenmrsService {
 	public List<SickOff> getPatientSickOffsCreated(Date startDate, Date endDate) throws APIException;
 
 	public List<PatientServiceBillItem> getBillableItemsBasedOnListOfItemsPassed(List<Concept> listOfConcepts) throws APIException;
-	public List<Encounter> getProviderEncounters(Date startDate, Date endDate, Provider provider) throws APIException;
+	public List<Encounter> getProviderEncounters(Date startDate, Date endDate, Provider provider, Collection<EncounterType> encounterTypes) throws APIException;
 
 
 
