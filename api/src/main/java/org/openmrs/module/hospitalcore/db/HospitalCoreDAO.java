@@ -29,6 +29,8 @@ import org.openmrs.Person;
 import org.openmrs.PersonAddress;
 import org.openmrs.PersonAttribute;
 import org.openmrs.PersonAttributeType;
+import org.openmrs.Provider;
+import org.openmrs.User;
 import org.openmrs.api.APIException;
 import org.openmrs.api.db.DAOException;
 import org.openmrs.module.hospitalcore.concept.ConceptModel;
@@ -157,4 +159,6 @@ public interface HospitalCoreDAO {
 	public List<SickOff> getPatientSickOffs(Patient patient, Date startDate, Date endDate) throws DAOException;
 	public SickOff savePatientSickOff(SickOff sickOff) throws DAOException;
 	public List<SickOff> getPatientSickOffsCreated(Date startDate, Date endDate) throws DAOException;
+
+	public List<Encounter> getProviderEncounters(Date startDate, Date endDate, Provider provider) throws APIException;
 }

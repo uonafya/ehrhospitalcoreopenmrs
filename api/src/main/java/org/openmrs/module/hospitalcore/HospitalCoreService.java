@@ -15,32 +15,38 @@
 
 package org.openmrs.module.hospitalcore;
 
-import java.io.IOException;
-import java.io.InputStream;
-import java.math.BigInteger;
-import java.util.Date;
-import java.util.List;
-
-import javax.xml.parsers.ParserConfigurationException;
-import javax.xml.xpath.XPathExpressionException;
-
 import org.openmrs.Concept;
 import org.openmrs.Encounter;
 import org.openmrs.EncounterType;
 import org.openmrs.Obs;
 import org.openmrs.Patient;
-
 import org.openmrs.Person;
 import org.openmrs.PersonAddress;
 import org.openmrs.PersonAttribute;
 import org.openmrs.PersonAttributeType;
+import org.openmrs.Provider;
 import org.openmrs.User;
 import org.openmrs.api.APIException;
 import org.openmrs.api.ConceptService;
 import org.openmrs.api.OpenmrsService;
-import org.openmrs.module.hospitalcore.model.*;
+import org.openmrs.module.hospitalcore.model.CoreForm;
+import org.openmrs.module.hospitalcore.model.EhrDepartment;
+import org.openmrs.module.hospitalcore.model.EhrHospitalWaiver;
+import org.openmrs.module.hospitalcore.model.OpdTestOrder;
+import org.openmrs.module.hospitalcore.model.PatientCategoryDetails;
+import org.openmrs.module.hospitalcore.model.PatientSearch;
+import org.openmrs.module.hospitalcore.model.PatientServiceBillItem;
+import org.openmrs.module.hospitalcore.model.SickOff;
 import org.springframework.transaction.annotation.Transactional;
 import org.xml.sax.SAXException;
+
+import javax.xml.parsers.ParserConfigurationException;
+import javax.xml.xpath.XPathExpressionException;
+import java.io.IOException;
+import java.io.InputStream;
+import java.math.BigInteger;
+import java.util.Date;
+import java.util.List;
 
 @Transactional
 public interface HospitalCoreService extends OpenmrsService {
@@ -266,6 +272,7 @@ public interface HospitalCoreService extends OpenmrsService {
 	public List<SickOff> getPatientSickOffsCreated(Date startDate, Date endDate) throws APIException;
 
 	public List<PatientServiceBillItem> getBillableItemsBasedOnListOfItemsPassed(List<Concept> listOfConcepts) throws APIException;
+	public List<Encounter> getProviderEncounters(Date startDate, Date endDate, Provider provider) throws APIException;
 
 
 
