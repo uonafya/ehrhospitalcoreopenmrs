@@ -684,7 +684,19 @@ public class DateUtils {
   public static Date getEndOfDay(Date d) {
     return getDateTime(d, 23, 59, 59, 999);
   }
-	
-   
+
+    public static Date getDateFromString(String date, String pattern) {
+        Date result = null;
+        try {
+            SimpleDateFormat sdf = new SimpleDateFormat(pattern);
+            sdf.setLenient(false);
+            result =  sdf.parse(date);
+        }
+        catch (Exception e) {
+            System.out.println("Error: "+e.toString());
+        }
+
+        return result;
+    }
 }
 
