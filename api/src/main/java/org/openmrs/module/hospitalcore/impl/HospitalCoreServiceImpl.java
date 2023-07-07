@@ -59,6 +59,7 @@ import org.openmrs.PersonAttribute;
 import org.openmrs.PersonAttributeType;
 import org.openmrs.Provider;
 import org.openmrs.User;
+import org.openmrs.Visit;
 import org.openmrs.api.APIException;
 import org.openmrs.api.ConceptService;
 import org.openmrs.api.context.Context;
@@ -886,7 +887,7 @@ public class HospitalCoreServiceImpl extends BaseOpenmrsService implements
 	}
 
 	@Override
-	public List<Encounter> getProviderEncounters(Date startDate, Date endDate, Provider provider, Collection<EncounterType> encounterTypes) throws APIException {
+	public List<Visit> getProviderEncounters(Date startDate, Date endDate, Provider provider, Collection<EncounterType> encounterTypes) throws APIException {
 		return dao.getProviderEncounters(startDate, endDate, provider, encounterTypes);
 	}
 

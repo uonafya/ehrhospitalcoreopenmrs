@@ -45,6 +45,7 @@ import org.openmrs.PersonAttributeType;
 import org.openmrs.PersonName;
 import org.openmrs.Provider;
 import org.openmrs.User;
+import org.openmrs.Visit;
 import org.openmrs.api.APIException;
 import org.openmrs.api.context.Context;
 import org.openmrs.api.db.DAOException;
@@ -813,30 +814,31 @@ public class HibernateHospitalCoreDAO implements HospitalCoreDAO {
     }
 
     @Override
-    public List<Encounter> getProviderEncounters(Date startDate, Date endDate, Provider provider, Collection<EncounterType> encounterTypes) throws APIException {
+    public List<Visit> getProviderEncounters(Date startDate, Date endDate, Provider provider, Collection<EncounterType> encounterTypes) throws APIException {
 
-        Criteria criteria = sessionFactory.getCurrentSession().createCriteria(Encounter.class);
+        Criteria criteria = sessionFactory.getCurrentSession().createCriteria(Visit.class);
         criteria.add(Restrictions.eq("voided", false));
         if(startDate == null && endDate == null) {
             Date todayStartDate = DateUtils.getStartOfDay(new Date());
             Date todayEndDate = DateUtils.getEndOfDay(new Date());
-            criteria.add((Restrictions.and(Restrictions.ge("encounterDatetime", todayStartDate),
-                    Restrictions.le("encounterDatetime", todayEndDate))));
+            criteria.add((Restrictions.and(Restrictions.ge("startDatetime", todayStartDate),
+                    Restrictions.le("startDatetime", todayEndDate))));
         }
-        if(startDate != null && endDate != null){
-            Date date1 = DateUtils.getStartOfDay(startDate);
-            Date date2  = DateUtils.getEndOfDay(endDate);
-            criteria.add((Restrictions.and(Restrictions.ge("encounterDatetime", date1),
-                    Restrictions.le("encounterDatetime", date2))));
+        if(startDate != null){
+            criteria.add(Restrictions.ge("startDatetime", DateUtils.getStartOfDay(startDate)));
         }
+        if(endDate != null){
+            criteria.add(Restrictions.le("startDatetime", DateUtils.getEndOfDay(endDate)));
+        }
+        criteria.createAlias("encounters", "e");
         if (encounterTypes != null && encounterTypes.size() > 0) {
-            criteria.add(Restrictions.in("encounterType", encounterTypes));
+            criteria.add(Restrictions.in("e.encounterType", encounterTypes));
         }
         if(provider != null){
-            criteria.createAlias("encounterProviders", "ep");
+            criteria.createAlias("e.encounterProviders", "ep");
             criteria.add(Restrictions.eq("ep.provider", provider));
         }
-        criteria.addOrder(Order.desc("encounterDatetime"));
+        criteria.addOrder(Order.desc("startDatetime"));
 
         return criteria.list();
     }
