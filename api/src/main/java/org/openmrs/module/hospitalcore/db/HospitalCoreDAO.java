@@ -162,5 +162,6 @@ public interface HospitalCoreDAO {
 	public SickOff savePatientSickOff(SickOff sickOff) throws DAOException;
 	public List<SickOff> getPatientSickOffsCreated(Date startDate, Date endDate) throws DAOException;
 
-	public List<Visit> getProviderEncounters(Date startDate, Date endDate, Provider provider, Collection<EncounterType> encounterTypes) throws APIException;
+	public List<Visit> getProviderEncounters(Date startDate, Date endDate, Provider provider, Collection<EncounterType> encounterTypes) throws DAOException;
+	public List<Encounter> getDeadPatientsForEhr(EncounterType encounterType, Date startDate, Date endDate) throws DAOException;
 }

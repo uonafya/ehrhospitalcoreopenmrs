@@ -698,5 +698,18 @@ public class DateUtils {
 
         return result;
     }
+    public static String getDateFromDateAsString(Date date, String pattern) {
+        String result = null;
+        try {
+            SimpleDateFormat sdf = new SimpleDateFormat(pattern);
+            sdf.setLenient(false);
+            result =  sdf.format(date);
+        }
+        catch (Exception e) {
+            System.out.println("Error: "+e.toString());
+        }
+
+        return result;
+    }
 }
 

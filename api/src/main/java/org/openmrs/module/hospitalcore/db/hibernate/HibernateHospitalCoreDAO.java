@@ -843,6 +843,23 @@ public class HibernateHospitalCoreDAO implements HospitalCoreDAO {
         return criteria.list();
     }
 
+    @Override
+    public List<Encounter> getDeadPatientsForEhr(EncounterType encounterType, Date startDate, Date endDate) throws DAOException {
+        Criteria criteria = sessionFactory.getCurrentSession().createCriteria(Encounter.class);
+        criteria.add(Restrictions.eq("encounterType", encounterType));
+        if(startDate == null && endDate == null) {
+            criteria.add(Restrictions.and(Restrictions.ge("encounterDatetime", DateUtils.getStartOfDay(new Date())),
+                    Restrictions.le("encounterDatetime", DateUtils.getEndOfDay(new Date()))));
+        }
+        if(startDate != null) {
+            criteria.add(Restrictions.ge("encounterDatetime", DateUtils.getStartOfDay(startDate)));
+        }
+        if(endDate != null) {
+            criteria.add(Restrictions.le("encounterDatetime", DateUtils.getEndOfDay(endDate)));
+        }
+        return criteria.list();
+    }
+
     public  void setAllPatientServiceBillItemsByDateCriteria(Criteria criteria, String fromDate,String toDate){
         String fromDateWithTime = fromDate+" 00:00:00";
         String endDateWithTime = toDate+" 23:59:59";

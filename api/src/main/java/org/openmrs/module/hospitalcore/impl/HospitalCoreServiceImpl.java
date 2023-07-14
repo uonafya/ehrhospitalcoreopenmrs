@@ -891,4 +891,9 @@ public class HospitalCoreServiceImpl extends BaseOpenmrsService implements
 		return dao.getProviderEncounters(startDate, endDate, provider, encounterTypes);
 	}
 
+	@Override
+	public List<Encounter> getDeadPatientsForEhr(EncounterType encounterType, Date startDate, Date endDate) throws APIException {
+		return dao.getDeadPatientsForEhr(encounterType, startDate, endDate);
+	}
+
 }
