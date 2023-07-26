@@ -913,7 +913,9 @@ public class HospitalCoreServiceImpl extends BaseOpenmrsService implements
 		OpdNumbersGenerator lastOpdNumbersGenerator = dao.getLastSavedOpdNumber();
 		String facilityName = kenyaEmrService.getDefaultLocation().getName();
 		String mflCode = kenyaEmrService.getDefaultLocationMflCode();
-		String opdNumber = "";
+		String currentYear = "2023";
+		int count = 0;
+		String opdNumber = facilityName+"/"+mflCode+"/"+currentYear+"/"+count;
 		return opdNumber;
 	}
 
