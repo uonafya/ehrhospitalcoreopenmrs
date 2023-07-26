@@ -190,6 +190,7 @@
 		EhrProviderSchedule.hbm.xml
 
 		FoodHandling.hbm.xml
+		OpdNumbersGenerator.hbm.xml
 
 	</mappingFiles>
 </module>

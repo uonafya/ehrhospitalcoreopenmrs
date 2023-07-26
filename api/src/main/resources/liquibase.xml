@@ -2132,5 +2132,21 @@
             ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
         </sql>
     </changeSet>
+    <changeSet id="719828C5-C53D-4847-B9E1-5EF813F1DB03" author="ningosi">
+        <preConditions onFail="MARK_RAN" onError="WARN">
+            <dbms type="mysql"/>
+        </preConditions>
+        <comment>Add table ehr_opd_numbers</comment>
+        <sql>
+            CREATE TABLE IF NOT EXISTS `ehr_opd_numbers` (
+            `opd_number_id` int(11) NOT NULL AUTO_INCREMENT,
+            `patient_id` int(11) NOT NULL,
+            `opd_number` varchar(225) NOT NULL,
+            `created_by` int(11) NOT NULL,
+            `date_created` datetime DEFAULT NULL,
+            PRIMARY KEY (`opd_number_id`)
+            ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+        </sql>
+    </changeSet>
 
 </databaseChangeLog>
