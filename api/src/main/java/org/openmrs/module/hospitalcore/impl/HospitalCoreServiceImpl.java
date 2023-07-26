@@ -71,6 +71,7 @@ import org.openmrs.module.hospitalcore.concept.Synonym;
 import org.openmrs.module.hospitalcore.db.HospitalCoreDAO;
 import org.openmrs.module.hospitalcore.model.*;
 import org.openmrs.module.hospitalcore.util.HospitalCoreConstants;
+import org.openmrs.module.kenyaemr.api.KenyaEmrService;
 import org.w3c.dom.Document;
 import org.w3c.dom.NamedNodeMap;
 import org.w3c.dom.Node;
@@ -908,7 +909,10 @@ public class HospitalCoreServiceImpl extends BaseOpenmrsService implements
 
 	@Override
 	public String generateOpdNumber(Patient patient) throws APIException {
+		KenyaEmrService  kenyaEmrService = Context.getService(KenyaEmrService.class);
 		OpdNumbersGenerator lastOpdNumbersGenerator = dao.getLastSavedOpdNumber();
+		String facilityName = kenyaEmrService.getDefaultLocation().getName();
+		String mflCode = kenyaEmrService.getDefaultLocationMflCode();
 		String opdNumber = "";
 		return opdNumber;
 	}
