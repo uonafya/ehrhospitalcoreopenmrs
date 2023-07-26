@@ -907,21 +907,51 @@ public class HospitalCoreServiceImpl extends BaseOpenmrsService implements
 		return dao.getOpdNumbers();
 	}
 
-	@Override
-	public String generateOpdNumber() throws APIException {
-		KenyaEmrService  kenyaEmrService = Context.getService(KenyaEmrService.class);
+//	@Override
+//	public String generateOpdNumber() throws APIException {
+//		KenyaEmrService  kenyaEmrService = Context.getService(KenyaEmrService.class);
+//		OpdNumbersGenerator lastOpdNumbersGenerator = dao.getLastSavedOpdNumber();
+//
+//		String lastPatientOpdNumber = lastOpdNumbersGenerator.getOpdNumber();
+//
+//		String facilityName = kenyaEmrService.getDefaultLocation().getName();
+//		String mflCode = kenyaEmrService.getDefaultLocationMflCode();
+//		int yearFromOpdNumber = Integer.parseInt(lastPatientOpdNumber.split("/")[2]);
+//		int count = Integer.parseInt(lastPatientOpdNumber.split("/")[3]);
+//		int currentYear = 2023;
+//		int mflCode=12345;
+//		String facilityName;
+//
+//		String opdNumber = facilityName+"/"+mflCode+"/"+currentYear+"/"+count+1;
+//		return opdNumber;
+//	}
+
+	{
+		@Override
+		public String generateOpdNumber() throws APIException {
+		KenyaEmrService kenyaEmrService = Context.getService(KenyaEmrService.class);
 		OpdNumbersGenerator lastOpdNumbersGenerator = dao.getLastSavedOpdNumber();
 
 		String lastPatientOpdNumber = lastOpdNumbersGenerator.getOpdNumber();
 
+		// Extracting the first letters of the hospital name
 		String facilityName = kenyaEmrService.getDefaultLocation().getName();
+		StringBuilder firstLetters = new StringBuilder();
+		for (String word : facilityName.split("\\s+")) {
+			if (!word.isEmpty()) {
+				firstLetters.append(word.charAt(0));
+			}
+		}
+
 		String mflCode = kenyaEmrService.getDefaultLocationMflCode();
 		int yearFromOpdNumber = Integer.parseInt(lastPatientOpdNumber.split("/")[2]);
 		int count = Integer.parseInt(lastPatientOpdNumber.split("/")[3]);
 		int currentYear = 2023;
 
-		String opdNumber = facilityName+"/"+mflCode+"/"+currentYear+"/"+count+1;
+		String opdNumber = firstLetters.toString() + "/" + mflCode + "/" + currentYear + "/" + (count + 1);
 		return opdNumber;
+	}
+
 	}
 
 	@Override
