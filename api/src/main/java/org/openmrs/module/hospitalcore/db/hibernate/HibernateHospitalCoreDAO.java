@@ -31,6 +31,7 @@ import org.hibernate.Query;
 import org.hibernate.SessionFactory;
 import org.hibernate.Session;
 import org.hibernate.criterion.Order;
+import org.hibernate.criterion.Projections;
 import org.hibernate.criterion.Restrictions;
 import org.openmrs.Concept;
 import org.openmrs.Encounter;
@@ -858,6 +859,27 @@ public class HibernateHospitalCoreDAO implements HospitalCoreDAO {
             criteria.add(Restrictions.le("encounterDatetime", DateUtils.getEndOfDay(endDate)));
         }
         return criteria.list();
+    }
+
+    @Override
+    public OpdNumbersGenerator saveOpdNumbersGenerator(OpdNumbersGenerator opdNumbersGenerator) throws DAOException {
+        sessionFactory.getCurrentSession().saveOrUpdate(opdNumbersGenerator);
+        return opdNumbersGenerator;
+    }
+
+    @Override
+    public List<OpdNumbersGenerator> getOpdNumbers() throws DAOException {
+        Criteria criteria = sessionFactory.getCurrentSession().createCriteria(OpdNumbersGenerator.class);
+        criteria.addOrder(Order.asc("opdNumberGeneratorId"));
+        return criteria.list();
+    }
+
+    @Override
+    public OpdNumbersGenerator getLastSavedOpdNumber() throws DAOException {
+        Criteria criteria = sessionFactory.getCurrentSession().createCriteria(OpdNumbersGenerator.class);
+        criteria.addOrder(Order.asc("opdNumberGeneratorId"));
+        criteria.setMaxResults(1);
+        return (OpdNumbersGenerator) criteria.uniqueResult();
     }
 
     public  void setAllPatientServiceBillItemsByDateCriteria(Criteria criteria, String fromDate,String toDate){

@@ -33,6 +33,7 @@ import org.openmrs.api.OpenmrsService;
 import org.openmrs.module.hospitalcore.model.CoreForm;
 import org.openmrs.module.hospitalcore.model.EhrDepartment;
 import org.openmrs.module.hospitalcore.model.EhrHospitalWaiver;
+import org.openmrs.module.hospitalcore.model.OpdNumbersGenerator;
 import org.openmrs.module.hospitalcore.model.OpdTestOrder;
 import org.openmrs.module.hospitalcore.model.PatientCategoryDetails;
 import org.openmrs.module.hospitalcore.model.PatientSearch;
@@ -276,6 +277,12 @@ public interface HospitalCoreService extends OpenmrsService {
 	public List<PatientServiceBillItem> getBillableItemsBasedOnListOfItemsPassed(List<Concept> listOfConcepts) throws APIException;
 	public List<Visit> getProviderEncounters(Date startDate, Date endDate, Provider provider, Collection<EncounterType> encounterTypes) throws APIException;
 	public List<Encounter> getDeadPatientsForEhr(EncounterType encounterType, Date startDate, Date endDate) throws APIException;
+
+	//Manage OPD numbers
+	public OpdNumbersGenerator saveOpdNumbersGenerator(OpdNumbersGenerator opdNumbersGenerator) throws APIException;
+	public List<OpdNumbersGenerator> getOpdNumbers() throws APIException;
+
+	public String generateOpdNumber(Patient patient) throws APIException;
 
 
 

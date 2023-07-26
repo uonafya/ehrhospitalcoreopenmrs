@@ -896,4 +896,21 @@ public class HospitalCoreServiceImpl extends BaseOpenmrsService implements
 		return dao.getDeadPatientsForEhr(encounterType, startDate, endDate);
 	}
 
+	@Override
+	public OpdNumbersGenerator saveOpdNumbersGenerator(OpdNumbersGenerator opdNumbersGenerator) throws APIException {
+		return dao.saveOpdNumbersGenerator(opdNumbersGenerator);
+	}
+
+	@Override
+	public List<OpdNumbersGenerator> getOpdNumbers() throws APIException {
+		return dao.getOpdNumbers();
+	}
+
+	@Override
+	public String generateOpdNumber(Patient patient) throws APIException {
+		OpdNumbersGenerator lastOpdNumbersGenerator = dao.getLastSavedOpdNumber();
+		String opdNumber = "";
+		return opdNumber;
+	}
+
 }

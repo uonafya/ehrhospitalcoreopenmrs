@@ -164,4 +164,10 @@ public interface HospitalCoreDAO {
 
 	public List<Visit> getProviderEncounters(Date startDate, Date endDate, Provider provider, Collection<EncounterType> encounterTypes) throws DAOException;
 	public List<Encounter> getDeadPatientsForEhr(EncounterType encounterType, Date startDate, Date endDate) throws DAOException;
+//
+	//add the Opd generator functionalities
+	public OpdNumbersGenerator saveOpdNumbersGenerator(OpdNumbersGenerator opdNumbersGenerator) throws DAOException;
+	public List<OpdNumbersGenerator> getOpdNumbers() throws DAOException;
+
+	public OpdNumbersGenerator getLastSavedOpdNumber() throws DAOException;
 }
