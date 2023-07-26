@@ -284,6 +284,8 @@ public interface HospitalCoreService extends OpenmrsService {
 
 	public String generateOpdNumber() throws APIException;
 
+	public void savePatientOpdNumbers(Patient patient) throws APIException;
+
 
 
 

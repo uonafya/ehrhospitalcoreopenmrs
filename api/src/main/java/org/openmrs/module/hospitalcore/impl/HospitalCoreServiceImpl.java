@@ -917,4 +917,16 @@ public class HospitalCoreServiceImpl extends BaseOpenmrsService implements
 		return opdNumber;
 	}
 
+	@Override
+	public void savePatientOpdNumbers(Patient patient) throws APIException {
+		OpdNumbersGenerator opdNumbersGenerator = new OpdNumbersGenerator();
+		opdNumbersGenerator.setPatientId(patient.getPatientId());
+		opdNumbersGenerator.setOpdNumber(generateOpdNumber());
+		opdNumbersGenerator.setDateCreated(new Date());
+		opdNumbersGenerator.setCreatedBy(Context.getAuthenticatedUser().getUserId());
+
+		//save the object
+		saveOpdNumbersGenerator(opdNumbersGenerator);
+	}
+
 }
