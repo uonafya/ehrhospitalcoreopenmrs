@@ -18,7 +18,9 @@ package org.openmrs.module.hospitalcore.impl;
 import java.io.IOException;
 import java.io.InputStream;
 import java.math.BigInteger;
+import java.time.Year;
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.Collection;
 import java.util.Collections;
 import java.util.Date;
@@ -53,6 +55,8 @@ import org.openmrs.Location;
 import org.openmrs.Obs;
 import org.openmrs.Patient;
 
+import org.openmrs.PatientIdentifier;
+import org.openmrs.PatientIdentifierType;
 import org.openmrs.Person;
 import org.openmrs.PersonAddress;
 import org.openmrs.PersonAttribute;
@@ -62,6 +66,7 @@ import org.openmrs.User;
 import org.openmrs.Visit;
 import org.openmrs.api.APIException;
 import org.openmrs.api.ConceptService;
+import org.openmrs.api.PatientService;
 import org.openmrs.api.context.Context;
 import org.openmrs.api.impl.BaseOpenmrsService;
 import org.openmrs.module.hospitalcore.HospitalCoreService;
@@ -916,12 +921,22 @@ public class HospitalCoreServiceImpl extends BaseOpenmrsService implements
 
 		String facilityName = kenyaEmrService.getDefaultLocation().getName();
 		String mflCode = kenyaEmrService.getDefaultLocationMflCode();
-		int yearFromOpdNumber = Integer.parseInt(lastPatientOpdNumber.split("/")[2]);
-		int count = Integer.parseInt(lastPatientOpdNumber.split("/")[3]);
-		int currentYear = 2023;
 
-		String opdNumber = facilityName+"/"+mflCode+"/"+currentYear+"/"+count+1;
-		return opdNumber;
+		int currentYear;
+
+		int count = 0;
+		if(StringUtils.isBlank(lastPatientOpdNumber)) {
+			count++;
+			currentYear = Calendar.getInstance().get(Calendar.YEAR);
+		}
+		else {
+			count = Integer.parseInt(lastPatientOpdNumber.split("/")[3]) + 1;
+			currentYear = Integer.parseInt(lastPatientOpdNumber.split("/")[2]);
+		}
+
+
+
+		return facilityName+"/"+mflCode+"/"+currentYear+"/"+count;
 	}
 
 	@Override
@@ -934,6 +949,17 @@ public class HospitalCoreServiceImpl extends BaseOpenmrsService implements
 
 		//save the object
 		saveOpdNumbersGenerator(opdNumbersGenerator);
+		//save patient identifier
+		PatientService patientService = Context.getPatientService();
+		PatientIdentifierType patientIdentifierType = patientService.getPatientIdentifierTypeByUuid("61A354CB-4F7F-489A-8BE8-09D0ACEDDC63");
+		PatientIdentifier opdPatientIdentifier = new PatientIdentifier();
+		opdPatientIdentifier.setIdentifierType(patientIdentifierType);
+		opdPatientIdentifier.setIdentifier(generateOpdNumber());
+		opdPatientIdentifier.setPatient(patient);
+
+		//save the patient identifier
+		patientService.savePatientIdentifier(opdPatientIdentifier);
+
 	}
 
 }
