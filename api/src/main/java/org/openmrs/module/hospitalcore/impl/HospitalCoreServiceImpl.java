@@ -911,11 +911,16 @@ public class HospitalCoreServiceImpl extends BaseOpenmrsService implements
 	public String generateOpdNumber() throws APIException {
 		KenyaEmrService  kenyaEmrService = Context.getService(KenyaEmrService.class);
 		OpdNumbersGenerator lastOpdNumbersGenerator = dao.getLastSavedOpdNumber();
+
+		String lastPatientOpdNumber = lastOpdNumbersGenerator.getOpdNumber();
+
 		String facilityName = kenyaEmrService.getDefaultLocation().getName();
 		String mflCode = kenyaEmrService.getDefaultLocationMflCode();
-		String currentYear = "2023";
-		int count = 0;
-		String opdNumber = facilityName+"/"+mflCode+"/"+currentYear+"/"+count;
+		int yearFromOpdNumber = Integer.parseInt(lastPatientOpdNumber.split("/")[2]);
+		int count = Integer.parseInt(lastPatientOpdNumber.split("/")[3]);
+		int currentYear = 2023;
+
+		String opdNumber = facilityName+"/"+mflCode+"/"+currentYear+"/"+count+1;
 		return opdNumber;
 	}
 
