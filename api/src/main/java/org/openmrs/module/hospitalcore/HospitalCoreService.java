@@ -282,7 +282,7 @@ public interface HospitalCoreService extends OpenmrsService {
 	public OpdNumbersGenerator saveOpdNumbersGenerator(OpdNumbersGenerator opdNumbersGenerator) throws APIException;
 	public List<OpdNumbersGenerator> getOpdNumbers() throws APIException;
 
-	public String generateOpdNumber(Patient patient) throws APIException;
+	public String generateOpdNumber() throws APIException;
 
 
 

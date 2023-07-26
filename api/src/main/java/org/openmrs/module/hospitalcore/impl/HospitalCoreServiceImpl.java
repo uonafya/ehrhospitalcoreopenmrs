@@ -908,7 +908,7 @@ public class HospitalCoreServiceImpl extends BaseOpenmrsService implements
 	}
 
 	@Override
-	public String generateOpdNumber(Patient patient) throws APIException {
+	public String generateOpdNumber() throws APIException {
 		KenyaEmrService  kenyaEmrService = Context.getService(KenyaEmrService.class);
 		OpdNumbersGenerator lastOpdNumbersGenerator = dao.getLastSavedOpdNumber();
 		String facilityName = kenyaEmrService.getDefaultLocation().getName();
