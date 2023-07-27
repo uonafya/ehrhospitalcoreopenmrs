@@ -913,7 +913,7 @@ public class HospitalCoreServiceImpl extends BaseOpenmrsService implements
 	}
 
 	@Override
-	public String generateOpdNumber() throws APIException {
+	public String generateOpdNumber(String identifierType) throws APIException {
 		KenyaEmrService  kenyaEmrService = Context.getService(KenyaEmrService.class);
 		OpdNumbersGenerator lastOpdNumbersGenerator = dao.getLastSavedOpdNumber();
 
@@ -930,20 +930,29 @@ public class HospitalCoreServiceImpl extends BaseOpenmrsService implements
 			currentYear = Calendar.getInstance().get(Calendar.YEAR);
 		}
 		else {
-			count = Integer.parseInt(lastPatientOpdNumber.split("/")[3]) + 1;
-			currentYear = Integer.parseInt(lastPatientOpdNumber.split("/")[2]);
+			count = Integer.parseInt(lastPatientOpdNumber.split("/")[4]) + 1;
+			currentYear = Integer.parseInt(lastPatientOpdNumber.split("/")[3]);
+		}
+		StringBuilder firstLetters = new StringBuilder();
+		for (String word : facilityName.split("\\s+")) {
+			if (!word.isEmpty()) {
+				firstLetters.append(word.charAt(0));
+			}
+		}
+
+		if(currentYear > 0  && currentYear < Calendar.getInstance().get(Calendar.YEAR)){
+			currentYear = Calendar.getInstance().get(Calendar.YEAR);
 		}
 
 
-
-		return facilityName+"/"+mflCode+"/"+currentYear+"/"+count;
+		return identifierType+"/"+firstLetters+"/"+mflCode+"/"+currentYear+"/"+count;
 	}
 
 	@Override
-	public void savePatientOpdNumbers(Patient patient) throws APIException {
+	public void savePatientOpdNumbers(Patient patient, String identifierType) throws APIException {
 		OpdNumbersGenerator opdNumbersGenerator = new OpdNumbersGenerator();
 		opdNumbersGenerator.setPatientId(patient.getPatientId());
-		opdNumbersGenerator.setOpdNumber(generateOpdNumber());
+		opdNumbersGenerator.setOpdNumber(generateOpdNumber(identifierType));
 		opdNumbersGenerator.setDateCreated(new Date());
 		opdNumbersGenerator.setCreatedBy(Context.getAuthenticatedUser().getUserId());
 
@@ -954,7 +963,7 @@ public class HospitalCoreServiceImpl extends BaseOpenmrsService implements
 		PatientIdentifierType patientIdentifierType = patientService.getPatientIdentifierTypeByUuid("61A354CB-4F7F-489A-8BE8-09D0ACEDDC63");
 		PatientIdentifier opdPatientIdentifier = new PatientIdentifier();
 		opdPatientIdentifier.setIdentifierType(patientIdentifierType);
-		opdPatientIdentifier.setIdentifier(generateOpdNumber());
+		opdPatientIdentifier.setIdentifier(generateOpdNumber(identifierType));
 		opdPatientIdentifier.setPatient(patient);
 
 		//save the patient identifier
