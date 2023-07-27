@@ -917,21 +917,19 @@ public class HospitalCoreServiceImpl extends BaseOpenmrsService implements
 		KenyaEmrService  kenyaEmrService = Context.getService(KenyaEmrService.class);
 		OpdNumbersGenerator lastOpdNumbersGenerator = dao.getLastSavedOpdNumber();
 
-		String lastPatientOpdNumber = lastOpdNumbersGenerator.getOpdNumber();
-
 		String facilityName = kenyaEmrService.getDefaultLocation().getName();
 		String mflCode = kenyaEmrService.getDefaultLocationMflCode();
 
 		int currentYear;
 
 		int count = 0;
-		if(StringUtils.isBlank(lastPatientOpdNumber)) {
+		if(lastOpdNumbersGenerator.getOpdNumber() == null && StringUtils.isBlank(lastOpdNumbersGenerator.getOpdNumber())) {
 			count++;
 			currentYear = Calendar.getInstance().get(Calendar.YEAR);
 		}
 		else {
-			count = Integer.parseInt(lastPatientOpdNumber.split("/")[4]) + 1;
-			currentYear = Integer.parseInt(lastPatientOpdNumber.split("/")[3]);
+			count = Integer.parseInt(lastOpdNumbersGenerator.getOpdNumber().split("/")[4]) + 1;
+			currentYear = Integer.parseInt(lastOpdNumbersGenerator.getOpdNumber().split("/")[3]);
 		}
 		StringBuilder firstLetters = new StringBuilder();
 		for (String word : facilityName.split("\\s+")) {
