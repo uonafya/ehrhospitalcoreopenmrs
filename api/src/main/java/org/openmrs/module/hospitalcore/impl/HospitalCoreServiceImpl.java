@@ -923,13 +923,13 @@ public class HospitalCoreServiceImpl extends BaseOpenmrsService implements
 		int currentYear;
 
 		int count = 0;
-		if(lastOpdNumbersGenerator.getOpdNumber() == null && StringUtils.isBlank(lastOpdNumbersGenerator.getOpdNumber())) {
-			count++;
-			currentYear = Calendar.getInstance().get(Calendar.YEAR);
-		}
-		else {
+		if(lastOpdNumbersGenerator != null && StringUtils.isNotBlank(lastOpdNumbersGenerator.getOpdNumber())) {
 			count = Integer.parseInt(lastOpdNumbersGenerator.getOpdNumber().split("/")[4]) + 1;
 			currentYear = Integer.parseInt(lastOpdNumbersGenerator.getOpdNumber().split("/")[3]);
+		}
+		else {
+			count++;
+			currentYear = Calendar.getInstance().get(Calendar.YEAR);
 		}
 		StringBuilder firstLetters = new StringBuilder();
 		for (String word : facilityName.split("\\s+")) {
@@ -943,7 +943,7 @@ public class HospitalCoreServiceImpl extends BaseOpenmrsService implements
 		}
 
 
-		return identifierType+"/"+firstLetters+"/"+mflCode+"/"+currentYear+"/"+count;
+		return identifierType+"/"+firstLetters.toString().toUpperCase()+"/"+mflCode+"/"+currentYear+"/"+count;
 	}
 
 	@Override
