@@ -924,7 +924,8 @@ public class HospitalCoreServiceImpl extends BaseOpenmrsService implements
 
 		int count = 0;
 		if(lastOpdNumbersGenerator != null && StringUtils.isNotBlank(lastOpdNumbersGenerator.getOpdNumber())) {
-			count = Integer.parseInt(lastOpdNumbersGenerator.getOpdNumber().split("/")[4]) + 1;
+			count = Integer.parseInt(lastOpdNumbersGenerator.getOpdNumber().split("/")[4]);
+			count++;
 			currentYear = Integer.parseInt(lastOpdNumbersGenerator.getOpdNumber().split("/")[3]);
 		}
 		else {
