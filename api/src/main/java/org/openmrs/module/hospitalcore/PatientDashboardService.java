@@ -103,7 +103,7 @@ public interface PatientDashboardService {
 	//Working Diagnosis
 	public List<Concept> searchWorkingDiagnosis(String text)throws APIException;
 
-	
+	public List<OpdDrugOrder> getOpdDrugOrderByDateRange(Date startDate, Date endDate, Integer orderStatus) throws APIException;
 	
 
 	

@@ -49,6 +49,7 @@ import org.openmrs.module.hospitalcore.model.OpdTestOrder;
 import org.openmrs.module.hospitalcore.model.Question;
 import org.openmrs.module.hospitalcore.model.Symptom;
 import org.openmrs.module.hospitalcore.model.TriagePatientData;
+import org.openmrs.module.hospitalcore.util.DateUtils;
 import org.openmrs.module.hospitalcore.util.PatientDashboardConstants;
 
 import java.text.ParseException;
@@ -478,6 +479,23 @@ public class HibernatePatientDashboardDAO implements PatientDashboardDAO {
 				Question.class);
 			criteria.add(Restrictions.like("examination",examination));
 
+		return criteria.list();
+	}
+
+	@Override
+	public List<OpdDrugOrder> getOpdDrugOrderByDateRange(Date startDate, Date endDate, Integer orderStatus) throws DAOException {
+		Criteria criteria = sessionFactory.getCurrentSession().createCriteria(OpdDrugOrder.class);
+		criteria.add(Restrictions.eq("orderStatus", orderStatus));
+		if(startDate == null && endDate == null) {
+			criteria.add(Restrictions.and(Restrictions.ge("createdOn", DateUtils.getStartOfDay(new Date())),
+					Restrictions.le("createdOn", DateUtils.getEndOfDay(new Date()))));
+		}
+		if(startDate != null) {
+			criteria.add(Restrictions.ge("createdOn", DateUtils.getStartOfDay(startDate)));
+		}
+		if(endDate != null) {
+			criteria.add(Restrictions.le("createdOn", DateUtils.getEndOfDay(endDate)));
+		}
 		return criteria.list();
 	}
 

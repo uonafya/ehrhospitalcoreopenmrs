@@ -276,6 +276,8 @@ public class PatientDashboardServiceImpl implements PatientDashboardService {
 		return dao.searchConceptsByNameAndClass(text, cc);
 	}
 
-	
+	public List<OpdDrugOrder> getOpdDrugOrderByDateRange(Date startDate, Date endDate, Integer orderStatus) {
+		return dao.getOpdDrugOrderByDateRange(startDate, endDate, orderStatus);
+	}
 }
 
