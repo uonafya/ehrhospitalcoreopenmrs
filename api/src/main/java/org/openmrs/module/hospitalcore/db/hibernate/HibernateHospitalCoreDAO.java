@@ -877,7 +877,7 @@ public class HibernateHospitalCoreDAO implements HospitalCoreDAO {
     @Override
     public OpdNumbersGenerator getLastSavedOpdNumber() throws DAOException {
         Criteria criteria = sessionFactory.getCurrentSession().createCriteria(OpdNumbersGenerator.class);
-        criteria.addOrder(Order.asc("opdNumberGeneratorId"));
+        criteria.addOrder(Order.desc("opdNumberGeneratorId"));
         criteria.setMaxResults(1);
         return (OpdNumbersGenerator) criteria.uniqueResult();
     }

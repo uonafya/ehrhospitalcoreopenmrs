@@ -924,12 +924,11 @@ public class HospitalCoreServiceImpl extends BaseOpenmrsService implements
 
 		int count = 0;
 		if(lastOpdNumbersGenerator != null && StringUtils.isNotBlank(lastOpdNumbersGenerator.getOpdNumber())) {
+			System.out.println("The last OPD number in the database is >>"+lastOpdNumbersGenerator.getOpdNumber());
 			count = Integer.parseInt(lastOpdNumbersGenerator.getOpdNumber().split("/")[4]);
-			count++;
 			currentYear = Integer.parseInt(lastOpdNumbersGenerator.getOpdNumber().split("/")[3]);
 		}
 		else {
-			count++;
 			currentYear = Calendar.getInstance().get(Calendar.YEAR);
 		}
 		StringBuilder firstLetters = new StringBuilder();
@@ -942,16 +941,18 @@ public class HospitalCoreServiceImpl extends BaseOpenmrsService implements
 		if(currentYear > 0  && currentYear < Calendar.getInstance().get(Calendar.YEAR)){
 			currentYear = Calendar.getInstance().get(Calendar.YEAR);
 		}
-
+		count++;
 
 		return identifierType+"/"+firstLetters.toString().toUpperCase()+"/"+mflCode+"/"+currentYear+"/"+count;
 	}
 
 	@Override
 	public void savePatientOpdNumbers(Patient patient, String identifierType) throws APIException {
+		String number = generateOpdNumber(identifierType);
+		System.out.println("The next number is >>"+number);
 		OpdNumbersGenerator opdNumbersGenerator = new OpdNumbersGenerator();
 		opdNumbersGenerator.setPatientId(patient.getPatientId());
-		opdNumbersGenerator.setOpdNumber(generateOpdNumber(identifierType));
+		opdNumbersGenerator.setOpdNumber(number);
 		opdNumbersGenerator.setDateCreated(new Date());
 		opdNumbersGenerator.setCreatedBy(Context.getAuthenticatedUser().getUserId());
 
@@ -962,7 +963,7 @@ public class HospitalCoreServiceImpl extends BaseOpenmrsService implements
 		PatientIdentifierType patientIdentifierType = patientService.getPatientIdentifierTypeByUuid("61A354CB-4F7F-489A-8BE8-09D0ACEDDC63");
 		PatientIdentifier opdPatientIdentifier = new PatientIdentifier();
 		opdPatientIdentifier.setIdentifierType(patientIdentifierType);
-		opdPatientIdentifier.setIdentifier(generateOpdNumber(identifierType));
+		opdPatientIdentifier.setIdentifier(number);
 		opdPatientIdentifier.setPatient(patient);
 
 		//save the patient identifier
