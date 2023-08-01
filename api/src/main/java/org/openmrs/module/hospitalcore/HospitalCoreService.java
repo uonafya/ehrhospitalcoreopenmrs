@@ -30,9 +30,11 @@ import org.openmrs.Visit;
 import org.openmrs.api.APIException;
 import org.openmrs.api.ConceptService;
 import org.openmrs.api.OpenmrsService;
+import org.openmrs.api.db.DAOException;
 import org.openmrs.module.hospitalcore.model.CoreForm;
 import org.openmrs.module.hospitalcore.model.EhrDepartment;
 import org.openmrs.module.hospitalcore.model.EhrHospitalWaiver;
+import org.openmrs.module.hospitalcore.model.EhrMorgueQueue;
 import org.openmrs.module.hospitalcore.model.OpdNumbersGenerator;
 import org.openmrs.module.hospitalcore.model.OpdTestOrder;
 import org.openmrs.module.hospitalcore.model.PatientCategoryDetails;
@@ -285,6 +287,9 @@ public interface HospitalCoreService extends OpenmrsService {
 	public String generateOpdNumber(String identifierType) throws APIException;
 
 	public void savePatientOpdNumbers(Patient patient, String identifierType) throws APIException;
+
+	public EhrMorgueQueue saveEhrMorgueQueue(EhrMorgueQueue ehrMorgueQueue) throws APIException;
+	public List<EhrMorgueQueue> getEhrMorgueQueue() throws APIException;
 
 
 

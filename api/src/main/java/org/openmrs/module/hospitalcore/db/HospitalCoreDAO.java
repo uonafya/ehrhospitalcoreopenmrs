@@ -170,4 +170,7 @@ public interface HospitalCoreDAO {
 	public List<OpdNumbersGenerator> getOpdNumbers() throws DAOException;
 
 	public OpdNumbersGenerator getLastSavedOpdNumber() throws DAOException;
+
+	public EhrMorgueQueue saveEhrMorgueQueue(EhrMorgueQueue ehrMorgueQueue) throws DAOException;
+	public List<EhrMorgueQueue> getEhrMorgueQueue() throws DAOException;
 }

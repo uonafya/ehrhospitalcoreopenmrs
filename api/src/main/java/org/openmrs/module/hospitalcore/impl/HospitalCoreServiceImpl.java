@@ -949,7 +949,6 @@ public class HospitalCoreServiceImpl extends BaseOpenmrsService implements
 	@Override
 	public void savePatientOpdNumbers(Patient patient, String identifierType) throws APIException {
 		String number = generateOpdNumber(identifierType);
-		System.out.println("The next number is >>"+number);
 		OpdNumbersGenerator opdNumbersGenerator = new OpdNumbersGenerator();
 		opdNumbersGenerator.setPatientId(patient.getPatientId());
 		opdNumbersGenerator.setOpdNumber(number);
@@ -969,6 +968,16 @@ public class HospitalCoreServiceImpl extends BaseOpenmrsService implements
 		//save the patient identifier
 		patientService.savePatientIdentifier(opdPatientIdentifier);
 
+	}
+
+	@Override
+	public EhrMorgueQueue saveEhrMorgueQueue(EhrMorgueQueue ehrMorgueQueue) throws APIException {
+		return dao.saveEhrMorgueQueue(ehrMorgueQueue);
+	}
+
+	@Override
+	public List<EhrMorgueQueue> getEhrMorgueQueue() throws APIException {
+		return dao.getEhrMorgueQueue();
 	}
 
 }

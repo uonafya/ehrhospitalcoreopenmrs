@@ -1,0 +1,25 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC
+        "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+        "http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd" >
+
+<hibernate-mapping package="org.openmrs.module.hospitalcore.model">
+
+    <class name="EhrMorgueQueue" table="ehr_morgue_queue" batch-size="500">
+
+        <id name="ehrMorgueQueueId" type="int" column="ehr_morgue_queue_id"
+            unsaved-value="0">
+            <generator class="native" />
+        </id>
+        <property name="patientId" type="java.lang.Integer" length="11"
+                  column="patient_id" not-null="true" insert="false" update="false" />
+        <property name="dateAndTimeOfDeath" type="java.util.Date"
+                  column="date_and_time_of_death" not-null="true" length="19" />
+        <property name="createdOn" type="java.util.Date"
+                  column="created_on" not-null="true" length="19" />
+        <property name="createdBy" type="java.lang.Integer" length="11"
+                  column="created_by" not-null="true" />
+        <many-to-one name="reasonOfDeath" class="org.openmrs.Concept" not-null="true" column="reason_of_death" />
+
+    </class>
+</hibernate-mapping>

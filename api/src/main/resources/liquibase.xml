@@ -2149,4 +2149,22 @@
         </sql>
     </changeSet>
 
+    <changeSet id="F7033C64-5438-48AE-80A4-A5CCE353D68A" author="ningosi">
+        <preConditions onFail="MARK_RAN" onError="WARN">
+            <dbms type="mysql"/>
+        </preConditions>
+        <comment>Add table ehr_morgue_queue</comment>
+        <sql>
+            CREATE TABLE IF NOT EXISTS `ehr_morgue_queue` (
+            `ehr_morgue_queue_id` int(11) NOT NULL AUTO_INCREMENT,
+            `patient_id` int(11) NOT NULL,
+            `created_by` int(11) NOT NULL,
+            `reason_of_death` int(11) NOT NULL,
+            `date_and_time_of_death` datetime NOT NULL,
+            `created_on` datetime NOT NULL,
+            PRIMARY KEY (`ehr_morgue_queue_id`)
+            ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+        </sql>
+    </changeSet>
+
 </databaseChangeLog>
