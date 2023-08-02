@@ -815,31 +815,30 @@ public class HibernateHospitalCoreDAO implements HospitalCoreDAO {
     }
 
     @Override
-    public List<Visit> getProviderEncounters(Date startDate, Date endDate, Provider provider, Collection<EncounterType> encounterTypes) throws APIException {
+    public List<Encounter> getProviderEncounters(Date startDate, Date endDate, Provider provider, Collection<EncounterType> encounterTypes) throws APIException {
 
-        Criteria criteria = sessionFactory.getCurrentSession().createCriteria(Visit.class);
+        Criteria criteria = sessionFactory.getCurrentSession().createCriteria(Encounter.class);
         criteria.add(Restrictions.eq("voided", false));
         if(startDate == null && endDate == null) {
             Date todayStartDate = DateUtils.getStartOfDay(new Date());
             Date todayEndDate = DateUtils.getEndOfDay(new Date());
-            criteria.add((Restrictions.and(Restrictions.ge("startDatetime", todayStartDate),
-                    Restrictions.le("startDatetime", todayEndDate))));
+            criteria.add((Restrictions.and(Restrictions.ge("encounterDatetime", todayStartDate),
+                    Restrictions.le("encounterDatetime", todayEndDate))));
         }
         if(startDate != null){
-            criteria.add(Restrictions.ge("startDatetime", DateUtils.getStartOfDay(startDate)));
+            criteria.add(Restrictions.ge("encounterDatetime", DateUtils.getStartOfDay(startDate)));
         }
         if(endDate != null){
-            criteria.add(Restrictions.le("startDatetime", DateUtils.getEndOfDay(endDate)));
+            criteria.add(Restrictions.le("encounterDatetime", DateUtils.getEndOfDay(endDate)));
         }
-        criteria.createAlias("encounters", "e");
         if (encounterTypes != null && encounterTypes.size() > 0) {
-            criteria.add(Restrictions.in("e.encounterType", encounterTypes));
+            criteria.add(Restrictions.in("encounterType", encounterTypes));
         }
         if(provider != null){
-            criteria.createAlias("e.encounterProviders", "ep");
+            criteria.createAlias("encounterProviders", "ep");
             criteria.add(Restrictions.eq("ep.provider", provider));
         }
-        criteria.addOrder(Order.desc("startDatetime"));
+        criteria.addOrder(Order.desc("encounterDatetime"));
 
         return criteria.list();
     }

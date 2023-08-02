@@ -277,7 +277,7 @@ public interface HospitalCoreService extends OpenmrsService {
 	public List<SickOff> getPatientSickOffsCreated(Date startDate, Date endDate) throws APIException;
 
 	public List<PatientServiceBillItem> getBillableItemsBasedOnListOfItemsPassed(List<Concept> listOfConcepts) throws APIException;
-	public List<Visit> getProviderEncounters(Date startDate, Date endDate, Provider provider, Collection<EncounterType> encounterTypes) throws APIException;
+	public List<Encounter> getProviderEncounters(Date startDate, Date endDate, Provider provider, Collection<EncounterType> encounterTypes) throws APIException;
 	public List<Encounter> getDeadPatientsForEhr(EncounterType encounterType, Date startDate, Date endDate) throws APIException;
 
 	//Manage OPD numbers
