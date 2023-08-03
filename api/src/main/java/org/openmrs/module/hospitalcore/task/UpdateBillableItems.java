@@ -76,7 +76,7 @@ public class UpdateBillableItems extends AbstractTask {
          ehrDepartment = getDepartment("Registration");
        }
        else {
-         log.info("This concept is NOT mapped>>"+conceptWithService.getConceptId());
+         ehrDepartment = getDepartment("General");
        }
      }
      if(ehrDepartment != null) {
