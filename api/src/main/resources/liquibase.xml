@@ -2166,5 +2166,15 @@
             ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
         </sql>
     </changeSet>
+    <changeSet id="8572C811-24F3-48FF-9639-6A14283DDEA6" author="ningosi">
+        <preConditions onFail="MARK_RAN" onError="WARN">
+            <dbms type="mysql"/>
+        </preConditions>
+        <comment>Add a department element into ehr_department</comment>
+        <sql>
+            INSERT INTO ehr_department(name,retired,created_on,created_by)
+            VALUES('General',0,'2023-08-03 18:00',1);
+        </sql>
+    </changeSet>
 
 </databaseChangeLog>
