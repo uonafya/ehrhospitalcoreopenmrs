@@ -34,6 +34,7 @@ import org.hibernate.criterion.Order;
 import org.hibernate.criterion.Projections;
 import org.hibernate.criterion.Restrictions;
 import org.openmrs.Concept;
+import org.openmrs.ConceptClass;
 import org.openmrs.Encounter;
 import org.openmrs.EncounterType;
 import org.openmrs.Obs;
@@ -890,6 +891,24 @@ public class HibernateHospitalCoreDAO implements HospitalCoreDAO {
     @Override
     public List<EhrMorgueQueue> getEhrMorgueQueue() throws DAOException {
         Criteria criteria = sessionFactory.getCurrentSession().createCriteria(EhrMorgueQueue.class);
+        return criteria.list();
+    }
+
+    @Override
+    public List<Obs> getObsBasedOnClassAndDateRange(Date startDate, Date endDate, ConceptClass clazz) throws DAOException {
+        Criteria criteria = sessionFactory.getCurrentSession().createCriteria(Obs.class);
+        criteria.createAlias("valueCoded", "vc");
+        criteria.add(Restrictions.eq("vc.conceptClass", clazz));
+        if(startDate == null && endDate == null) {
+            criteria.add(Restrictions.and(Restrictions.ge("obsDatetime", DateUtils.getStartOfDay(new Date())),
+                    Restrictions.le("obsDatetime", DateUtils.getEndOfDay(new Date()))));
+        }
+        if(startDate != null) {
+            criteria.add(Restrictions.ge("obsDatetime", DateUtils.getStartOfDay(startDate)));
+        }
+        if(endDate != null) {
+            criteria.add(Restrictions.le("obsDatetime", DateUtils.getEndOfDay(endDate)));
+        }
         return criteria.list();
     }
 

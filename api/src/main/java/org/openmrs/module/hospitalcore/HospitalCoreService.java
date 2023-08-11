@@ -16,6 +16,7 @@
 package org.openmrs.module.hospitalcore;
 
 import org.openmrs.Concept;
+import org.openmrs.ConceptClass;
 import org.openmrs.Encounter;
 import org.openmrs.EncounterType;
 import org.openmrs.Obs;
@@ -290,6 +291,7 @@ public interface HospitalCoreService extends OpenmrsService {
 
 	public EhrMorgueQueue saveEhrMorgueQueue(EhrMorgueQueue ehrMorgueQueue) throws APIException;
 	public List<EhrMorgueQueue> getEhrMorgueQueue() throws APIException;
+	public List<Obs> getObsBasedOnClassAndDateRange(Date startDate, Date endDate, ConceptClass clazz) throws APIException;
 
 
 

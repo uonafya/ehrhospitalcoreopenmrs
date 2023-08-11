@@ -980,4 +980,9 @@ public class HospitalCoreServiceImpl extends BaseOpenmrsService implements
 		return dao.getEhrMorgueQueue();
 	}
 
+	@Override
+	public List<Obs> getObsBasedOnClassAndDateRange(Date startDate, Date endDate, ConceptClass clazz) throws APIException {
+		return dao.getObsBasedOnClassAndDateRange(startDate, endDate, clazz);
+	}
+
 }

@@ -21,6 +21,7 @@ import java.util.Date;
 import java.util.List;
 
 import org.openmrs.Concept;
+import org.openmrs.ConceptClass;
 import org.openmrs.Encounter;
 import org.openmrs.EncounterType;
 import org.openmrs.Obs;
@@ -173,4 +174,6 @@ public interface HospitalCoreDAO {
 
 	public EhrMorgueQueue saveEhrMorgueQueue(EhrMorgueQueue ehrMorgueQueue) throws DAOException;
 	public List<EhrMorgueQueue> getEhrMorgueQueue() throws DAOException;
+
+	public List<Obs> getObsBasedOnClassAndDateRange(Date startDate, Date endDate, ConceptClass clazz) throws DAOException;
 }
