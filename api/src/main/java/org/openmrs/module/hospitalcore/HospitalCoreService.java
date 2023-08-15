@@ -27,11 +27,9 @@ import org.openmrs.PersonAttribute;
 import org.openmrs.PersonAttributeType;
 import org.openmrs.Provider;
 import org.openmrs.User;
-import org.openmrs.Visit;
 import org.openmrs.api.APIException;
 import org.openmrs.api.ConceptService;
 import org.openmrs.api.OpenmrsService;
-import org.openmrs.api.db.DAOException;
 import org.openmrs.module.hospitalcore.model.CoreForm;
 import org.openmrs.module.hospitalcore.model.EhrDepartment;
 import org.openmrs.module.hospitalcore.model.EhrHospitalWaiver;
@@ -291,7 +289,7 @@ public interface HospitalCoreService extends OpenmrsService {
 
 	public EhrMorgueQueue saveEhrMorgueQueue(EhrMorgueQueue ehrMorgueQueue) throws APIException;
 	public List<EhrMorgueQueue> getEhrMorgueQueue() throws APIException;
-	public List<Obs> getObsBasedOnClassAndDateRange(Date startDate, Date endDate, ConceptClass clazz) throws APIException;
+	public List<Obs> getObsBasedOnClassAndDateRange(Date startDate, Date endDate, ConceptClass clazz, EncounterType types, String onlyCodedResponse) throws APIException;
 
 
 

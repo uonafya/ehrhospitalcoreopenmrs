@@ -175,5 +175,5 @@ public interface HospitalCoreDAO {
 	public EhrMorgueQueue saveEhrMorgueQueue(EhrMorgueQueue ehrMorgueQueue) throws DAOException;
 	public List<EhrMorgueQueue> getEhrMorgueQueue() throws DAOException;
 
-	public List<Obs> getObsBasedOnClassAndDateRange(Date startDate, Date endDate, ConceptClass clazz) throws DAOException;
+	public List<Obs> getObsBasedOnClassAndDateRange(Date startDate, Date endDate, ConceptClass clazz, EncounterType types, String onlyCodedResponse) throws DAOException;
 }

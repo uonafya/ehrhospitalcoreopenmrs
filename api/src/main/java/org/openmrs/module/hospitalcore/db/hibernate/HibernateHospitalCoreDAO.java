@@ -895,19 +895,27 @@ public class HibernateHospitalCoreDAO implements HospitalCoreDAO {
     }
 
     @Override
-    public List<Obs> getObsBasedOnClassAndDateRange(Date startDate, Date endDate, ConceptClass clazz) throws DAOException {
-        Criteria criteria = sessionFactory.getCurrentSession().createCriteria(Obs.class);
-        criteria.createAlias("valueCoded", "vc");
-        criteria.add(Restrictions.eq("vc.conceptClass", clazz));
+    public List<Obs> getObsBasedOnClassAndDateRange(Date startDate, Date endDate, ConceptClass clazz, EncounterType type, String onlyCodedResponse) throws DAOException {
+        Criteria criteria = sessionFactory.getCurrentSession().createCriteria(Obs.class, "ob");
+        criteria.createAlias("ob.encounter", "en");
+        criteria.add(Restrictions.eq("en.encounterType", type));
+        if(onlyCodedResponse.equals("yes")) {
+            criteria.createAlias("ob.valueCoded", "vc");
+            criteria.add(Restrictions.eq("vc.conceptClass", clazz));
+        }
+        if(onlyCodedResponse.equals("no")) {
+            criteria.createAlias("ob.concept", "c");
+            criteria.add(Restrictions.eq("c.conceptClass", clazz));
+        }
         if(startDate == null && endDate == null) {
-            criteria.add(Restrictions.and(Restrictions.ge("obsDatetime", DateUtils.getStartOfDay(new Date())),
-                    Restrictions.le("obsDatetime", DateUtils.getEndOfDay(new Date()))));
+            criteria.add(Restrictions.and(Restrictions.ge("en.encounterDatetime", DateUtils.getStartOfDay(new Date())),
+                    Restrictions.le("en.encounterDatetime", DateUtils.getEndOfDay(new Date()))));
         }
         if(startDate != null) {
-            criteria.add(Restrictions.ge("obsDatetime", DateUtils.getStartOfDay(startDate)));
+            criteria.add(Restrictions.ge("en.encounterDatetime", DateUtils.getStartOfDay(startDate)));
         }
         if(endDate != null) {
-            criteria.add(Restrictions.le("obsDatetime", DateUtils.getEndOfDay(endDate)));
+            criteria.add(Restrictions.le("en.encounterDatetime", DateUtils.getEndOfDay(endDate)));
         }
         return criteria.list();
     }
