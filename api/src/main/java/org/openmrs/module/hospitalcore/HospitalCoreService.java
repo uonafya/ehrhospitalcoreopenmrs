@@ -289,7 +289,9 @@ public interface HospitalCoreService extends OpenmrsService {
 
 	public EhrMorgueQueue saveEhrMorgueQueue(EhrMorgueQueue ehrMorgueQueue) throws APIException;
 	public List<EhrMorgueQueue> getEhrMorgueQueue() throws APIException;
-	public List<Obs> getObsBasedOnClassAndDateRange(Date startDate, Date endDate, ConceptClass clazz, EncounterType types, String onlyCodedResponse) throws APIException;
+	public List<Obs> getObsBasedOnClassAndDateRange(Date startDate, Date endDate, Concept concept, EncounterType types) throws APIException;
+
+	public List<Obs> getObsBasedOnClassAndDateRangeForTestsAndRadiology(Date startDate, Date endDate, ConceptClass conceptClass, EncounterType types) throws APIException;
 
 
 

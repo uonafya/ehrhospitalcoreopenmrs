@@ -981,8 +981,12 @@ public class HospitalCoreServiceImpl extends BaseOpenmrsService implements
 	}
 
 	@Override
-	public List<Obs> getObsBasedOnClassAndDateRange(Date startDate, Date endDate, ConceptClass clazz, EncounterType type, String onlyCodedResponse) throws APIException {
-		return dao.getObsBasedOnClassAndDateRange(startDate, endDate, clazz, type, onlyCodedResponse);
+	public List<Obs> getObsBasedOnClassAndDateRange(Date startDate, Date endDate, Concept concept, EncounterType type) throws APIException {
+		return dao.getObsBasedOnClassAndDateRange(startDate, endDate, concept, type);
+	}
+
+	public List<Obs> getObsBasedOnClassAndDateRangeForTestsAndRadiology(Date startDate, Date endDate, ConceptClass conceptClass, EncounterType types) throws APIException {
+		return dao.getObsBasedOnClassAndDateRangeForTestsAndRadiology(startDate, endDate, conceptClass, types);
 	}
 
 }

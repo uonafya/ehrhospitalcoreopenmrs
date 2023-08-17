@@ -2177,4 +2177,15 @@
         </sql>
     </changeSet>
 
+    <changeSet id="F7931097-20E5-4AF9-B171-943425C083F4" author="ningosi">
+        <preConditions onFail="MARK_RAN" onError="WARN">
+            <dbms type="mysql"/>
+        </preConditions>
+        <comment>Add status columns to ehr_morgue_queue</comment>
+        <sql>
+            ALTER TABLE  ehr_morgue_queue
+            ADD COLUMN `status` int(11) DEFAULT '0';
+        </sql>
+    </changeSet>
+
 </databaseChangeLog>

@@ -891,22 +891,34 @@ public class HibernateHospitalCoreDAO implements HospitalCoreDAO {
     @Override
     public List<EhrMorgueQueue> getEhrMorgueQueue() throws DAOException {
         Criteria criteria = sessionFactory.getCurrentSession().createCriteria(EhrMorgueQueue.class);
+        criteria.add(Restrictions.eq("status", 0));
         return criteria.list();
     }
 
     @Override
-    public List<Obs> getObsBasedOnClassAndDateRange(Date startDate, Date endDate, ConceptClass clazz, EncounterType type, String onlyCodedResponse) throws DAOException {
+    public List<Obs> getObsBasedOnClassAndDateRange(Date startDate, Date endDate, Concept concept, EncounterType type) throws DAOException {
         Criteria criteria = sessionFactory.getCurrentSession().createCriteria(Obs.class, "ob");
+        criteria.add(Restrictions.eq("ob.concept", concept));
         criteria.createAlias("ob.encounter", "en");
         criteria.add(Restrictions.eq("en.encounterType", type));
-        if(onlyCodedResponse.equals("yes")) {
-            criteria.createAlias("ob.valueCoded", "vc");
-            criteria.add(Restrictions.eq("vc.conceptClass", clazz));
+        if(startDate == null && endDate == null) {
+            criteria.add(Restrictions.and(Restrictions.ge("en.encounterDatetime", DateUtils.getStartOfDay(new Date())),
+                    Restrictions.le("en.encounterDatetime", DateUtils.getEndOfDay(new Date()))));
         }
-        if(onlyCodedResponse.equals("no")) {
-            criteria.createAlias("ob.concept", "c");
-            criteria.add(Restrictions.eq("c.conceptClass", clazz));
+        if(startDate != null) {
+            criteria.add(Restrictions.ge("en.encounterDatetime", DateUtils.getStartOfDay(startDate)));
         }
+        if(endDate != null) {
+            criteria.add(Restrictions.le("en.encounterDatetime", DateUtils.getEndOfDay(endDate)));
+        }
+        return criteria.list();
+    }
+    public List<Obs> getObsBasedOnClassAndDateRangeForTestsAndRadiology(Date startDate, Date endDate, ConceptClass conceptClass, EncounterType type) throws DAOException {
+        Criteria criteria = sessionFactory.getCurrentSession().createCriteria(Obs.class, "ob");
+        criteria.createAlias("ob.concept", "c");
+        criteria.createAlias("ob.encounter", "en");
+        criteria.add(Restrictions.eq("en.encounterType", type));
+        criteria.add(Restrictions.eq("c.conceptClass", conceptClass));
         if(startDate == null && endDate == null) {
             criteria.add(Restrictions.and(Restrictions.ge("en.encounterDatetime", DateUtils.getStartOfDay(new Date())),
                     Restrictions.le("en.encounterDatetime", DateUtils.getEndOfDay(new Date()))));
