@@ -195,6 +195,7 @@
 		FoodHandling.hbm.xml
 		OpdNumbersGenerator.hbm.xml
 		EhrMorgueQueue.hbm.xml
+		EhrMorgueStrength.hbm.xml
 
 	</mappingFiles>
 </module>

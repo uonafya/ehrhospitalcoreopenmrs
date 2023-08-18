@@ -2187,5 +2187,23 @@
             ADD COLUMN `status` int(11) DEFAULT '0';
         </sql>
     </changeSet>
+    <changeSet id="41EDFA05-36A1-4FFF-BB0E-0996EB67FA5E" author="ningosi">
+        <preConditions onFail="MARK_RAN" onError="WARN">
+            <dbms type="mysql"/>
+        </preConditions>
+        <comment>Add table ehr_morgue_strength</comment>
+        <sql>
+            CREATE TABLE IF NOT EXISTS `ehr_morgue_strength` (
+            `ehr_morgue_strength_id` int(11) NOT NULL AUTO_INCREMENT,
+            `morgue_name` varchar(255) NOT NULL,
+            `description` varchar(255) DEFAULT NULL,
+            `strength` int(11) DEFAULT NULL,
+            `created_by` int(11) NOT NULL,
+            `created_on` datetime NOT NULL,
+            `retired` int(11) DEFAULT '0'
+            PRIMARY KEY (`ehr_morgue_queue_id`)
+            ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+        </sql>
+    </changeSet>
 
 </databaseChangeLog>

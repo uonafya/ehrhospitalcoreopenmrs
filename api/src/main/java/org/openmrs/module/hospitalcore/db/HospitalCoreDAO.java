@@ -178,4 +178,7 @@ public interface HospitalCoreDAO {
 	public List<Obs> getObsBasedOnClassAndDateRange(Date startDate, Date endDate, Concept concept, EncounterType types) throws DAOException;
 
 	public List<Obs> getObsBasedOnClassAndDateRangeForTestsAndRadiology(Date startDate, Date endDate, ConceptClass conceptClass, EncounterType types) throws DAOException;
+
+	public EhrMorgueStrength saveEhrMorgueStrength(EhrMorgueStrength ehrMorgueStrength) throws DAOException;
+	public List<EhrMorgueStrength> getEhrMorgueStrength() throws DAOException;
 }

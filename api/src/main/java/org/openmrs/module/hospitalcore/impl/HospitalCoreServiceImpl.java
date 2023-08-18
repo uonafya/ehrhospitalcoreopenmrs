@@ -989,4 +989,14 @@ public class HospitalCoreServiceImpl extends BaseOpenmrsService implements
 		return dao.getObsBasedOnClassAndDateRangeForTestsAndRadiology(startDate, endDate, conceptClass, types);
 	}
 
+	@Override
+	public EhrMorgueStrength saveEhrMorgueStrength(EhrMorgueStrength ehrMorgueStrength) throws APIException {
+		return dao.saveEhrMorgueStrength(ehrMorgueStrength);
+	}
+
+	@Override
+	public List<EhrMorgueStrength> getEhrMorgueStrength() throws APIException {
+		return dao.getEhrMorgueStrength();
+	}
+
 }

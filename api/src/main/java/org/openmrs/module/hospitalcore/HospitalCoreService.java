@@ -34,6 +34,7 @@ import org.openmrs.module.hospitalcore.model.CoreForm;
 import org.openmrs.module.hospitalcore.model.EhrDepartment;
 import org.openmrs.module.hospitalcore.model.EhrHospitalWaiver;
 import org.openmrs.module.hospitalcore.model.EhrMorgueQueue;
+import org.openmrs.module.hospitalcore.model.EhrMorgueStrength;
 import org.openmrs.module.hospitalcore.model.OpdNumbersGenerator;
 import org.openmrs.module.hospitalcore.model.OpdTestOrder;
 import org.openmrs.module.hospitalcore.model.PatientCategoryDetails;
@@ -292,6 +293,9 @@ public interface HospitalCoreService extends OpenmrsService {
 	public List<Obs> getObsBasedOnClassAndDateRange(Date startDate, Date endDate, Concept concept, EncounterType types) throws APIException;
 
 	public List<Obs> getObsBasedOnClassAndDateRangeForTestsAndRadiology(Date startDate, Date endDate, ConceptClass conceptClass, EncounterType types) throws APIException;
+
+	public EhrMorgueStrength saveEhrMorgueStrength(EhrMorgueStrength ehrMorgueStrength) throws APIException;
+	public List<EhrMorgueStrength> getEhrMorgueStrength() throws APIException;
 
 
 

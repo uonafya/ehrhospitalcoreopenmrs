@@ -932,6 +932,19 @@ public class HibernateHospitalCoreDAO implements HospitalCoreDAO {
         return criteria.list();
     }
 
+    @Override
+    public EhrMorgueStrength saveEhrMorgueStrength(EhrMorgueStrength ehrMorgueStrength) throws DAOException {
+        sessionFactory.getCurrentSession().saveOrUpdate(ehrMorgueStrength);
+        return ehrMorgueStrength;
+    }
+
+    @Override
+    public List<EhrMorgueStrength> getEhrMorgueStrength() throws DAOException {
+        Criteria criteria = sessionFactory.getCurrentSession().createCriteria(EhrMorgueStrength.class);
+        criteria.add(Restrictions.eq("retired", 0));
+        return criteria.list();
+    }
+
     public  void setAllPatientServiceBillItemsByDateCriteria(Criteria criteria, String fromDate,String toDate){
         String fromDateWithTime = fromDate+" 00:00:00";
         String endDateWithTime = toDate+" 23:59:59";

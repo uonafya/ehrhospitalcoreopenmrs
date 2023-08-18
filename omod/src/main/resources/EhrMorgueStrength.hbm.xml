@@ -1,0 +1,22 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC
+        "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+        "http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd" >
+
+<hibernate-mapping package="org.openmrs.module.hospitalcore.model">
+
+    <class name="EhrMorgueStrength" table="ehr_morgue_strength" batch-size="500">
+
+        <id name="ehrMorgueStrengthId" type="int" column="ehr_morgue_strength_id"
+            unsaved-value="0">
+            <generator class="native" />
+        </id>
+        <property name="morgueName" type="java.lang.String" length="255" column="morgue_name" />
+        <property name="description" type="java.lang.String" column="description"  length="255" />
+        <property name="strength" type="java.lang.Integer" column="created_on"  length="19" />
+        <property name="createdBy" type="java.lang.Integer" length="11" column="created_by" />
+        <many-to-one name="createdOn" class="org.java.util.Date" column="created_on" />
+        <property name="retired" type="java.lang.Integer" length="11" column="retired" />
+
+    </class>
+</hibernate-mapping>
