@@ -36,6 +36,7 @@ import org.openmrs.User;
 import org.openmrs.Visit;
 import org.openmrs.api.APIException;
 import org.openmrs.api.db.DAOException;
+import org.openmrs.module.appointments.model.AppointmentServiceType;
 import org.openmrs.module.hospitalcore.concept.ConceptModel;
 import org.openmrs.module.hospitalcore.model.*;
 
@@ -181,4 +182,7 @@ public interface HospitalCoreDAO {
 
 	public EhrMorgueStrength saveEhrMorgueStrength(EhrMorgueStrength ehrMorgueStrength) throws DAOException;
 	public List<EhrMorgueStrength> getEhrMorgueStrength() throws DAOException;
+
+	public AppointmentServiceType saveAppointmentServiceType(AppointmentServiceType appointmentServiceType) throws DAOException;
+	public List<AppointmentServiceType> getAppointmentServiceType() throws DAOException;
 }

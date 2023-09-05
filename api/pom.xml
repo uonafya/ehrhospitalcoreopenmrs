@@ -37,7 +37,11 @@
 		</dependency>
 		<dependency>
 			<groupId>org.openmrs.module</groupId>
-			<artifactId>kenyaemr-api</artifactId>
+			<artifactId>metadatadeploy-api</artifactId>
+		</dependency>
+		<dependency>
+			<groupId>org.bahmni.module</groupId>
+			<artifactId>appointments-api</artifactId>
 		</dependency>
 	</dependencies>
 	<build>

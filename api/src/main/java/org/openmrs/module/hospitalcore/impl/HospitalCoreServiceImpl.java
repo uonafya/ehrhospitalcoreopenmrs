@@ -15,26 +15,6 @@
 
 package org.openmrs.module.hospitalcore.impl;
 
-import java.io.IOException;
-import java.io.InputStream;
-import java.math.BigInteger;
-import java.time.Year;
-import java.util.ArrayList;
-import java.util.Calendar;
-import java.util.Collection;
-import java.util.Collections;
-import java.util.Date;
-import java.util.HashSet;
-import java.util.List;
-import java.util.Locale;
-import java.util.Set;
-import java.util.TreeSet;
-
-import javax.xml.parsers.DocumentBuilder;
-import javax.xml.parsers.DocumentBuilderFactory;
-import javax.xml.parsers.ParserConfigurationException;
-import javax.xml.xpath.XPathExpressionException;
-
 import org.apache.commons.collections.CollectionUtils;
 import org.apache.commons.lang.StringUtils;
 import org.apache.commons.logging.Log;
@@ -52,9 +32,9 @@ import org.openmrs.Encounter;
 import org.openmrs.EncounterType;
 import org.openmrs.GlobalProperty;
 import org.openmrs.Location;
+import org.openmrs.LocationAttributeType;
 import org.openmrs.Obs;
 import org.openmrs.Patient;
-
 import org.openmrs.PatientIdentifier;
 import org.openmrs.PatientIdentifierType;
 import org.openmrs.Person;
@@ -63,25 +43,57 @@ import org.openmrs.PersonAttribute;
 import org.openmrs.PersonAttributeType;
 import org.openmrs.Provider;
 import org.openmrs.User;
-import org.openmrs.Visit;
 import org.openmrs.api.APIException;
 import org.openmrs.api.ConceptService;
 import org.openmrs.api.PatientService;
 import org.openmrs.api.context.Context;
 import org.openmrs.api.impl.BaseOpenmrsService;
+import org.openmrs.module.appointments.model.AppointmentServiceType;
 import org.openmrs.module.hospitalcore.HospitalCoreService;
 import org.openmrs.module.hospitalcore.concept.ConceptModel;
 import org.openmrs.module.hospitalcore.concept.Mapping;
 import org.openmrs.module.hospitalcore.concept.Synonym;
 import org.openmrs.module.hospitalcore.db.HospitalCoreDAO;
-import org.openmrs.module.hospitalcore.model.*;
+import org.openmrs.module.hospitalcore.model.CoreForm;
+import org.openmrs.module.hospitalcore.model.EhrDepartment;
+import org.openmrs.module.hospitalcore.model.EhrHospitalWaiver;
+import org.openmrs.module.hospitalcore.model.EhrMorgueQueue;
+import org.openmrs.module.hospitalcore.model.EhrMorgueStrength;
+import org.openmrs.module.hospitalcore.model.Facility;
+import org.openmrs.module.hospitalcore.model.OpdNumbersGenerator;
+import org.openmrs.module.hospitalcore.model.OpdTestOrder;
+import org.openmrs.module.hospitalcore.model.PatientCategoryDetails;
+import org.openmrs.module.hospitalcore.model.PatientSearch;
+import org.openmrs.module.hospitalcore.model.PatientServiceBillItem;
+import org.openmrs.module.hospitalcore.model.SickOff;
 import org.openmrs.module.hospitalcore.util.HospitalCoreConstants;
-import org.openmrs.module.kenyaemr.api.KenyaEmrService;
+import org.openmrs.module.metadatadeploy.MetadataUtils;
+import org.openmrs.util.PrivilegeConstants;
 import org.w3c.dom.Document;
 import org.w3c.dom.NamedNodeMap;
 import org.w3c.dom.Node;
 import org.w3c.dom.NodeList;
 import org.xml.sax.SAXException;
+
+import javax.xml.parsers.DocumentBuilder;
+import javax.xml.parsers.DocumentBuilderFactory;
+import javax.xml.parsers.ParserConfigurationException;
+import javax.xml.xpath.XPathExpressionException;
+import java.io.IOException;
+import java.io.InputStream;
+import java.math.BigInteger;
+import java.util.ArrayList;
+import java.util.Calendar;
+import java.util.Collection;
+import java.util.Collections;
+import java.util.Date;
+import java.util.HashMap;
+import java.util.HashSet;
+import java.util.List;
+import java.util.Locale;
+import java.util.Map;
+import java.util.Set;
+import java.util.TreeSet;
 
 public class HospitalCoreServiceImpl extends BaseOpenmrsService implements
 		HospitalCoreService {
@@ -914,11 +926,10 @@ public class HospitalCoreServiceImpl extends BaseOpenmrsService implements
 
 	@Override
 	public String generateOpdNumber(String identifierType) throws APIException {
-		KenyaEmrService  kenyaEmrService = Context.getService(KenyaEmrService.class);
 		OpdNumbersGenerator lastOpdNumbersGenerator = dao.getLastSavedOpdNumber();
 
-		String facilityName = kenyaEmrService.getDefaultLocation().getName();
-		String mflCode = kenyaEmrService.getDefaultLocationMflCode();
+		String facilityName = getDefaultLocation().getName();
+		String mflCode = getDefaultLocationMflCode();
 
 		int currentYear;
 
@@ -997,6 +1008,75 @@ public class HospitalCoreServiceImpl extends BaseOpenmrsService implements
 	@Override
 	public List<EhrMorgueStrength> getEhrMorgueStrength() throws APIException {
 		return dao.getEhrMorgueStrength();
+	}
+
+
+	/**
+	 *
+	 */
+	@Override
+	public void setDefaultLocation(Location location) {
+		GlobalProperty gp = Context.getAdministrationService().getGlobalPropertyObject("kenyaemr.defaultLocation");
+		gp.setValue(location);
+		Context.getAdministrationService().saveGlobalProperty(gp);
+	}
+
+	/**
+	 *
+	 */
+	@Override
+	public Location getDefaultLocation() {
+		try {
+			Context.addProxyPrivilege(PrivilegeConstants.GET_LOCATIONS);
+			Context.addProxyPrivilege(PrivilegeConstants.GET_GLOBAL_PROPERTIES);
+
+			GlobalProperty gp = Context.getAdministrationService().getGlobalPropertyObject("kenyaemr.defaultLocation");
+			return gp != null ? ((Location) gp.getValue()) : null;
+		}
+		finally {
+			Context.removeProxyPrivilege(PrivilegeConstants.GET_LOCATIONS);
+			Context.removeProxyPrivilege(PrivilegeConstants.GET_GLOBAL_PROPERTIES);
+		}
+	}
+
+	/**
+	 *
+	 */
+	@Override
+	public String getDefaultLocationMflCode() {
+		try {
+			Context.addProxyPrivilege(PrivilegeConstants.GET_LOCATION_ATTRIBUTE_TYPES);
+
+			Location location = getDefaultLocation();
+			return (location != null) ? new Facility(location).getMflCode() : null;
+		}
+		finally {
+			Context.removeProxyPrivilege(PrivilegeConstants.GET_LOCATION_ATTRIBUTE_TYPES);
+		}
+	}
+
+	/**
+	 *
+	 */
+	@Override
+	public Location getLocationByMflCode(String mflCode) {
+		LocationAttributeType mflCodeAttrType = MetadataUtils.existing(LocationAttributeType.class, "8a845a89-6aa5-4111-81d3-0af31c45c002");
+		Map<LocationAttributeType, Object> attrVals = new HashMap<LocationAttributeType, Object>();
+		attrVals.put(mflCodeAttrType, mflCode);
+
+		List<Location> locations = Context.getLocationService().getLocations(null, null, attrVals, false, null, null);
+
+		return locations.size() > 0 ? locations.get(0) : null;
+	}
+
+	@Override
+	public AppointmentServiceType saveAppointmentServiceType(AppointmentServiceType appointmentServiceType) throws APIException {
+		return dao.saveAppointmentServiceType(appointmentServiceType);
+	}
+
+	@Override
+	public List<AppointmentServiceType> getAppointmentServiceType() throws APIException {
+		return dao.getAppointmentServiceType();
 	}
 
 }

@@ -19,6 +19,7 @@ import org.openmrs.Concept;
 import org.openmrs.ConceptClass;
 import org.openmrs.Encounter;
 import org.openmrs.EncounterType;
+import org.openmrs.Location;
 import org.openmrs.Obs;
 import org.openmrs.Patient;
 import org.openmrs.Person;
@@ -30,6 +31,7 @@ import org.openmrs.User;
 import org.openmrs.api.APIException;
 import org.openmrs.api.ConceptService;
 import org.openmrs.api.OpenmrsService;
+import org.openmrs.module.appointments.model.AppointmentServiceType;
 import org.openmrs.module.hospitalcore.model.CoreForm;
 import org.openmrs.module.hospitalcore.model.EhrDepartment;
 import org.openmrs.module.hospitalcore.model.EhrHospitalWaiver;
@@ -296,6 +298,40 @@ public interface HospitalCoreService extends OpenmrsService {
 
 	public EhrMorgueStrength saveEhrMorgueStrength(EhrMorgueStrength ehrMorgueStrength) throws APIException;
 	public List<EhrMorgueStrength> getEhrMorgueStrength() throws APIException;
+
+	/**
+	 * Sets the default location for this server, i.e. the value that should be auto-set for new
+	 * encounters, visits, etc.
+	 * @param location the location
+	 */
+	void setDefaultLocation(Location location);
+
+	/**
+	 * Gets the default location for this server.
+	 * @return the default location
+	 * @should get the default location when set
+	 */
+	@Transactional(readOnly = true)
+	Location getDefaultLocation();
+
+	/**
+	 * Gets the Master Facility List code for the default location for this server
+	 * @return the Master Facility List code
+	 */
+	@Transactional(readOnly = true)
+	String getDefaultLocationMflCode();
+
+	/**
+	 * Gets the location with the given Master Facility List code
+	 * @return the location (null if no location has the given code)
+	 * @should find the location with that code
+	 * @should return null if no location has that code
+	 */
+	@Transactional(readOnly = true)
+	Location getLocationByMflCode(String mflCode);
+
+	public AppointmentServiceType saveAppointmentServiceType(AppointmentServiceType appointmentServiceType) throws APIException;
+	public List<AppointmentServiceType> getAppointmentServiceType() throws APIException;
 
 
 

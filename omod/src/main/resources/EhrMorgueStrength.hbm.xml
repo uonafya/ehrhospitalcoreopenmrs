@@ -13,9 +13,9 @@
         </id>
         <property name="morgueName" type="java.lang.String" length="255" column="morgue_name" />
         <property name="description" type="java.lang.String" column="description"  length="255" />
-        <property name="strength" type="java.lang.Integer" column="created_on"  length="19" />
+        <property name="strength" type="java.lang.Integer" column="strength"  length="19" />
         <property name="createdBy" type="java.lang.Integer" length="11" column="created_by" />
-        <many-to-one name="createdOn" class="org.java.util.Date" column="created_on" />
+        <property name="createdOn" type="java.util.Date" column="created_on"  length="19" />
         <property name="retired" type="java.lang.Integer" length="11" column="retired" />
 
     </class>

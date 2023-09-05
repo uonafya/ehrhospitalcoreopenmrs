@@ -148,7 +148,7 @@ public class HibernatePatientDashboardDAO implements PatientDashboardDAO {
 		if (StringUtils.isNotBlank(text)) {
 			criteria.createAlias("names", "names");
 			criteria.add(Expression
-					.like("names.name", text, MatchMode.ANYWHERE));
+					.like("names.name", text, MatchMode.START));
 		}
 		return criteria.list();
 	}
@@ -212,7 +212,7 @@ public class HibernatePatientDashboardDAO implements PatientDashboardDAO {
 		if (StringUtils.isNotBlank(text)) {
 			criteria.createAlias("names", "names");
 			criteria.add(Restrictions
-					.like("names.name", text, MatchMode.ANYWHERE));
+					.like("names.name", text, MatchMode.START));
 		}
 		return criteria.list();
 	}
@@ -363,7 +363,7 @@ public class HibernatePatientDashboardDAO implements PatientDashboardDAO {
 		if (StringUtils.isNotBlank(text)) {
 			criteria.createAlias("names", "names");
 			criteria.add(Restrictions
-					.like("names.name", text, MatchMode.ANYWHERE));
+					.like("names.name", text, MatchMode.START));
 		}
 		return criteria.list();
 		

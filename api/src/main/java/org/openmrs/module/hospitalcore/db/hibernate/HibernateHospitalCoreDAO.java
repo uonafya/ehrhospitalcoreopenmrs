@@ -51,6 +51,7 @@ import org.openmrs.Visit;
 import org.openmrs.api.APIException;
 import org.openmrs.api.context.Context;
 import org.openmrs.api.db.DAOException;
+import org.openmrs.module.appointments.model.AppointmentServiceType;
 import org.openmrs.module.hospitalcore.HospitalCoreService;
 import org.openmrs.module.hospitalcore.concept.ConceptModel;
 import org.openmrs.module.hospitalcore.concept.Mapping;
@@ -942,6 +943,18 @@ public class HibernateHospitalCoreDAO implements HospitalCoreDAO {
     public List<EhrMorgueStrength> getEhrMorgueStrength() throws DAOException {
         Criteria criteria = sessionFactory.getCurrentSession().createCriteria(EhrMorgueStrength.class);
         criteria.add(Restrictions.eq("retired", 0));
+        return criteria.list();
+    }
+
+    @Override
+    public AppointmentServiceType saveAppointmentServiceType(AppointmentServiceType appointmentServiceType) throws DAOException {
+        sessionFactory.getCurrentSession().saveOrUpdate(appointmentServiceType);
+        return appointmentServiceType;
+    }
+
+    @Override
+    public List<AppointmentServiceType> getAppointmentServiceType() throws DAOException {
+        Criteria criteria = sessionFactory.getCurrentSession().createCriteria(AppointmentServiceType.class, "ast");
         return criteria.list();
     }
 
