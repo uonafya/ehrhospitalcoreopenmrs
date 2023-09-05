@@ -33,6 +33,10 @@
 		<aware_of_module>org.openmrs.module.legacyui</aware_of_module>
 	</aware_of_modules>
 
+	<advice>
+		<point>org.openmrs.module.queue.api.QueueService</point>
+		<class>org.openmrs.module.hospitalcore.aop.EhrQuePatientAdviser</class>
+	</advice>
 
 	<!-- AOP <advice> <point>org.openmrs.api.FormService</point> <class>@MODULE_PACKAGE@.advice.DuplicateFormAdvisor</class> 
 		</advice> /AOP -->

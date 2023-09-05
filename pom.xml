@@ -30,6 +30,7 @@
 		<kenyaemrVersion>18.5.1</kenyaemrVersion>
 		<metadatadeployVersion>1.3</metadatadeployVersion>
 		<bahmniAppointmentsVersion>1.5.0-SNAPSHOT</bahmniAppointmentsVersion>
+		<openMRSQueueVersion> 1.0.0-SNAPSHOT</openMRSQueueVersion>
 	</properties>
 
 	<dependencyManagement>
@@ -90,6 +91,12 @@
 				<groupId>org.bahmni.module</groupId>
 				<artifactId>appointments-api</artifactId>
 				<version>${bahmniAppointmentsVersion}</version>
+				<scope>provided</scope>
+			</dependency>
+			<dependency>
+				<groupId>org.openmrs.module</groupId>
+				<artifactId>queue-api</artifactId>
+				<version>${openMRSQueueVersion}</version>
 				<scope>provided</scope>
 			</dependency>
 		</dependencies>
