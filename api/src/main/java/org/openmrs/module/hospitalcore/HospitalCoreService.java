@@ -31,6 +31,8 @@ import org.openmrs.User;
 import org.openmrs.api.APIException;
 import org.openmrs.api.ConceptService;
 import org.openmrs.api.OpenmrsService;
+import org.openmrs.api.db.DAOException;
+import org.openmrs.module.appointments.model.Appointment;
 import org.openmrs.module.appointments.model.AppointmentServiceType;
 import org.openmrs.module.hospitalcore.model.CoreForm;
 import org.openmrs.module.hospitalcore.model.EhrDepartment;
@@ -332,6 +334,8 @@ public interface HospitalCoreService extends OpenmrsService {
 
 	public AppointmentServiceType saveAppointmentServiceType(AppointmentServiceType appointmentServiceType) throws APIException;
 	public List<AppointmentServiceType> getAppointmentServiceType() throws APIException;
+
+	public List<Appointment> getPatientAppointments(Patient patient) throws APIException;
 
 
 

@@ -48,6 +48,7 @@ import org.openmrs.api.ConceptService;
 import org.openmrs.api.PatientService;
 import org.openmrs.api.context.Context;
 import org.openmrs.api.impl.BaseOpenmrsService;
+import org.openmrs.module.appointments.model.Appointment;
 import org.openmrs.module.appointments.model.AppointmentServiceType;
 import org.openmrs.module.hospitalcore.HospitalCoreService;
 import org.openmrs.module.hospitalcore.concept.ConceptModel;
@@ -1077,6 +1078,11 @@ public class HospitalCoreServiceImpl extends BaseOpenmrsService implements
 	@Override
 	public List<AppointmentServiceType> getAppointmentServiceType() throws APIException {
 		return dao.getAppointmentServiceType();
+	}
+
+	@Override
+	public List<Appointment> getPatientAppointments(Patient patient) throws APIException {
+		return dao.getPatientAppointments(patient);
 	}
 
 }
