@@ -21,12 +21,14 @@ import org.openmrs.Person;
 import org.openmrs.Provider;
 import org.openmrs.api.ProviderService;
 import org.openmrs.api.context.Context;
+import org.openmrs.module.appointments.model.AppointmentProvider;
 import org.openmrs.module.appointments.model.AppointmentProviderResponse;
 
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.Set;
 
 public class HospitalCoreUtils {
 
@@ -71,20 +73,28 @@ public class HospitalCoreUtils {
 		return names;
 	}
 
-	public static String getProviderNames(Provider provider) {
+	public static String getProviderNames(Set<AppointmentProvider> providerSet) {
 		String names = "";
 
-		if(provider != null) {
-				names = provider.getPerson().getGivenName() + " " + provider.getPerson().getFamilyName();
+		if(providerSet != null) {
+			List<AppointmentProvider> appointmentProviderList = new ArrayList<AppointmentProvider>(providerSet);
+			AppointmentProvider appointmentProvider = appointmentProviderList.get(0);
+			if(appointmentProvider != null && appointmentProvider.getProvider() != null) {
+				names = appointmentProvider.getProvider().getPerson().getGivenName() + " " + appointmentProvider.getProvider().getPerson().getFamilyName();
+			}
 		}
 		return names;
 	}
 
-	public static String getProviderResponse(AppointmentProviderResponse appointmentProviderResponse) {
+	public static String getProviderResponse(Set<AppointmentProviderResponse> appointmentProviderResponse) {
 		String response = "";
 
 		if(appointmentProviderResponse != null) {
-			response = appointmentProviderResponse.name();
+			List<AppointmentProviderResponse> appointmentProviderResponses = new ArrayList<AppointmentProviderResponse>(appointmentProviderResponse);
+			AppointmentProviderResponse app = appointmentProviderResponses.get(0);
+			if(app != null && StringUtils.isNotBlank(app.name())) {
+				response = app.name();
+			}
 		}
 		return response;
 	}
