@@ -21,6 +21,7 @@ import org.openmrs.Person;
 import org.openmrs.Provider;
 import org.openmrs.api.ProviderService;
 import org.openmrs.api.context.Context;
+import org.openmrs.module.appointments.model.AppointmentProviderResponse;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -68,5 +69,23 @@ public class HospitalCoreUtils {
 			}
 		}
 		return names;
+	}
+
+	public static String getProviderNames(Provider provider) {
+		String names = "";
+
+		if(provider != null) {
+				names = provider.getPerson().getGivenName() + " " + provider.getPerson().getFamilyName();
+		}
+		return names;
+	}
+
+	public static String getProviderResponse(AppointmentProviderResponse appointmentProviderResponse) {
+		String response = "";
+
+		if(appointmentProviderResponse != null) {
+			response = appointmentProviderResponse.name();
+		}
+		return response;
 	}
 }
