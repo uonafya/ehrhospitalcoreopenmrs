@@ -941,7 +941,7 @@ public class HibernateHospitalCoreDAO implements HospitalCoreDAO {
     @Override
     public List<EhrMorgueStrength> getEhrMorgueStrength() throws DAOException {
         Criteria criteria = sessionFactory.getCurrentSession().createCriteria(EhrMorgueStrength.class);
-        criteria.add(Restrictions.eq("retired", 0));
+        //criteria.add(Restrictions.eq("retired", 0));
         return criteria.list();
     }
 
