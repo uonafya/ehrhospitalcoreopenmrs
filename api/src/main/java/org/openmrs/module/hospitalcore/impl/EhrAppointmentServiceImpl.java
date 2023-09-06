@@ -13,6 +13,7 @@ import org.openmrs.VisitType;
 import org.openmrs.api.APIException;
 import org.openmrs.api.context.Context;
 import org.openmrs.api.impl.BaseOpenmrsService;
+import org.openmrs.module.appointments.model.Appointment;
 import org.openmrs.module.hospitalcore.EhrAppointmentService;
 import org.openmrs.module.hospitalcore.db.EhrAppointmentBlockDAO;
 import org.openmrs.module.hospitalcore.db.EhrAppointmentDAO;
@@ -1293,7 +1294,7 @@ public class EhrAppointmentServiceImpl extends BaseOpenmrsService implements Ehr
     }
 
     @Override
-    public List<EhrAppointment> getEhrAppointmentsByProvider(Provider provider) throws APIException {
+    public List<Appointment> getEhrAppointmentsByProvider(Provider provider) throws APIException {
         return ehrAppointmentDAO.getEhrAppointmentsByProvider(provider);
     }
 

@@ -12,6 +12,7 @@ import org.openmrs.Visit;
 import org.openmrs.VisitType;
 import org.openmrs.api.APIException;
 import org.openmrs.api.db.DAOException;
+import org.openmrs.module.appointments.model.Appointment;
 import org.openmrs.module.hospitalcore.db.EhrAppointmentDAO;
 import org.openmrs.module.hospitalcore.model.EhrAppointment;
 import org.openmrs.module.hospitalcore.model.EhrAppointmentBlock;
@@ -310,17 +311,12 @@ public class HibernateEhrAppointmentDAO extends HibernateEhrSingleClassDAO imple
     }
 
     @Override
-    public List<EhrAppointment> getEhrAppointmentsByProvider(Provider provider) throws DAOException {
+    public List<Appointment> getEhrAppointmentsByProvider(Provider provider) throws DAOException {
 
         Criteria criteria = sessionFactory.getCurrentSession().createCriteria(
-                mappedClass);
-        criteria.add(Restrictions.or(Restrictions.eq("status", SCHEDULED),
-                Restrictions.eq("status", RESCHEDULED), Restrictions.eq("status", INCONSULTATION)));
-        criteria.add(Restrictions.eq("voided", false));
-        criteria.createAlias("timeSlot", "timeSlot");
-        criteria.createAlias("timeSlot.appointmentBlock", "appointmentBlock");
-        criteria.add(Restrictions.eq("appointmentBlock.provider", provider));
-        criteria.addOrder(Order.asc("timeSlot.startDate"));
+                Appointment.class, "app");
+        criteria.createAlias("app.providers", "providers");
+        criteria.add(Restrictions.eq("providers.provider", provider));
         return criteria.list();
     }
 }

@@ -7,6 +7,7 @@ import org.openmrs.Visit;
 import org.openmrs.VisitType;
 import org.openmrs.api.APIException;
 import org.openmrs.api.OpenmrsService;
+import org.openmrs.module.appointments.model.Appointment;
 import org.openmrs.module.hospitalcore.exception.EhrTimeSlotFullException;
 import org.openmrs.module.hospitalcore.model.EhrAppointment;
 import org.openmrs.module.hospitalcore.model.EhrAppointmentBlock;
@@ -1091,6 +1092,6 @@ public interface EhrAppointmentService extends OpenmrsService {
         //@Authorized
         EhrTimeSlot createEhrTimeSlotUsingProviderSchedule(Date appointmentDate, Provider provider, Location location);
 
-        List<EhrAppointment> getEhrAppointmentsByProvider(Provider provider) throws APIException;
+        List<Appointment> getEhrAppointmentsByProvider(Provider provider) throws APIException;
 
 }

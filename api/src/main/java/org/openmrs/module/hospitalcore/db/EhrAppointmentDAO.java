@@ -20,6 +20,7 @@ import org.openmrs.Visit;
 import org.openmrs.VisitType;
 import org.openmrs.api.APIException;
 import org.openmrs.api.db.DAOException;
+import org.openmrs.module.appointments.model.Appointment;
 import org.openmrs.module.hospitalcore.EhrAppointmentService;
 import org.openmrs.module.hospitalcore.model.EhrAppointment;
 import org.openmrs.module.hospitalcore.model.EhrAppointmentBlock;
@@ -111,5 +112,5 @@ public interface EhrAppointmentDAO extends EhrSingleClassDAO {
 
     List<EhrAppointment> getScheduledEhrAppointmentsForPatients() throws DAOException;
 
-    List<EhrAppointment> getEhrAppointmentsByProvider(Provider provider) throws DAOException;
+    List<Appointment> getEhrAppointmentsByProvider(Provider provider) throws DAOException;
 }
