@@ -101,4 +101,43 @@ public class EhrAppointmentSimplifier {
     }
 
     private Patient patient;
+
+    private String appointmentNumber;
+
+    public String getAppointmentNumber() {
+        return appointmentNumber;
+    }
+
+    public void setAppointmentNumber(String appointmentNumber) {
+        this.appointmentNumber = appointmentNumber;
+    }
+
+    public String getAppointmentService() {
+        return appointmentService;
+    }
+
+    public void setAppointmentService(String appointmentService) {
+        this.appointmentService = appointmentService;
+    }
+
+    public String getAppointmentServiceType() {
+        return appointmentServiceType;
+    }
+
+    public void setAppointmentServiceType(String appointmentServiceType) {
+        this.appointmentServiceType = appointmentServiceType;
+    }
+
+    public String getResponse() {
+        return response;
+    }
+
+    public void setResponse(String response) {
+        this.response = response;
+    }
+
+    private String appointmentService;
+    private String appointmentServiceType;
+    private String	response;
+
 }
