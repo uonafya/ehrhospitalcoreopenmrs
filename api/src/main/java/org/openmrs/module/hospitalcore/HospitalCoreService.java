@@ -31,7 +31,6 @@ import org.openmrs.User;
 import org.openmrs.api.APIException;
 import org.openmrs.api.ConceptService;
 import org.openmrs.api.OpenmrsService;
-import org.openmrs.api.db.DAOException;
 import org.openmrs.module.appointments.model.Appointment;
 import org.openmrs.module.appointments.model.AppointmentServiceType;
 import org.openmrs.module.hospitalcore.model.CoreForm;
@@ -39,7 +38,7 @@ import org.openmrs.module.hospitalcore.model.EhrDepartment;
 import org.openmrs.module.hospitalcore.model.EhrHospitalWaiver;
 import org.openmrs.module.hospitalcore.model.EhrMorgueQueue;
 import org.openmrs.module.hospitalcore.model.EhrMorgueStrength;
-import org.openmrs.module.hospitalcore.model.OpdNumbersGenerator;
+import org.openmrs.module.hospitalcore.model.IdentifierNumbersGenerator;
 import org.openmrs.module.hospitalcore.model.OpdTestOrder;
 import org.openmrs.module.hospitalcore.model.PatientCategoryDetails;
 import org.openmrs.module.hospitalcore.model.PatientSearch;
@@ -285,12 +284,12 @@ public interface HospitalCoreService extends OpenmrsService {
 	public List<Encounter> getDeadPatientsForEhr(EncounterType encounterType, Date startDate, Date endDate) throws APIException;
 
 	//Manage OPD numbers
-	public OpdNumbersGenerator saveOpdNumbersGenerator(OpdNumbersGenerator opdNumbersGenerator) throws APIException;
-	public List<OpdNumbersGenerator> getOpdNumbers() throws APIException;
+	public IdentifierNumbersGenerator saveOpdNumbersGenerator(IdentifierNumbersGenerator opdNumbersGenerator) throws APIException;
+	public List<IdentifierNumbersGenerator> getOpdNumbers(Integer type) throws APIException;
 
-	public String generateOpdNumber(String identifierType) throws APIException;
+	public String generateOpdNumber(String identifierType, Integer type) throws APIException;
 
-	public void savePatientOpdNumbers(Patient patient, String identifierType) throws APIException;
+	public void savePatientOpdNumbers(Patient patient, String identifierType, String patientIdentifierType, Integer type) throws APIException;
 
 	public EhrMorgueQueue saveEhrMorgueQueue(EhrMorgueQueue ehrMorgueQueue) throws APIException;
 	public List<EhrMorgueQueue> getEhrMorgueQueue() throws APIException;

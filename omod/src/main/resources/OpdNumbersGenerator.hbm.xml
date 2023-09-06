@@ -5,15 +5,16 @@
 
 <hibernate-mapping package="org.openmrs.module.hospitalcore.model">
 
-    <class name="OpdNumbersGenerator" table="ehr_opd_numbers" batch-size="500">
+    <class name="IdentifierNumbersGenerator" table="ehr_opd_numbers" batch-size="500">
 
         <id name="opdNumberGeneratorId" type="int" column="opd_number_id"
             unsaved-value="0">
             <generator class="native" />
         </id>
         <property name="patientId" column="patient_id" />
-        <property name="opdNumber" column="opd_number" length="255" />
+        <property name="identifier" column="opd_number" length="255" />
         <property name="dateCreated" column="date_created"  />
         <property name="createdBy" column="created_by"  />
+        <property name="identifierType" column="identifier_type"  />
     </class>
 </hibernate-mapping>

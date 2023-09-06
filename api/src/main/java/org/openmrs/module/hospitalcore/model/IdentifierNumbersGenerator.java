@@ -1,10 +1,8 @@
 package org.openmrs.module.hospitalcore.model;
 
-import org.openmrs.User;
-
 import java.util.Date;
 
-public class OpdNumbersGenerator {
+public class IdentifierNumbersGenerator {
     private Integer opdNumberGeneratorId;
 
     public Integer getOpdNumberGeneratorId() {
@@ -23,12 +21,12 @@ public class OpdNumbersGenerator {
         this.patientId = patientId;
     }
 
-    public String getOpdNumber() {
-        return opdNumber;
+    public String getIdentifier() {
+        return identifier;
     }
 
-    public void setOpdNumber(String opdNumber) {
-        this.opdNumber = opdNumber;
+    public void setIdentifier(String identifier) {
+        this.identifier = identifier;
     }
 
     public Date getDateCreated() {
@@ -48,9 +46,19 @@ public class OpdNumbersGenerator {
     }
 
     private Integer patientId;
-    private String opdNumber;
+    private String identifier;
 
     private Date dateCreated;
 
     private Integer createdBy;
+
+    public Integer getIdentifierType() {
+        return identifierType;
+    }
+
+    public void setIdentifierType(Integer identifierType) {
+        this.identifierType = identifierType;
+    }
+
+    private Integer identifierType;
 }

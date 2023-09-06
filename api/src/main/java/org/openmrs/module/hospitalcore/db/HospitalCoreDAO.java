@@ -32,9 +32,6 @@ import org.openmrs.PersonAddress;
 import org.openmrs.PersonAttribute;
 import org.openmrs.PersonAttributeType;
 import org.openmrs.Provider;
-import org.openmrs.User;
-import org.openmrs.Visit;
-import org.openmrs.api.APIException;
 import org.openmrs.api.db.DAOException;
 import org.openmrs.module.appointments.model.Appointment;
 import org.openmrs.module.appointments.model.AppointmentServiceType;
@@ -169,10 +166,10 @@ public interface HospitalCoreDAO {
 	public List<Encounter> getDeadPatientsForEhr(EncounterType encounterType, Date startDate, Date endDate) throws DAOException;
 //
 	//add the Opd generator functionalities
-	public OpdNumbersGenerator saveOpdNumbersGenerator(OpdNumbersGenerator opdNumbersGenerator) throws DAOException;
-	public List<OpdNumbersGenerator> getOpdNumbers() throws DAOException;
+	public IdentifierNumbersGenerator saveOpdNumbersGenerator(IdentifierNumbersGenerator opdNumbersGenerator) throws DAOException;
+	public List<IdentifierNumbersGenerator> getOpdNumbers(Integer type) throws DAOException;
 
-	public OpdNumbersGenerator getLastSavedOpdNumber() throws DAOException;
+	public IdentifierNumbersGenerator getLastSavedOpdNumber(Integer type) throws DAOException;
 
 	public EhrMorgueQueue saveEhrMorgueQueue(EhrMorgueQueue ehrMorgueQueue) throws DAOException;
 	public List<EhrMorgueQueue> getEhrMorgueQueue() throws DAOException;

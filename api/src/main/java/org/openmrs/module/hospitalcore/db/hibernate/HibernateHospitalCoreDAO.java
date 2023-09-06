@@ -31,7 +31,6 @@ import org.hibernate.Query;
 import org.hibernate.SessionFactory;
 import org.hibernate.Session;
 import org.hibernate.criterion.Order;
-import org.hibernate.criterion.Projections;
 import org.hibernate.criterion.Restrictions;
 import org.openmrs.Concept;
 import org.openmrs.ConceptClass;
@@ -46,8 +45,6 @@ import org.openmrs.PersonAttribute;
 import org.openmrs.PersonAttributeType;
 import org.openmrs.PersonName;
 import org.openmrs.Provider;
-import org.openmrs.User;
-import org.openmrs.Visit;
 import org.openmrs.api.APIException;
 import org.openmrs.api.context.Context;
 import org.openmrs.api.db.DAOException;
@@ -60,7 +57,6 @@ import org.openmrs.module.hospitalcore.db.HospitalCoreDAO;
 import org.openmrs.module.hospitalcore.model.*;
 import org.openmrs.module.hospitalcore.util.DateUtils;
 import org.openmrs.module.hospitalcore.util.HospitalCoreConstants;
-import org.openmrs.module.hospitalcore.util.HospitalCoreUtils;
 
 public class HibernateHospitalCoreDAO implements HospitalCoreDAO {
 
@@ -864,24 +860,26 @@ public class HibernateHospitalCoreDAO implements HospitalCoreDAO {
     }
 
     @Override
-    public OpdNumbersGenerator saveOpdNumbersGenerator(OpdNumbersGenerator opdNumbersGenerator) throws DAOException {
+    public IdentifierNumbersGenerator saveOpdNumbersGenerator(IdentifierNumbersGenerator opdNumbersGenerator) throws DAOException {
         sessionFactory.getCurrentSession().saveOrUpdate(opdNumbersGenerator);
         return opdNumbersGenerator;
     }
 
     @Override
-    public List<OpdNumbersGenerator> getOpdNumbers() throws DAOException {
-        Criteria criteria = sessionFactory.getCurrentSession().createCriteria(OpdNumbersGenerator.class);
+    public List<IdentifierNumbersGenerator> getOpdNumbers(Integer type) throws DAOException {
+        Criteria criteria = sessionFactory.getCurrentSession().createCriteria(IdentifierNumbersGenerator.class);
+        criteria.add(Restrictions.eq("identifierType", type));
         criteria.addOrder(Order.asc("opdNumberGeneratorId"));
         return criteria.list();
     }
 
     @Override
-    public OpdNumbersGenerator getLastSavedOpdNumber() throws DAOException {
-        Criteria criteria = sessionFactory.getCurrentSession().createCriteria(OpdNumbersGenerator.class);
+    public IdentifierNumbersGenerator getLastSavedOpdNumber(Integer type) throws DAOException {
+        Criteria criteria = sessionFactory.getCurrentSession().createCriteria(IdentifierNumbersGenerator.class);
+        criteria.add(Restrictions.eq("identifierType", type));
         criteria.addOrder(Order.desc("opdNumberGeneratorId"));
         criteria.setMaxResults(1);
-        return (OpdNumbersGenerator) criteria.uniqueResult();
+        return (IdentifierNumbersGenerator) criteria.uniqueResult();
     }
 
     @Override
