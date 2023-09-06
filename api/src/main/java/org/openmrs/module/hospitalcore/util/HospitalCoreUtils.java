@@ -86,14 +86,18 @@ public class HospitalCoreUtils {
 		return names;
 	}
 
-	public static String getProviderResponse(Set<AppointmentProviderResponse> appointmentProviderResponse) {
+	public static String getProviderResponse(Set<AppointmentProvider> providerSet) {
 		String response = "";
 
-		if(appointmentProviderResponse != null) {
-			List<AppointmentProviderResponse> appointmentProviderResponses = new ArrayList<AppointmentProviderResponse>(appointmentProviderResponse);
-			AppointmentProviderResponse app = appointmentProviderResponses.get(0);
-			if(app != null && StringUtils.isNotBlank(app.name())) {
-				response = app.name();
+		if(providerSet != null) {
+			List<AppointmentProvider> appointmentProviderList = new ArrayList<AppointmentProvider>(providerSet);
+			AppointmentProvider appointmentProvider = appointmentProviderList.get(0);
+			if(appointmentProvider != null) {
+				AppointmentProviderResponse app = appointmentProvider.getResponse();
+
+				if (app != null && StringUtils.isNotBlank(app.name())) {
+					response = app.name();
+				}
 			}
 		}
 		return response;
