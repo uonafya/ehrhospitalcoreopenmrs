@@ -52,13 +52,13 @@ public class EhrMorgueStrength {
 
     private Integer retired;
 
-    private String createdBy;
+    private Integer createdBy;
 
-    public String getCreatedBy() {
+    public Integer getCreatedBy() {
         return createdBy;
     }
 
-    public void setCreatedBy(String createdBy) {
+    public void setCreatedBy(Integer createdBy) {
         this.createdBy = createdBy;
     }
 
