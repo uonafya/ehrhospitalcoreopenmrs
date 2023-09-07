@@ -644,7 +644,7 @@ public interface EhrAppointmentService extends OpenmrsService {
          * @return The most recent appointment for the given patient, null if no appointments were set.
          */
         //@Authorized(EhrAppointmentUtils.PRIV_VIEW_APPOINTMENTS)
-        EhrAppointment getLastEhrAppointment(Patient patient);
+        Appointment getLastEhrAppointment(Patient patient);
 
         /**
          * Return a list of time slots that stands within the given constraints.

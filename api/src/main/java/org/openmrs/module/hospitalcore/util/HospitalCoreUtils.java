@@ -78,9 +78,11 @@ public class HospitalCoreUtils {
 
 		if(providerSet != null) {
 			List<AppointmentProvider> appointmentProviderList = new ArrayList<AppointmentProvider>(providerSet);
-			AppointmentProvider appointmentProvider = appointmentProviderList.get(0);
-			if(appointmentProvider != null && appointmentProvider.getProvider() != null) {
-				names = appointmentProvider.getProvider().getPerson().getGivenName() + " " + appointmentProvider.getProvider().getPerson().getFamilyName();
+			if (!appointmentProviderList.isEmpty()) {
+				AppointmentProvider appointmentProvider = appointmentProviderList.get(0);
+				if (appointmentProvider != null && appointmentProvider.getProvider() != null) {
+					names = appointmentProvider.getProvider().getPerson().getGivenName() + " " + appointmentProvider.getProvider().getPerson().getFamilyName();
+				}
 			}
 		}
 		return names;
@@ -91,12 +93,14 @@ public class HospitalCoreUtils {
 
 		if(providerSet != null) {
 			List<AppointmentProvider> appointmentProviderList = new ArrayList<AppointmentProvider>(providerSet);
-			AppointmentProvider appointmentProvider = appointmentProviderList.get(0);
-			if(appointmentProvider != null) {
-				AppointmentProviderResponse app = appointmentProvider.getResponse();
+			if (!appointmentProviderList.isEmpty()) {
+				AppointmentProvider appointmentProvider = appointmentProviderList.get(0);
+				if (appointmentProvider != null) {
+					AppointmentProviderResponse app = appointmentProvider.getResponse();
 
-				if (app != null && StringUtils.isNotBlank(app.name())) {
-					response = app.name();
+					if (app != null && StringUtils.isNotBlank(app.name())) {
+						response = app.name();
+					}
 				}
 			}
 		}

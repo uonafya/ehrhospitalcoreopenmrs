@@ -60,18 +60,18 @@ public class HibernateEhrAppointmentDAO extends HibernateEhrSingleClassDAO imple
 
     @Override
     @Transactional(readOnly = true)
-    public EhrAppointment getLastEhrAppointment(Patient patient) {
-        String query = "select appointment from EhrAppointment as appointment"
-                + " where appointment.patient = :patient and appointment.timeSlot.startDate ="
-                + " (select max(ap.timeSlot.startDate) from EhrAppointment as ap inner join ap.timeSlot"
+    public Appointment getLastEhrAppointment(Patient patient) {
+        String query = "select appointment from Appointment as appointment"
+                + " where appointment.patient = :patient and appointment.startDateTime ="
+                + " (select max(ap.startDateTime) from Appointment as ap"
                 + " where ap.patient = :patient)";
 
-        List<EhrAppointment> appointment = super.sessionFactory
+        List<Appointment> appointment = super.sessionFactory
                 .getCurrentSession().createQuery(query)
                 .setParameter("patient", patient).list();
 
         if (appointment.size() > 0)
-            return (EhrAppointment) appointment.get(0);
+            return (Appointment) appointment.get(0);
         else
             return null;
     }

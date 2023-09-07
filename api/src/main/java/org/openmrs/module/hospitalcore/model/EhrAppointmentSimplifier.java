@@ -140,4 +140,23 @@ public class EhrAppointmentSimplifier {
     private String appointmentServiceType;
     private String	response;
 
+    public String getPatientNames() {
+        return patientNames;
+    }
+
+    public void setPatientNames(String patientNames) {
+        this.patientNames = patientNames;
+    }
+
+    public String getPatientIdentifier() {
+        return patientIdentifier;
+    }
+
+    public void setPatientIdentifier(String patientIdentifier) {
+        this.patientIdentifier = patientIdentifier;
+    }
+
+    private String patientNames;
+    private String patientIdentifier;
+
 }
