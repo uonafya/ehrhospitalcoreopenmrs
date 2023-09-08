@@ -81,8 +81,8 @@ public interface PatientQueueDAO {
 	public OpdPatientQueueLog saveOpdPatientQueueLog(OpdPatientQueueLog opdPatientQueueLog) throws DAOException ;
 	public OpdPatientQueueLog getOpdPatientQueueLogById(Integer id) throws DAOException;
 	public List<OpdPatientQueue> getAllPatientInQueue() throws DAOException ;
-	public OpdPatientQueue getOpdPatientQueue(String patientIdentifier,Integer opdConceptId, Integer flag) throws DAOException;
-	public TriagePatientQueue getTriagePatientQueue(String patientIdentifier,Integer triageConceptId, Integer flag) throws DAOException;
+	public OpdPatientQueue getOpdPatientQueue(String patientIdentifier,Integer opdConceptId) throws DAOException;
+	public TriagePatientQueue getTriagePatientQueue(String patientIdentifier,Integer triageConceptId) throws DAOException;
 	public TriagePatientQueue getTriagePatientQueueById(Integer id) throws APIException;
 	public TriagePatientQueue saveTriagePatientQueue(TriagePatientQueue triagePatientQueue) throws DAOException;
 	public TriagePatientQueueLog saveTriagePatientQueueLog(TriagePatientQueueLog triagePatientQueueLog) throws APIException ;
