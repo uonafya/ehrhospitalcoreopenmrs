@@ -1,0 +1,27 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC
+    "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+    "http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd" >
+
+<hibernate-mapping package="org.openmrs.module.morgueapp">
+
+	<class name="MorgueAdmission" table="morgue_patient_admission" batch-size="500">
+
+		<id name="morgueAdmissionId" type="int" column="morgue_admission_id" unsaved-value="0">
+				<generator class="native" />
+		</id>
+		<many-to-one name="patient" column="patient_id" class="org.openmrs.Patient" lazy="false" />
+		
+		<property name="dateOfAdmission" column="date_of_admission" type="java.util.Date" length="19" />
+		<property name="dateOfDeath" column="date_of_death" type="java.util.Date" length="19" />
+		<property name="receivedBy" column="received_by" type="java.lang.String" length="255" />
+		<property name="propertyWithBody" column="property_with_body" type="java.lang.String" length="255" />
+		<property name="identificationTagNo" column="identification_tag_no" type="java.lang.String" length="255" />
+		<property name="broughtBy" column="brought_by" type="java.lang.String" length="255" />
+		<property name="compartmentNo" column="compartment_no" type="java.lang.String" length="255" />
+		<property name="consent" column="consent" type="java.lang.String" length="255" />
+		<property name="bodyType" column="body_type"  type="java.lang.String" length="255" />
+		<many-to-one name="createdBy" column="created_by" class="org.openmrs.User"/>
+		<property name="createdOn" column="created_on" />
+	</class>
+</hibernate-mapping>

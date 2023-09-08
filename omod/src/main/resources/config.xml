@@ -201,6 +201,7 @@
 		OpdNumbersGenerator.hbm.xml
 		EhrMorgueQueue.hbm.xml
 		EhrMorgueStrength.hbm.xml
+		MorgueAdmission.hbm.xml
 
 	</mappingFiles>
 </module>

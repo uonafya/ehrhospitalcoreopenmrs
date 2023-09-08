@@ -12,13 +12,13 @@ public class EhrAppointmentSimplifier {
     public EhrAppointmentSimplifier(String appointmentType, String provider, String status, String appointmentReason, String startTime, String endTime) {
         this.appointmentType = appointmentType;
         this.provider = provider;
-        Status = status;
+        this.status = status;
         this.appointmentReason = appointmentReason;
         this.startTime = startTime;
         this.endTime = endTime;
     }
 
-    private String Status;
+    private String status;
 
     public String getAppointmentType() {
         return appointmentType;
@@ -37,11 +37,11 @@ public class EhrAppointmentSimplifier {
     }
 
     public String getStatus() {
-        return Status;
+        return status;
     }
 
     public void setStatus(String status) {
-        Status = status;
+        this.status = status;
     }
 
     public String getAppointmentReason() {
