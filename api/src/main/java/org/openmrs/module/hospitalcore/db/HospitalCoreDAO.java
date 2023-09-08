@@ -32,6 +32,7 @@ import org.openmrs.PersonAddress;
 import org.openmrs.PersonAttribute;
 import org.openmrs.PersonAttributeType;
 import org.openmrs.Provider;
+import org.openmrs.api.APIException;
 import org.openmrs.api.db.DAOException;
 import org.openmrs.module.appointments.model.Appointment;
 import org.openmrs.module.appointments.model.AppointmentServiceType;
@@ -185,4 +186,7 @@ public interface HospitalCoreDAO {
 	public List<AppointmentServiceType> getAppointmentServiceType() throws DAOException;
 
 	public List<Appointment> getPatientAppointments(Patient patient) throws DAOException;
+
+	public MorgueAdmission saveMorgueAdmission(MorgueAdmission morgueAdmission) throws DAOException;
+	public List<MorgueAdmission> getMorgueAdmissionList(Date startDate, Date endDate) throws DAOException;
 }

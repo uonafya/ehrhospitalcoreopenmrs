@@ -2226,4 +2226,33 @@
         </sql>
     </changeSet>
 
+    <changeSet id="080E3AB4-85F5-4A46-93F9-10DCE6568144" author="ningosi">
+        <preConditions onFail="MARK_RAN" onError="WARN">
+            <dbms type="mysql"/>
+        </preConditions>
+        <comment>Add table morgue_patient_admission</comment>
+        <sql>
+            CREATE TABLE IF NOT EXISTS `morgue_patient_admission` (
+            `morgue_admission_id` int(11) NOT NULL AUTO_INCREMENT,
+            `patient_id` int(11) NOT NULL,
+            `received_by` varchar(225) NOT NULL,
+            `property_with_body` varchar(225) NOT NULL,
+            `identification_tag_no` varchar(225) NOT NULL,
+            `brought_by` varchar(225) NOT NULL,
+            `compartment_no` varchar(225) NOT NULL,
+            `consent` varchar(225) NOT NULL,
+            `body_type` varchar(225) NOT NULL,
+            `created_by` int(11) NOT NULL,
+            `created_on` datetime DEFAULT NULL,
+            `date_of_admission` datetime DEFAULT NULL,
+            `date_of_death` datetime DEFAULT NULL,
+            PRIMARY KEY (`morgue_admission_id`),
+            KEY `fk_morgue_user` (`creator`),
+            KEY `fk_morgue_patient` (`patient_id`),
+            CONSTRAINT `fk_morgue_user` FOREIGN KEY (`creator`) REFERENCES `users` (`user_id`),
+            CONSTRAINT `fk_morgue_patient` FOREIGN KEY (`patient_id`) REFERENCES `patient` (`patient_id`),
+            ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+        </sql>
+    </changeSet>
+
 </databaseChangeLog>

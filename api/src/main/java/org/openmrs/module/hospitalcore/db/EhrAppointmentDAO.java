@@ -41,7 +41,7 @@ public interface EhrAppointmentDAO extends EhrSingleClassDAO {
 
     EhrAppointment getEhrAppointmentByVisit(Visit visit);
 
-    EhrAppointment getLastEhrAppointment(Patient patient);
+    Appointment getLastEhrAppointment(Patient patient);
 
     @Transactional(readOnly = true)
     List<EhrAppointment> getEhrAppointmentsByConstraints(Date fromDate, Date toDate, Provider provider,

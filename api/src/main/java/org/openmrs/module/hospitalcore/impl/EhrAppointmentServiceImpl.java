@@ -606,7 +606,7 @@ public class EhrAppointmentServiceImpl extends BaseOpenmrsService implements Ehr
 
     @Override
     @Transactional(readOnly = true)
-    public EhrAppointment getLastEhrAppointment(Patient patient) {
+    public Appointment getLastEhrAppointment(Patient patient) {
         return getEhrAppointmentDAO().getLastEhrAppointment(patient);
     }
 
