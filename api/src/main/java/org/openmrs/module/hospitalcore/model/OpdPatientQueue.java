@@ -23,6 +23,7 @@ import org.openmrs.Patient;
 import org.openmrs.Provider;
 import org.openmrs.User;
 import org.openmrs.module.hospitalcore.util.PatientUtils;
+import org.openmrs.module.queue.model.QueueEntry;
 
 public class OpdPatientQueue implements  Serializable {
 
@@ -170,5 +171,25 @@ public class OpdPatientQueue implements  Serializable {
 	public void setVisitStatus(String visitStatus) {
 		this.visitStatus = visitStatus;
 	}
+
+	private boolean clearedToNextServicePoint;
+
+	public boolean isClearedToNextServicePoint() {
+		return clearedToNextServicePoint;
+	}
+
+	public void setClearedToNextServicePoint(boolean clearedToNextServicePoint) {
+		this.clearedToNextServicePoint = clearedToNextServicePoint;
+	}
+
+	public QueueEntry getQueueEntry() {
+		return queueEntry;
+	}
+
+	public void setQueueEntry(QueueEntry queueEntry) {
+		this.queueEntry = queueEntry;
+	}
+
+	private QueueEntry queueEntry;
 	  
 }

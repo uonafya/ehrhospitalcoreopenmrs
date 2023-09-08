@@ -2255,4 +2255,67 @@
         </sql>
     </changeSet>
 
+    <changeSet id="6CE568A0-98AD-4661-AAFC-5BF6D7425B23" author="ningosi">
+        <preConditions onFail="MARK_RAN" onError="WARN">
+            <dbms type="mysql"/>
+        </preConditions>
+        <comment>Add is_cleared_to_next_service_point columns to triage_patient_queue</comment>
+        <sql>
+            ALTER TABLE  triage_patient_queue
+            ADD COLUMN `is_cleared_to_next_service_point` tinyint NOT NULL DEFAULT '0';
+        </sql>
+    </changeSet>
+    <changeSet id="6F1CABE6-4A84-4440-A4E7-22F5D53BCAA7" author="ningosi">
+        <preConditions onFail="MARK_RAN" onError="WARN">
+            <dbms type="mysql"/>
+        </preConditions>
+        <comment>Add queue_entry_id columns to triage_patient_queue</comment>
+        <sql>
+            ALTER TABLE  triage_patient_queue
+            ADD COLUMN `queue_entry_id` int(11) DEFAULT NULL;
+        </sql>
+    </changeSet>
+    <changeSet id="513259A9-8BE4-4503-BB12-5B40853C4EFB" author="ningosi">
+        <preConditions onFail="MARK_RAN" onError="WARN">
+            <dbms type="mysql"/>
+        </preConditions>
+        <comment>Add Fk constraints for queue_entry_id columns to triage_patient_queue</comment>
+        <sql>
+            ALTER TABLE triage_patient_queue ADD CONSTRAINT queue_entry_id_triage_fk FOREIGN KEY (queue_entry_id) REFERENCES
+            queue_entry(queue_entry_id);
+        </sql>
+    </changeSet>
+
+
+    <changeSet id="B8379A0F-4404-4E64-BEF8-1E012504BDE6" author="ningosi">
+        <preConditions onFail="MARK_RAN" onError="WARN">
+            <dbms type="mysql"/>
+        </preConditions>
+        <comment>Add is_cleared_to_next_service_point columns to opd_patient_queue</comment>
+        <sql>
+            ALTER TABLE  opd_patient_queue
+            ADD COLUMN `is_cleared_to_next_service_point` tinyint NOT NULL DEFAULT '0';
+        </sql>
+    </changeSet>
+    <changeSet id="90228351-A113-4437-B223-EDC90AF8DEEB" author="ningosi">
+        <preConditions onFail="MARK_RAN" onError="WARN">
+            <dbms type="mysql"/>
+        </preConditions>
+        <comment>Add queue_entry_id columns to opd_patient_queue</comment>
+        <sql>
+            ALTER TABLE  opd_patient_queue
+            ADD COLUMN `queue_entry_id` int(11) DEFAULT NULL;
+        </sql>
+    </changeSet>
+    <changeSet id="E3C1BAB9-D934-437F-AD41-BB415E45DAEE" author="ningosi">
+        <preConditions onFail="MARK_RAN" onError="WARN">
+            <dbms type="mysql"/>
+        </preConditions>
+        <comment>Add Fk constraints for queue_entry_id columns to opd_patient_queue</comment>
+        <sql>
+            ALTER TABLE triage_patient_queue ADD CONSTRAINT queue_entry_id_opd__fk FOREIGN KEY (queue_entry_id) REFERENCES
+            queue_entry(queue_entry_id);
+        </sql>
+    </changeSet>
+
 </databaseChangeLog>
