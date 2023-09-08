@@ -3,7 +3,7 @@
     "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
     "http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd" >
 
-<hibernate-mapping package="org.openmrs.module.morgueapp">
+<hibernate-mapping package="org.openmrs.module.hospitalcore.model">
 
 	<class name="MorgueAdmission" table="morgue_patient_admission" batch-size="500">
 
