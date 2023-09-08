@@ -85,8 +85,8 @@ public interface PatientQueueService extends OpenmrsService {
 	public OpdPatientQueueLog getOpdPatientQueueLogById(Integer id) throws APIException;
 	public List<OpdPatientQueue> getAllPatientInQueue() throws APIException ;
 	public OpdPatientQueueLog copyTo(OpdPatientQueue opdPatientQueue)throws APIException ;
-	public OpdPatientQueue getOpdPatientQueue(String patientIdentifier,Integer opdConceptId) throws APIException;
-	public TriagePatientQueue getTriagePatientQueue(String patientIdentifier,Integer triageConceptId) throws APIException;
+	public OpdPatientQueue getOpdPatientQueue(String patientIdentifier,Integer opdConceptId, Integer flag) throws APIException;
+	public TriagePatientQueue getTriagePatientQueue(String patientIdentifier,Integer triageConceptId, Integer flag) throws APIException;
 	public TriagePatientQueue getTriagePatientQueueById(Integer id) throws APIException;
 	public TriagePatientQueue saveTriagePatientQueue(TriagePatientQueue triagePatientQueue) throws APIException;
 	public TriagePatientQueueLog saveTriagePatientQueueLog(TriagePatientQueueLog triagePatientQueueLog) throws APIException ;

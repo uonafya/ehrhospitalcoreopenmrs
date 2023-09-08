@@ -181,14 +181,14 @@ public class PatientQueueServiceImpl  extends BaseOpenmrsService implements Pati
 	
 	
 
-	public OpdPatientQueue getOpdPatientQueue(String patientIdentifier,Integer opdConceptId)throws APIException {
+	public OpdPatientQueue getOpdPatientQueue(String patientIdentifier,Integer opdConceptId, Integer flag)throws APIException {
 		// TODO Auto-generated method stub
-		return dao.getOpdPatientQueue(patientIdentifier,opdConceptId);
+		return dao.getOpdPatientQueue(patientIdentifier,opdConceptId, flag);
 	}
 	
-	public TriagePatientQueue getTriagePatientQueue(String patientIdentifier,Integer triageConceptId)throws APIException {
+	public TriagePatientQueue getTriagePatientQueue(String patientIdentifier,Integer triageConceptId, Integer flag)throws APIException {
 		// TODO Auto-generated method stub
-		return dao.getTriagePatientQueue(patientIdentifier,triageConceptId);
+		return dao.getTriagePatientQueue(patientIdentifier,triageConceptId, flag);
 	}
 	
 	public TriagePatientQueue getTriagePatientQueueById(Integer id)throws APIException {

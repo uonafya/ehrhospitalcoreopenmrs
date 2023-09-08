@@ -113,7 +113,7 @@ public class HibernatePatientQueueDAO implements PatientQueueDAO {
 	}
 	
 	
-	public OpdPatientQueue getOpdPatientQueue(String patientIdentifier,Integer opdConceptId) throws DAOException {
+	public OpdPatientQueue getOpdPatientQueue(String patientIdentifier,Integer opdConceptId, Integer flag) throws DAOException {
 		Criteria criteria = sessionFactory.getCurrentSession().createCriteria(OpdPatientQueue.class, "queue")
 				.createAlias("queue.opdConcept", "opdConcept");
 		criteria.add(Restrictions.eq("queue.patientIdentifier", patientIdentifier));
@@ -130,6 +130,7 @@ public class HibernatePatientQueueDAO implements PatientQueueDAO {
 			System.out.println("Error convert date: "+ e.toString());
 			e.printStackTrace();
 		}
+		criteria.add(Restrictions.eq("queue.clearedToNextServicePoint", 1));
 		criteria.addOrder(Order.desc("queue.createdOn"));
 		
 		List<OpdPatientQueue> list = criteria.list();
@@ -243,7 +244,7 @@ public class HibernatePatientQueueDAO implements PatientQueueDAO {
 		return (TriagePatientQueue) sessionFactory.getCurrentSession().merge(triagePatientQueue);
 	}
 	
-	public TriagePatientQueue getTriagePatientQueue(String patientIdentifier,Integer triageConceptId) throws DAOException {
+	public TriagePatientQueue getTriagePatientQueue(String patientIdentifier,Integer triageConceptId, Integer flag) throws DAOException {
 		Criteria criteria = sessionFactory.getCurrentSession().createCriteria(TriagePatientQueue.class, "queue")
 				.createAlias("queue.triageConcept", "triageConcept");
 		criteria.add(Restrictions.eq("queue.patientIdentifier", patientIdentifier));
@@ -260,6 +261,7 @@ public class HibernatePatientQueueDAO implements PatientQueueDAO {
 			System.out.println("Error convert date: "+ e.toString());
 			e.printStackTrace();
 		}
+		criteria.add(Restrictions.eq("queue.clearedToNextServicePoint", 1));
 		criteria.addOrder(Order.desc("queue.createdOn"));
 		
 		List<TriagePatientQueue> list = criteria.list();
