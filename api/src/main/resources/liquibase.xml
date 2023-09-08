@@ -2250,7 +2250,7 @@
             KEY `fk_morgue_user` (`created_by`),
             KEY `fk_morgue_patient` (`patient_id`),
             CONSTRAINT `fk_morgue_user` FOREIGN KEY (`created_by`) REFERENCES `users` (`user_id`),
-            CONSTRAINT `fk_morgue_patient` FOREIGN KEY (`patient_id`) REFERENCES `patient` (`patient_id`),
+            CONSTRAINT `fk_morgue_patient` FOREIGN KEY (`patient_id`) REFERENCES `patient` (`patient_id`)
             ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
         </sql>
     </changeSet>
