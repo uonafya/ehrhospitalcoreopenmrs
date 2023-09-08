@@ -2246,9 +2246,11 @@
             `created_on` datetime DEFAULT NULL,
             `date_of_admission` datetime DEFAULT NULL,
             `date_of_death` datetime DEFAULT NULL,
-            PRIMARY KEY (`food_handling_id`),
+            PRIMARY KEY (`morgue_admission_id`),
             KEY `fk_morgue_user` (`creator`),
-            CONSTRAINT `fk_morgue_user` FOREIGN KEY (`creator`) REFERENCES `users` (`user_id`)
+            KEY `fk_morgue_patient` (`patient_id`),
+            CONSTRAINT `fk_morgue_user` FOREIGN KEY (`creator`) REFERENCES `users` (`user_id`),
+            CONSTRAINT `fk_morgue_patient` FOREIGN KEY (`patient_id`) REFERENCES `patient` (`patient_id`),
             ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
         </sql>
     </changeSet>
