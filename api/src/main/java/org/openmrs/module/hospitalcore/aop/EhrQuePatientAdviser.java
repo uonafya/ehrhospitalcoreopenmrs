@@ -12,7 +12,6 @@ public class EhrQuePatientAdviser extends StaticMethodMatcherPointcutAdvisor imp
     @Override
     public boolean matches(Method method, Class<?> aClass) {
         return method.getName().equals("createQueueEntry");
-
     }
 
     @Override
