@@ -39,6 +39,7 @@ import org.openmrs.module.hospitalcore.model.EhrHospitalWaiver;
 import org.openmrs.module.hospitalcore.model.EhrMorgueQueue;
 import org.openmrs.module.hospitalcore.model.EhrMorgueStrength;
 import org.openmrs.module.hospitalcore.model.IdentifierNumbersGenerator;
+import org.openmrs.module.hospitalcore.model.MorgueAdmission;
 import org.openmrs.module.hospitalcore.model.OpdTestOrder;
 import org.openmrs.module.hospitalcore.model.PatientCategoryDetails;
 import org.openmrs.module.hospitalcore.model.PatientSearch;
@@ -335,6 +336,9 @@ public interface HospitalCoreService extends OpenmrsService {
 	public List<AppointmentServiceType> getAppointmentServiceType() throws APIException;
 
 	public List<Appointment> getPatientAppointments(Patient patient) throws APIException;
+
+	public MorgueAdmission saveMorgueAdmission(MorgueAdmission morgueAdmission) throws APIException;
+	public List<MorgueAdmission> getMorgueAdmissionList(Date startDate, Date endDate) throws APIException;
 
 
 
