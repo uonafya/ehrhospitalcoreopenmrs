@@ -174,7 +174,7 @@ public class OpdPatientQueue implements  Serializable {
 
 	private boolean clearedToNextServicePoint;
 
-	public boolean isClearedToNextServicePoint() {
+	public boolean getClearedToNextServicePoint() {
 		return clearedToNextServicePoint;
 	}
 

@@ -123,11 +123,15 @@ public interface PatientQueueService extends OpenmrsService {
 	//working diagnosis
 	public List<Obs> getAllWorkingDiagnosis(Integer personId) throws APIException;
 
-	//additional methods to pick the the triage information
+	//additional methods to pick  the triage information
 	List<TriagePatientData> getPatientTriageData(Patient patient);
 	TriagePatientData getPatientTriageData(Integer id);
 
 	public List<TriagePatientQueue> getAllTriagePatientQueueWithinDatePerUser(Date startDate, Date endDate, User user, String status) throws APIException;
 	public List<OpdPatientQueue> getAllOpdPatientQueueWithinDatePerUser(Date startDate, Date endDate, User user, String status) throws APIException;
 	Long getPatientQueueLogCounts(Date paramDate1, Date paramDate2, Concept paramConcept) throws APIException;
+
+	//add convenient methods to get queue information
+	public TriagePatientQueue getTriagePatientQueueByPatient(Patient patient) throws APIException;
+	public OpdPatientQueue getOpdPatientQueueByPatient(Patient patient) throws APIException;
 }

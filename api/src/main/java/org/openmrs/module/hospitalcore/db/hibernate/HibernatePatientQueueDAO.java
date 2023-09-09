@@ -698,4 +698,18 @@ public class HibernatePatientQueueDAO implements PatientQueueDAO {
 		return (long) criteria.list().size();
 	}
 
+	@Override
+	public TriagePatientQueue getTriagePatientQueueByPatient(Patient patient) throws DAOException {
+		Criteria criteria = sessionFactory.getCurrentSession().createCriteria(TriagePatientQueue.class);
+		criteria.add(Restrictions.eq("patient", patient));
+		return (TriagePatientQueue) criteria.list().get(0);
+	}
+
+	@Override
+	public OpdPatientQueue getOpdPatientQueueByPatient(Patient patient) throws DAOException {
+		Criteria criteria = sessionFactory.getCurrentSession().createCriteria(OpdPatientQueue.class);
+		criteria.add(Restrictions.eq("patient", patient));
+		return (OpdPatientQueue) criteria.list().get(0);
+	}
+
 }

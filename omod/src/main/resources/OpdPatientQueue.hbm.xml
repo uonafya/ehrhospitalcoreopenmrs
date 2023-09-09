@@ -27,7 +27,7 @@
 		<property name="category" column="category" />
 		<property name="visitStatus" column="visit_status" />
 		<property name="provider" column="provider" />
-		<property name="isClearedToNextServicePoint" column="is_cleared_to_next_service_point" />
+		<property name="clearedToNextServicePoint" column="is_cleared_to_next_service_point" />
 		<many-to-one name="queueEntry" column="queue_entry_id" class="org.openmrs.module.queue.model.QueueEntry" />
 	</class>
 </hibernate-mapping>

@@ -355,4 +355,14 @@ public class PatientQueueServiceImpl  extends BaseOpenmrsService implements Pati
 		return this.dao.getPatientQueueLogCounts(startDate, endDate, opdConcept);
 	}
 
+	@Override
+	public TriagePatientQueue getTriagePatientQueueByPatient(Patient patient) throws APIException {
+		return dao.getTriagePatientQueueByPatient(patient);
+	}
+
+	@Override
+	public OpdPatientQueue getOpdPatientQueueByPatient(Patient patient) throws APIException {
+		return dao.getOpdPatientQueueByPatient(patient);
+	}
+
 }

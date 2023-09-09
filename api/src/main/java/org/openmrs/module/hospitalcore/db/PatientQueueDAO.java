@@ -124,5 +124,8 @@ public interface PatientQueueDAO {
 	public List<OpdPatientQueue> getAllOpdPatientQueueWithinDatePerUser(Date startDate, Date endDate, User user, String status) throws DAOException;
 	Long getPatientQueueLogCounts(Date paramDate1, Date paramDate2, Concept paramConcept) throws DAOException;
 
+	public TriagePatientQueue getTriagePatientQueueByPatient(Patient patient) throws DAOException;
+	public OpdPatientQueue getOpdPatientQueueByPatient(Patient patient) throws DAOException;
+
 }
 
