@@ -79,6 +79,7 @@ public class HibernatePatientQueueDAO implements PatientQueueDAO {
 	public OpdPatientQueue getOpdPatientQueueById(Integer id) throws DAOException {
 		Criteria criteria = sessionFactory.getCurrentSession().createCriteria(OpdPatientQueue.class);
 		criteria.add(Restrictions.eq("id", id));
+		criteria.add(Restrictions.eq("clearedToNextServicePoint", 1));
 		OpdPatientQueue opdPatientQueue = (OpdPatientQueue) criteria.uniqueResult();
 		return opdPatientQueue;
 	}
@@ -130,7 +131,7 @@ public class HibernatePatientQueueDAO implements PatientQueueDAO {
 			System.out.println("Error convert date: "+ e.toString());
 			e.printStackTrace();
 		}
-		criteria.add(Restrictions.eq("queue.clearedToNextServicePoint", true));
+		criteria.add(Restrictions.eq("queue.clearedToNextServicePoint", 1));
 		criteria.addOrder(Order.desc("queue.createdOn"));
 		
 		List<OpdPatientQueue> list = criteria.list();
@@ -172,6 +173,7 @@ public class HibernatePatientQueueDAO implements PatientQueueDAO {
 			System.out.println("Error convert date: "+ e.toString());
 			e.printStackTrace();
 		}
+		criteria.add(Restrictions.eq("opdPatientQueue.clearedToNextServicePoint", 1));
 		criteria.addOrder(Order.asc("opdPatientQueue.createdOn"));
 		if(max > 0){
 			criteria.setFirstResult(min).setMaxResults(max);
@@ -261,7 +263,7 @@ public class HibernatePatientQueueDAO implements PatientQueueDAO {
 			System.out.println("Error convert date: "+ e.toString());
 			e.printStackTrace();
 		}
-		criteria.add(Restrictions.eq("queue.clearedToNextServicePoint", true));
+		criteria.add(Restrictions.eq("queue.clearedToNextServicePoint", 1));
 		criteria.addOrder(Order.desc("queue.createdOn"));
 		
 		List<TriagePatientQueue> list = criteria.list();
@@ -271,6 +273,7 @@ public class HibernatePatientQueueDAO implements PatientQueueDAO {
 	public TriagePatientQueue getTriagePatientQueueById(Integer id) throws DAOException {
 		Criteria criteria = sessionFactory.getCurrentSession().createCriteria(TriagePatientQueue.class, "queue");
 		criteria.add(Restrictions.eq("queue.id", id));
+		criteria.add(Restrictions.eq("queue.clearedToNextServicePoint", 1));
 		return (TriagePatientQueue) criteria.uniqueResult();
 	}
 	
@@ -301,6 +304,7 @@ public class HibernatePatientQueueDAO implements PatientQueueDAO {
 			System.out.println("Error convert date: "+ e.toString());
 			e.printStackTrace();
 		}
+		criteria.add(Restrictions.eq("triagePatientQueue.clearedToNextServicePoint", 1));
 		criteria.addOrder(Order.asc("triagePatientQueue.createdOn"));
 		if(max > 0){
 			criteria.setFirstResult(min).setMaxResults(max);
@@ -702,14 +706,16 @@ public class HibernatePatientQueueDAO implements PatientQueueDAO {
 	public TriagePatientQueue getTriagePatientQueueByPatient(Patient patient) throws DAOException {
 		Criteria criteria = sessionFactory.getCurrentSession().createCriteria(TriagePatientQueue.class);
 		criteria.add(Restrictions.eq("patient", patient));
-		return (TriagePatientQueue) criteria.list().get(0);
+		List<TriagePatientQueue> list = criteria.list();
+		return CollectionUtils.isNotEmpty(list) ? list.get(0) : null;
 	}
 
 	@Override
 	public OpdPatientQueue getOpdPatientQueueByPatient(Patient patient) throws DAOException {
 		Criteria criteria = sessionFactory.getCurrentSession().createCriteria(OpdPatientQueue.class);
 		criteria.add(Restrictions.eq("patient", patient));
-		return (OpdPatientQueue) criteria.list().get(0);
+		List<OpdPatientQueue> list = criteria.list();
+		return CollectionUtils.isNotEmpty(list) ? list.get(0) : null;
 	}
 
 }

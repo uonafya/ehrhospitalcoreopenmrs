@@ -163,13 +163,13 @@ public class TriagePatientQueue implements  Serializable {
 		this.visitStatus = visitStatus;
 	}
 
-	private boolean clearedToNextServicePoint;
+	private Integer clearedToNextServicePoint;
 
-	public boolean isClearedToNextServicePoint() {
+	public Integer getClearedToNextServicePoint() {
 		return clearedToNextServicePoint;
 	}
 
-	public void setClearedToNextServicePoint(boolean clearedToNextServicePoint) {
+	public void setClearedToNextServicePoint(Integer clearedToNextServicePoint) {
 		this.clearedToNextServicePoint = clearedToNextServicePoint;
 	}
 

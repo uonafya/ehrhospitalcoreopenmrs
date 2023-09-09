@@ -172,13 +172,13 @@ public class OpdPatientQueue implements  Serializable {
 		this.visitStatus = visitStatus;
 	}
 
-	private boolean clearedToNextServicePoint;
+	private Integer clearedToNextServicePoint;
 
-	public boolean getClearedToNextServicePoint() {
+	public Integer getClearedToNextServicePoint() {
 		return clearedToNextServicePoint;
 	}
 
-	public void setClearedToNextServicePoint(boolean clearedToNextServicePoint) {
+	public void setClearedToNextServicePoint(Integer clearedToNextServicePoint) {
 		this.clearedToNextServicePoint = clearedToNextServicePoint;
 	}
 

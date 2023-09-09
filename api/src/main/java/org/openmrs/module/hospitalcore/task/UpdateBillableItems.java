@@ -1,6 +1,7 @@
 package org.openmrs.module.hospitalcore.task;
 
 import org.openmrs.Concept;
+import org.openmrs.ConceptAnswer;
 import org.openmrs.api.ConceptService;
 import org.openmrs.api.context.Context;
 import org.openmrs.module.hospitalcore.BillingService;
@@ -11,6 +12,7 @@ import org.openmrs.scheduler.tasks.AbstractTask;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
@@ -66,7 +68,7 @@ public class UpdateBillableItems extends AbstractTask {
           || conceptWithService.getConceptClass().equals(conceptService.getConceptClassByUuid("8d492026-c2cc-11de-8d13-0010c6dffd0f"))) {
          ehrDepartment = getDepartment("Laboratory");
        }
-       else if(conceptWithService.getConceptClass().equals(conceptService.getConceptClassByUuid("8d490bf4-c2cc-11de-8d13-0010c6dffd0f"))) {
+       else if(conceptWithService.getConceptClass().equals(conceptService.getConceptClassByUuid("8d490bf4-c2cc-11de-8d13-0010c6dffd0f")) && !(getDentalConcepts().contains(conceptService.getConcept(conceptWithService.getConceptId())))) {
          ehrDepartment = getDepartment("Procedure");
        }
        else if(conceptWithService.getConceptClass().equals(conceptService.getConceptClassByUuid("8caa332c-efe4-4025-8b18-3398328e1323"))) {
@@ -74,6 +76,9 @@ public class UpdateBillableItems extends AbstractTask {
        }
        else if(getRegistrationConcepts().contains(conceptWithService)) {
          ehrDepartment = getDepartment("Registration");
+       }
+       else if(getDentalConcepts().contains(conceptWithService)) {
+         ehrDepartment = getDepartment("Dental");
        }
        else {
          ehrDepartment = getDepartment("General");
@@ -102,5 +107,15 @@ public class UpdateBillableItems extends AbstractTask {
             conceptService.getConceptByUuid("caf177ab-8d96-45bb-8ab4-f66507f11b2b"),
             conceptService.getConceptByUuid("a6deb3a8-e9a6-41fc-a221-469b8a364f9b")
     );
+  }
+
+  private List<Concept> getDentalConcepts() {
+    List<Concept> conceptList = new ArrayList<Concept>();
+    ConceptService conceptService = Context.getConceptService();
+    Concept dentalQuestion = conceptService.getConceptByUuid("a59d59b9-f77f-4de0-bdb7-a942284718f2");
+    for(ConceptAnswer concept : dentalQuestion.getAnswers()) {
+      conceptList.add(concept.getConcept());
+    }
+    return conceptList;
   }
 }
