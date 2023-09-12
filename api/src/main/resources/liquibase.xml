@@ -2222,7 +2222,7 @@
         <comment>Add identifier_type columns to ehr_opd_numbers</comment>
         <sql>
             ALTER TABLE  ehr_opd_numbers
-            ADD COLUMN `identifier_type` int(11) DEFAULT NULL;
+            ADD COLUMN `identifier_type` int(11) DEFAULT '1';
         </sql>
     </changeSet>
 

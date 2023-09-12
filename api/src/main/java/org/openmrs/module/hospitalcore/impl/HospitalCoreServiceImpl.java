@@ -51,6 +51,7 @@ import org.openmrs.api.impl.BaseOpenmrsService;
 import org.openmrs.module.appointments.model.Appointment;
 import org.openmrs.module.appointments.model.AppointmentServiceType;
 import org.openmrs.module.hospitalcore.HospitalCoreService;
+import org.openmrs.module.hospitalcore.IdentifierTypes;
 import org.openmrs.module.hospitalcore.concept.ConceptModel;
 import org.openmrs.module.hospitalcore.concept.Mapping;
 import org.openmrs.module.hospitalcore.concept.Synonym;
@@ -928,6 +929,7 @@ public class HospitalCoreServiceImpl extends BaseOpenmrsService implements
 
 	@Override
 	public String generateOpdNumber(String identifierType, Integer type) throws APIException {
+		String numberGenerated = "";
 		IdentifierNumbersGenerator lastOpdNumbersGenerator = dao.getLastSavedOpdNumber(type);
 
 		String facilityName = getDefaultLocation().getName();
@@ -936,7 +938,9 @@ public class HospitalCoreServiceImpl extends BaseOpenmrsService implements
 		int currentYear;
 
 		int count = 0;
+		System.out.println("The system outside is >>"+lastOpdNumbersGenerator);
 		if(lastOpdNumbersGenerator != null && StringUtils.isNotBlank(lastOpdNumbersGenerator.getIdentifier())) {
+			System.out.println("The identifier found is inside is >>"+lastOpdNumbersGenerator.getIdentifier());
 			count = Integer.parseInt(lastOpdNumbersGenerator.getIdentifier().split("/")[4]);
 			currentYear = Integer.parseInt(lastOpdNumbersGenerator.getIdentifier().split("/")[3]);
 		}
@@ -954,13 +958,18 @@ public class HospitalCoreServiceImpl extends BaseOpenmrsService implements
 			currentYear = Calendar.getInstance().get(Calendar.YEAR);
 		}
 		count++;
-
-		return identifierType+"/"+firstLetters.toString().toUpperCase()+"/"+mflCode+"/"+currentYear+"/"+count;
+		numberGenerated = identifierType+"/"+firstLetters.toString().toUpperCase()+"/"+mflCode+"/"+currentYear+"/"+count;
+		System.out.println("The number generated is >>> "+numberGenerated);
+		return numberGenerated;
 	}
 
 	@Override
 	public void savePatientOpdNumbers(Patient patient, String identifierType, String patientIdentifier, Integer type) throws APIException {
+		System.out.println("identifierType"+ identifierType);
+		System.out.println("type"+ type);
 		String number = generateOpdNumber(identifierType, type);
+		System.out.println("Identifier found"+ number);
+
 		IdentifierNumbersGenerator opdNumbersGenerator = new IdentifierNumbersGenerator();
 		opdNumbersGenerator.setPatientId(patient.getPatientId());
 		opdNumbersGenerator.setIdentifier(number);
@@ -976,6 +985,7 @@ public class HospitalCoreServiceImpl extends BaseOpenmrsService implements
 		opdPatientIdentifier.setIdentifierType(patientIdentifierType);
 		opdPatientIdentifier.setIdentifier(number);
 		opdPatientIdentifier.setPatient(patient);
+		opdPatientIdentifier.setPreferred(true);
 
 		//save the patient identifier
 		patientService.savePatientIdentifier(opdPatientIdentifier);
