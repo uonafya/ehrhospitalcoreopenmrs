@@ -965,19 +965,14 @@ public class HospitalCoreServiceImpl extends BaseOpenmrsService implements
 
 	@Override
 	public void savePatientOpdNumbers(Patient patient, String identifierType, String patientIdentifier, Integer type) throws APIException {
-		System.out.println("identifierType"+ identifierType);
-		System.out.println("type"+ type);
 		String number = generateOpdNumber(identifierType, type);
-		System.out.println("Identifier found"+ number);
 
 		IdentifierNumbersGenerator opdNumbersGenerator = new IdentifierNumbersGenerator();
 		opdNumbersGenerator.setPatientId(patient.getPatientId());
 		opdNumbersGenerator.setIdentifier(number);
 		opdNumbersGenerator.setDateCreated(new Date());
 		opdNumbersGenerator.setCreatedBy(Context.getAuthenticatedUser().getUserId());
-
-		//save the object
-		saveOpdNumbersGenerator(opdNumbersGenerator);
+		opdNumbersGenerator.setIdentifierType(type);
 		//save patient identifier
 		PatientService patientService = Context.getPatientService();
 		PatientIdentifierType patientIdentifierType = patientService.getPatientIdentifierTypeByUuid(patientIdentifier);
@@ -989,6 +984,9 @@ public class HospitalCoreServiceImpl extends BaseOpenmrsService implements
 
 		//save the patient identifier
 		patientService.savePatientIdentifier(opdPatientIdentifier);
+
+		//save the object
+		saveOpdNumbersGenerator(opdNumbersGenerator);
 
 	}
 
