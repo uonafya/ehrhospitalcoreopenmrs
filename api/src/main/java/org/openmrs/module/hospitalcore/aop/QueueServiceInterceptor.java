@@ -47,7 +47,7 @@ public class QueueServiceInterceptor implements MethodInterceptor {
                 opdPatientQueue.setVisitStatus("Revisit Patient");
                 opdPatientQueue.setPatientIdentifier(queue.getPatient().getPatientIdentifier().getIdentifier());
                 opdPatientQueue.setCategory("Paying");//visitAttribute
-                opdPatientQueue.setReferralConcept((queue.getLocationComingFrom()!=null)?queue.getLocationComingFrom().getService():null);
+                opdPatientQueue.setReferralConcept((queue.getQueueComingFrom()!=null)?queue.getQueueComingFrom().getService():null);
                 //if paying send registration fee to cashier, check if bill had been settled over today
                 //sent to these service queue
                 patientQueueService.saveOpdPatientQueue(opdPatientQueue);

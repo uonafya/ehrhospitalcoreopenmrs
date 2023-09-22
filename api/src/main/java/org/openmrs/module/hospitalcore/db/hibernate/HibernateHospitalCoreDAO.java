@@ -48,6 +48,7 @@ import org.openmrs.Provider;
 import org.openmrs.api.APIException;
 import org.openmrs.api.context.Context;
 import org.openmrs.api.db.DAOException;
+import org.openmrs.logic.op.Or;
 import org.openmrs.module.appointments.model.Appointment;
 import org.openmrs.module.appointments.model.AppointmentServiceType;
 import org.openmrs.module.hospitalcore.HospitalCoreService;
@@ -973,6 +974,7 @@ public class HibernateHospitalCoreDAO implements HospitalCoreDAO {
     @Override
     public List<MorgueAdmission> getMorgueAdmissionList(Date startDate, Date endDate) throws DAOException {
         Criteria criteria = sessionFactory.getCurrentSession().createCriteria(MorgueAdmission.class);
+        criteria.add(Restrictions.eq("status", 2));
         if(startDate == null && endDate == null) {
             criteria.add(Restrictions.and(Restrictions.ge("createdOn", DateUtils.getStartOfDay(new Date())),
                     Restrictions.le("createdOn", DateUtils.getEndOfDay(new Date()))));
@@ -983,6 +985,7 @@ public class HibernateHospitalCoreDAO implements HospitalCoreDAO {
         if(endDate != null) {
             criteria.add(Restrictions.le("createdOn", DateUtils.getEndOfDay(endDate)));
         }
+        criteria.addOrder(Order.asc("createdOn"));
         return criteria.list();
     }
 

@@ -23,5 +23,6 @@
 		<property name="bodyType" column="body_type"  type="java.lang.String" length="255" />
 		<many-to-one name="createdBy" column="created_by" class="org.openmrs.User"/>
 		<property name="createdOn" column="created_on" />
+		<property name="status" column="status" />
 	</class>
 </hibernate-mapping>

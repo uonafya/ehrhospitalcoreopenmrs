@@ -159,6 +159,16 @@ public class MorgueAdmission implements Serializable{
 
 	private User createdBy;
 
+	public Integer getStatus() {
+		return status;
+	}
+
+	public void setStatus(Integer status) {
+		this.status = status;
+	}
+
+	private Integer status;
+
 
 
 }
