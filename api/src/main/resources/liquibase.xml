@@ -2317,5 +2317,15 @@
             queue_entry(queue_entry_id);
         </sql>
     </changeSet>
+    <changeSet id="2FC0FC33-C664-476C-9503-A64BA10CDF71" author="ningosi">
+        <preConditions onFail="MARK_RAN" onError="WARN">
+            <dbms type="mysql"/>
+        </preConditions>
+        <comment>Add status columns to morgue_patient_admission</comment>
+        <sql>
+            ALTER TABLE  morgue_patient_admission
+            ADD COLUMN `status` int(11) DEFAULT '0';
+        </sql>
+    </changeSet>
 
 </databaseChangeLog>
