@@ -17,6 +17,9 @@
         <property name="createdBy" type="java.lang.Integer" length="11" column="created_by" />
         <many-to-one name="reasonOfDeath" class="org.openmrs.Concept" column="reason_of_death" />
         <property name="status" type="java.lang.Integer" length="11" column="status" />
+        <property name="maritalStatus" type="java.lang.String" length="255" column="marital_status" />
+        <property name="placeOfBirth" type="java.lang.String" length="255" column="place_of_birth" />
+        <property name="notes" type="java.lang.String" length="255" column="notes" />
 
     </class>
 </hibernate-mapping>

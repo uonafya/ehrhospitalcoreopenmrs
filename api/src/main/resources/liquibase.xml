@@ -2328,4 +2328,21 @@
         </sql>
     </changeSet>
 
+    <changeSet id="7B566CCE-6193-4D54-9B2E-8B1BAC99DAE8" author="ningosi">
+        <preConditions onFail="MARK_RAN" onError="WARN">
+            <dbms type="mysql"/>
+        </preConditions>
+        <comment>Add marital_status,place_of_birth,notes columns to ehr_morgue_queue</comment>
+        <sql>
+            ALTER TABLE  ehr_morgue_queue
+            ADD COLUMN `marital_status` varchar(255) DEFAULT NULL;
+
+            ALTER TABLE  ehr_morgue_queue
+            ADD COLUMN `place_of_birth` varchar(255) DEFAULT NULL;
+
+            ALTER TABLE  ehr_morgue_queue
+            ADD COLUMN `notes` varchar(255) DEFAULT NULL;
+        </sql>
+    </changeSet>
+
 </databaseChangeLog>
