@@ -24,5 +24,6 @@
 		<many-to-one name="createdBy" column="created_by" class="org.openmrs.User"/>
 		<property name="createdOn" column="created_on" />
 		<property name="status" column="status" />
+		<property name="identifier" column="identifier" />
 	</class>
 </hibernate-mapping>

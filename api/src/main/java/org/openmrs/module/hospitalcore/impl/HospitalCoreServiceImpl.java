@@ -938,9 +938,7 @@ public class HospitalCoreServiceImpl extends BaseOpenmrsService implements
 		int currentYear;
 
 		int count = 0;
-		System.out.println("The system outside is >>"+lastOpdNumbersGenerator);
 		if(lastOpdNumbersGenerator != null && StringUtils.isNotBlank(lastOpdNumbersGenerator.getIdentifier())) {
-			System.out.println("The identifier found is inside is >>"+lastOpdNumbersGenerator.getIdentifier());
 			count = Integer.parseInt(lastOpdNumbersGenerator.getIdentifier().split("/")[4]);
 			currentYear = Integer.parseInt(lastOpdNumbersGenerator.getIdentifier().split("/")[3]);
 		}
@@ -959,7 +957,6 @@ public class HospitalCoreServiceImpl extends BaseOpenmrsService implements
 		}
 		count++;
 		numberGenerated = identifierType+"/"+firstLetters.toString().toUpperCase()+"/"+mflCode+"/"+currentYear+"/"+count;
-		System.out.println("The number generated is >>> "+numberGenerated);
 		return numberGenerated;
 	}
 
@@ -1099,8 +1096,8 @@ public class HospitalCoreServiceImpl extends BaseOpenmrsService implements
 	}
 
 	@Override
-	public List<MorgueAdmission> getMorgueAdmissionList(Date startDate, Date endDate) throws APIException {
-		return dao.getMorgueAdmissionList(startDate, endDate);
+	public List<MorgueAdmission> getMorgueAdmissionList(Date startDate, Date endDate, Integer status) throws APIException {
+		return dao.getMorgueAdmissionList(startDate, endDate, status);
 	}
 
 }

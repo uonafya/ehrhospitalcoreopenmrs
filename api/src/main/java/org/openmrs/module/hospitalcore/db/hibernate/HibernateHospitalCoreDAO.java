@@ -972,9 +972,9 @@ public class HibernateHospitalCoreDAO implements HospitalCoreDAO {
     }
 
     @Override
-    public List<MorgueAdmission> getMorgueAdmissionList(Date startDate, Date endDate) throws DAOException {
+    public List<MorgueAdmission> getMorgueAdmissionList(Date startDate, Date endDate, Integer status) throws DAOException {
         Criteria criteria = sessionFactory.getCurrentSession().createCriteria(MorgueAdmission.class);
-        criteria.add(Restrictions.eq("status", 2));
+        criteria.add(Restrictions.eq("status", status));
         /*if(startDate == null && endDate == null) {
             criteria.add(Restrictions.and(Restrictions.ge("createdOn", DateUtils.getStartOfDay(new Date())),
                     Restrictions.le("createdOn", DateUtils.getEndOfDay(new Date()))));

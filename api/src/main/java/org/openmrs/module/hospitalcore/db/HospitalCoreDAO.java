@@ -188,5 +188,5 @@ public interface HospitalCoreDAO {
 	public List<Appointment> getPatientAppointments(Patient patient) throws DAOException;
 
 	public MorgueAdmission saveMorgueAdmission(MorgueAdmission morgueAdmission) throws DAOException;
-	public List<MorgueAdmission> getMorgueAdmissionList(Date startDate, Date endDate) throws DAOException;
+	public List<MorgueAdmission> getMorgueAdmissionList(Date startDate, Date endDate, Integer status) throws DAOException;
 }

@@ -2345,4 +2345,15 @@
         </sql>
     </changeSet>
 
+    <changeSet id="4A7465B5-70E5-472D-B942-11EDC89D6A5D" author="ningosi">
+        <preConditions onFail="MARK_RAN" onError="WARN">
+            <dbms type="mysql"/>
+        </preConditions>
+        <comment>Add identifier columns to morgue_patient_admission</comment>
+        <sql>
+            ALTER TABLE  morgue_patient_admission
+            ADD COLUMN `identifier` varchar(11) DEFAULT NULL;
+        </sql>
+    </changeSet>
+
 </databaseChangeLog>

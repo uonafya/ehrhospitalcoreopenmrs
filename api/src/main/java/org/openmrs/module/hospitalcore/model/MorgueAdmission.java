@@ -169,6 +169,16 @@ public class MorgueAdmission implements Serializable{
 
 	private Integer status;
 
+	public String getIdentifier() {
+		return identifier;
+	}
+
+	public void setIdentifier(String identifier) {
+		this.identifier = identifier;
+	}
+
+	private String identifier;
+
 
 
 }
