@@ -193,4 +193,9 @@ public interface HospitalCoreDAO {
 	public MorgueAdmission getMorgueAdmissionById(Integer morgueAdmissionId) throws DAOException;
 
 	public EhrMorgueStrength getEhrMorgueStrengthById(Integer strengthId) throws DAOException;
+
+	public MorgueCompatimentAllocation saveMorgueCompartmentAllocation(MorgueCompatimentAllocation morgueCompatimentAllocation) throws DAOException;
+	public List<MorgueCompatimentAllocation> getMorgueCompartmentAllocationList(Integer allocated) throws DAOException;
+
+	public MorgueCompatimentAllocation getMorgueCompartmentAllocationById(Integer morgueCompartmentAllocationId) throws DAOException;
 }

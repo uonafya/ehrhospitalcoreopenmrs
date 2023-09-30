@@ -1,0 +1,18 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC
+        "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+        "http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd" >
+
+<hibernate-mapping package="org.openmrs.module.hospitalcore.model">
+
+    <class name="MorgueCompatimentAllocation" table="morgue_compartment_allocation" batch-size="500">
+
+        <id name="compartimentId" type="int" column="morgue_compartment_id" unsaved-value="0">
+            <generator class="native" />
+        </id>
+        <property name="compartimentNumber" column="compartment_number" />
+        <property name="allocated" column="allocated" />
+        <property name="voided" column="voided" />
+        <many-to-one name="morgueStrength" column="morgue_strength" class="EhrMorgueStrength" lazy="false" />
+    </class>
+</hibernate-mapping>

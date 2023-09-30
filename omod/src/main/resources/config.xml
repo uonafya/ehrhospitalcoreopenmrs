@@ -203,6 +203,7 @@
 		EhrMorgueQueue.hbm.xml
 		EhrMorgueStrength.hbm.xml
 		MorgueAdmission.hbm.xml
+		MorgueCompatimentAllocation.hbm.xml
 
 	</mappingFiles>
 </module>

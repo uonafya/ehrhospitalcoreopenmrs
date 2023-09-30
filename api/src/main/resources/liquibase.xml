@@ -2356,4 +2356,21 @@
         </sql>
     </changeSet>
 
+    <changeSet id="237B10FE-CA12-41C6-B21B-56402A4E81A5" author="ningosi">
+        <preConditions onFail="MARK_RAN" onError="WARN">
+            <dbms type="mysql"/>
+        </preConditions>
+        <comment>Add table morgue_compartment_allocation</comment>
+        <sql>
+            CREATE TABLE IF NOT EXISTS `morgue_compartment_allocation`(
+            `morgue_compartment_id` int(11) NOT NULL AUTO_INCREMENT,
+            `morgue_strength` int(11) NOT NULL,
+            `compartment_number` varchar(255) NOT NULL,
+            `allocated` int(11) DEFAULT '0',
+            `voided` int(11) DEFAULT '0',
+            PRIMARY KEY (`morgue_compartment_id`)
+            ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+        </sql>
+    </changeSet>
+
 </databaseChangeLog>
