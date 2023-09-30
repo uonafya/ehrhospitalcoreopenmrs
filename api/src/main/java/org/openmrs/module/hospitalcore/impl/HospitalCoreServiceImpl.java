@@ -1116,8 +1116,8 @@ public class HospitalCoreServiceImpl extends BaseOpenmrsService implements
 	}
 
 	@Override
-	public List<MorgueCompatimentAllocation> getMorgueCompartmentAllocationList(Integer allocated) throws APIException {
-		return dao.getMorgueCompartmentAllocationList(allocated);
+	public List<MorgueCompatimentAllocation> getMorgueCompartmentAllocationList(EhrMorgueStrength ehrMorgueStrength, Integer allocated) throws APIException {
+		return dao.getMorgueCompartmentAllocationList(ehrMorgueStrength, allocated);
 	}
 
 	@Override

@@ -1006,8 +1006,9 @@ public class HibernateHospitalCoreDAO implements HospitalCoreDAO {
     }
 
     @Override
-    public List<MorgueCompatimentAllocation> getMorgueCompartmentAllocationList(Integer allocated) throws DAOException {
+    public List<MorgueCompatimentAllocation> getMorgueCompartmentAllocationList(EhrMorgueStrength ehrMorgueStrength, Integer allocated) throws DAOException {
         Criteria criteria = sessionFactory.getCurrentSession().createCriteria(MorgueCompatimentAllocation.class);
+        criteria.add(Restrictions.eq("ehrMorgueStrength", ehrMorgueStrength));
         criteria.add(Restrictions.eq("allocated", allocated));
         criteria.add(Restrictions.eq("voided", 0));
         return criteria.list();
