@@ -301,6 +301,8 @@ public interface HospitalCoreService extends OpenmrsService {
 	public EhrMorgueStrength saveEhrMorgueStrength(EhrMorgueStrength ehrMorgueStrength) throws APIException;
 	public List<EhrMorgueStrength> getEhrMorgueStrength() throws APIException;
 
+	public EhrMorgueStrength getEhrMorgueStrengthById(Integer strengthId) throws APIException;
+
 	/**
 	 * Sets the default location for this server, i.e. the value that should be auto-set for new
 	 * encounters, visits, etc.
@@ -339,4 +341,6 @@ public interface HospitalCoreService extends OpenmrsService {
 
 	public MorgueAdmission saveMorgueAdmission(MorgueAdmission morgueAdmission) throws APIException;
 	public List<MorgueAdmission> getMorgueAdmissionList(Date startDate, Date endDate, Integer status) throws APIException;
+
+	public MorgueAdmission getMorgueAdmissionById(Integer morgueAdmissionId) throws APIException;
 }

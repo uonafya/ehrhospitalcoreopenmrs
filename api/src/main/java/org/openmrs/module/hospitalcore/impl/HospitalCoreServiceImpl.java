@@ -1016,6 +1016,11 @@ public class HospitalCoreServiceImpl extends BaseOpenmrsService implements
 		return dao.getEhrMorgueStrength();
 	}
 
+	@Override
+	public EhrMorgueStrength getEhrMorgueStrengthById(Integer strengthId) throws APIException {
+		return dao.getEhrMorgueStrengthById(strengthId);
+	}
+
 
 	/**
 	 *
@@ -1098,6 +1103,11 @@ public class HospitalCoreServiceImpl extends BaseOpenmrsService implements
 	@Override
 	public List<MorgueAdmission> getMorgueAdmissionList(Date startDate, Date endDate, Integer status) throws APIException {
 		return dao.getMorgueAdmissionList(startDate, endDate, status);
+	}
+
+	@Override
+	public MorgueAdmission getMorgueAdmissionById(Integer morgueAdmissionId) throws APIException {
+		return dao.getMorgueAdmissionById(morgueAdmissionId);
 	}
 
 }
