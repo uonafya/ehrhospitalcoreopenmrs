@@ -27,7 +27,6 @@
 	<properties>
 		<openMRSVersion>2.3.3</openMRSVersion>
 		<legacyUiVersion>1.5.0</legacyUiVersion>
-		<kenyaemrVersion>18.5.1</kenyaemrVersion>
 		<metadatadeployVersion>1.3</metadatadeployVersion>
 		<bahmniAppointmentsVersion>1.5.0-SNAPSHOT</bahmniAppointmentsVersion>
 		<openMRSQueueVersion> 1.0.0-SNAPSHOT</openMRSQueueVersion>
