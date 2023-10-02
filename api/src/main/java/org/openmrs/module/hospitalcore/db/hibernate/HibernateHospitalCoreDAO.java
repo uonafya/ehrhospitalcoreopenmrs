@@ -1017,6 +1017,16 @@ public class HibernateHospitalCoreDAO implements HospitalCoreDAO {
         return (MorgueCompartmentAllocation) sessionFactory.getCurrentSession().get(MorgueCompartmentAllocation.class, morgueCompartmentAllocationId);
     }
 
+    @Override
+    public MorgueCompartmentAllocation getMorgueCompartmentAllocationUsed(Integer morgueStrength, String compartmentId) throws DAOException {
+        Criteria criteria = sessionFactory.getCurrentSession().createCriteria(MorgueCompartmentAllocation.class);
+        criteria.add(Restrictions.eq("morgueStrength", morgueStrength));
+        criteria.add(Restrictions.eq("compartmentNumber", compartmentId));
+        criteria.add(Restrictions.eq("allocated", 0));
+        criteria.add(Restrictions.eq("voided", 0));
+        return (MorgueCompartmentAllocation) criteria.uniqueResult();
+    }
+
     public  void setAllPatientServiceBillItemsByDateCriteria(Criteria criteria, String fromDate,String toDate){
         String fromDateWithTime = fromDate+" 00:00:00";
         String endDateWithTime = toDate+" 23:59:59";

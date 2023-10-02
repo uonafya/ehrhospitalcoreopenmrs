@@ -2352,7 +2352,7 @@
         <comment>Add identifier columns to morgue_patient_admission</comment>
         <sql>
             ALTER TABLE  morgue_patient_admission
-            ADD COLUMN `identifier` varchar(11) DEFAULT NULL;
+            ADD COLUMN `identifier` varchar(255) DEFAULT NULL;
         </sql>
     </changeSet>
 
@@ -2370,6 +2370,17 @@
             `voided` int(11) DEFAULT '0',
             PRIMARY KEY (`morgue_compartment_id`)
             ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+        </sql>
+    </changeSet>
+
+    <changeSet id="B17E2883-908A-4A89-998F-55B4A2BD672A" author="ningosi">
+        <preConditions onFail="MARK_RAN" onError="WARN">
+            <dbms type="mysql"/>
+        </preConditions>
+        <comment>Add morgue unit columns to morgue_patient_admission</comment>
+        <sql>
+            ALTER TABLE  morgue_patient_admission
+            ADD COLUMN `ehr_morgue_strength` int(11) NOT NULL;
         </sql>
     </changeSet>
 

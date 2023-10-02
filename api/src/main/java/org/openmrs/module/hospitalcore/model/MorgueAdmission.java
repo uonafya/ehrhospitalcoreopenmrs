@@ -179,6 +179,16 @@ public class MorgueAdmission implements Serializable{
 
 	private String identifier;
 
+	public EhrMorgueStrength getEhrMorgueStrength() {
+		return ehrMorgueStrength;
+	}
+
+	public void setEhrMorgueStrength(EhrMorgueStrength ehrMorgueStrength) {
+		this.ehrMorgueStrength = ehrMorgueStrength;
+	}
+
+	private EhrMorgueStrength ehrMorgueStrength;
+
 
 
 }

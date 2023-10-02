@@ -25,5 +25,6 @@
 		<property name="createdOn" column="created_on" />
 		<property name="status" column="status" />
 		<property name="identifier" column="identifier" />
+		<many-to-one name="ehrMorgueStrength" column="ehr_morgue_strength" class="org.openmrs.module.hospitalcore.model.EhrMorgueStrength"  />
 	</class>
 </hibernate-mapping>

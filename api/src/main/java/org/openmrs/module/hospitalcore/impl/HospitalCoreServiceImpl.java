@@ -1125,4 +1125,9 @@ public class HospitalCoreServiceImpl extends BaseOpenmrsService implements
 		return dao.getMorgueCompartmentAllocationById(morgueCompartmentAllocationId);
 	}
 
+	@Override
+	public MorgueCompartmentAllocation getMorgueCompartmentAllocationUsed(Integer morgueStrength, String compartmentId) throws APIException {
+		return dao.getMorgueCompartmentAllocationUsed(morgueStrength, compartmentId);
+	}
+
 }
