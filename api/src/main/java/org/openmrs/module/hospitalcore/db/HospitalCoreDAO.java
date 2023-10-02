@@ -32,7 +32,6 @@ import org.openmrs.PersonAddress;
 import org.openmrs.PersonAttribute;
 import org.openmrs.PersonAttributeType;
 import org.openmrs.Provider;
-import org.openmrs.api.APIException;
 import org.openmrs.api.db.DAOException;
 import org.openmrs.module.appointments.model.Appointment;
 import org.openmrs.module.appointments.model.AppointmentServiceType;
@@ -194,8 +193,8 @@ public interface HospitalCoreDAO {
 
 	public EhrMorgueStrength getEhrMorgueStrengthById(Integer strengthId) throws DAOException;
 
-	public MorgueCompatimentAllocation saveMorgueCompartmentAllocation(MorgueCompatimentAllocation morgueCompatimentAllocation) throws DAOException;
-	public List<MorgueCompatimentAllocation> getMorgueCompartmentAllocationList(EhrMorgueStrength ehrMorgueStrength, Integer allocated) throws DAOException;
+	public MorgueCompartmentAllocation saveMorgueCompartmentAllocation(MorgueCompartmentAllocation morgueCompatimentAllocation) throws DAOException;
+	public List<MorgueCompartmentAllocation> getMorgueCompartmentAllocationList(Integer ehrMorgueStrengtId, Integer allocated) throws DAOException;
 
-	public MorgueCompatimentAllocation getMorgueCompartmentAllocationById(Integer morgueCompartmentAllocationId) throws DAOException;
+	public MorgueCompartmentAllocation getMorgueCompartmentAllocationById(Integer morgueCompartmentAllocationId) throws DAOException;
 }

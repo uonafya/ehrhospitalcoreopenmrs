@@ -48,7 +48,6 @@ import org.openmrs.Provider;
 import org.openmrs.api.APIException;
 import org.openmrs.api.context.Context;
 import org.openmrs.api.db.DAOException;
-import org.openmrs.logic.op.Or;
 import org.openmrs.module.appointments.model.Appointment;
 import org.openmrs.module.appointments.model.AppointmentServiceType;
 import org.openmrs.module.hospitalcore.HospitalCoreService;
@@ -977,10 +976,7 @@ public class HibernateHospitalCoreDAO implements HospitalCoreDAO {
     public List<MorgueAdmission> getMorgueAdmissionList(Date startDate, Date endDate, Integer status) throws DAOException {
         Criteria criteria = sessionFactory.getCurrentSession().createCriteria(MorgueAdmission.class);
         criteria.add(Restrictions.eq("status", status));
-        /*if(startDate == null && endDate == null) {
-            criteria.add(Restrictions.and(Restrictions.ge("createdOn", DateUtils.getStartOfDay(new Date())),
-                    Restrictions.le("createdOn", DateUtils.getEndOfDay(new Date()))));
-        }*/
+
         if(startDate != null) {
             criteria.add(Restrictions.ge("createdOn", DateUtils.getStartOfDay(startDate)));
         }
@@ -1002,23 +998,23 @@ public class HibernateHospitalCoreDAO implements HospitalCoreDAO {
     }
 
     @Override
-    public MorgueCompatimentAllocation saveMorgueCompartmentAllocation(MorgueCompatimentAllocation morgueCompatimentAllocation) throws DAOException {
+    public MorgueCompartmentAllocation saveMorgueCompartmentAllocation(MorgueCompartmentAllocation morgueCompatimentAllocation) throws DAOException {
         sessionFactory.getCurrentSession().saveOrUpdate(morgueCompatimentAllocation);
         return morgueCompatimentAllocation;
     }
 
     @Override
-    public List<MorgueCompatimentAllocation> getMorgueCompartmentAllocationList(EhrMorgueStrength ehrMorgueStrength, Integer allocated) throws DAOException {
-        Criteria criteria = sessionFactory.getCurrentSession().createCriteria(MorgueCompatimentAllocation.class);
-        criteria.add(Restrictions.eq("ehrMorgueStrength", ehrMorgueStrength));
+    public List<MorgueCompartmentAllocation> getMorgueCompartmentAllocationList(Integer ehrMorgueStrengthId, Integer allocated) throws DAOException {
+        Criteria criteria = sessionFactory.getCurrentSession().createCriteria(MorgueCompartmentAllocation.class, "morg");
+        criteria.add(Restrictions.eq("morg.morgueStrength", ehrMorgueStrengthId));
         criteria.add(Restrictions.eq("allocated", allocated));
         criteria.add(Restrictions.eq("voided", 0));
         return criteria.list();
     }
 
     @Override
-    public MorgueCompatimentAllocation getMorgueCompartmentAllocationById(Integer morgueCompartmentAllocationId) throws DAOException {
-        return (MorgueCompatimentAllocation) sessionFactory.getCurrentSession().get(MorgueCompatimentAllocation.class, morgueCompartmentAllocationId);
+    public MorgueCompartmentAllocation getMorgueCompartmentAllocationById(Integer morgueCompartmentAllocationId) throws DAOException {
+        return (MorgueCompartmentAllocation) sessionFactory.getCurrentSession().get(MorgueCompartmentAllocation.class, morgueCompartmentAllocationId);
     }
 
     public  void setAllPatientServiceBillItemsByDateCriteria(Criteria criteria, String fromDate,String toDate){

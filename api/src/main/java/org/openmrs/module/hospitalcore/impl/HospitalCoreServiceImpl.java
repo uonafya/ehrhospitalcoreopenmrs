@@ -63,7 +63,7 @@ import org.openmrs.module.hospitalcore.model.EhrMorgueStrength;
 import org.openmrs.module.hospitalcore.model.Facility;
 import org.openmrs.module.hospitalcore.model.IdentifierNumbersGenerator;
 import org.openmrs.module.hospitalcore.model.MorgueAdmission;
-import org.openmrs.module.hospitalcore.model.MorgueCompatimentAllocation;
+import org.openmrs.module.hospitalcore.model.MorgueCompartmentAllocation;
 import org.openmrs.module.hospitalcore.model.OpdTestOrder;
 import org.openmrs.module.hospitalcore.model.PatientCategoryDetails;
 import org.openmrs.module.hospitalcore.model.PatientSearch;
@@ -1111,17 +1111,17 @@ public class HospitalCoreServiceImpl extends BaseOpenmrsService implements
 	}
 
 	@Override
-	public MorgueCompatimentAllocation saveMorgueCompartmentAllocation(MorgueCompatimentAllocation morgueCompatimentAllocation) throws APIException {
+	public MorgueCompartmentAllocation saveMorgueCompartmentAllocation(MorgueCompartmentAllocation morgueCompatimentAllocation) throws APIException {
 		return dao.saveMorgueCompartmentAllocation(morgueCompatimentAllocation);
 	}
 
 	@Override
-	public List<MorgueCompatimentAllocation> getMorgueCompartmentAllocationList(EhrMorgueStrength ehrMorgueStrength, Integer allocated) throws APIException {
-		return dao.getMorgueCompartmentAllocationList(ehrMorgueStrength, allocated);
+	public List<MorgueCompartmentAllocation> getMorgueCompartmentAllocationList(Integer ehrMorgueStrengthId, Integer allocated) throws APIException {
+		return dao.getMorgueCompartmentAllocationList(ehrMorgueStrengthId, allocated);
 	}
 
 	@Override
-	public MorgueCompatimentAllocation getMorgueCompartmentAllocationById(Integer morgueCompartmentAllocationId) throws APIException {
+	public MorgueCompartmentAllocation getMorgueCompartmentAllocationById(Integer morgueCompartmentAllocationId) throws APIException {
 		return dao.getMorgueCompartmentAllocationById(morgueCompartmentAllocationId);
 	}
 

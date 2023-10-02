@@ -5,14 +5,14 @@
 
 <hibernate-mapping package="org.openmrs.module.hospitalcore.model">
 
-    <class name="MorgueCompatimentAllocation" table="morgue_compartment_allocation" batch-size="500">
+    <class name="MorgueCompartmentAllocation" table="morgue_compartment_allocation" batch-size="500">
 
-        <id name="compartimentId" type="int" column="morgue_compartment_id" unsaved-value="0">
+        <id name="compartmentId" type="int" column="morgue_compartment_id" unsaved-value="0">
             <generator class="native" />
         </id>
-        <property name="compartimentNumber" column="compartment_number" />
+        <property name="compartmentNumber" column="compartment_number" />
         <property name="allocated" column="allocated" />
         <property name="voided" column="voided" />
-        <many-to-one name="morgueStrength" column="morgue_strength" class="org.openmrs.module.hospitalcore.model.EhrMorgueStrength" lazy="false" />
+        <property name="morgueStrength" column="morgue_strength" />
     </class>
 </hibernate-mapping>
