@@ -1012,8 +1012,8 @@ public class HospitalCoreServiceImpl extends BaseOpenmrsService implements
 	}
 
 	@Override
-	public List<EhrMorgueStrength> getEhrMorgueStrength() throws APIException {
-		return dao.getEhrMorgueStrength();
+	public List<EhrMorgueStrength> getEhrMorgueStrength(Integer retired) throws APIException {
+		return dao.getEhrMorgueStrength(retired);
 	}
 
 	@Override

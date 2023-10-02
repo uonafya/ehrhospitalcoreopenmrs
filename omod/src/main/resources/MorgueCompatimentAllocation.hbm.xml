@@ -13,6 +13,6 @@
         <property name="compartimentNumber" column="compartment_number" />
         <property name="allocated" column="allocated" />
         <property name="voided" column="voided" />
-        <many-to-one name="morgueStrength" column="morgue_strength" class="EhrMorgueStrength" lazy="false" />
+        <many-to-one name="morgueStrength" column="morgue_strength" class="org.openmrs.module.hospitalcore.model.EhrMorgueStrength" lazy="false" />
     </class>
 </hibernate-mapping>

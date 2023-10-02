@@ -300,7 +300,7 @@ public interface HospitalCoreService extends OpenmrsService {
 	public List<Obs> getObsBasedOnClassAndDateRangeForTestsAndRadiology(Date startDate, Date endDate, ConceptClass conceptClass, EncounterType types) throws APIException;
 
 	public EhrMorgueStrength saveEhrMorgueStrength(EhrMorgueStrength ehrMorgueStrength) throws APIException;
-	public List<EhrMorgueStrength> getEhrMorgueStrength() throws APIException;
+	public List<EhrMorgueStrength> getEhrMorgueStrength(Integer retired) throws APIException;
 
 	public EhrMorgueStrength getEhrMorgueStrengthById(Integer strengthId) throws APIException;
 

@@ -180,7 +180,7 @@ public interface HospitalCoreDAO {
 	public List<Obs> getObsBasedOnClassAndDateRangeForTestsAndRadiology(Date startDate, Date endDate, ConceptClass conceptClass, EncounterType types) throws DAOException;
 
 	public EhrMorgueStrength saveEhrMorgueStrength(EhrMorgueStrength ehrMorgueStrength) throws DAOException;
-	public List<EhrMorgueStrength> getEhrMorgueStrength() throws DAOException;
+	public List<EhrMorgueStrength> getEhrMorgueStrength(Integer retired) throws DAOException;
 
 	public AppointmentServiceType saveAppointmentServiceType(AppointmentServiceType appointmentServiceType) throws DAOException;
 	public List<AppointmentServiceType> getAppointmentServiceType() throws DAOException;
