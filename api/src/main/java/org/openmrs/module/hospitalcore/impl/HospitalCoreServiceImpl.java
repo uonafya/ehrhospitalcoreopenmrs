@@ -952,7 +952,7 @@ public class HospitalCoreServiceImpl extends BaseOpenmrsService implements
 			}
 		}
 
-		if(currentYear > 0  && currentYear < Calendar.getInstance().get(Calendar.YEAR)){
+		if(currentYear > 0  && currentYear < Calendar.getInstance().get(Calendar.YEAR) && !(identifierType.equals("IPD"))){
 			currentYear = Calendar.getInstance().get(Calendar.YEAR);
 		}
 		count++;

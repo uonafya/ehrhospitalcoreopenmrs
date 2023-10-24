@@ -29,6 +29,7 @@ public class UpdateBillableItems extends AbstractTask {
       startExecuting();
       try {
         //do all the work here
+        getDentalConcepts();
         performBillableItemsUpdate();
 
       }
@@ -68,7 +69,12 @@ public class UpdateBillableItems extends AbstractTask {
           || conceptWithService.getConceptClass().equals(conceptService.getConceptClassByUuid("8d492026-c2cc-11de-8d13-0010c6dffd0f"))) {
          ehrDepartment = getDepartment("Laboratory");
        }
-       else if(conceptWithService.getConceptClass().equals(conceptService.getConceptClassByUuid("8d490bf4-c2cc-11de-8d13-0010c6dffd0f")) && !(getDentalConcepts().contains(conceptService.getConcept(conceptWithService.getConceptId())))) {
+       else if(getDentalConcepts().contains(conceptWithService)) {
+         System.out.println("This should be recorded as a Dental procedure");
+         ehrDepartment = getDepartment("Dental");
+       }
+       else if(conceptWithService.getConceptClass().equals(conceptService.getConceptClassByUuid("8d490bf4-c2cc-11de-8d13-0010c6dffd0f")) && !(getDentalConcepts().contains(conceptWithService))) {
+         System.out.println("This should be recorded as a general  procedure");
          ehrDepartment = getDepartment("Procedure");
        }
        else if(conceptWithService.getConceptClass().equals(conceptService.getConceptClassByUuid("8caa332c-efe4-4025-8b18-3398328e1323"))) {
@@ -76,9 +82,6 @@ public class UpdateBillableItems extends AbstractTask {
        }
        else if(getRegistrationConcepts().contains(conceptWithService)) {
          ehrDepartment = getDepartment("Registration");
-       }
-       else if(getDentalConcepts().contains(conceptWithService)) {
-         ehrDepartment = getDepartment("Dental");
        }
        else {
          ehrDepartment = getDepartment("General");
@@ -113,7 +116,9 @@ public class UpdateBillableItems extends AbstractTask {
     List<Concept> conceptList = new ArrayList<Concept>();
     ConceptService conceptService = Context.getConceptService();
     Concept dentalQuestion = conceptService.getConceptByUuid("a59d59b9-f77f-4de0-bdb7-a942284718f2");
+    System.out.println("The question to be used as an answer is >>"+dentalQuestion.getName().getName());
     for(ConceptAnswer concept : dentalQuestion.getAnswers()) {
+      System.out.println("The concepts being targeted are >>>"+concept.getAnswerConcept().getName()+" from the question >>"+dentalQuestion.getName().getName());
       conceptList.add(concept.getConcept());
     }
     return conceptList;
