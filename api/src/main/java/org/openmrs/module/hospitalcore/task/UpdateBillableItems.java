@@ -29,7 +29,6 @@ public class UpdateBillableItems extends AbstractTask {
       startExecuting();
       try {
         //do all the work here
-        getDentalConcepts();
         performBillableItemsUpdate();
 
       }
@@ -116,10 +115,8 @@ public class UpdateBillableItems extends AbstractTask {
     List<Concept> conceptList = new ArrayList<Concept>();
     ConceptService conceptService = Context.getConceptService();
     Concept dentalQuestion = conceptService.getConceptByUuid("a59d59b9-f77f-4de0-bdb7-a942284718f2");
-    System.out.println("The question to be used as an answer is >>"+dentalQuestion.getName().getName());
     for(ConceptAnswer concept : dentalQuestion.getAnswers()) {
-      System.out.println("The concepts being targeted are >>>"+concept.getAnswerConcept().getName()+" from the question >>"+dentalQuestion.getName().getName());
-      conceptList.add(concept.getConcept());
+      conceptList.add(concept.getAnswerConcept());
     }
     return conceptList;
   }
