@@ -51,11 +51,11 @@ public class CertifiedDeceasedList {
         this.entryDateAndTime = entryDateAndTime;
     }
 
-    public String getStatus() {
+    public Integer getStatus() {
         return status;
     }
 
-    public void setStatus(String status) {
+    public void setStatus(Integer status) {
         this.status = status;
     }
 
@@ -65,7 +65,7 @@ public class CertifiedDeceasedList {
 
     private Date entryDateAndTime;
 
-    private String status;
+    private Integer status;
 
     public User getUser() {
         return user;
