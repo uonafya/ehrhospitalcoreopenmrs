@@ -2397,6 +2397,7 @@
             `date_of_death` datetime DEFAULT NULL,
             `entry_date_and_time` datetime NOT NULL,
             `user` int(11) NOT NULL,
+            `notes` varchar(225) DEFAULT NULL,
             `status` int(11) DEFAULT '99',
             PRIMARY KEY (`certified_deceased_list_id`),
             KEY `fk_certified_deceased_list_user` (`user`),

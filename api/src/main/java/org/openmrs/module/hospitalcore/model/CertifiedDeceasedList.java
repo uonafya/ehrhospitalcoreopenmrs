@@ -77,4 +77,14 @@ public class CertifiedDeceasedList {
 
     private User user;
 
+    public String getNotes() {
+        return notes;
+    }
+
+    public void setNotes(String notes) {
+        this.notes = notes;
+    }
+
+    private String notes;
+
 }

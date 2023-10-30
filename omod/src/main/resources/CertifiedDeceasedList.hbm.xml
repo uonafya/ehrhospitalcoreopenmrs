@@ -17,6 +17,7 @@
         <property name="entryDateAndTime" column="entry_date_and_time" />
         <property name="status" column="status" />
         <many-to-one name="causeOfDeath" column="cause_of_death"  class="org.openmrs.Concept" foreign-key="fk_certified_deceased_list_concept" />
+        <property name="notes" column="notes" length="255" />
     </class>
 
 </hibernate-mapping>
