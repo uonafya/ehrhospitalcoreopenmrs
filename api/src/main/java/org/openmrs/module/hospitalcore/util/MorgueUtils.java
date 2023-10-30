@@ -5,4 +5,5 @@ public class MorgueUtils {
     public static final Integer BODY_CLEARED_FOR_ADMISSION = 1;
     public static final Integer BODY_ADMITTED = 2;
     public static final Integer BODY_DISCHARGED = 3;
+    public static final Integer BODY_DECEASED = 99;
 }

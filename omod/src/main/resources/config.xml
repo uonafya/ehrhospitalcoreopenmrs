@@ -204,6 +204,7 @@
 		EhrMorgueStrength.hbm.xml
 		MorgueAdmission.hbm.xml
 		MorgueCompartmentAllocation.hbm.xml
+		CertifiedDeceasedList.hbm.xml
 
 	</mappingFiles>
 </module>

@@ -33,6 +33,7 @@ import org.openmrs.api.ConceptService;
 import org.openmrs.api.OpenmrsService;
 import org.openmrs.module.appointments.model.Appointment;
 import org.openmrs.module.appointments.model.AppointmentServiceType;
+import org.openmrs.module.hospitalcore.model.CertifiedDeceasedList;
 import org.openmrs.module.hospitalcore.model.CoreForm;
 import org.openmrs.module.hospitalcore.model.EhrDepartment;
 import org.openmrs.module.hospitalcore.model.EhrHospitalWaiver;
@@ -350,4 +351,9 @@ public interface HospitalCoreService extends OpenmrsService {
 
 	public MorgueCompartmentAllocation getMorgueCompartmentAllocationById(Integer morgueCompartmentAllocationId) throws APIException;
 	public MorgueCompartmentAllocation getMorgueCompartmentAllocationUsed(Integer morgueStrength, String compartmentId) throws APIException;
+
+	///
+	public CertifiedDeceasedList getCertifiedDeceasedListById(Integer certifiedDeceasedListId) throws APIException;
+	public CertifiedDeceasedList saveCertifiedDeceasedList(CertifiedDeceasedList certifiedDeceasedList) throws APIException;
+	public List<CertifiedDeceasedList> getAllCertifiedDeceasedList() throws APIException;
 }

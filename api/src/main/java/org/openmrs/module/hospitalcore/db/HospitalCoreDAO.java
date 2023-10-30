@@ -200,4 +200,8 @@ public interface HospitalCoreDAO {
 	public MorgueCompartmentAllocation getMorgueCompartmentAllocationById(Integer morgueCompartmentAllocationId) throws DAOException;
 
 	public MorgueCompartmentAllocation getMorgueCompartmentAllocationUsed(Integer morgueStrength, String compartmentId) throws DAOException;
+
+	public CertifiedDeceasedList getCertifiedDeceasedListById(Integer certifiedDeceasedListId) throws DAOException;
+	public CertifiedDeceasedList saveCertifiedDeceasedList(CertifiedDeceasedList certifiedDeceasedList) throws DAOException;
+	public List<CertifiedDeceasedList> getAllCertifiedDeceasedList() throws DAOException;
 }

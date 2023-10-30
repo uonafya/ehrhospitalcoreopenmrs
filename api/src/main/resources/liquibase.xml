@@ -2384,4 +2384,29 @@
         </sql>
     </changeSet>
 
+    <changeSet id="322C26E6-2767-467E-B038-A95D2462D9A1" author="ningosi">
+        <preConditions onFail="MARK_RAN" onError="WARN">
+            <dbms type="mysql"/>
+        </preConditions>
+        <comment>Add a table to control the death certification other than hitting the obs table</comment>
+        <sql>
+            CREATE TABLE IF NOT EXISTS `hospitalcore_certified_deceased_list`(
+            `certified_deceased_list_id` int(11) NOT NULL AUTO_INCREMENT,
+            `patient_id` int(11) NOT NULL,
+            `cause_of_death` int(11) NOT NULL,
+            `date_of_death` datetime DEFAULT NULL,
+            `entry_date_and_time` datetime NOT NULL,
+            `user` int(11) NOT NULL,
+            `status` int(11) DEFAULT '99',
+            PRIMARY KEY (`certified_deceased_list_id`),
+            KEY `fk_certified_deceased_list_user` (`user`),
+            KEY `fk_certified_deceased_list_patient` (`patient_id`),
+            KEY `fk_certified_deceased_list_concept` (`cause_of_death`),
+            CONSTRAINT `fk_certified_deceased_list_user` FOREIGN KEY (`created_by`) REFERENCES `users` (`user_id`),
+            CONSTRAINT `fk_certified_deceased_list_patient` FOREIGN KEY (`patient_id`) REFERENCES `patient` (`patient_id`),
+            CONSTRAINT `fk_certified_deceased_list_concept` FOREIGN KEY (`cause_of_death`) REFERENCES `concept` (`concept_id`)
+            ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+        </sql>
+    </changeSet>
+
 </databaseChangeLog>

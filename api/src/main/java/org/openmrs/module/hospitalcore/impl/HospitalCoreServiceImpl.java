@@ -55,6 +55,7 @@ import org.openmrs.module.hospitalcore.concept.ConceptModel;
 import org.openmrs.module.hospitalcore.concept.Mapping;
 import org.openmrs.module.hospitalcore.concept.Synonym;
 import org.openmrs.module.hospitalcore.db.HospitalCoreDAO;
+import org.openmrs.module.hospitalcore.model.CertifiedDeceasedList;
 import org.openmrs.module.hospitalcore.model.CoreForm;
 import org.openmrs.module.hospitalcore.model.EhrDepartment;
 import org.openmrs.module.hospitalcore.model.EhrHospitalWaiver;
@@ -952,7 +953,7 @@ public class HospitalCoreServiceImpl extends BaseOpenmrsService implements
 			}
 		}
 
-		if(currentYear > 0  && currentYear < Calendar.getInstance().get(Calendar.YEAR) && !(identifierType.equals("IPD"))){
+		if(currentYear > 0  && currentYear < Calendar.getInstance().get(Calendar.YEAR)){
 			currentYear = Calendar.getInstance().get(Calendar.YEAR);
 		}
 		count++;
@@ -1128,6 +1129,19 @@ public class HospitalCoreServiceImpl extends BaseOpenmrsService implements
 	@Override
 	public MorgueCompartmentAllocation getMorgueCompartmentAllocationUsed(Integer morgueStrength, String compartmentId) throws APIException {
 		return dao.getMorgueCompartmentAllocationUsed(morgueStrength, compartmentId);
+	}
+
+	@Override
+	public CertifiedDeceasedList getCertifiedDeceasedListById(Integer certifiedDeceasedListId) throws APIException {
+		return dao.getCertifiedDeceasedListById(certifiedDeceasedListId);
+	}
+	@Override
+	public CertifiedDeceasedList saveCertifiedDeceasedList(CertifiedDeceasedList certifiedDeceasedList) throws APIException {
+		return dao.saveCertifiedDeceasedList(certifiedDeceasedList);
+	}
+	@Override
+	public List<CertifiedDeceasedList> getAllCertifiedDeceasedList() throws APIException {
+		return dao.getAllCertifiedDeceasedList();
 	}
 
 }

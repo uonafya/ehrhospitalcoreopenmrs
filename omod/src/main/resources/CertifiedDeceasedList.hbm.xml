@@ -1,0 +1,22 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC
+        "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+        "http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd" >
+
+<hibernate-mapping package="org.openmrs.module.hospitalcore.model">
+
+    <class name="CertifiedDeceasedList" table="hospitalcore_certified_deceased_list" batch-size="500">
+
+            <id name="certifiedDeceasedListId" type="int" column="certified_deceased_list_id"
+                unsaved-value="0">
+                <generator class="native" />
+            </id>
+        <many-to-one name="patient" column="patient_id" class="org.openmrs.Patient" lazy="false" foreign-key="fk_certified_deceased_list_patient" />
+        <many-to-one name="user" column="user"  class="org.openmrs.User" foreign-key="fk_certified_deceased_list_user" />
+        <property name="dateOfDeath" column="date_of_death" />
+        <property name="entryDateAndTime" column="entry_date_and_time" />
+        <property name="status" column="status" />
+        <many-to-one name="causeOfDeath" column="cause_of_death"  class="org.openmrs.Concept" foreign-key="fk_certified_deceased_list_concept" />
+    </class>
+
+</hibernate-mapping>

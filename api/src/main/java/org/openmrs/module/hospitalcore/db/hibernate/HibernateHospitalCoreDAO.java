@@ -1027,6 +1027,22 @@ public class HibernateHospitalCoreDAO implements HospitalCoreDAO {
         return (MorgueCompartmentAllocation) criteria.uniqueResult();
     }
 
+    @Override
+    public CertifiedDeceasedList getCertifiedDeceasedListById(Integer certifiedDeceasedListId) throws DAOException {
+        return (CertifiedDeceasedList) sessionFactory.getCurrentSession().get(CertifiedDeceasedList.class, certifiedDeceasedListId);
+    }
+
+    @Override
+    public CertifiedDeceasedList saveCertifiedDeceasedList(CertifiedDeceasedList certifiedDeceasedList) throws DAOException {
+        sessionFactory.getCurrentSession().saveOrUpdate(certifiedDeceasedList);
+        return certifiedDeceasedList;
+    }
+
+    @Override
+    public List<CertifiedDeceasedList> getAllCertifiedDeceasedList() throws DAOException {
+        return null;
+    }
+
     public  void setAllPatientServiceBillItemsByDateCriteria(Criteria criteria, String fromDate,String toDate){
         String fromDateWithTime = fromDate+" 00:00:00";
         String endDateWithTime = toDate+" 23:59:59";
