@@ -1040,7 +1040,8 @@ public class HibernateHospitalCoreDAO implements HospitalCoreDAO {
 
     @Override
     public List<CertifiedDeceasedList> getAllCertifiedDeceasedList() throws DAOException {
-        return null;
+        Criteria criteria = sessionFactory.getCurrentSession().createCriteria(CertifiedDeceasedList.class);
+        return criteria.list();
     }
 
     public  void setAllPatientServiceBillItemsByDateCriteria(Criteria criteria, String fromDate,String toDate){

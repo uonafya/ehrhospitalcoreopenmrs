@@ -2403,7 +2403,7 @@
             KEY `fk_certified_deceased_list_user` (`user`),
             KEY `fk_certified_deceased_list_patient` (`patient_id`),
             KEY `fk_certified_deceased_list_concept` (`cause_of_death`),
-            CONSTRAINT `fk_certified_deceased_list_user` FOREIGN KEY (`created_by`) REFERENCES `users` (`user_id`),
+            CONSTRAINT `fk_certified_deceased_list_user` FOREIGN KEY (`user`) REFERENCES `users` (`user_id`),
             CONSTRAINT `fk_certified_deceased_list_patient` FOREIGN KEY (`patient_id`) REFERENCES `patient` (`patient_id`),
             CONSTRAINT `fk_certified_deceased_list_concept` FOREIGN KEY (`cause_of_death`) REFERENCES `concept` (`concept_id`)
             ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
