@@ -2410,4 +2410,28 @@
         </sql>
     </changeSet>
 
+    <changeSet id="0D9753F0-80B9-453E-BB14-8CA1CE54E97E" author="ningosi">
+        <preConditions onFail="MARK_RAN" onError="WARN">
+            <dbms type="mysql"/>
+        </preConditions>
+        <comment>Add a table to control the wards available in the facility, we want to create wards as opposed to concepts</comment>
+        <sql>
+            CREATE TABLE IF NOT EXISTS `hospitalcore_ward`(
+            `ward_id` int(11) NOT NULL AUTO_INCREMENT,
+            `ward_name` varchar(225) NOT NULL,
+            `ward_code` varchar(225) DEFAULT NULL,
+            `ward_uuid` varchar(225) NOT NULL,
+            `created_on` datetime NOT NULL,
+            `date_changed` datetime DEFAULT NULL,
+            `created_by` int(11) NOT NULL,
+            `changed_by` int(11) DEFAULT NULL,
+            PRIMARY KEY (`ward_id`),
+            KEY `fk_created_by_user` (`created_by`),
+            KEY `fk_changed_by_user` (`changed_by`),
+            CONSTRAINT `fk_created_by_user` FOREIGN KEY (`created_by`) REFERENCES `users` (`user_id`),
+            CONSTRAINT `fk_changed_by_user` FOREIGN KEY (`changed_by`) REFERENCES `users` (`user_id`)
+            ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+        </sql>
+    </changeSet>
+
 </databaseChangeLog>

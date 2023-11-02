@@ -22,6 +22,7 @@ import java.util.List;
 import org.openmrs.Concept;
 import org.openmrs.Encounter;
 import org.openmrs.Patient;
+import org.openmrs.api.APIException;
 import org.openmrs.api.db.DAOException;
 import org.openmrs.module.hospitalcore.model.IpdPatientAdmission;
 import org.openmrs.module.hospitalcore.model.IpdPatientAdmissionLog;
@@ -29,6 +30,7 @@ import org.openmrs.module.hospitalcore.model.IpdPatientAdmitted;
 import org.openmrs.module.hospitalcore.model.IpdPatientAdmittedLog;
 import org.openmrs.module.hospitalcore.model.IpdPatientVitalStatistics;
 import org.openmrs.module.hospitalcore.model.OpdPatientQueueLog;
+import org.openmrs.module.hospitalcore.model.Ward;
 import org.openmrs.module.hospitalcore.model.WardBedStrength;
 
 public interface IpdDAO {
@@ -88,6 +90,11 @@ public interface IpdDAO {
 	public List<IpdPatientAdmitted> getAdmittedPatientsByDateRange(Date startDate, Date endDate) throws DAOException;
 
 	public List<IpdPatientAdmitted> getAdmittedPatientsByDateRange(Date startDate, Date endDate, Concept ward) throws DAOException;
+
+	public List<Ward> getAvailableWards() throws DAOException;
+	public Ward getWardById(Integer  wardId) throws DAOException;
+	public Ward getWardByUuid(String  wardUuid) throws DAOException;
+	public void saveWard(Ward ward) throws DAOException;
 
 	
 }

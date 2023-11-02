@@ -35,6 +35,7 @@ import org.openmrs.module.hospitalcore.model.IpdPatientAdmitted;
 import org.openmrs.module.hospitalcore.model.IpdPatientAdmittedLog;
 import org.openmrs.module.hospitalcore.model.IpdPatientVitalStatistics;
 import org.openmrs.module.hospitalcore.model.OpdPatientQueueLog;
+import org.openmrs.module.hospitalcore.model.Ward;
 import org.openmrs.module.hospitalcore.model.WardBedStrength;
 import org.openmrs.module.hospitalcore.util.HospitalCoreConstants;
 
@@ -512,6 +513,19 @@ public class IpdServiceImpl extends BaseOpenmrsService implements IpdService {
 	@Override
 	public List<IpdPatientAdmitted> getAdmittedPatientsByDateRange(Date startDate, Date endDate, Concept ward) throws APIException {
 		return dao.getAdmittedPatientsByDateRange(startDate, endDate, ward);
+	}
+
+	public List<Ward> getAvailableWards() throws APIException {
+		return dao.getAvailableWards();
+	}
+	public Ward getWardById(Integer  wardId) throws APIException {
+		return dao.getWardById(wardId);
+	}
+	public Ward getWardByUuid(String  wardUuid) throws APIException {
+		return dao.getWardByUuid(wardUuid);
+	}
+	public void saveWard(Ward ward) throws APIException {
+		dao.saveWard(ward);
 	}
 
 }

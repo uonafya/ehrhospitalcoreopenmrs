@@ -30,6 +30,7 @@ import org.openmrs.module.hospitalcore.model.IpdPatientAdmitted;
 import org.openmrs.module.hospitalcore.model.IpdPatientAdmittedLog;
 import org.openmrs.module.hospitalcore.model.IpdPatientVitalStatistics;
 import org.openmrs.module.hospitalcore.model.OpdPatientQueueLog;
+import org.openmrs.module.hospitalcore.model.Ward;
 import org.openmrs.module.hospitalcore.model.WardBedStrength;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -136,6 +137,12 @@ public interface IpdService extends OpenmrsService{
 
 	@Transactional(readOnly = true)
 	public List<IpdPatientAdmitted> getAdmittedPatientsByDateRange(Date startDate, Date endDate, Concept ward) throws APIException;
+
+	public List<Ward> getAvailableWards() throws APIException;
+	public Ward getWardById(Integer  wardId) throws APIException;
+	public Ward getWardByUuid(String  wardUuid) throws APIException;
+	public void saveWard(Ward ward) throws APIException;
+
 
 
 }

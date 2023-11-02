@@ -43,6 +43,7 @@ import org.openmrs.module.hospitalcore.model.IpdPatientAdmitted;
 import org.openmrs.module.hospitalcore.model.IpdPatientAdmittedLog;
 import org.openmrs.module.hospitalcore.model.IpdPatientVitalStatistics;
 import org.openmrs.module.hospitalcore.model.OpdPatientQueueLog;
+import org.openmrs.module.hospitalcore.model.Ward;
 import org.openmrs.module.hospitalcore.model.WardBedStrength;
 import org.openmrs.module.hospitalcore.util.DateUtils;
 
@@ -560,6 +561,33 @@ public class HibernateIpdDAO implements IpdDAO {
 		criteria.add(Restrictions.and(Restrictions.ge("admissionDate", startOfDay),Restrictions.le("admissionDate", endOfDay)));
 
 		return criteria.list();
+	}
+
+	@Override
+	public List<Ward> getAvailableWards() throws DAOException {
+		return sessionFactory.getCurrentSession()
+				.createCriteria(Ward.class).list();
+	}
+
+	@Override
+	public Ward getWardById(Integer wardId) throws DAOException {
+		Criteria criteria = sessionFactory.getCurrentSession().createCriteria(
+				IpdPatientAdmission.class);
+		criteria.add(Restrictions.eq("wardId", wardId));
+		return (Ward) criteria.uniqueResult();
+	}
+
+	@Override
+	public Ward getWardByUuid(String wardUuid) throws DAOException {
+		Criteria criteria = sessionFactory.getCurrentSession().createCriteria(
+				IpdPatientAdmission.class);
+		criteria.add(Restrictions.eq("wardUuid", wardUuid));
+		return (Ward) criteria.uniqueResult();
+	}
+
+	@Override
+	public void saveWard(Ward ward) throws DAOException {
+		sessionFactory.getCurrentSession().saveOrUpdate(ward);
 	}
 
 }
