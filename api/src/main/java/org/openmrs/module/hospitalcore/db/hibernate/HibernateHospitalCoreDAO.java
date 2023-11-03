@@ -1044,6 +1044,29 @@ public class HibernateHospitalCoreDAO implements HospitalCoreDAO {
         return criteria.list();
     }
 
+    @Override
+    public DrugAdministration createDrugAdministration(DrugAdministration drugAdministration) throws DAOException {
+        sessionFactory.getCurrentSession().save(drugAdministration);
+        return drugAdministration;
+    }
+
+    @Override
+    public DrugAdministration updateDrugAdministration(DrugAdministration drugAdministration) throws DAOException {
+        sessionFactory.getCurrentSession().update(drugAdministration);
+        return drugAdministration;
+    }
+
+    @Override
+    public void deleteDrugAdministration(DrugAdministration drugAdministration) throws DAOException {
+        sessionFactory.getCurrentSession().delete(drugAdministration);
+    }
+
+    @Override
+    public List<DrugAdministration> retrieveDrugAdministrations(int patientId) throws DAOException {
+        Criteria criteria = sessionFactory.getCurrentSession().createCriteria(DrugAdministration.class);
+        return criteria.list();
+    }
+
     public  void setAllPatientServiceBillItemsByDateCriteria(Criteria criteria, String fromDate,String toDate){
         String fromDateWithTime = fromDate+" 00:00:00";
         String endDateWithTime = toDate+" 23:59:59";

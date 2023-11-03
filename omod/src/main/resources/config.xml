@@ -206,6 +206,7 @@
 		MorgueCompartmentAllocation.hbm.xml
 		CertifiedDeceasedList.hbm.xml
 		Ward.hbm.xml
+		DrugAdministration.hbm.xml
 
 	</mappingFiles>
 </module>

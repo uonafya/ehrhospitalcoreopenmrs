@@ -57,6 +57,7 @@ import org.openmrs.module.hospitalcore.concept.Synonym;
 import org.openmrs.module.hospitalcore.db.HospitalCoreDAO;
 import org.openmrs.module.hospitalcore.model.CertifiedDeceasedList;
 import org.openmrs.module.hospitalcore.model.CoreForm;
+import org.openmrs.module.hospitalcore.model.DrugAdministration;
 import org.openmrs.module.hospitalcore.model.EhrDepartment;
 import org.openmrs.module.hospitalcore.model.EhrHospitalWaiver;
 import org.openmrs.module.hospitalcore.model.EhrMorgueQueue;
@@ -1142,6 +1143,26 @@ public class HospitalCoreServiceImpl extends BaseOpenmrsService implements
 	@Override
 	public List<CertifiedDeceasedList> getAllCertifiedDeceasedList() throws APIException {
 		return dao.getAllCertifiedDeceasedList();
+	}
+
+	@Override
+	public DrugAdministration createDrugAdministration(DrugAdministration drugAdministration) throws APIException {
+		return dao.createDrugAdministration(drugAdministration);
+	}
+
+	@Override
+	public DrugAdministration updateDrugAdministration(DrugAdministration drugAdministration) throws APIException {
+		return dao.updateDrugAdministration(drugAdministration);
+	}
+
+	@Override
+	public void deleteDrugAdministration(DrugAdministration drugAdministration) throws APIException {
+		dao.deleteDrugAdministration(drugAdministration);
+	}
+
+	@Override
+	public List<DrugAdministration> retrieveDrugAdministrations(int patientId) throws APIException {
+		return dao.retrieveDrugAdministrations(patientId);
 	}
 
 }

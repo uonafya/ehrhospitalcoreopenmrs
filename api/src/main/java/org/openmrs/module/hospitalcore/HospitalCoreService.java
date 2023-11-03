@@ -35,6 +35,7 @@ import org.openmrs.module.appointments.model.Appointment;
 import org.openmrs.module.appointments.model.AppointmentServiceType;
 import org.openmrs.module.hospitalcore.model.CertifiedDeceasedList;
 import org.openmrs.module.hospitalcore.model.CoreForm;
+import org.openmrs.module.hospitalcore.model.DrugAdministration;
 import org.openmrs.module.hospitalcore.model.EhrDepartment;
 import org.openmrs.module.hospitalcore.model.EhrHospitalWaiver;
 import org.openmrs.module.hospitalcore.model.EhrMorgueQueue;
@@ -356,4 +357,12 @@ public interface HospitalCoreService extends OpenmrsService {
 	public CertifiedDeceasedList getCertifiedDeceasedListById(Integer certifiedDeceasedListId) throws APIException;
 	public CertifiedDeceasedList saveCertifiedDeceasedList(CertifiedDeceasedList certifiedDeceasedList) throws APIException;
 	public List<CertifiedDeceasedList> getAllCertifiedDeceasedList() throws APIException;
+
+	public DrugAdministration createDrugAdministration(DrugAdministration drugAdministration) throws APIException;
+
+	public DrugAdministration updateDrugAdministration(DrugAdministration drugAdministration) throws APIException;
+
+	public void deleteDrugAdministration(DrugAdministration drugAdministration) throws APIException;
+
+	List<DrugAdministration> retrieveDrugAdministrations(int patientId) throws APIException;
 }

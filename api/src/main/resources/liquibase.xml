@@ -2434,4 +2434,31 @@
         </sql>
     </changeSet>
 
+    <changeSet id="75956962-452C-407A-B026-3DEF183B0559" author="ningosi">
+        <preConditions onFail="MARK_RAN" onError="WARN">
+            <dbms type="mysql"/>
+        </preConditions>
+        <comment>Add a table to control drug administration</comment>
+        <sql>
+            CREATE TABLE IF NOT EXISTS `ehr_drug_administration` (
+            `id` int(11) NOT NULL AUTO_INCREMENT,
+            `drug_order_id` int(11) NOT NULL,
+            `quantity` double NOT NULL,
+            `amount` double NOT NULL,
+            `status` varchar(40) NOT NULL,
+            `drug_administration_date` datetime NOT NULL,
+            `created_on` datetime NOT NULL,
+            `created_by` int(11) NOT NULL,
+            `date_modified` datetime NOT NULL,
+            `changed_by` int(11) NOT NULL,
+            PRIMARY KEY (`id`),
+            KEY `drug_order_id` (`drug_order_id`),
+            KEY `fk_drug_admin_created_by` (`created_by`),
+            KEY `fk_drug_admin_changed_by` (`changed_by`),
+            CONSTRAINT `fk_drug_admin_created_by` FOREIGN KEY (`created_by`) REFERENCES `users` (`user_id`),
+            CONSTRAINT `fk_drug_admin_changed_by` FOREIGN KEY (`changed_by`) REFERENCES `users` (`user_id`)
+            ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+        </sql>
+    </changeSet>
+
 </databaseChangeLog>

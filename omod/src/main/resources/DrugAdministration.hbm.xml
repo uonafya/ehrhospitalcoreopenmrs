@@ -1,0 +1,24 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC
+        "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+        "http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd" >
+
+<hibernate-mapping package="org.openmrs.module.hospitalcore.model">
+
+    <class name="DrugAdministration" table="ehr_drug_administration" batch-size="500">
+
+        <id name="drugAdministrationId" type="int" column="id" unsaved-value="0">
+            <generator class="native" />
+        </id>
+
+        <property name="drugOrderId" column="drug_order_id" />
+        <property name="quantity" column="quantity" />
+        <property name="amount" column="amount" />
+        <property name="status" column="status" />
+        <property name="drugAdministrationDate" column="drug_administration_date" type="java.util.Date" />
+        <property name="createdOn" column="created_on" type="java.util.Date" />
+        <property name="dateModified" column="date_modified" type="java.util.Date" />
+        <many-to-one name="createdBy" column="created_by"  class="org.openmrs.User" />
+        <many-to-one name="changedBy" column="changed_by"  class="org.openmrs.User" />
+    </class>
+</hibernate-mapping>

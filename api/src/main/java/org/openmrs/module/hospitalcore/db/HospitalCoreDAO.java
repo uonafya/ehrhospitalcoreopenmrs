@@ -204,4 +204,12 @@ public interface HospitalCoreDAO {
 	public CertifiedDeceasedList getCertifiedDeceasedListById(Integer certifiedDeceasedListId) throws DAOException;
 	public CertifiedDeceasedList saveCertifiedDeceasedList(CertifiedDeceasedList certifiedDeceasedList) throws DAOException;
 	public List<CertifiedDeceasedList> getAllCertifiedDeceasedList() throws DAOException;
+
+	public DrugAdministration createDrugAdministration(DrugAdministration drugAdministration) throws DAOException;
+
+	public DrugAdministration updateDrugAdministration(DrugAdministration drugAdministration) throws DAOException;
+
+	public void deleteDrugAdministration(DrugAdministration drugAdministration) throws DAOException;
+
+	List<DrugAdministration> retrieveDrugAdministrations(int patientId) throws DAOException;
 }
