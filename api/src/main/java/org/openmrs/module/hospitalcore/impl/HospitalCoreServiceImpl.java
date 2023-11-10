@@ -1165,4 +1165,9 @@ public class HospitalCoreServiceImpl extends BaseOpenmrsService implements
 		return dao.retrieveDrugAdministrations(patientId);
 	}
 
+	@Override
+	public List<Location> getLocationsBasedOnNameOrMflCode(String identifier) throws APIException {
+		return dao.getLocationsBasedOnNameOrMflCode(identifier);
+	}
+
 }

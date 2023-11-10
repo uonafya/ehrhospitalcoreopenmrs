@@ -24,6 +24,7 @@ import org.openmrs.Concept;
 import org.openmrs.ConceptClass;
 import org.openmrs.Encounter;
 import org.openmrs.EncounterType;
+import org.openmrs.Location;
 import org.openmrs.Obs;
 import org.openmrs.Patient;
 
@@ -212,4 +213,6 @@ public interface HospitalCoreDAO {
 	public void deleteDrugAdministration(DrugAdministration drugAdministration) throws DAOException;
 
 	List<DrugAdministration> retrieveDrugAdministrations(int patientId) throws DAOException;
+
+	List<Location> getLocationsBasedOnNameOrMflCode(String identifier) throws DAOException;
 }

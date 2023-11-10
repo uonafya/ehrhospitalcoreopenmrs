@@ -365,4 +365,6 @@ public interface HospitalCoreService extends OpenmrsService {
 	public void deleteDrugAdministration(DrugAdministration drugAdministration) throws APIException;
 
 	List<DrugAdministration> retrieveDrugAdministrations(int patientId) throws APIException;
+
+	List<Location> getLocationsBasedOnNameOrMflCode(String identifier) throws APIException;
 }

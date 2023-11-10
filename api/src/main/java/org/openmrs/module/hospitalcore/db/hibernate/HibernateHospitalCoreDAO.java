@@ -30,12 +30,15 @@ import org.hibernate.Criteria;
 import org.hibernate.Query;
 import org.hibernate.SessionFactory;
 import org.hibernate.Session;
+import org.hibernate.criterion.Expression;
+import org.hibernate.criterion.MatchMode;
 import org.hibernate.criterion.Order;
 import org.hibernate.criterion.Restrictions;
 import org.openmrs.Concept;
 import org.openmrs.ConceptClass;
 import org.openmrs.Encounter;
 import org.openmrs.EncounterType;
+import org.openmrs.Location;
 import org.openmrs.Obs;
 import org.openmrs.Patient;
 import org.openmrs.PatientIdentifier;
@@ -121,7 +124,6 @@ public class HibernateHospitalCoreDAO implements HospitalCoreDAO {
             ConceptModel conceptModel = conceptModels.get(i);
             Concept concept = hcs.insertConcept(conceptModel.getConceptDatatype(), conceptModel.getConceptClass(),
                     conceptModel.getName(), "", conceptModel.getDescription());
-            System.out.println("concept ==> " + concept.getId());
             for (String synonym : conceptModel.getSynonyms()) {
                 hcs.insertSynonym(concept, synonym);
             }
@@ -133,7 +135,6 @@ public class HibernateHospitalCoreDAO implements HospitalCoreDAO {
             if (i % 20 == 0) {
                 session.flush();
                 session.clear();
-                System.out.println("Imported " + (i + 1) + " diagnosis (" + (i / conceptModels.size() * 100) + "%)");
             }
             diagnosisNo++;
         }
@@ -1064,6 +1065,18 @@ public class HibernateHospitalCoreDAO implements HospitalCoreDAO {
     @Override
     public List<DrugAdministration> retrieveDrugAdministrations(int patientId) throws DAOException {
         Criteria criteria = sessionFactory.getCurrentSession().createCriteria(DrugAdministration.class);
+        return criteria.list();
+    }
+
+    @Override
+    public List<Location> getLocationsBasedOnNameOrMflCode(String identifier) throws DAOException {
+        Criteria criteria = sessionFactory.getCurrentSession().createCriteria(
+                Location.class);
+        criteria.setResultTransformer(Criteria.DISTINCT_ROOT_ENTITY);
+        criteria.add(Expression.eq("retired", false));
+        if (StringUtils.isNotBlank(identifier)) {
+            criteria.add(Restrictions.like("name", identifier, MatchMode.ANYWHERE));
+        }
         return criteria.list();
     }
 
