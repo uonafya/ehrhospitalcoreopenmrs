@@ -98,4 +98,14 @@ public class DrugAdministration implements Serializable {
   private User createdBy;
   private Date dateModified;
   private User changedBy;
+
+  public Integer getId() {
+    return id;
+  }
+
+  public void setId(Integer id) {
+    this.id = id;
+  }
+
+  private Integer id;
 }
