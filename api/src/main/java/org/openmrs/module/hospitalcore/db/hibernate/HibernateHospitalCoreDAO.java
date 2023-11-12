@@ -1075,7 +1075,7 @@ public class HibernateHospitalCoreDAO implements HospitalCoreDAO {
         criteria.setResultTransformer(Criteria.DISTINCT_ROOT_ENTITY);
         criteria.add(Expression.eq("retired", false));
         if (StringUtils.isNotBlank(identifier)) {
-            criteria.add(Restrictions.like("name", identifier, MatchMode.ANYWHERE));
+            criteria.add(Restrictions.like("name", identifier, MatchMode.START));
         }
         return criteria.list();
     }
