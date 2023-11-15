@@ -2474,11 +2474,11 @@
             `referral_facility_location` varchar(255) DEFAULT NULL,
             `referral_reason` varchar(255) NOT NULL,
             `referral_notes` varchar(255) DEFAULT NULL,
-            created_on` datetime NOT NULL,
+            `created_on` datetime NOT NULL,
             `created_by` int(11) NOT NULL,
             KEY `ehr_referral_component_id_ky` (`ehr_referral_component_id`),
             KEY `ky_ehr_referral_component_created_by` (`created_by`),
-            CONSTRAINT `ky_ehr_referral_component_created_by` FOREIGN KEY (`created_by`) REFERENCES `users` (`user_id`),
+            CONSTRAINT `ky_ehr_referral_component_created_by` FOREIGN KEY (`created_by`) REFERENCES `users` (`user_id`)
             ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
         </sql>
     </changeSet>
