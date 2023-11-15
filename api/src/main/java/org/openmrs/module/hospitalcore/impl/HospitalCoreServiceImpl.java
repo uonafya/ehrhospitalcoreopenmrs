@@ -62,6 +62,7 @@ import org.openmrs.module.hospitalcore.model.EhrDepartment;
 import org.openmrs.module.hospitalcore.model.EhrHospitalWaiver;
 import org.openmrs.module.hospitalcore.model.EhrMorgueQueue;
 import org.openmrs.module.hospitalcore.model.EhrMorgueStrength;
+import org.openmrs.module.hospitalcore.model.EhrReferralComponent;
 import org.openmrs.module.hospitalcore.model.Facility;
 import org.openmrs.module.hospitalcore.model.IdentifierNumbersGenerator;
 import org.openmrs.module.hospitalcore.model.MorgueAdmission;
@@ -1168,6 +1169,21 @@ public class HospitalCoreServiceImpl extends BaseOpenmrsService implements
 	@Override
 	public List<Location> getLocationsBasedOnNameOrMflCode(String identifier) throws APIException {
 		return dao.getLocationsBasedOnNameOrMflCode(identifier);
+	}
+
+	@Override
+	public EhrReferralComponent createEhrReferralComponent(EhrReferralComponent ehrReferralComponent) throws APIException {
+		return dao.createEhrReferralComponent(ehrReferralComponent);
+	}
+
+	@Override
+	public EhrReferralComponent getEhrReferralComponentById(Integer ehrReferralComponentId) throws APIException {
+		return dao.getEhrReferralComponentById(ehrReferralComponentId);
+	}
+
+	@Override
+	public List<EhrReferralComponent> getEhrReferralComponentList() throws APIException {
+		return dao.getEhrReferralComponentList();
 	}
 
 }

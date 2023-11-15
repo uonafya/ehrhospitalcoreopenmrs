@@ -1080,6 +1080,23 @@ public class HibernateHospitalCoreDAO implements HospitalCoreDAO {
         return criteria.list();
     }
 
+    @Override
+    public EhrReferralComponent createEhrReferralComponent(EhrReferralComponent ehrReferralComponent) throws DAOException {
+        sessionFactory.getCurrentSession().update(ehrReferralComponent);
+        return ehrReferralComponent;
+    }
+
+    @Override
+    public EhrReferralComponent getEhrReferralComponentById(Integer ehrReferralComponentId) throws DAOException {
+        return (EhrReferralComponent) sessionFactory.getCurrentSession().get(CertifiedDeceasedList.class, ehrReferralComponentId);
+    }
+
+    @Override
+    public List<EhrReferralComponent> getEhrReferralComponentList() throws DAOException {
+        Criteria criteria = sessionFactory.getCurrentSession().createCriteria(EhrReferralComponent.class);
+        return criteria.list();
+    }
+
     public  void setAllPatientServiceBillItemsByDateCriteria(Criteria criteria, String fromDate,String toDate){
         String fromDateWithTime = fromDate+" 00:00:00";
         String endDateWithTime = toDate+" 23:59:59";

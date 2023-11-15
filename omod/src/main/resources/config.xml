@@ -207,6 +207,7 @@
 		CertifiedDeceasedList.hbm.xml
 		Ward.hbm.xml
 		DrugAdministration.hbm.xml
+		EhrReferralComponent.hbm.xml
 
 	</mappingFiles>
 </module>

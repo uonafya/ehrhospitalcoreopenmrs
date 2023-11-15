@@ -1,0 +1,21 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC
+        "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+        "http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd" >
+
+<hibernate-mapping package="org.openmrs.module.hospitalcore.model">
+    <class name="EhrReferralComponent" table="hospitalcore_referral_component">
+        <id name="ehrReferralComponentId" type="int" column="ehr_referral_component_id"
+            unsaved-value="0">
+            <generator class="native" />
+        </id>
+        <property name="referralType" column="referral_type" />
+        <property name="referralCommunityUnit" column="referral_community_unit" />
+        <property name="referralCommunityName" column="referral_community_name" />
+        <property name="referralFacilityLocation" column="referral_facility_location" />
+        <many-to-one name="referralReason" column="referral_reason" class="org.openmrs.Concept" />
+        <property name="referralNotes" column="referral_notes" />
+        <property name="createdOn" column="created_on"  />
+        <many-to-one name="creatorBy" column="creator_by" class="org.openmrs.User" />
+    </class>
+</hibernate-mapping>

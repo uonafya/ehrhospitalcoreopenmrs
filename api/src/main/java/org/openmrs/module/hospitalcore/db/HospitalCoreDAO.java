@@ -215,4 +215,8 @@ public interface HospitalCoreDAO {
 	List<DrugAdministration> retrieveDrugAdministrations(int patientId) throws DAOException;
 
 	List<Location> getLocationsBasedOnNameOrMflCode(String identifier) throws DAOException;
+
+	public EhrReferralComponent createEhrReferralComponent(EhrReferralComponent ehrReferralComponent) throws DAOException;
+	public EhrReferralComponent getEhrReferralComponentById(Integer ehrReferralComponentId) throws DAOException;
+	public List<EhrReferralComponent> getEhrReferralComponentList() throws DAOException;
 }

@@ -2460,5 +2460,27 @@
             ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
         </sql>
     </changeSet>
+    <changeSet id="8B476CA8-D67D-4DBA-A6F8-EF89B731ED2D" author="ningosi">
+        <preConditions onFail="MARK_RAN" onError="WARN">
+            <dbms type="mysql"/>
+        </preConditions>
+        <comment>Add a table to control referrals</comment>
+        <sql>
+            CREATE TABLE IF NOT EXISTS `hospitalcore_referral_component` (
+            `ehr_referral_component_id` int(11) NOT NULL AUTO_INCREMENT,
+            `referral_type` varchar(255) NOT NULL,
+            `referral_community_unit` varchar(40) DEFAULT NULL,
+            `referral_community_name` varchar(255) DEFAULT NULL,
+            `referral_facility_location` varchar(255) DEFAULT NULL,
+            `referral_reason` varchar(255) NOT NULL,
+            `referral_notes` varchar(255) DEFAULT NULL,
+            created_on` datetime NOT NULL,
+            `created_by` int(11) NOT NULL,
+            KEY `ehr_referral_component_id_ky` (`ehr_referral_component_id`),
+            KEY `ky_ehr_referral_component_created_by` (`created_by`),
+            CONSTRAINT `ky_ehr_referral_component_created_by` FOREIGN KEY (`created_by`) REFERENCES `users` (`user_id`),
+            ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+        </sql>
+    </changeSet>
 
 </databaseChangeLog>

@@ -40,6 +40,7 @@ import org.openmrs.module.hospitalcore.model.EhrDepartment;
 import org.openmrs.module.hospitalcore.model.EhrHospitalWaiver;
 import org.openmrs.module.hospitalcore.model.EhrMorgueQueue;
 import org.openmrs.module.hospitalcore.model.EhrMorgueStrength;
+import org.openmrs.module.hospitalcore.model.EhrReferralComponent;
 import org.openmrs.module.hospitalcore.model.IdentifierNumbersGenerator;
 import org.openmrs.module.hospitalcore.model.MorgueAdmission;
 import org.openmrs.module.hospitalcore.model.MorgueCompartmentAllocation;
@@ -367,4 +368,9 @@ public interface HospitalCoreService extends OpenmrsService {
 	List<DrugAdministration> retrieveDrugAdministrations(int patientId) throws APIException;
 
 	List<Location> getLocationsBasedOnNameOrMflCode(String identifier) throws APIException;
+
+	//manage the referral process
+	public EhrReferralComponent createEhrReferralComponent(EhrReferralComponent ehrReferralComponent) throws APIException;
+	public EhrReferralComponent getEhrReferralComponentById(Integer ehrReferralComponentId) throws APIException;
+	public List<EhrReferralComponent> getEhrReferralComponentList() throws APIException;
 }
