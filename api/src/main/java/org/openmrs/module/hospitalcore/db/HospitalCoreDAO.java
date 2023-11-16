@@ -25,6 +25,7 @@ import org.openmrs.ConceptClass;
 import org.openmrs.Encounter;
 import org.openmrs.EncounterType;
 import org.openmrs.Location;
+import org.openmrs.LocationAttribute;
 import org.openmrs.Obs;
 import org.openmrs.Patient;
 
@@ -219,4 +220,6 @@ public interface HospitalCoreDAO {
 	public EhrReferralComponent createEhrReferralComponent(EhrReferralComponent ehrReferralComponent) throws DAOException;
 	public EhrReferralComponent getEhrReferralComponentById(Integer ehrReferralComponentId) throws DAOException;
 	public List<EhrReferralComponent> getEhrReferralComponentList() throws DAOException;
+
+	public List<LocationAttribute> getMflCodeFromLocationAttribute(Location location) throws DAOException;
 }

@@ -39,6 +39,7 @@ import org.openmrs.ConceptClass;
 import org.openmrs.Encounter;
 import org.openmrs.EncounterType;
 import org.openmrs.Location;
+import org.openmrs.LocationAttribute;
 import org.openmrs.Obs;
 import org.openmrs.Patient;
 import org.openmrs.PatientIdentifier;
@@ -1109,5 +1110,10 @@ public class HibernateHospitalCoreDAO implements HospitalCoreDAO {
             System.out.println("Error convert date: " + e.toString());
             e.printStackTrace();
         }
+    }
+    public List<LocationAttribute> getMflCodeFromLocationAttribute(Location location) throws DAOException {
+        Criteria criteria = sessionFactory.getCurrentSession().createCriteria(LocationAttribute.class);
+        criteria.add(Restrictions.eq("location", location));
+        return criteria.list();
     }
 }

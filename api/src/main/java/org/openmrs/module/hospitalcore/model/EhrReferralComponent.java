@@ -1,6 +1,7 @@
 package org.openmrs.module.hospitalcore.model;
 
 import org.openmrs.Concept;
+import org.openmrs.Patient;
 import org.openmrs.User;
 
 import java.io.Serializable;
@@ -93,4 +94,14 @@ public class EhrReferralComponent implements Serializable {
    private String  referralNotes;
    private Date createdOn;
    private User creatorBy;
+
+    public Patient getPatient() {
+        return patient;
+    }
+
+    public void setPatient(Patient patient) {
+        this.patient = patient;
+    }
+
+    private Patient patient;
 }

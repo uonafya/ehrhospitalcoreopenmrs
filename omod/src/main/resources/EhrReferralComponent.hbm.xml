@@ -17,5 +17,6 @@
         <property name="referralNotes" column="referral_notes" />
         <property name="createdOn" column="created_on"  />
         <many-to-one name="creatorBy" column="creator_by" class="org.openmrs.User" />
+        <many-to-one name="patient" column="patient_id" class="org.openmrs.Patient" />
     </class>
 </hibernate-mapping>

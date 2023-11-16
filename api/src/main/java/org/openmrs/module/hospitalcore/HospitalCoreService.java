@@ -20,6 +20,7 @@ import org.openmrs.ConceptClass;
 import org.openmrs.Encounter;
 import org.openmrs.EncounterType;
 import org.openmrs.Location;
+import org.openmrs.LocationAttribute;
 import org.openmrs.Obs;
 import org.openmrs.Patient;
 import org.openmrs.Person;
@@ -373,4 +374,6 @@ public interface HospitalCoreService extends OpenmrsService {
 	public EhrReferralComponent createEhrReferralComponent(EhrReferralComponent ehrReferralComponent) throws APIException;
 	public EhrReferralComponent getEhrReferralComponentById(Integer ehrReferralComponentId) throws APIException;
 	public List<EhrReferralComponent> getEhrReferralComponentList() throws APIException;
+
+	public String getMflCodeFromLocationAttribute(Location location) throws APIException;
 }

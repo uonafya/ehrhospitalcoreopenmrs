@@ -32,6 +32,7 @@ import org.openmrs.Encounter;
 import org.openmrs.EncounterType;
 import org.openmrs.GlobalProperty;
 import org.openmrs.Location;
+import org.openmrs.LocationAttribute;
 import org.openmrs.LocationAttributeType;
 import org.openmrs.Obs;
 import org.openmrs.Patient;
@@ -47,6 +48,7 @@ import org.openmrs.api.APIException;
 import org.openmrs.api.ConceptService;
 import org.openmrs.api.PatientService;
 import org.openmrs.api.context.Context;
+import org.openmrs.api.db.DAOException;
 import org.openmrs.api.impl.BaseOpenmrsService;
 import org.openmrs.module.appointments.model.Appointment;
 import org.openmrs.module.appointments.model.AppointmentServiceType;
@@ -1184,6 +1186,20 @@ public class HospitalCoreServiceImpl extends BaseOpenmrsService implements
 	@Override
 	public List<EhrReferralComponent> getEhrReferralComponentList() throws APIException {
 		return dao.getEhrReferralComponentList();
+	}
+	@Override
+	public String getMflCodeFromLocationAttribute(Location location) throws APIException {
+		LocationAttributeType mflCodeAttrType = Context.getLocationService().getLocationAttributeTypeByUuid(HospitalCoreConstants.MASTER_FACILITY_CODE_LOCATION_ATTRIBUTE);
+		List<LocationAttribute> locationAttributeList = dao.getMflCodeFromLocationAttribute(location);
+		String mfl = "";
+		for(LocationAttribute locationAttribute : locationAttributeList) {
+			if(locationAttribute.getAttributeType().equals(mflCodeAttrType)) {
+				mfl = locationAttribute.getValueReference();
+				break;
+			}
+		}
+
+		return mfl;
 	}
 
 }
