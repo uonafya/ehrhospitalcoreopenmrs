@@ -373,7 +373,7 @@ public interface HospitalCoreService extends OpenmrsService {
 	//manage the referral process
 	public EhrReferralComponent createEhrReferralComponent(EhrReferralComponent ehrReferralComponent) throws APIException;
 	public EhrReferralComponent getEhrReferralComponentById(Integer ehrReferralComponentId) throws APIException;
-	public List<EhrReferralComponent> getEhrReferralComponentList() throws APIException;
+	public List<EhrReferralComponent> getEhrReferralComponentList(String identifier) throws APIException;
 
 	public String getMflCodeFromLocationAttribute(Location location) throws APIException;
 }

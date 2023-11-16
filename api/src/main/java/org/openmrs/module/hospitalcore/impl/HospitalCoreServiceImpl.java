@@ -1184,8 +1184,8 @@ public class HospitalCoreServiceImpl extends BaseOpenmrsService implements
 	}
 
 	@Override
-	public List<EhrReferralComponent> getEhrReferralComponentList() throws APIException {
-		return dao.getEhrReferralComponentList();
+	public List<EhrReferralComponent> getEhrReferralComponentList(String identifier) throws APIException {
+		return dao.getEhrReferralComponentList(identifier);
 	}
 	@Override
 	public String getMflCodeFromLocationAttribute(Location location) throws APIException {

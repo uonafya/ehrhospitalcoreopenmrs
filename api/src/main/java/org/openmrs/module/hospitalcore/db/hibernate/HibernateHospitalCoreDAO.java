@@ -1083,7 +1083,7 @@ public class HibernateHospitalCoreDAO implements HospitalCoreDAO {
 
     @Override
     public EhrReferralComponent createEhrReferralComponent(EhrReferralComponent ehrReferralComponent) throws DAOException {
-        sessionFactory.getCurrentSession().update(ehrReferralComponent);
+        sessionFactory.getCurrentSession().saveOrUpdate(ehrReferralComponent);
         return ehrReferralComponent;
     }
 
@@ -1093,8 +1093,11 @@ public class HibernateHospitalCoreDAO implements HospitalCoreDAO {
     }
 
     @Override
-    public List<EhrReferralComponent> getEhrReferralComponentList() throws DAOException {
+    public List<EhrReferralComponent> getEhrReferralComponentList(String identifier) throws DAOException {
         Criteria criteria = sessionFactory.getCurrentSession().createCriteria(EhrReferralComponent.class);
+        if(StringUtils.isNotBlank(identifier)) {
+            criteria.add(Restrictions.eq("referralType", identifier));
+        }
         return criteria.list();
     }
 

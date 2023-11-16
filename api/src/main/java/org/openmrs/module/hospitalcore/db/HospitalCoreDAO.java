@@ -219,7 +219,7 @@ public interface HospitalCoreDAO {
 
 	public EhrReferralComponent createEhrReferralComponent(EhrReferralComponent ehrReferralComponent) throws DAOException;
 	public EhrReferralComponent getEhrReferralComponentById(Integer ehrReferralComponentId) throws DAOException;
-	public List<EhrReferralComponent> getEhrReferralComponentList() throws DAOException;
+	public List<EhrReferralComponent> getEhrReferralComponentList(String identifier) throws DAOException;
 
 	public List<LocationAttribute> getMflCodeFromLocationAttribute(Location location) throws DAOException;
 }
