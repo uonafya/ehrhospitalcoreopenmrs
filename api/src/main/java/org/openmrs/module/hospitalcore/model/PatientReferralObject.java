@@ -97,4 +97,42 @@ public class PatientReferralObject {
     private String creator;
 
     private String dateCreated;
+
+    private String facilityNameReferredTo;
+
+    public String getFacilityNameReferredTo() {
+        return facilityNameReferredTo;
+    }
+
+    public void setFacilityNameReferredTo(String facilityNameReferredTo) {
+        this.facilityNameReferredTo = facilityNameReferredTo;
+    }
+
+    public String getFacilityCodeReferredTo() {
+        return facilityCodeReferredTo;
+    }
+
+    public void setFacilityCodeReferredTo(String facilityCodeReferredTo) {
+        this.facilityCodeReferredTo = facilityCodeReferredTo;
+    }
+
+    public String getCommunityUnitCodeReferredTo() {
+        return communityUnitCodeReferredTo;
+    }
+
+    public void setCommunityUnitCodeReferredTo(String communityUnitCodeReferredTo) {
+        this.communityUnitCodeReferredTo = communityUnitCodeReferredTo;
+    }
+
+    public String getCommunityUnitNameReferredTo() {
+        return communityUnitNameReferredTo;
+    }
+
+    public void setCommunityUnitNameReferredTo(String communityUnitNameReferredTo) {
+        this.communityUnitNameReferredTo = communityUnitNameReferredTo;
+    }
+
+    private String facilityCodeReferredTo;
+    private String communityUnitCodeReferredTo;
+    private String communityUnitNameReferredTo;
 }
