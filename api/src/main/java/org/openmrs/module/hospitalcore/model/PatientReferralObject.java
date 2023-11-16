@@ -1,7 +1,5 @@
 package org.openmrs.module.hospitalcore.model;
 
-import java.util.List;
-
 public class PatientReferralObject {
 
     private String referralType;
@@ -41,11 +39,11 @@ public class PatientReferralObject {
         this.referralFacilityLocation = referralFacilityLocation;
     }
 
-    public List<String> getReferralReason() {
+    public String getReferralReason() {
         return referralReason;
     }
 
-    public void setReferralReason(List<String> referralReason) {
+    public void setReferralReason(String referralReason) {
         this.referralReason = referralReason;
     }
 
@@ -89,7 +87,7 @@ public class PatientReferralObject {
         this.dateCreated = dateCreated;
     }
 
-    private List<String> referralReason;
+    private String referralReason;
     private String referralNotes;
     private String patientNames;
     private String patientIdentifier;
