@@ -285,4 +285,6 @@ public interface BillingDAO {
 	public List<PatientServiceBill> getAllPatientServiceBillByDate(Date startDate, Date endDate) throws DAOException;
 
 	public MonthlySummaryReport getLatestTransactionDate() throws DAOException;
+	public List<PatientSearch> searchListOfMorguePatient(Date date, String searchKey,
+														 int page) throws DAOException;
 }

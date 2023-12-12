@@ -1119,4 +1119,10 @@ public class HibernateHospitalCoreDAO implements HospitalCoreDAO {
         criteria.add(Restrictions.eq("location", location));
         return criteria.list();
     }
+
+    public MorgueAdmission getMorgueAdmissionByPatient(Patient patient) throws DAOException {
+        Criteria criteria = sessionFactory.getCurrentSession().createCriteria(MorgueAdmission.class);
+        criteria.add(Restrictions.eq("patient", patient));
+        return (MorgueAdmission) criteria.uniqueResult();
+    }
 }

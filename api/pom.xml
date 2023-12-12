@@ -47,6 +47,10 @@
 			<groupId>org.openmrs.module</groupId>
 			<artifactId>queue-api</artifactId>
 		</dependency>
+		<dependency>
+			<groupId>com.github.AfricasTalkingLtd.africastalking-java</groupId>
+			<artifactId>core</artifactId>
+		</dependency>
 	</dependencies>
 	<build>
 		<resources>

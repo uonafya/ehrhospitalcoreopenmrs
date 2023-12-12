@@ -98,6 +98,11 @@
 				<version>${openMRSQueueVersion}</version>
 				<scope>provided</scope>
 			</dependency>
+			<dependency>
+				<groupId>com.github.AfricasTalkingLtd.africastalking-java</groupId>
+				<artifactId>core</artifactId>
+				<version>3.4.8</version>
+			</dependency>
 		</dependencies>
 	</dependencyManagement>
 
@@ -168,6 +173,11 @@
 			<layout>default</layout>
 			<url>http://repo1.maven.org/maven2</url>
 		</repository>
+		<repository>
+			<id>jitpack.io</id>
+			<url>https://jitpack.io</url>
+		</repository>
+
 	</repositories>
 
 	<pluginRepositories>

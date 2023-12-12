@@ -73,18 +73,6 @@ public class DateUtils {
 	 * <p> Create date: Jan 13, 2009 9:32:36 AM </p>
 	 * <p> Update date: Jan 13, 2009 9:32:36 AM </p>
 	 **/
-	  
-
-	public static void main(String[] args)throws Exception {
-
-
-	//System.out.println(timestampPlusDay(createTimestamp(), -2));	
-		Date tt = getDateFromStr("13/12/2020");
-		System.out.println(getAgeFromBirthday(tt));
-		
-
-		
-	}
 	
 	public static Integer getAgeFromBirthday(Date birthday){
 		if(birthday == null){
@@ -135,6 +123,20 @@ public class DateUtils {
 	    
 	    return result;
 	    }
+
+    public static Date getDateFromStrWithAnyFormat(String date, String format) {
+        Date result = null;
+        try {
+            SimpleDateFormat sdf = new SimpleDateFormat(format);
+            sdf.setLenient(false);
+            result =  sdf.parse(date);
+        }
+        catch (Exception e) {
+            System.out.println("Error: "+e.toString());
+        }
+
+        return result;
+    }
 	
 	public static boolean isValidDateStr(String date, String format) {
 		

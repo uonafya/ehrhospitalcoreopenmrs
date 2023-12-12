@@ -77,4 +77,8 @@ public class HospitalCoreConstants {
 	public static final String FREQUENCY_UUID = "8e071bfe-520c-44c0-a89b-538e9129b42a";
 
 	public static final String MASTER_FACILITY_CODE_LOCATION_ATTRIBUTE = "8a845a89-6aa5-4111-81d3-0af31c45c002";
+
+	//Service types offered to a patient
+	public static final Integer OPD_SERVICE = 0;
+	public static final Integer MORGUE_SERVICE = 99;
 }

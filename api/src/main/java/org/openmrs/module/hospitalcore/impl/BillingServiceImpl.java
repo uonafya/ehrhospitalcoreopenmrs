@@ -1330,5 +1330,10 @@ public class BillingServiceImpl extends BaseOpenmrsService implements BillingSer
 		return dao.getLatestTransactionDate();
 	}
 
+	@Override
+	public List<PatientSearch> searchListOfMorguePatient(Date date, String searchKey, int page) throws APIException {
+		return dao.searchListOfMorguePatient(date, searchKey, page);
+	}
+
 
 }

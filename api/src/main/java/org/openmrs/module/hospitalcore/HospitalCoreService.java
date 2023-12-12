@@ -348,6 +348,7 @@ public interface HospitalCoreService extends OpenmrsService {
 	public List<MorgueAdmission> getMorgueAdmissionList(Date startDate, Date endDate, Integer status) throws APIException;
 
 	public MorgueAdmission getMorgueAdmissionById(Integer morgueAdmissionId) throws APIException;
+	public MorgueAdmission getMorgueAdmissionByPatient(Patient patient) throws APIException;
 
 	public MorgueCompartmentAllocation saveMorgueCompartmentAllocation(MorgueCompartmentAllocation morgueCompatimentAllocation) throws APIException;
 	public List<MorgueCompartmentAllocation> getMorgueCompartmentAllocationList(Integer ehrMorgueStrengthId, Integer allocated) throws APIException;

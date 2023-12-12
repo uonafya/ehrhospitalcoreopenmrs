@@ -1201,5 +1201,8 @@ public class HospitalCoreServiceImpl extends BaseOpenmrsService implements
 
 		return mfl;
 	}
+	public MorgueAdmission getMorgueAdmissionByPatient(Patient patient) throws APIException {
+		return dao.getMorgueAdmissionByPatient(patient);
+	}
 
 }

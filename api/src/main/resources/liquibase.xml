@@ -2485,5 +2485,15 @@
             ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
         </sql>
     </changeSet>
+    <changeSet id="BCB1C3CF-48B7-4047-8D49-790384A62D8B" author="ningosi">
+        <preConditions onFail="MARK_RAN" onError="WARN">
+            <dbms type="mysql"/>
+        </preConditions>
+        <comment>Add service type columns to opd_test_order</comment>
+        <sql>
+            ALTER TABLE  opd_test_order
+            ADD COLUMN `service_type` int(11) NOT NULL DEFAULT '0';
+        </sql>
+    </changeSet>
 
 </databaseChangeLog>

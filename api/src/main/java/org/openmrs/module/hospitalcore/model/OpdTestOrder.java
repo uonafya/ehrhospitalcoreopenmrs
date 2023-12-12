@@ -35,6 +35,16 @@ public class OpdTestOrder {
 	private BillableService billableService;
 	private Date scheduleDate;
 	private int indoorStatus;
+
+	public int getServiceType() {
+		return serviceType;
+	}
+
+	public void setServiceType(int serviceType) {
+		this.serviceType = serviceType;
+	}
+
+	private int serviceType; //0=OPD,99=Morgue
 	
 	private String fromDept;
 

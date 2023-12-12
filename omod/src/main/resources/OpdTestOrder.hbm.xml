@@ -30,5 +30,7 @@
 		<property name="scheduleDate" type="java.util.Date" column="schedule_date" length="19" />
 		<property name="indoorStatus" column="indoor_status" length="1" />
 		<property name="fromDept" column="referral_ward_name" length="100" />
+		<property name="serviceType" column="service_type" length="1"
+				  not-null="true" />
 	</class>
 </hibernate-mapping>

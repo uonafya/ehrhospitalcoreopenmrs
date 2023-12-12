@@ -222,4 +222,6 @@ public interface HospitalCoreDAO {
 	public List<EhrReferralComponent> getEhrReferralComponentList(String identifier) throws DAOException;
 
 	public List<LocationAttribute> getMflCodeFromLocationAttribute(Location location) throws DAOException;
+
+	public MorgueAdmission getMorgueAdmissionByPatient(Patient patient) throws DAOException;
 }

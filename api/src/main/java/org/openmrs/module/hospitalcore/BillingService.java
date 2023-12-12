@@ -14,11 +14,6 @@
 
 package org.openmrs.module.hospitalcore;
 
-import java.util.Collection;
-import java.util.Date;
-import java.util.List;
-import java.util.Map;
-
 import org.openmrs.Concept;
 import org.openmrs.Encounter;
 import org.openmrs.Patient;
@@ -26,7 +21,6 @@ import org.openmrs.User;
 import org.openmrs.annotation.Authorized;
 import org.openmrs.api.APIException;
 import org.openmrs.api.OpenmrsService;
-import org.openmrs.api.db.DAOException;
 import org.openmrs.module.hospitalcore.model.Ambulance;
 import org.openmrs.module.hospitalcore.model.AmbulanceBill;
 import org.openmrs.module.hospitalcore.model.BillableService;
@@ -46,6 +40,11 @@ import org.openmrs.module.hospitalcore.model.Tender;
 import org.openmrs.module.hospitalcore.model.TenderBill;
 import org.openmrs.module.hospitalcore.model.WaiverType;
 import org.springframework.transaction.annotation.Transactional;
+
+import java.util.Collection;
+import java.util.Date;
+import java.util.List;
+import java.util.Map;
 
 /**
  *
@@ -401,5 +400,8 @@ public interface BillingService extends OpenmrsService {
 	public List<PatientServiceBill> getAllPatientServiceBillByDate(Date startDate, Date endDate) throws APIException;
 
 	public MonthlySummaryReport getLatestTransactionDate() throws APIException;
+
+	public List<PatientSearch> searchListOfMorguePatient(Date date, String searchKey,
+														 int page) throws APIException;
 
 }
