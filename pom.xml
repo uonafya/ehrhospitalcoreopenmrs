@@ -28,7 +28,7 @@
 		<openMRSVersion>2.3.3</openMRSVersion>
 		<legacyUiVersion>1.5.0</legacyUiVersion>
 		<metadatadeployVersion>1.3</metadatadeployVersion>
-		<bahmniAppointmentsVersion>1.5.0-SNAPSHOT</bahmniAppointmentsVersion>
+		<bahmniAppointmentsVersion>1.6.0</bahmniAppointmentsVersion>
 		<openMRSQueueVersion> 1.0.0-SNAPSHOT</openMRSQueueVersion>
 	</properties>
 
@@ -87,7 +87,7 @@
 				<scope>provided</scope>
 			</dependency>
 			<dependency>
-				<groupId>org.bahmni.module</groupId>
+				<groupId>org.kenyahmis.module</groupId>
 				<artifactId>appointments-api</artifactId>
 				<version>${bahmniAppointmentsVersion}</version>
 				<scope>provided</scope>

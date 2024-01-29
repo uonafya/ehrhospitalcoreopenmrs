@@ -20,7 +20,7 @@
 	<require_version>${openMRSVersion}</require_version>
 	<require_modules>
 		<require_module>org.openmrs.module.metadatadeploy</require_module>
-		<require_module>org.bahmni.module.appointments</require_module>
+		<require_module>org.kenyahmis.module.appointments</require_module>
 		<require_module>org.openmrs.module.queue</require_module>
 	</require_modules>
 
