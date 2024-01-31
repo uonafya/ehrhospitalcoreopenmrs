@@ -177,9 +177,9 @@ public interface HospitalCoreDAO {
 	public EhrMorgueQueue saveEhrMorgueQueue(EhrMorgueQueue ehrMorgueQueue) throws DAOException;
 	public List<EhrMorgueQueue> getEhrMorgueQueue() throws DAOException;
 
-	public List<Obs> getObsBasedOnClassAndDateRange(Date startDate, Date endDate, Concept concept, EncounterType types) throws DAOException;
+	public List<Obs> getObsBasedOnClassAndDateRange(Date startDate, Date endDate, Concept concept, EncounterType types, Provider provider) throws DAOException;
 
-	public List<Obs> getObsBasedOnClassAndDateRangeForTestsAndRadiology(Date startDate, Date endDate, ConceptClass conceptClass, EncounterType types) throws DAOException;
+	public List<Obs> getObsBasedOnClassAndDateRangeForTestsAndRadiology(Date startDate, Date endDate, ConceptClass conceptClass, EncounterType types, Provider provider) throws DAOException;
 
 	public EhrMorgueStrength saveEhrMorgueStrength(EhrMorgueStrength ehrMorgueStrength) throws DAOException;
 	public List<EhrMorgueStrength> getEhrMorgueStrength(Integer retired) throws DAOException;

@@ -23,6 +23,7 @@ import org.openmrs.EncounterType;
 import org.openmrs.Location;
 import org.openmrs.Order;
 import org.openmrs.Patient;
+import org.openmrs.User;
 import org.openmrs.api.APIException;
 import org.openmrs.api.context.Context;
 import org.openmrs.module.hospitalcore.PatientDashboardService;
@@ -276,8 +277,8 @@ public class PatientDashboardServiceImpl implements PatientDashboardService {
 		return dao.searchConceptsByNameAndClass(text, cc);
 	}
 
-	public List<OpdDrugOrder> getOpdDrugOrderByDateRange(Date startDate, Date endDate, Integer orderStatus) {
-		return dao.getOpdDrugOrderByDateRange(startDate, endDate, orderStatus);
+	public List<OpdDrugOrder> getOpdDrugOrderByDateRange(Date startDate, Date endDate, Integer orderStatus, User user) {
+		return dao.getOpdDrugOrderByDateRange(startDate, endDate, orderStatus, user);
 	}
 }
 

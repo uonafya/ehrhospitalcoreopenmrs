@@ -33,6 +33,7 @@ import org.openmrs.EncounterType;
 import org.openmrs.Location;
 import org.openmrs.Order;
 import org.openmrs.Patient;
+import org.openmrs.User;
 import org.openmrs.api.context.Context;
 import org.openmrs.api.db.DAOException;
 import org.openmrs.module.hospitalcore.BillingService;
@@ -483,7 +484,7 @@ public class HibernatePatientDashboardDAO implements PatientDashboardDAO {
 	}
 
 	@Override
-	public List<OpdDrugOrder> getOpdDrugOrderByDateRange(Date startDate, Date endDate, Integer orderStatus) throws DAOException {
+	public List<OpdDrugOrder> getOpdDrugOrderByDateRange(Date startDate, Date endDate, Integer orderStatus, User user) throws DAOException {
 		Criteria criteria = sessionFactory.getCurrentSession().createCriteria(OpdDrugOrder.class);
 		criteria.add(Restrictions.eq("orderStatus", orderStatus));
 		if(startDate == null && endDate == null) {
@@ -495,6 +496,9 @@ public class HibernatePatientDashboardDAO implements PatientDashboardDAO {
 		}
 		if(endDate != null) {
 			criteria.add(Restrictions.le("createdOn", DateUtils.getEndOfDay(endDate)));
+		}
+		if(user != null) {
+			criteria.add(Restrictions.eq("creator", user));
 		}
 		return criteria.list();
 	}

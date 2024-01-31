@@ -898,7 +898,7 @@ public class HibernateHospitalCoreDAO implements HospitalCoreDAO {
     }
 
     @Override
-    public List<Obs> getObsBasedOnClassAndDateRange(Date startDate, Date endDate, Concept concept, EncounterType type) throws DAOException {
+    public List<Obs> getObsBasedOnClassAndDateRange(Date startDate, Date endDate, Concept concept, EncounterType type, Provider provider) throws DAOException {
         Criteria criteria = sessionFactory.getCurrentSession().createCriteria(Obs.class, "ob");
         criteria.add(Restrictions.eq("ob.concept", concept));
         criteria.createAlias("ob.encounter", "en");
@@ -913,9 +913,13 @@ public class HibernateHospitalCoreDAO implements HospitalCoreDAO {
         if(endDate != null) {
             criteria.add(Restrictions.le("en.encounterDatetime", DateUtils.getEndOfDay(endDate)));
         }
+        if(provider != null){
+            criteria.createAlias("encounterProviders", "ep");
+            criteria.add(Restrictions.eq("ep.provider", provider));
+        }
         return criteria.list();
     }
-    public List<Obs> getObsBasedOnClassAndDateRangeForTestsAndRadiology(Date startDate, Date endDate, ConceptClass conceptClass, EncounterType type) throws DAOException {
+    public List<Obs> getObsBasedOnClassAndDateRangeForTestsAndRadiology(Date startDate, Date endDate, ConceptClass conceptClass, EncounterType type, Provider provider) throws DAOException {
         Criteria criteria = sessionFactory.getCurrentSession().createCriteria(Obs.class, "ob");
         criteria.createAlias("ob.concept", "c");
         criteria.createAlias("ob.encounter", "en");
@@ -930,6 +934,11 @@ public class HibernateHospitalCoreDAO implements HospitalCoreDAO {
         }
         if(endDate != null) {
             criteria.add(Restrictions.le("en.encounterDatetime", DateUtils.getEndOfDay(endDate)));
+        }
+
+        if(provider != null){
+            criteria.createAlias("encounterProviders", "ep");
+            criteria.add(Restrictions.eq("ep.provider", provider));
         }
         return criteria.list();
     }

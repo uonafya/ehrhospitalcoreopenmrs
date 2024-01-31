@@ -26,6 +26,7 @@ import org.openmrs.EncounterType;
 import org.openmrs.Location;
 import org.openmrs.Order;
 import org.openmrs.Patient;
+import org.openmrs.User;
 import org.openmrs.api.APIException;
 import org.openmrs.module.hospitalcore.model.Answer;
 import org.openmrs.module.hospitalcore.model.Department;
@@ -103,7 +104,7 @@ public interface PatientDashboardService {
 	//Working Diagnosis
 	public List<Concept> searchWorkingDiagnosis(String text)throws APIException;
 
-	public List<OpdDrugOrder> getOpdDrugOrderByDateRange(Date startDate, Date endDate, Integer orderStatus) throws APIException;
+	public List<OpdDrugOrder> getOpdDrugOrderByDateRange(Date startDate, Date endDate, Integer orderStatus, User user) throws APIException;
 	
 
 	

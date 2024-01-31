@@ -25,6 +25,7 @@ import org.openmrs.EncounterType;
 import org.openmrs.Location;
 import org.openmrs.Order;
 import org.openmrs.Patient;
+import org.openmrs.User;
 import org.openmrs.api.APIException;
 import org.openmrs.api.db.DAOException;
 import org.openmrs.module.hospitalcore.model.Answer;
@@ -79,5 +80,5 @@ public interface PatientDashboardDAO {
 	public Examination saveExamination(Examination examination)throws DAOException;
 	public List<Examination> getExamination(Encounter encounters)throws DAOException;
 	public List<Question> getQuestion(Examination examination)throws DAOException;
-	public List<OpdDrugOrder> getOpdDrugOrderByDateRange(Date startDate, Date endDate, Integer orderStatus) throws DAOException;
+	public List<OpdDrugOrder> getOpdDrugOrderByDateRange(Date startDate, Date endDate, Integer orderStatus, User user) throws DAOException;
 }
