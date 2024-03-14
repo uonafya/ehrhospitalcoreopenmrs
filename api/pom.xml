@@ -40,7 +40,7 @@
 			<artifactId>metadatadeploy-api</artifactId>
 		</dependency>
 		<dependency>
-			<groupId>org.kenyahmis.module</groupId>
+			<groupId>org.bahmni.module</groupId>
 			<artifactId>appointments-api</artifactId>
 		</dependency>
 		<dependency>

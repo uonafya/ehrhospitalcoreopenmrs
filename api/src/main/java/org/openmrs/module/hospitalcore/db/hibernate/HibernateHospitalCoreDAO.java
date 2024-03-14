@@ -914,7 +914,7 @@ public class HibernateHospitalCoreDAO implements HospitalCoreDAO {
             criteria.add(Restrictions.le("en.encounterDatetime", DateUtils.getEndOfDay(endDate)));
         }
         if(provider != null){
-            criteria.createAlias("encounterProviders", "ep");
+            criteria.createAlias("en.encounterProviders", "ep");
             criteria.add(Restrictions.eq("ep.provider", provider));
         }
         return criteria.list();
@@ -937,7 +937,7 @@ public class HibernateHospitalCoreDAO implements HospitalCoreDAO {
         }
 
         if(provider != null){
-            criteria.createAlias("encounterProviders", "ep");
+            criteria.createAlias("en.encounterProviders", "ep");
             criteria.add(Restrictions.eq("ep.provider", provider));
         }
         return criteria.list();
