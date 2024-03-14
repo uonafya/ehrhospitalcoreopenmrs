@@ -30,11 +30,11 @@ public class MigrationTracking {
         this.newPatientId = newPatientId;
     }
 
-    public Integer getOpenmrsId() {
+    public String getOpenmrsId() {
         return openmrsId;
     }
 
-    public void setOpenmrsId(Integer openmrsId) {
+    public void setOpenmrsId(String openmrsId) {
         this.openmrsId = openmrsId;
     }
 
@@ -58,7 +58,7 @@ public class MigrationTracking {
 
     private Integer newPatientId;
 
-    private Integer openmrsId;
+    private String openmrsId;
 
     private Date createdOn;
 
