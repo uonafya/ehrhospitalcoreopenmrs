@@ -2496,4 +2496,23 @@
         </sql>
     </changeSet>
 
+    <changeSet id="5CF9209C-3863-4849-B819-D7DD29A3665B" author="ningosi">
+        <preConditions onFail="MARK_RAN" onError="WARN">
+            <dbms type="mysql"/>
+        </preConditions>
+        <comment>Add a table to manage migration</comment>
+        <sql>
+            CREATE TABLE IF NOT EXISTS `hospitalcore_migration_tracking` (
+            `migration_tracking_id` int(11) NOT NULL AUTO_INCREMENT,
+            `old_patient_id` int(11) NOT NULL,
+            `new_patient_id` int(11) NOT NULL,
+            `openmrs_id` varchar(40) DEFAULT NULL,
+            `created_on` datetime NOT NULL,
+            `created_by` int(11) NOT NULL,
+            PRIMARY KEY (`migration_tracking_id`),
+            KEY `migration_tracking_id_ky` (`migration_tracking_id`)
+            ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+        </sql>
+    </changeSet>
+
 </databaseChangeLog>

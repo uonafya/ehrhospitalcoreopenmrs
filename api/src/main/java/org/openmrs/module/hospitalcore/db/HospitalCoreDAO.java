@@ -224,4 +224,6 @@ public interface HospitalCoreDAO {
 	public List<LocationAttribute> getMflCodeFromLocationAttribute(Location location) throws DAOException;
 
 	public MorgueAdmission getMorgueAdmissionByPatient(Patient patient) throws DAOException;
+
+	public MigrationTracking createMigrationPatientTrackingDetails(MigrationTracking migrationTracking) throws DAOException;
 }

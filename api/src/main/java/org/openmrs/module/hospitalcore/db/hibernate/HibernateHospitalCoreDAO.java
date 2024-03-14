@@ -1134,4 +1134,10 @@ public class HibernateHospitalCoreDAO implements HospitalCoreDAO {
         criteria.add(Restrictions.eq("patient", patient));
         return (MorgueAdmission) criteria.uniqueResult();
     }
+
+    @Override
+    public MigrationTracking createMigrationPatientTrackingDetails(MigrationTracking migrationTracking) throws DAOException {
+        sessionFactory.getCurrentSession().saveOrUpdate(migrationTracking);
+        return migrationTracking;
+    }
 }

@@ -208,6 +208,7 @@
 		Ward.hbm.xml
 		DrugAdministration.hbm.xml
 		EhrReferralComponent.hbm.xml
+		MigrationTracking.hbm.xml
 
 	</mappingFiles>
 </module>

@@ -43,6 +43,7 @@ import org.openmrs.module.hospitalcore.model.EhrMorgueQueue;
 import org.openmrs.module.hospitalcore.model.EhrMorgueStrength;
 import org.openmrs.module.hospitalcore.model.EhrReferralComponent;
 import org.openmrs.module.hospitalcore.model.IdentifierNumbersGenerator;
+import org.openmrs.module.hospitalcore.model.MigrationTracking;
 import org.openmrs.module.hospitalcore.model.MorgueAdmission;
 import org.openmrs.module.hospitalcore.model.MorgueCompartmentAllocation;
 import org.openmrs.module.hospitalcore.model.OpdTestOrder;
@@ -377,4 +378,6 @@ public interface HospitalCoreService extends OpenmrsService {
 	public List<EhrReferralComponent> getEhrReferralComponentList(String identifier) throws APIException;
 
 	public String getMflCodeFromLocationAttribute(Location location) throws APIException;
+
+	public MigrationTracking createMigrationPatientTrackingDetails(MigrationTracking migrationTracking) throws APIException;
 }
