@@ -2515,4 +2515,39 @@
         </sql>
     </changeSet>
 
+    <changeSet id="76B9ACBB-7499-403D-BF0A-49D43122AE49" author="ningosi">
+        <preConditions onFail="MARK_RAN" onError="WARN">
+            <dbms type="mysql"/>
+        </preConditions>
+        <comment>Add a table to manage migration for visits</comment>
+        <sql>
+            CREATE TABLE IF NOT EXISTS `hospitalcore_migration_visit_tracking` (
+            `migration_visit_tracking_id` int(11) NOT NULL AUTO_INCREMENT,
+            `old_visit_id` int(11) NOT NULL,
+            `new_visit_id` int(11) NOT NULL,
+            `created_on` datetime NOT NULL,
+            `created_by` int(11) NOT NULL,
+            PRIMARY KEY (`migration_visit_tracking_id`),
+            KEY `migration_visit_tracking_id_ky` (`migration_visit_tracking_id`)
+            ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+        </sql>
+    </changeSet>
+
+    <changeSet id="D6F90302-2E7A-4640-9F2C-16EAEA800076" author="ningosi">
+        <preConditions onFail="MARK_RAN" onError="WARN">
+            <dbms type="mysql"/>
+        </preConditions>
+        <comment>Add a table to manage migration for encounters</comment>
+        <sql>
+            CREATE TABLE IF NOT EXISTS `hospitalcore_migration_encounter_tracking` (
+            `migration_encounter_tracking_id` int(11) NOT NULL AUTO_INCREMENT,
+            `old_encounter_id` int(11) NOT NULL,
+            `new_encounter_id` int(11) NOT NULL,
+            `created_on` datetime NOT NULL,
+            PRIMARY KEY (`migration_encounter_tracking_id`),
+            KEY `migration_encounter_tracking_id_ky` (`migration_encounter_tracking_id`)
+            ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+        </sql>
+    </changeSet>
+
 </databaseChangeLog>

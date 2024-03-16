@@ -1140,4 +1140,34 @@ public class HibernateHospitalCoreDAO implements HospitalCoreDAO {
         sessionFactory.getCurrentSession().saveOrUpdate(migrationTracking);
         return migrationTracking;
     }
+
+    @Override
+    public List<MigrationTracking> getMigrationPatientTrackingDetails() throws DAOException {
+        Criteria criteria = sessionFactory.getCurrentSession().createCriteria(MigrationTracking.class);
+        return criteria.list();
+    }
+
+    @Override
+    public MigrationVisitsTracking createMigrationVisitsTrackingDetails(MigrationVisitsTracking migrationVisitsTracking) throws DAOException {
+        sessionFactory.getCurrentSession().saveOrUpdate(migrationVisitsTracking);
+        return migrationVisitsTracking;
+    }
+
+    @Override
+    public List<MigrationVisitsTracking> getMigrationVisitsTrackingDetails() throws DAOException {
+        Criteria criteria = sessionFactory.getCurrentSession().createCriteria(MigrationVisitsTracking.class);
+        return criteria.list();
+    }
+
+    @Override
+    public MigrationEncounterTracking createMigrationEncounterTrackingDetails(MigrationEncounterTracking migrationEncounterTracking) throws DAOException {
+        sessionFactory.getCurrentSession().saveOrUpdate(migrationEncounterTracking);
+        return migrationEncounterTracking;
+    }
+
+    @Override
+    public List<MigrationEncounterTracking> getMigrationEncounterTrackingDetails() throws DAOException {
+        Criteria criteria = sessionFactory.getCurrentSession().createCriteria(MigrationEncounterTracking.class);
+        return criteria.list();
+    }
 }

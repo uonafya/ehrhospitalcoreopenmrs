@@ -226,4 +226,11 @@ public interface HospitalCoreDAO {
 	public MorgueAdmission getMorgueAdmissionByPatient(Patient patient) throws DAOException;
 
 	public MigrationTracking createMigrationPatientTrackingDetails(MigrationTracking migrationTracking) throws DAOException;
+	public List<MigrationTracking> getMigrationPatientTrackingDetails() throws DAOException;
+
+	public MigrationVisitsTracking createMigrationVisitsTrackingDetails(MigrationVisitsTracking migrationVisitsTracking) throws DAOException;
+	public List<MigrationVisitsTracking> getMigrationVisitsTrackingDetails() throws DAOException;
+
+	public MigrationEncounterTracking createMigrationEncounterTrackingDetails(MigrationEncounterTracking migrationEncounterTracking) throws DAOException;
+	public List<MigrationEncounterTracking> getMigrationEncounterTrackingDetails() throws DAOException;
 }

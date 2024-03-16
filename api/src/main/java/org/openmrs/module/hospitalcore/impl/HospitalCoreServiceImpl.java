@@ -48,7 +48,6 @@ import org.openmrs.api.APIException;
 import org.openmrs.api.ConceptService;
 import org.openmrs.api.PatientService;
 import org.openmrs.api.context.Context;
-import org.openmrs.api.db.DAOException;
 import org.openmrs.api.impl.BaseOpenmrsService;
 import org.openmrs.module.appointments.model.Appointment;
 import org.openmrs.module.appointments.model.AppointmentServiceType;
@@ -67,7 +66,9 @@ import org.openmrs.module.hospitalcore.model.EhrMorgueStrength;
 import org.openmrs.module.hospitalcore.model.EhrReferralComponent;
 import org.openmrs.module.hospitalcore.model.Facility;
 import org.openmrs.module.hospitalcore.model.IdentifierNumbersGenerator;
+import org.openmrs.module.hospitalcore.model.MigrationEncounterTracking;
 import org.openmrs.module.hospitalcore.model.MigrationTracking;
+import org.openmrs.module.hospitalcore.model.MigrationVisitsTracking;
 import org.openmrs.module.hospitalcore.model.MorgueAdmission;
 import org.openmrs.module.hospitalcore.model.MorgueCompartmentAllocation;
 import org.openmrs.module.hospitalcore.model.OpdTestOrder;
@@ -1206,6 +1207,31 @@ public class HospitalCoreServiceImpl extends BaseOpenmrsService implements
 	@Override
 	public MigrationTracking createMigrationPatientTrackingDetails(MigrationTracking migrationTracking) throws APIException {
 		return dao.createMigrationPatientTrackingDetails(migrationTracking);
+	}
+
+	@Override
+	public List<MigrationTracking> getMigrationPatientTrackingDetails() throws APIException {
+		return dao.getMigrationPatientTrackingDetails();
+	}
+
+	@Override
+	public MigrationVisitsTracking createMigrationVisitsTrackingDetails(MigrationVisitsTracking migrationVisitsTracking) throws APIException {
+		return createMigrationVisitsTrackingDetails(migrationVisitsTracking);
+	}
+
+	@Override
+	public List<MigrationVisitsTracking> getMigrationVisitsTrackingDetails() throws APIException {
+		return getMigrationVisitsTrackingDetails();
+	}
+
+	@Override
+	public MigrationEncounterTracking createMigrationEncounterTrackingDetails(MigrationEncounterTracking migrationEncounterTracking) throws APIException {
+		return dao.createMigrationEncounterTrackingDetails(migrationEncounterTracking);
+	}
+
+	@Override
+	public List<MigrationEncounterTracking> getMigrationEncounterTrackingDetails() throws APIException {
+		return dao.getMigrationEncounterTrackingDetails();
 	}
 
 	public MorgueAdmission getMorgueAdmissionByPatient(Patient patient) throws APIException {

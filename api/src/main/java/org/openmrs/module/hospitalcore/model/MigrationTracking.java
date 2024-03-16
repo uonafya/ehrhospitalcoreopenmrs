@@ -46,11 +46,11 @@ public class MigrationTracking {
         this.createdOn = createdOn;
     }
 
-    public String getCreatedBy() {
+    public Integer getCreatedBy() {
         return createdBy;
     }
 
-    public void setCreatedBy(String createdBy) {
+    public void setCreatedBy(Integer createdBy) {
         this.createdBy = createdBy;
     }
 
@@ -62,5 +62,5 @@ public class MigrationTracking {
 
     private Date createdOn;
 
-    private String createdBy;
+    private Integer createdBy;
 }

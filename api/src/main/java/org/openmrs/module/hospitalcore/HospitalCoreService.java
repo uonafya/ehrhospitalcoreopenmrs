@@ -43,7 +43,9 @@ import org.openmrs.module.hospitalcore.model.EhrMorgueQueue;
 import org.openmrs.module.hospitalcore.model.EhrMorgueStrength;
 import org.openmrs.module.hospitalcore.model.EhrReferralComponent;
 import org.openmrs.module.hospitalcore.model.IdentifierNumbersGenerator;
+import org.openmrs.module.hospitalcore.model.MigrationEncounterTracking;
 import org.openmrs.module.hospitalcore.model.MigrationTracking;
+import org.openmrs.module.hospitalcore.model.MigrationVisitsTracking;
 import org.openmrs.module.hospitalcore.model.MorgueAdmission;
 import org.openmrs.module.hospitalcore.model.MorgueCompartmentAllocation;
 import org.openmrs.module.hospitalcore.model.OpdTestOrder;
@@ -380,4 +382,11 @@ public interface HospitalCoreService extends OpenmrsService {
 	public String getMflCodeFromLocationAttribute(Location location) throws APIException;
 
 	public MigrationTracking createMigrationPatientTrackingDetails(MigrationTracking migrationTracking) throws APIException;
+	public List<MigrationTracking> getMigrationPatientTrackingDetails() throws APIException;
+
+	public MigrationVisitsTracking createMigrationVisitsTrackingDetails(MigrationVisitsTracking migrationVisitsTracking) throws APIException;
+	public List<MigrationVisitsTracking> getMigrationVisitsTrackingDetails() throws APIException;
+
+	public MigrationEncounterTracking createMigrationEncounterTrackingDetails(MigrationEncounterTracking migrationEncounterTracking) throws APIException;
+	public List<MigrationEncounterTracking> getMigrationEncounterTrackingDetails() throws APIException;
 }
