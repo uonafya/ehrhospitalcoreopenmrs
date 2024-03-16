@@ -47,4 +47,6 @@ public interface InventoryCommonDAO {
 
 	public List<InventoryStoreDrugPatientDetail> getDrugDetailOfPatientPerDateAndStatus(String startDate, String endDate, Integer status) throws DAOException;
 
+	public InventoryDrug getDrugById(Integer id) throws DAOException;
+
 	}

@@ -204,4 +204,12 @@ public class HibernateInventoryCommonDAO implements InventoryCommonDAO {
 		}
 		return inventoryStoreDrugPatientDetailList;
 	}
+
+	@Override
+	public InventoryDrug getDrugById(Integer id) throws DAOException {
+		Criteria criteria = sessionFactory.getCurrentSession()
+				.createCriteria(InventoryDrug.class, "drug")
+				.add(Restrictions.eq("drug.id", id));
+		return (InventoryDrug) criteria.uniqueResult();
+	}
 }

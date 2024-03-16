@@ -57,7 +57,12 @@ public class InventoryCommonServiceImpl extends BaseOpenmrsService implements In
 	public InventoryDrug getDrugByName(String name) throws APIException {
 		return dao.getDrugByName(name);
 	}
-	
+
+	@Override
+	public InventoryDrug getDrugById(Integer id) throws APIException {
+		return dao.getDrugById(id);
+	}
+
 	public List<Concept> getDrugFrequency() throws APIException {
 		return dao.getDrugFrequency();
 	}

@@ -42,6 +42,8 @@ public interface InventoryCommonService extends OpenmrsService{
 	
 	//ghanshyam 12-june-2013 New Requirement #1635 User should be able to send pharmacy orders to issue drugs to a patient from dashboard
 	public InventoryDrug getDrugByName(String name) throws APIException;
+
+	public InventoryDrug getDrugById(Integer id) throws APIException;
 	
 	public List<Concept> getDrugFrequency() throws APIException;
 	
