@@ -233,4 +233,9 @@ public interface HospitalCoreDAO {
 
 	public MigrationEncounterTracking createMigrationEncounterTrackingDetails(MigrationEncounterTracking migrationEncounterTracking) throws DAOException;
 	public List<MigrationEncounterTracking> getMigrationEncounterTrackingDetails() throws DAOException;
+
+	public MigrationTracking getMigrationPatientTrackingDetailsByOldPatientId(Integer oldPatientId) throws DAOException;
+
+	public MigrationVisitsTracking getMigrationVisitsTrackingDetailsByOldVisitId(Integer oldVisitId) throws DAOException;
+	public MigrationEncounterTracking getMigrationEncounterTrackingDetailsByOldEncounterID(Integer id) throws DAOException;
 }

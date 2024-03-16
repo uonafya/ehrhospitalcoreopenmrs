@@ -1210,6 +1210,11 @@ public class HospitalCoreServiceImpl extends BaseOpenmrsService implements
 	}
 
 	@Override
+	public MigrationTracking getMigrationPatientTrackingDetailsByOldPatientId(Integer oldPatientId) throws APIException {
+		return dao.getMigrationPatientTrackingDetailsByOldPatientId(oldPatientId);
+	}
+
+	@Override
 	public List<MigrationTracking> getMigrationPatientTrackingDetails() throws APIException {
 		return dao.getMigrationPatientTrackingDetails();
 	}
@@ -1220,6 +1225,11 @@ public class HospitalCoreServiceImpl extends BaseOpenmrsService implements
 	}
 
 	@Override
+	public MigrationVisitsTracking getMigrationVisitsTrackingDetailsByOldVisitId(Integer oldVisitId) throws APIException {
+		return dao.getMigrationVisitsTrackingDetailsByOldVisitId(oldVisitId);
+	}
+
+	@Override
 	public List<MigrationVisitsTracking> getMigrationVisitsTrackingDetails() throws APIException {
 		return getMigrationVisitsTrackingDetails();
 	}
@@ -1227,6 +1237,11 @@ public class HospitalCoreServiceImpl extends BaseOpenmrsService implements
 	@Override
 	public MigrationEncounterTracking createMigrationEncounterTrackingDetails(MigrationEncounterTracking migrationEncounterTracking) throws APIException {
 		return dao.createMigrationEncounterTrackingDetails(migrationEncounterTracking);
+	}
+
+	@Override
+	public MigrationEncounterTracking getMigrationEncounterTrackingDetailsByOldEncounterID(Integer id) throws APIException {
+		return dao.getMigrationEncounterTrackingDetailsByOldEncounterID(id);
 	}
 
 	@Override

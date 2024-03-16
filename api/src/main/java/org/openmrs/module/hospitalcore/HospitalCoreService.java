@@ -382,11 +382,14 @@ public interface HospitalCoreService extends OpenmrsService {
 	public String getMflCodeFromLocationAttribute(Location location) throws APIException;
 
 	public MigrationTracking createMigrationPatientTrackingDetails(MigrationTracking migrationTracking) throws APIException;
+	public MigrationTracking getMigrationPatientTrackingDetailsByOldPatientId(Integer oldPatientId) throws APIException;
 	public List<MigrationTracking> getMigrationPatientTrackingDetails() throws APIException;
 
 	public MigrationVisitsTracking createMigrationVisitsTrackingDetails(MigrationVisitsTracking migrationVisitsTracking) throws APIException;
+	public MigrationVisitsTracking getMigrationVisitsTrackingDetailsByOldVisitId(Integer oldVisitId) throws APIException;
 	public List<MigrationVisitsTracking> getMigrationVisitsTrackingDetails() throws APIException;
 
 	public MigrationEncounterTracking createMigrationEncounterTrackingDetails(MigrationEncounterTracking migrationEncounterTracking) throws APIException;
+	public MigrationEncounterTracking getMigrationEncounterTrackingDetailsByOldEncounterID(Integer id) throws APIException;
 	public List<MigrationEncounterTracking> getMigrationEncounterTrackingDetails() throws APIException;
 }
