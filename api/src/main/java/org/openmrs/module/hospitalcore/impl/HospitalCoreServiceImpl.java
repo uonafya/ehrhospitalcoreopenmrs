@@ -1221,7 +1221,7 @@ public class HospitalCoreServiceImpl extends BaseOpenmrsService implements
 
 	@Override
 	public MigrationVisitsTracking createMigrationVisitsTrackingDetails(MigrationVisitsTracking migrationVisitsTracking) throws APIException {
-		return createMigrationVisitsTrackingDetails(migrationVisitsTracking);
+		return dao.createMigrationVisitsTrackingDetails(migrationVisitsTracking);
 	}
 
 	@Override
@@ -1231,7 +1231,7 @@ public class HospitalCoreServiceImpl extends BaseOpenmrsService implements
 
 	@Override
 	public List<MigrationVisitsTracking> getMigrationVisitsTrackingDetails() throws APIException {
-		return getMigrationVisitsTrackingDetails();
+		return dao.getMigrationVisitsTrackingDetails();
 	}
 
 	@Override
