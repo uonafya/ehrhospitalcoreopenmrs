@@ -247,4 +247,6 @@ public interface HospitalCoreDAO {
 	public MigrationObsTracking createMigrationObsTrackingDetails(MigrationObsTracking migrationObsTracking) throws DAOException;
 	public MigrationObsTracking getMigrationObsTrackingDetailsByOldOrderID(Integer id) throws DAOException;
 	public List<MigrationObsTracking> getMigrationObsTrackingDetails() throws DAOException;
+
+	public MigrationObsTracking getLastMigrationObsTracking() throws DAOException;
 }

@@ -402,4 +402,6 @@ public interface HospitalCoreService extends OpenmrsService {
 	public MigrationObsTracking createMigrationObsTrackingDetails(MigrationObsTracking migrationObsTracking) throws APIException;
 	public MigrationObsTracking getMigrationObsTrackingDetailsByOldObsID(Integer id) throws APIException;
 	public List<MigrationObsTracking> getMigrationObsTrackingDetails() throws APIException;
+
+	public MigrationObsTracking getLastMigrationObsTracking() throws APIException;
 }

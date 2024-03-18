@@ -1229,4 +1229,13 @@ public class HibernateHospitalCoreDAO implements HospitalCoreDAO {
         Criteria criteria = sessionFactory.getCurrentSession().createCriteria(MigrationObsTracking.class);
         return criteria.list();
     }
+
+    @Override
+    public MigrationObsTracking getLastMigrationObsTracking() throws DAOException {
+        Criteria criteria = sessionFactory.getCurrentSession().createCriteria(MigrationObsTracking.class);
+        criteria.addOrder(Order.desc("migrationObsId"));
+        criteria.setFirstResult(0);
+        criteria.setMaxResults(1);
+        return (MigrationObsTracking) criteria.uniqueResult();
+    }
 }

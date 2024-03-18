@@ -1281,6 +1281,11 @@ public class HospitalCoreServiceImpl extends BaseOpenmrsService implements
 		return dao.getMigrationObsTrackingDetails();
 	}
 
+	@Override
+	public MigrationObsTracking getLastMigrationObsTracking() throws APIException {
+		return dao.getLastMigrationObsTracking();
+	}
+
 	public MorgueAdmission getMorgueAdmissionByPatient(Patient patient) throws APIException {
 		return dao.getMorgueAdmissionByPatient(patient);
 	}
