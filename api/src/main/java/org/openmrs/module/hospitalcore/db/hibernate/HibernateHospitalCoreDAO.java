@@ -1191,4 +1191,42 @@ public class HibernateHospitalCoreDAO implements HospitalCoreDAO {
         criteria.add(Restrictions.eq("oldEncounterId", id));
         return (MigrationEncounterTracking) criteria.uniqueResult();
     }
+
+    @Override
+    public MigrationOrders createMigrationOrdersTrackingDetails(MigrationOrders migrationOrders) throws DAOException {
+        sessionFactory.getCurrentSession().saveOrUpdate(migrationOrders);
+        return migrationOrders;
+    }
+
+    @Override
+    public MigrationOrders getMigrationOrdersDetailsByOldOrderID(Integer id) throws DAOException {
+        Criteria criteria = sessionFactory.getCurrentSession().createCriteria(MigrationOrders.class);
+        criteria.add(Restrictions.eq("oldOrderId", id));
+        return (MigrationOrders) criteria.uniqueResult();
+    }
+
+    @Override
+    public List<MigrationOrders> getMigrationOrdersDetails() throws DAOException {
+        Criteria criteria = sessionFactory.getCurrentSession().createCriteria(MigrationOrders.class);
+        return criteria.list();
+    }
+
+    @Override
+    public MigrationObsTracking createMigrationObsTrackingDetails(MigrationObsTracking migrationObsTracking) throws DAOException {
+        sessionFactory.getCurrentSession().saveOrUpdate(migrationObsTracking);
+        return migrationObsTracking;
+    }
+
+    @Override
+    public MigrationObsTracking getMigrationObsTrackingDetailsByOldOrderID(Integer id) throws DAOException {
+        Criteria criteria = sessionFactory.getCurrentSession().createCriteria(MigrationObsTracking.class);
+        criteria.add(Restrictions.eq("oldObsId", id));
+        return (MigrationObsTracking) criteria.uniqueResult();
+    }
+
+    @Override
+    public List<MigrationObsTracking> getMigrationObsTrackingDetails() throws DAOException {
+        Criteria criteria = sessionFactory.getCurrentSession().createCriteria(MigrationObsTracking.class);
+        return criteria.list();
+    }
 }

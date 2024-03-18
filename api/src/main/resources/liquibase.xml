@@ -2550,4 +2550,36 @@
         </sql>
     </changeSet>
 
+    <changeSet id="2AF38A70-335E-4E9A-8E04-9E7442FDB903" author="ningosi">
+        <preConditions onFail="MARK_RAN" onError="WARN">
+            <dbms type="mysql"/>
+        </preConditions>
+        <comment>Add a table to manage migration for orders</comment>
+        <sql>
+            CREATE TABLE IF NOT EXISTS `hospitalcore_migration_orders_tracking` (
+            `migration_order_tracking_id` int(11) NOT NULL AUTO_INCREMENT,
+            `old_order_id` int(11) NOT NULL,
+            `new_order_id` int(11) NOT NULL,
+            PRIMARY KEY (`migration_order_tracking_id`),
+            KEY `migration_order_tracking_id_ky` (`migration_order_tracking_id`)
+            ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+        </sql>
+    </changeSet>
+
+    <changeSet id="F7228C69-E680-4981-BE40-059536CD2544" author="ningosi">
+        <preConditions onFail="MARK_RAN" onError="WARN">
+            <dbms type="mysql"/>
+        </preConditions>
+        <comment>Add a table to manage migration for obs</comment>
+        <sql>
+            CREATE TABLE IF NOT EXISTS `hospitalcore_migration_obs_tracking` (
+            `migration_obs_tracking_id` int(11) NOT NULL AUTO_INCREMENT,
+            `old_obs_id` int(11) NOT NULL,
+            `new_obs_id` int(11) NOT NULL,
+            PRIMARY KEY (`migration_obs_tracking_id`),
+            KEY `migration_obs_tracking_id_ky` (`migration_obs_tracking_id`)
+            ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+        </sql>
+    </changeSet>
+
 </databaseChangeLog>

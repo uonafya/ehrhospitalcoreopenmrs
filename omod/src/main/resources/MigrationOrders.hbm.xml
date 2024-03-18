@@ -1,0 +1,17 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC
+        "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+        "http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd" >
+
+<hibernate-mapping package="org.openmrs.module.hospitalcore.model">
+
+    <class name="MigrationOrders" table="hospitalcore_migration_orders_tracking" batch-size="500">
+
+        <id name="migrationOrderId" type="int" column="migration_order_tracking_id"
+            unsaved-value="0">
+            <generator class="native" />
+        </id>
+        <property name="oldOrderId" column="old_order_id"/>
+        <property name="newOrderId" column="new_order_id"/>
+    </class>
+</hibernate-mapping>

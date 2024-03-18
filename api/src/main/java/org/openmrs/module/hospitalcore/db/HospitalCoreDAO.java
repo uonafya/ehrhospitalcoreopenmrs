@@ -238,4 +238,13 @@ public interface HospitalCoreDAO {
 
 	public MigrationVisitsTracking getMigrationVisitsTrackingDetailsByOldVisitId(Integer oldVisitId) throws DAOException;
 	public MigrationEncounterTracking getMigrationEncounterTrackingDetailsByOldEncounterID(Integer id) throws DAOException;
+
+	public MigrationOrders createMigrationOrdersTrackingDetails(MigrationOrders migrationOrders) throws DAOException;
+	public MigrationOrders getMigrationOrdersDetailsByOldOrderID(Integer id) throws DAOException;
+	public List<MigrationOrders> getMigrationOrdersDetails() throws DAOException;
+
+
+	public MigrationObsTracking createMigrationObsTrackingDetails(MigrationObsTracking migrationObsTracking) throws DAOException;
+	public MigrationObsTracking getMigrationObsTrackingDetailsByOldOrderID(Integer id) throws DAOException;
+	public List<MigrationObsTracking> getMigrationObsTrackingDetails() throws DAOException;
 }

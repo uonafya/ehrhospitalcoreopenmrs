@@ -212,6 +212,8 @@
 		MigrationTracking.hbm.xml
 		MigrationVisitsTracking.hbm.xml
 		MigrationEncounterTracking.hbm.xml
+		MigrationOrders.hbm.xml
+		MigrationObsTracking.hbm.xml
 
 	</mappingFiles>
 </module>

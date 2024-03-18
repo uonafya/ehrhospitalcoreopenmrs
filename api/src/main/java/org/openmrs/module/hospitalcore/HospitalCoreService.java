@@ -20,7 +20,6 @@ import org.openmrs.ConceptClass;
 import org.openmrs.Encounter;
 import org.openmrs.EncounterType;
 import org.openmrs.Location;
-import org.openmrs.LocationAttribute;
 import org.openmrs.Obs;
 import org.openmrs.Patient;
 import org.openmrs.Person;
@@ -44,6 +43,8 @@ import org.openmrs.module.hospitalcore.model.EhrMorgueStrength;
 import org.openmrs.module.hospitalcore.model.EhrReferralComponent;
 import org.openmrs.module.hospitalcore.model.IdentifierNumbersGenerator;
 import org.openmrs.module.hospitalcore.model.MigrationEncounterTracking;
+import org.openmrs.module.hospitalcore.model.MigrationObsTracking;
+import org.openmrs.module.hospitalcore.model.MigrationOrders;
 import org.openmrs.module.hospitalcore.model.MigrationTracking;
 import org.openmrs.module.hospitalcore.model.MigrationVisitsTracking;
 import org.openmrs.module.hospitalcore.model.MorgueAdmission;
@@ -392,4 +393,13 @@ public interface HospitalCoreService extends OpenmrsService {
 	public MigrationEncounterTracking createMigrationEncounterTrackingDetails(MigrationEncounterTracking migrationEncounterTracking) throws APIException;
 	public MigrationEncounterTracking getMigrationEncounterTrackingDetailsByOldEncounterID(Integer id) throws APIException;
 	public List<MigrationEncounterTracking> getMigrationEncounterTrackingDetails() throws APIException;
+
+	public MigrationOrders createMigrationOrdersTrackingDetails(MigrationOrders migrationOrders) throws APIException;
+	public MigrationOrders getMigrationOrdersDetailsByOldOrderID(Integer id) throws APIException;
+	public List<MigrationOrders> getMigrationOrdersDetails() throws APIException;
+
+
+	public MigrationObsTracking createMigrationObsTrackingDetails(MigrationObsTracking migrationObsTracking) throws APIException;
+	public MigrationObsTracking getMigrationObsTrackingDetailsByOldObsID(Integer id) throws APIException;
+	public List<MigrationObsTracking> getMigrationObsTrackingDetails() throws APIException;
 }

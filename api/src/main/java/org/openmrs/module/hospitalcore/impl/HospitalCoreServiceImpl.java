@@ -67,6 +67,8 @@ import org.openmrs.module.hospitalcore.model.EhrReferralComponent;
 import org.openmrs.module.hospitalcore.model.Facility;
 import org.openmrs.module.hospitalcore.model.IdentifierNumbersGenerator;
 import org.openmrs.module.hospitalcore.model.MigrationEncounterTracking;
+import org.openmrs.module.hospitalcore.model.MigrationObsTracking;
+import org.openmrs.module.hospitalcore.model.MigrationOrders;
 import org.openmrs.module.hospitalcore.model.MigrationTracking;
 import org.openmrs.module.hospitalcore.model.MigrationVisitsTracking;
 import org.openmrs.module.hospitalcore.model.MorgueAdmission;
@@ -1247,6 +1249,36 @@ public class HospitalCoreServiceImpl extends BaseOpenmrsService implements
 	@Override
 	public List<MigrationEncounterTracking> getMigrationEncounterTrackingDetails() throws APIException {
 		return dao.getMigrationEncounterTrackingDetails();
+	}
+
+	@Override
+	public MigrationOrders createMigrationOrdersTrackingDetails(MigrationOrders migrationOrders) throws APIException {
+		return dao.createMigrationOrdersTrackingDetails(migrationOrders);
+	}
+
+	@Override
+	public MigrationOrders getMigrationOrdersDetailsByOldOrderID(Integer id) throws APIException {
+		return dao.getMigrationOrdersDetailsByOldOrderID(id);
+	}
+
+	@Override
+	public List<MigrationOrders> getMigrationOrdersDetails() throws APIException {
+		return dao.getMigrationOrdersDetails();
+	}
+
+	@Override
+	public MigrationObsTracking createMigrationObsTrackingDetails(MigrationObsTracking migrationObsTracking) throws APIException {
+		return dao.createMigrationObsTrackingDetails(migrationObsTracking);
+	}
+
+	@Override
+	public MigrationObsTracking getMigrationObsTrackingDetailsByOldObsID(Integer id) throws APIException {
+		return dao.getMigrationObsTrackingDetailsByOldOrderID(id);
+	}
+
+	@Override
+	public List<MigrationObsTracking> getMigrationObsTrackingDetails() throws APIException {
+		return dao.getMigrationObsTrackingDetails();
 	}
 
 	public MorgueAdmission getMorgueAdmissionByPatient(Patient patient) throws APIException {
