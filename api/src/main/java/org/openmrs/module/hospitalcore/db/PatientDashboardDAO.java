@@ -81,4 +81,7 @@ public interface PatientDashboardDAO {
 	public List<Examination> getExamination(Encounter encounters)throws DAOException;
 	public List<Question> getQuestion(Examination examination)throws DAOException;
 	public List<OpdDrugOrder> getOpdDrugOrderByDateRange(Date startDate, Date endDate, Integer orderStatus, User user) throws DAOException;
+
+	public List<OpdDrugOrder> getAllOpdDrugOrder() throws DAOException;
+	public List<OpdTestOrder> getAllOpdTestOrder() throws DAOException;
 }

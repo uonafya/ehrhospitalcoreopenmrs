@@ -280,5 +280,13 @@ public class PatientDashboardServiceImpl implements PatientDashboardService {
 	public List<OpdDrugOrder> getOpdDrugOrderByDateRange(Date startDate, Date endDate, Integer orderStatus, User user) {
 		return dao.getOpdDrugOrderByDateRange(startDate, endDate, orderStatus, user);
 	}
+
+	@Override
+	public List<OpdDrugOrder> getAllOpdDrugOrder() throws APIException {
+		return dao.getAllOpdDrugOrder();
+	}
+	public List<OpdTestOrder> getAllOpdTestOrder() throws APIException {
+		return dao.getAllOpdTestOrder();
+	}
 }
 

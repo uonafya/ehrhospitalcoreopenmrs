@@ -105,7 +105,9 @@ public interface PatientDashboardService {
 	public List<Concept> searchWorkingDiagnosis(String text)throws APIException;
 
 	public List<OpdDrugOrder> getOpdDrugOrderByDateRange(Date startDate, Date endDate, Integer orderStatus, User user) throws APIException;
-	
+	public List<OpdDrugOrder> getAllOpdDrugOrder() throws APIException;
+	public List<OpdTestOrder> getAllOpdTestOrder() throws APIException;
+
 
 	
 	

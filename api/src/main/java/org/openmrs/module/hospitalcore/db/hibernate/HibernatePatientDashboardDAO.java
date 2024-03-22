@@ -503,4 +503,16 @@ public class HibernatePatientDashboardDAO implements PatientDashboardDAO {
 		return criteria.list();
 	}
 
+	@Override
+	public List<OpdDrugOrder> getAllOpdDrugOrder() throws DAOException {
+		Criteria criteria = sessionFactory.getCurrentSession().createCriteria(OpdDrugOrder.class);
+		return criteria.list();
+	}
+
+	@Override
+	public List<OpdTestOrder> getAllOpdTestOrder() throws DAOException {
+		Criteria criteria = sessionFactory.getCurrentSession().createCriteria(OpdTestOrder.class);
+		return criteria.list();
+	}
+
 }
