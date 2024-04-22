@@ -111,6 +111,7 @@ public class Referral {
         queue.setSex(patient.getGender());
         queue.setTriageDataId(null);
         queue.setCategory(selectedCategory);
+        queue.setClearedToNextServicePoint(1);
         OpdPatientQueue opdPatient = Context.getService(PatientQueueService.class).saveOpdPatientQueue(queue);
     }
 }
