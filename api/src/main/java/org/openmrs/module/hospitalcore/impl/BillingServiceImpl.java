@@ -927,6 +927,7 @@ public class BillingServiceImpl extends BaseOpenmrsService implements BillingSer
 					for (ConceptSet con : conceptSets) {
 						if (labConceptIds.contains(con.getConcept().getConceptId())) {
 							labEncounter = getEncounter(bill, labEncounter, labEncounterType);
+							System.out.println("The lab encounter found is >>"+labEncounter.getEncounterId());
 							Order order = addOrder(labEncounter, con.getConcept(), bill, labOrderType);
 							item.setOrder(order);
 							
@@ -1049,6 +1050,7 @@ public class BillingServiceImpl extends BaseOpenmrsService implements BillingSer
 	
 	private Encounter getEncounter(PatientServiceBill bill, Encounter encounter, EncounterType encounterType) {
 		if (encounter == null) {
+			System.out.println("The encounter was null");
 			Encounter enc = new Encounter();
 			enc.setCreator(bill.getCreator());
 			Location location = Context.getLocationService().getLocation(1);
@@ -1061,6 +1063,7 @@ public class BillingServiceImpl extends BaseOpenmrsService implements BillingSer
 			Context.getEncounterService().saveEncounter(enc);
 			return enc;
 		} else {
+			System.out.println("Found an existing encounter >>"+encounter.getEncounterId());
 			return encounter;
 		}
 	}
